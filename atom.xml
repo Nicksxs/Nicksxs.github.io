@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Nicksxs&#39;s Blog</title>
+  <icon>https://nicksxs.me/icon.png</icon>
+  <subtitle>What hurts more, the pain of hard work or the pain of regret?</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://nicksxs.me/"/>
+  <updated>2020-01-12T13:08:27.005Z</updated>
+  <id>https://nicksxs.me/</id>
+  
+  <author>
+    <name>Nicksxs</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>redis数据结构介绍三-第三部分 整数集合</title>
+    <link href="https://nicksxs.me/2020/01/10/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%B8%89/"/>
+    <id>https://nicksxs.me/2020/01/10/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%B8%89/</id>
+    <published>2020-01-09T16:54:04.000Z</published>
+    <updated>2020-01-12T13:08:27.005Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;redis中对于 set 其实有两种处理，对于元素均为整型，并且元素数目较少时，使用 intset 作为底层数据结构，否则使用 dict 作为底层数据结构，先看一下代码先&lt;/p&gt;
+&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+    
+      <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis数据结构介绍二-第二部分 跳表</title>
+    <link href="https://nicksxs.me/2020/01/04/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%8C/"/>
+    <id>https://nicksxs.me/2020/01/04/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%8C/</id>
+    <published>2020-01-03T16:03:05.000Z</published>
+    <updated>2020-01-12T13:08:27.009Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;跳表-skiplist&quot;&gt;&lt;a href=&quot;#跳表-skiplist&quot; class=&quot;headerlink&quot; title=&quot;跳表 skiplist&quot;&gt;&lt;/a&gt;跳表
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+    
+      <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis数据结构介绍-第一部分 SDS，链表，字典</title>
+    <link href="https://nicksxs.me/2019/12/26/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D/"/>
+    <id>https://nicksxs.me/2019/12/26/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D/</id>
+    <published>2019-12-25T16:03:49.000Z</published>
+    <updated>2020-01-12T13:08:27.013Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;redis是现在服务端很常用的缓存中间件，其实原来还有&lt;code&gt;memcache&lt;/code&gt;之类的竞品，但是现在貌似 redis 快一统江湖，这里当然不是在吹，只是个人角度的一个感觉，不权威只是主观感觉。&lt;br&gt;redis
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+    
+      <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>聊聊Java中的单例模式</title>
+    <link href="https://nicksxs.me/2019/12/21/%E8%81%8A%E8%81%8AJava%E4%B8%AD%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://nicksxs.me/2019/12/21/%E8%81%8A%E8%81%8AJava%E4%B8%AD%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</id>
+    <published>2019-12-20T17:03:09.000Z</published>
+    <updated>2019-12-22T00:46:11.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;这是个 Java
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="Design Patterns" scheme="https://nicksxs.me/categories/Java/Design-Patterns/"/>
+    
+      <category term="Singleton" scheme="https://nicksxs.me/categories/Java/Singleton/"/>
+    
+    
+      <category term="设计模式" scheme="https://nicksxs.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+      <category term="Design Patterns" scheme="https://nicksxs.me/tags/Design-Patterns/"/>
+    
+      <category term="单例" scheme="https://nicksxs.me/tags/%E5%8D%95%E4%BE%8B/"/>
+    
+      <category term="Singleton" scheme="https://nicksxs.me/tags/Singleton/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>村上春树《1Q84》读后感</title>
+    <link href="https://nicksxs.me/2019/12/18/1Q84%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    <id>https://nicksxs.me/2019/12/18/1Q84%E8%AF%BB%E5%90%8E%E6%84%9F/</id>
+    <published>2019-12-17T16:33:09.000Z</published>
+    <updated>2019-12-18T16:08:42.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;看完了村上春树的《1Q84》，这应该是第五本看的他的书了，继
+        
+      
+    
+    </summary>
+    
+    
+      <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    
+      <category term="村上春树" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E6%9D%91%E4%B8%8A%E6%98%A5%E6%A0%91/"/>
+    
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="读后感" scheme="https://nicksxs.me/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis_分布式锁</title>
+    <link href="https://nicksxs.me/2019/12/10/Redis-Part-1/"/>
+    <id>https://nicksxs.me/2019/12/10/Redis-Part-1/</id>
+    <published>2019-12-10T15:26:26.000Z</published>
+    <updated>2020-01-12T13:08:27.015Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;今天看了一下 &lt;code&gt;redis&lt;/code&gt; 分布式锁 &lt;code&gt;redlock&lt;/code&gt; 的实现，简单记录下，&lt;/p&gt;
+&lt;h2 id=&quot;加锁&quot;&gt;&lt;a href=&quot;#加锁&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
+    
+      <category term="Distributed Lock" scheme="https://nicksxs.me/categories/Redis/Distributed-Lock/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+    
+      <category term="C" scheme="https://nicksxs.me/tags/C/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/tags/Redis/"/>
+    
+      <category term="Distributed Lock" scheme="https://nicksxs.me/tags/Distributed-Lock/"/>
+    
+      <category term="分布式锁" scheme="https://nicksxs.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JVM源码分析之G1垃圾收集器分析一</title>
+    <link href="https://nicksxs.me/2019/12/07/JVM-G1-Part-1/"/>
+    <id>https://nicksxs.me/2019/12/07/JVM-G1-Part-1/</id>
+    <published>2019-12-06T16:54:19.000Z</published>
+    <updated>2019-12-19T16:01:42.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;对 Java 的 gc 实现比较感兴趣，原先一般都是看周志明的书，但其实并没有讲具体的 gc 源码，而是把整个思路和流程讲解了一下&lt;br&gt;特别是 G1 的具体实现&lt;br&gt;一般对 G1 的理解其实就是把原先整块的新生代老年代分成了以 region
+        
+      
+    
+    </summary>
+    
+    
+      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
+    
+      <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
+    
+    
+      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
+    
+      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+      <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AbstractQueuedSynchronizer</title>
+    <link href="https://nicksxs.me/2019/09/23/AbstractQueuedSynchronizer/"/>
+    <id>https://nicksxs.me/2019/09/23/AbstractQueuedSynchronizer/</id>
+    <published>2019-09-23T15:40:05.000Z</published>
+    <updated>2020-01-12T13:08:26.991Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;最近看了大神的 AQS 的文章，之前总是断断续续地看一点，每次都知难而退，下次看又从头开始，昨天总算硬着头皮看完了第一部分&lt;br&gt;首先 AQS 只要有这些属性&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
+        
+      
+    
+    </summary>
+    
+    
+      <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+      <category term="aqs" scheme="https://nicksxs.me/tags/aqs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>openresty</title>
+    <link href="https://nicksxs.me/2019/06/18/openresty/"/>
+    <id>https://nicksxs.me/2019/06/18/openresty/</id>
+    <published>2019-06-18T11:03:05.000Z</published>
+    <updated>2020-01-12T13:08:27.010Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;目前公司要对一些新的产品功能做灰度测试，因为在后端业务代码层面添加判断比较麻烦，所以想在nginx上做点手脚，就想到了openresty&lt;br&gt;前后也踩了不少坑，这边先写一点&lt;/p&gt;
+&lt;p&gt;首先是日志&lt;br&gt;&lt;code&gt;error_log logs/error.log
+        
+      
+    
+    </summary>
+    
+    
+      <category term="nginx" scheme="https://nicksxs.me/categories/nginx/"/>
+    
+    
+      <category term="openresty" scheme="https://nicksxs.me/tags/openresty/"/>
+    
+      <category term="nginx" scheme="https://nicksxs.me/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ambari-summary</title>
+    <link href="https://nicksxs.me/2017/05/09/ambari-summary/"/>
+    <id>https://nicksxs.me/2017/05/09/ambari-summary/</id>
+    <published>2017-05-09T15:53:05.000Z</published>
+    <updated>2020-01-12T13:08:27.010Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;初识ambari&quot;&gt;&lt;a href=&quot;#初识ambari&quot; class=&quot;headerlink&quot; title=&quot;初识ambari&quot;&gt;&lt;/a&gt;初识ambari&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://ambari.apache.org/&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="data analysis" scheme="https://nicksxs.me/categories/data-analysis/"/>
+    
+    
+      <category term="hadoop" scheme="https://nicksxs.me/tags/hadoop/"/>
+    
+      <category term="cluster" scheme="https://nicksxs.me/tags/cluster/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rabbitmq-tips</title>
+    <link href="https://nicksxs.me/2017/04/25/rabbitmq-tips/"/>
+    <id>https://nicksxs.me/2017/04/25/rabbitmq-tips/</id>
+    <published>2017-04-25T13:46:55.000Z</published>
+    <updated>2020-01-12T13:08:26.993Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;rabbitmq-介绍&quot;&gt;&lt;a href=&quot;#rabbitmq-介绍&quot; class=&quot;headerlink&quot; title=&quot;rabbitmq 介绍&quot;&gt;&lt;/a&gt;rabbitmq
+        
+      
+    
+    </summary>
+    
+    
+      <category term="php" scheme="https://nicksxs.me/categories/php/"/>
+    
+    
+      <category term="php" scheme="https://nicksxs.me/tags/php/"/>
+    
+      <category term="mq" scheme="https://nicksxs.me/tags/mq/"/>
+    
+      <category term="im" scheme="https://nicksxs.me/tags/im/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>spark-little-tips</title>
+    <link href="https://nicksxs.me/2017/03/28/spark-little-tips/"/>
+    <id>https://nicksxs.me/2017/03/28/spark-little-tips/</id>
+    <published>2017-03-28T11:20:56.000Z</published>
+    <updated>2020-01-12T13:08:26.998Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;spark-的一些粗浅使用经验&quot;&gt;&lt;a href=&quot;#spark-的一些粗浅使用经验&quot; class=&quot;headerlink&quot; title=&quot;spark 的一些粗浅使用经验&quot;&gt;&lt;/a&gt;spark
+        
+      
+    
+    </summary>
+    
+    
+      <category term="data analysis" scheme="https://nicksxs.me/categories/data-analysis/"/>
+    
+    
+      <category term="spark" scheme="https://nicksxs.me/tags/spark/"/>
+    
+      <category term="python" scheme="https://nicksxs.me/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>php-abstract-class-and-interface</title>
+    <link href="https://nicksxs.me/2016/11/10/php-abstract-class-and-interface/"/>
+    <id>https://nicksxs.me/2016/11/10/php-abstract-class-and-interface/</id>
+    <published>2016-11-10T02:42:35.000Z</published>
+    <updated>2020-01-12T13:08:27.014Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;PHP抽象类和接口&quot;&gt;&lt;a href=&quot;#PHP抽象类和接口&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="php" scheme="https://nicksxs.me/categories/php/"/>
+    
+    
+      <category term="php" scheme="https://nicksxs.me/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>summary-ranges-228</title>
+    <link href="https://nicksxs.me/2016/10/12/summary-ranges-228/"/>
+    <id>https://nicksxs.me/2016/10/12/summary-ranges-228/</id>
+    <published>2016-10-12T15:25:17.000Z</published>
+    <updated>2020-01-12T13:08:26.994Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h4 id=&quot;problem&quot;&gt;&lt;a href=&quot;#problem&quot; class=&quot;headerlink&quot; title=&quot;problem&quot;&gt;&lt;/a&gt;problem&lt;/h4&gt;&lt;p&gt;Given a sorted integer array without duplicates,
+        
+      
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+      <category term="c++" scheme="https://nicksxs.me/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>minimum-size-subarray-sum-209</title>
+    <link href="https://nicksxs.me/2016/10/11/minimum-size-subarray-sum-209/"/>
+    <id>https://nicksxs.me/2016/10/11/minimum-size-subarray-sum-209/</id>
+    <published>2016-10-11T14:04:28.000Z</published>
+    <updated>2020-01-12T13:08:27.008Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;problem&quot;&gt;&lt;a href=&quot;#problem&quot; class=&quot;headerlink&quot; title=&quot;problem&quot;&gt;&lt;/a&gt;problem&lt;/h3&gt;&lt;p&gt;Given an array of n positive integers and a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+      <category term="c++" scheme="https://nicksxs.me/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>binary-watch</title>
+    <link href="https://nicksxs.me/2016/09/29/binary-watch/"/>
+    <id>https://nicksxs.me/2016/09/29/binary-watch/</id>
+    <published>2016-09-29T15:16:06.000Z</published>
+    <updated>2020-01-12T13:08:27.014Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;problem&quot;&gt;&lt;a href=&quot;#problem&quot; class=&quot;headerlink&quot; title=&quot;problem&quot;&gt;&lt;/a&gt;problem&lt;/h3&gt;&lt;p&gt;A binary watch has 4 LEDs on the top which
+        
+      
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+      <category term="c++" scheme="https://nicksxs.me/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>34_Search_for_a_Range</title>
+    <link href="https://nicksxs.me/2016/08/14/34-Search-for-a-Range/"/>
+    <id>https://nicksxs.me/2016/08/14/34-Search-for-a-Range/</id>
+    <published>2016-08-14T13:33:24.000Z</published>
+    <updated>2020-01-12T13:08:27.007Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;question&quot;&gt;&lt;a href=&quot;#question&quot; class=&quot;headerlink&quot; title=&quot;question&quot;&gt;&lt;/a&gt;question&lt;/h2&gt;&lt;h3 id=&quot;34-Search-for-a-Range&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+      <category term="c++" scheme="https://nicksxs.me/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker-mysql-cluster</title>
+    <link href="https://nicksxs.me/2016/08/14/docker-mysql-cluster/"/>
+    <id>https://nicksxs.me/2016/08/14/docker-mysql-cluster/</id>
+    <published>2016-08-14T08:51:00.000Z</published>
+    <updated>2020-01-12T13:08:27.011Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;docker-mysql-cluster&quot;&gt;&lt;a href=&quot;#docker-mysql-cluster&quot; class=&quot;headerlink&quot; title=&quot;docker-mysql-cluster&quot;&gt;&lt;/a&gt;docker-mysql-cluster&lt;/h3&gt;&lt;p&gt;基于docker搭了个mysql集群，稍微记一下，&lt;br&gt;首先是新建mysql主库容&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="docker" scheme="https://nicksxs.me/categories/docker/"/>
+    
+    
+      <category term="docker" scheme="https://nicksxs.me/tags/docker/"/>
+    
+      <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>swoole-websocket-test</title>
+    <link href="https://nicksxs.me/2016/07/13/swoole-websocket-test/"/>
+    <id>https://nicksxs.me/2016/07/13/swoole-websocket-test/</id>
+    <published>2016-07-13T14:59:23.000Z</published>
+    <updated>2020-01-12T13:08:26.995Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;玩一下swoole的websocket&quot;&gt;&lt;a href=&quot;#玩一下swoole的websocket&quot; class=&quot;headerlink&quot; title=&quot;玩一下swoole的websocket&quot;&gt;&lt;/a&gt;玩一下swoole的websocket&lt;/h3&gt;&lt;p&gt;WebSocket是HTML5开始提供的一种在单个&lt;a href=&quot;https://zh.wikipedia.org/wiki/TCP&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;TCP&lt;/a&gt;连接上进行&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E5%85%A8%E9%9B%99%E5%B7%A5&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;全双工&lt;/a&gt;通讯的协议。WebSocket通信协议于2011年被&lt;a href=&quot;https://zh.wikipedia.org/wiki/Internet_Engineering_Task_Force&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;IETF&lt;/a&gt;定为标准RFC 6455，WebSocketAPI被W3C定为标准。&lt;br&gt;,在web私信，im等应用较多。背景和优缺点可以参看&lt;a href=&quot;https://zh.wikipedia.org/wiki/WebSocket&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;wiki&lt;/a&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h3&gt;&lt;p&gt;因为swoole官方还不支持windows，所以需要装下linux,之前都是用ubuntu，&lt;br&gt;这次就试一下centos7，还是满好看的，虽然虚拟机会默认最小安装，需要在安装&lt;br&gt;时自己选择带gnome的，当然最小安装也是可以的，只是最后需要改下防火墙。&lt;br&gt;然后是装下PHP，Nginx什么的，我是用&lt;a href=&quot;https://oneinstack.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Oneinstack&lt;/a&gt;，可以按需安装&lt;br&gt;给做这个的大大点个赞。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="php" scheme="https://nicksxs.me/categories/php/"/>
+    
+    
+      <category term="websocket" scheme="https://nicksxs.me/tags/websocket/"/>
+    
+      <category term="swoole" scheme="https://nicksxs.me/tags/swoole/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>invert-binary-tree</title>
+    <link href="https://nicksxs.me/2015/06/22/invert-binary-tree/"/>
+    <id>https://nicksxs.me/2015/06/22/invert-binary-tree/</id>
+    <published>2015-06-22T02:29:44.000Z</published>
+    <updated>2020-01-12T13:08:26.994Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;Invert a binary tree&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;     4
+   /   \
+  2     7
+ / \   / \
+1   3 6   9&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;to&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; 
+        
+      
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+      <category term="c++" scheme="https://nicksxs.me/tags/c/"/>
+    
+  </entry>
+  
+</feed>
