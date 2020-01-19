@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-01-18T16:00:22.612Z</updated>
+  <updated>2020-01-19T17:02:48.081Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,45 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>redis数据结构介绍五-第五部分 对象</title>
+    <link href="https://nicksxs.me/2020/01/20/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%94/"/>
+    <id>https://nicksxs.me/2020/01/20/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%94/</id>
+    <published>2020-01-19T17:02:48.000Z</published>
+    <updated>2020-01-19T17:02:48.081Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;前面说了这么些数据结构，其实大家对于 redis 最初的印象应该就是个 key-value 的缓存，类似于 memcache，redis 其实也是个 key-value，key 还是一样的字符串，或者说就是用 redis 自己的动态字符串实现，但是 value
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+    
+      <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
+    
+  </entry>
   
   <entry>
     <title>redis数据结构介绍四-第四部分 压缩表</title>
@@ -230,11 +269,11 @@
     </summary>
     
     
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
       <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
     
       <category term="村上春树" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E6%9D%91%E4%B8%8A%E6%98%A5%E6%A0%91/"/>
-    
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
     
     
       <category term="读后感" scheme="https://nicksxs.me/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
@@ -301,20 +340,20 @@
     </summary>
     
     
-      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
     
+      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
-    
-      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
       <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
+    
+      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
   </entry>
   
@@ -430,9 +469,9 @@
       <category term="php" scheme="https://nicksxs.me/categories/php/"/>
     
     
-      <category term="php" scheme="https://nicksxs.me/tags/php/"/>
-    
       <category term="mq" scheme="https://nicksxs.me/tags/mq/"/>
+    
+      <category term="php" scheme="https://nicksxs.me/tags/php/"/>
     
       <category term="im" scheme="https://nicksxs.me/tags/im/"/>
     
@@ -630,30 +669,6 @@
       <category term="docker" scheme="https://nicksxs.me/tags/docker/"/>
     
       <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>swoole-websocket-test</title>
-    <link href="https://nicksxs.me/2016/07/13/swoole-websocket-test/"/>
-    <id>https://nicksxs.me/2016/07/13/swoole-websocket-test/</id>
-    <published>2016-07-13T14:59:23.000Z</published>
-    <updated>2020-01-12T13:08:26.995Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;玩一下swoole的websocket&quot;&gt;&lt;a href=&quot;#玩一下swoole的websocket&quot; class=&quot;headerlink&quot; title=&quot;玩一下swoole的websocket&quot;&gt;&lt;/a&gt;玩一下swoole的websocket&lt;/h3&gt;&lt;p&gt;WebSocket是HTML5开始提供的一种在单个&lt;a href=&quot;https://zh.wikipedia.org/wiki/TCP&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;TCP&lt;/a&gt;连接上进行&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E5%85%A8%E9%9B%99%E5%B7%A5&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;全双工&lt;/a&gt;通讯的协议。WebSocket通信协议于2011年被&lt;a href=&quot;https://zh.wikipedia.org/wiki/Internet_Engineering_Task_Force&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;IETF&lt;/a&gt;定为标准RFC 6455，WebSocketAPI被W3C定为标准。&lt;br&gt;,在web私信，im等应用较多。背景和优缺点可以参看&lt;a href=&quot;https://zh.wikipedia.org/wiki/WebSocket&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;wiki&lt;/a&gt;。&lt;/p&gt;
-&lt;h3 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h3&gt;&lt;p&gt;因为swoole官方还不支持windows，所以需要装下linux,之前都是用ubuntu，&lt;br&gt;这次就试一下centos7，还是满好看的，虽然虚拟机会默认最小安装，需要在安装&lt;br&gt;时自己选择带gnome的，当然最小安装也是可以的，只是最后需要改下防火墙。&lt;br&gt;然后是装下PHP，Nginx什么的，我是用&lt;a href=&quot;https://oneinstack.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Oneinstack&lt;/a&gt;，可以按需安装&lt;br&gt;给做这个的大大点个赞。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="php" scheme="https://nicksxs.me/categories/php/"/>
-    
-    
-      <category term="websocket" scheme="https://nicksxs.me/tags/websocket/"/>
-    
-      <category term="swoole" scheme="https://nicksxs.me/tags/swoole/"/>
     
   </entry>
   
