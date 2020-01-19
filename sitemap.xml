@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://nicksxs.me/404/index.html</loc>
+    
+    <lastmod>2020-01-19T02:04:44.564Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://nicksxs.me/2020/01/19/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%9B%9B/</loc>
     
     <lastmod>2020-01-18T16:00:22.612Z</lastmod>
@@ -51,14 +58,14 @@
   </url>
   
   <url>
-    <loc>https://nicksxs.me/2016/11/10/php-abstract-class-and-interface/</loc>
+    <loc>https://nicksxs.me/2016/09/29/binary-watch/</loc>
     
     <lastmod>2020-01-12T13:08:27.014Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://nicksxs.me/2016/09/29/binary-watch/</loc>
+    <loc>https://nicksxs.me/2016/11/10/php-abstract-class-and-interface/</loc>
     
     <lastmod>2020-01-12T13:08:27.014Z</lastmod>
     
@@ -72,14 +79,14 @@
   </url>
   
   <url>
-    <loc>https://nicksxs.me/2015/04/14/Add-Two-Number/</loc>
+    <loc>https://nicksxs.me/2015/03/13/Reverse-Integer/</loc>
     
     <lastmod>2020-01-12T13:08:27.012Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://nicksxs.me/2015/03/13/Reverse-Integer/</loc>
+    <loc>https://nicksxs.me/2015/04/14/Add-Two-Number/</loc>
     
     <lastmod>2020-01-12T13:08:27.012Z</lastmod>
     
