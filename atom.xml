@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-01-19T17:02:48.081Z</updated>
+  <updated>2020-01-22T13:51:30.951Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,45 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>redis数据结构介绍六</title>
+    <link href="https://nicksxs.me/2020/01/22/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%85%AD/"/>
+    <id>https://nicksxs.me/2020/01/22/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%85%AD/</id>
+    <published>2020-01-22T13:51:30.000Z</published>
+    <updated>2020-01-22T13:51:30.951Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;这应该是 redis 系列的最后一篇了，讲下快表，其实最前面讲的链表在早先的 redis 版本中也作为 list 的数据结构使用过，但是单纯的链表的缺陷之前也说了，插入便利，但是空间利用率低，并且不能进行二分查找等，检索效率低，ziplist
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+    
+      <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
+    
+  </entry>
   
   <entry>
     <title>redis数据结构介绍五-第五部分 对象</title>
@@ -269,11 +308,11 @@
     </summary>
     
     
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
       <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
     
       <category term="村上春树" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E6%9D%91%E4%B8%8A%E6%98%A5%E6%A0%91/"/>
-    
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
     
     
       <category term="读后感" scheme="https://nicksxs.me/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
@@ -340,20 +379,20 @@
     </summary>
     
     
-      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
     
+      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
-    
-      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
       <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
+    
+      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
   </entry>
   
@@ -646,29 +685,6 @@
       <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
       <category term="c++" scheme="https://nicksxs.me/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker-mysql-cluster</title>
-    <link href="https://nicksxs.me/2016/08/14/docker-mysql-cluster/"/>
-    <id>https://nicksxs.me/2016/08/14/docker-mysql-cluster/</id>
-    <published>2016-08-14T08:51:00.000Z</published>
-    <updated>2020-01-12T13:08:27.011Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;docker-mysql-cluster&quot;&gt;&lt;a href=&quot;#docker-mysql-cluster&quot; class=&quot;headerlink&quot; title=&quot;docker-mysql-cluster&quot;&gt;&lt;/a&gt;docker-mysql-cluster&lt;/h3&gt;&lt;p&gt;基于docker搭了个mysql集群，稍微记一下，&lt;br&gt;首先是新建mysql主库容&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="docker" scheme="https://nicksxs.me/categories/docker/"/>
-    
-    
-      <category term="docker" scheme="https://nicksxs.me/tags/docker/"/>
-    
-      <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
     
   </entry>
   
