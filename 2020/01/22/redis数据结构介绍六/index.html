@@ -54,12 +54,12 @@
 
   <meta name="description" content="这应该是 redis 系列的最后一篇了，讲下快表，其实最前面讲的链表在早先的 redis 版本中也作为 list 的数据结构使用过，但是单纯的链表的缺陷之前也说了，插入便利，但是空间利用率低，并且不能进行二分查找等，检索效率低，ziplist 压缩表的产生也是同理，希望获得更好的性能，包括存储空间和访问性能等，原来我也不懂这个快表要怎么快，然后明白了一个道理，其实并没有什么银弹，只是大牛们会在适合">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis数据结构介绍六">
+<meta property="og:title" content="redis数据结构介绍六 快表">
 <meta property="og:url" content="https://nicksxs.me/2020/01/22/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%85%AD/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="这应该是 redis 系列的最后一篇了，讲下快表，其实最前面讲的链表在早先的 redis 版本中也作为 list 的数据结构使用过，但是单纯的链表的缺陷之前也说了，插入便利，但是空间利用率低，并且不能进行二分查找等，检索效率低，ziplist 压缩表的产生也是同理，希望获得更好的性能，包括存储空间和访问性能等，原来我也不懂这个快表要怎么快，然后明白了一个道理，其实并没有什么银弹，只是大牛们会在适合">
 <meta property="article:published_time" content="2020-01-22T13:51:30.000Z">
-<meta property="article:modified_time" content="2020-01-22T13:51:30.951Z">
+<meta property="article:modified_time" content="2020-01-26T13:39:57.340Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="Redis">
 <meta property="article:tag" content="C语言">
@@ -82,7 +82,7 @@
   };
 </script>
 
-  <title>redis数据结构介绍六 | Nicksxs's Blog</title>
+  <title>redis数据结构介绍六 快表 | Nicksxs's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61358619-1"></script>
     <script>
@@ -241,7 +241,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          redis数据结构介绍六
+          redis数据结构介绍六 快表
         </h1>
 
         <div class="post-meta">
@@ -253,6 +253,13 @@
 
               <time title="Created: 2020-01-22 21:51:30" itemprop="dateCreated datePublished" datetime="2020-01-22T21:51:30+08:00">2020-01-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-26 21:39:57" itemprop="dateModified" datetime="2020-01-26T21:39:57+08:00">2020-01-26</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -351,10 +358,10 @@
       <div class="popular-posts-title"><a href="/2020/01/10/redis数据结构介绍三/" rel="bookmark">redis数据结构介绍三-第三部分 整数集合</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/01/04/redis数据结构介绍二/" rel="bookmark">redis数据结构介绍二-第二部分 跳表</a></div>
+      <div class="popular-posts-title"><a href="/2020/01/20/redis数据结构介绍五/" rel="bookmark">redis数据结构介绍五-第五部分 对象</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/01/20/redis数据结构介绍五/" rel="bookmark">redis数据结构介绍五-第五部分 对象</a></div>
+      <div class="popular-posts-title"><a href="/2020/01/04/redis数据结构介绍二/" rel="bookmark">redis数据结构介绍二-第二部分 跳表</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/01/19/redis数据结构介绍四/" rel="bookmark">redis数据结构介绍四-第四部分 压缩表</a></div>
@@ -393,7 +400,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://nicksxs.me/2020/01/22/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%85%AD/" title="redis数据结构介绍六">https://nicksxs.me/2020/01/22/redis数据结构介绍六/</a>
+    <a href="https://nicksxs.me/2020/01/22/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%85%AD/" title="redis数据结构介绍六 快表">https://nicksxs.me/2020/01/22/redis数据结构介绍六/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -688,7 +695,7 @@
         config: {page: {
             url: "https://nicksxs.me/2020/01/22/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%85%AD/",
             identifier: "2020/01/22/redis数据结构介绍六/",
-            title: "redis数据结构介绍六"
+            title: "redis数据结构介绍六 快表"
           }
         }
       });
