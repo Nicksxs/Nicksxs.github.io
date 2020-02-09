@@ -38,9 +38,9 @@
     
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
-    
       <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
     
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
@@ -460,9 +460,9 @@
     
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
-    
       <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
     
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
