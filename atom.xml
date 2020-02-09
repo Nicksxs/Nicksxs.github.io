@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-02-01T14:41:22.608Z</updated>
+  <updated>2020-02-09T12:56:16.421Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,49 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>G1收集器概述</title>
+    <link href="https://nicksxs.me/2020/02/09/G1%E6%94%B6%E9%9B%86%E5%99%A8%E6%A6%82%E8%BF%B0/"/>
+    <id>https://nicksxs.me/2020/02/09/G1%E6%94%B6%E9%9B%86%E5%99%A8%E6%A6%82%E8%BF%B0/</id>
+    <published>2020-02-09T12:52:02.000Z</published>
+    <updated>2020-02-09T12:56:16.421Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;G1: The Garbage-First Collector, 垃圾回收优先的垃圾回收器，目标是用户多核 cpu 和大内存的机器，最大的特点就是可预测的停顿时间，官方给出的介绍是提供一个用户在大的堆内存情况下一个低延迟表现的解决方案，通常是 6GB
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
+    
+      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+      <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
+    
+      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
+    
+      <category term="G1" scheme="https://nicksxs.me/tags/G1/"/>
+    
+      <category term="GC" scheme="https://nicksxs.me/tags/GC/"/>
+    
+      <category term="Garbage-First Collector" scheme="https://nicksxs.me/tags/Garbage-First-Collector/"/>
+    
+  </entry>
   
   <entry>
     <title>2019年终总结</title>
@@ -651,35 +694,6 @@
         
         
           &lt;h3 id=&quot;problem&quot;&gt;&lt;a href=&quot;#problem&quot; class=&quot;headerlink&quot; title=&quot;problem&quot;&gt;&lt;/a&gt;problem&lt;/h3&gt;&lt;p&gt;Given an array of n positive integers and a
-        
-      
-    
-    </summary>
-    
-    
-      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
-      <category term="c++" scheme="https://nicksxs.me/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>binary-watch</title>
-    <link href="https://nicksxs.me/2016/09/29/binary-watch/"/>
-    <id>https://nicksxs.me/2016/09/29/binary-watch/</id>
-    <published>2016-09-29T15:16:06.000Z</published>
-    <updated>2020-01-12T13:08:27.014Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h3 id=&quot;problem&quot;&gt;&lt;a href=&quot;#problem&quot; class=&quot;headerlink&quot; title=&quot;problem&quot;&gt;&lt;/a&gt;problem&lt;/h3&gt;&lt;p&gt;A binary watch has 4 LEDs on the top which
         
       
     
