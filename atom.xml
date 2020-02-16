@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-02-16T06:31:27.589Z</updated>
+  <updated>2020-02-16T06:36:56.046Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://nicksxs.me/2020/02/16/Maven%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     <id>https://nicksxs.me/2020/02/16/Maven%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/</id>
     <published>2020-02-16T02:39:42.000Z</published>
-    <updated>2020-02-16T06:31:27.589Z</updated>
+    <updated>2020-02-16T06:36:56.046Z</updated>
     
     <summary type="html">
     
@@ -70,9 +70,9 @@
     
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
+    
+      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
@@ -492,9 +492,9 @@
     
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
+    
+      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
