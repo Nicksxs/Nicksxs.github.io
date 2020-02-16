@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-02-09T12:56:16.421Z</updated>
+  <updated>2020-02-16T06:31:27.589Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Maven实用小技巧</title>
+    <link href="https://nicksxs.me/2020/02/16/Maven%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    <id>https://nicksxs.me/2020/02/16/Maven%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/</id>
+    <published>2020-02-16T02:39:42.000Z</published>
+    <updated>2020-02-16T06:31:27.589Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Maven 翻译为”专家”、”内行”，是 Apache 下的一个纯 Java 开发的开源项目。基于项目对象模型（缩写：POM）概念，Maven利用一个中央信息片断能管理一个项目的构建、报告和文档等步骤。&lt;/p&gt;
+&lt;p&gt;Maven 是一个项目管理工具，可以对 Java
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="Maven" scheme="https://nicksxs.me/categories/Java/Maven/"/>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+      <category term="Maven" scheme="https://nicksxs.me/tags/Maven/"/>
+    
+  </entry>
   
   <entry>
     <title>G1收集器概述</title>
@@ -119,9 +151,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -158,9 +190,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -197,9 +229,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -237,9 +269,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -276,9 +308,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -315,9 +347,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -665,35 +697,6 @@
         
         
           &lt;h4 id=&quot;problem&quot;&gt;&lt;a href=&quot;#problem&quot; class=&quot;headerlink&quot; title=&quot;problem&quot;&gt;&lt;/a&gt;problem&lt;/h4&gt;&lt;p&gt;Given a sorted integer array without duplicates,
-        
-      
-    
-    </summary>
-    
-    
-      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
-      <category term="c++" scheme="https://nicksxs.me/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>minimum-size-subarray-sum-209</title>
-    <link href="https://nicksxs.me/2016/10/11/minimum-size-subarray-sum-209/"/>
-    <id>https://nicksxs.me/2016/10/11/minimum-size-subarray-sum-209/</id>
-    <published>2016-10-11T14:04:28.000Z</published>
-    <updated>2020-01-12T13:08:27.008Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h3 id=&quot;problem&quot;&gt;&lt;a href=&quot;#problem&quot; class=&quot;headerlink&quot; title=&quot;problem&quot;&gt;&lt;/a&gt;problem&lt;/h3&gt;&lt;p&gt;Given an array of n positive integers and a
         
       
     
