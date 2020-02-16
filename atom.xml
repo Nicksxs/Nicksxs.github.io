@@ -68,20 +68,20 @@
     </summary>
     
     
+      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
     
-      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
+    
+      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
       <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
-    
-      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
       <category term="G1" scheme="https://nicksxs.me/tags/G1/"/>
     
@@ -490,20 +490,20 @@
     </summary>
     
     
+      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
     
-      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
+    
+      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
       <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
-    
-      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
   </entry>
   
