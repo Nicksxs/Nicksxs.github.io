@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-02-16T06:36:56.046Z</updated>
+  <updated>2020-02-23T07:36:56.117Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>gogs使用webhook部署react单页应用</title>
+    <link href="https://nicksxs.me/2020/02/22/gogs%E4%BD%BF%E7%94%A8webhook%E9%83%A8%E7%BD%B2react%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8/"/>
+    <id>https://nicksxs.me/2020/02/22/gogs%E4%BD%BF%E7%94%A8webhook%E9%83%A8%E7%BD%B2react%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8/</id>
+    <published>2020-02-22T04:25:25.000Z</published>
+    <updated>2020-02-23T07:36:56.117Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;众所周知，我是个前端彩笔，但是也想做点自己可以用的工具页面，所以就让朋友推荐了蚂蚁出品的 ant design，说基本可以直接 ctrl-c ctrl-v，实测对我这种来说还是有点难的，不过也能写点，但是现在碰到的问题是怎么部署到自己的服务器上去&lt;br&gt;用 ant
+        
+      
+    
+    </summary>
+    
+    
+      <category term="持续集成" scheme="https://nicksxs.me/categories/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+    
+      <category term="Gogs" scheme="https://nicksxs.me/tags/Gogs/"/>
+    
+      <category term="Webhook" scheme="https://nicksxs.me/tags/Webhook/"/>
+    
+  </entry>
   
   <entry>
     <title>Maven实用小技巧</title>
@@ -680,35 +709,6 @@
     
     
       <category term="php" scheme="https://nicksxs.me/tags/php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>summary-ranges-228</title>
-    <link href="https://nicksxs.me/2016/10/12/summary-ranges-228/"/>
-    <id>https://nicksxs.me/2016/10/12/summary-ranges-228/</id>
-    <published>2016-10-12T15:25:17.000Z</published>
-    <updated>2020-01-12T13:08:26.994Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h4 id=&quot;problem&quot;&gt;&lt;a href=&quot;#problem&quot; class=&quot;headerlink&quot; title=&quot;problem&quot;&gt;&lt;/a&gt;problem&lt;/h4&gt;&lt;p&gt;Given a sorted integer array without duplicates,
-        
-      
-    
-    </summary>
-    
-    
-      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
-    
-    
-      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
-      <category term="c++" scheme="https://nicksxs.me/tags/c/"/>
     
   </entry>
   
