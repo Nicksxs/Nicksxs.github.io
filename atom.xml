@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-03-01T14:57:29.521Z</updated>
+  <updated>2020-03-08T15:27:19.890Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>docker比一般多一点的初学者介绍</title>
+    <link href="https://nicksxs.me/2020/03/08/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D/"/>
+    <id>https://nicksxs.me/2020/03/08/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D/</id>
+    <published>2020-03-08T15:25:40.000Z</published>
+    <updated>2020-03-08T15:27:19.890Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;因为最近想搭一个phabricator用来做看板和任务管理，一开始了解这个是Easy大大有在微博推荐过，后来苏洋也在群里和博客里说到了，看上去还不错的样子，因为主角是docker所以就不介绍太多，后面有机会写一下。&lt;/p&gt;
+&lt;p&gt;docker最开始是之前在某位大佬的博客看到
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Docker" scheme="https://nicksxs.me/categories/Docker/"/>
+    
+      <category term="介绍" scheme="https://nicksxs.me/categories/Docker/%E4%BB%8B%E7%BB%8D/"/>
+    
+    
+      <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
+    
+      <category term="namespace" scheme="https://nicksxs.me/tags/namespace/"/>
+    
+      <category term="cgroup" scheme="https://nicksxs.me/tags/cgroup/"/>
+    
+  </entry>
   
   <entry>
     <title>寄生虫观后感</title>
@@ -132,20 +166,20 @@
     </summary>
     
     
+      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
     
-      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
+    
+      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
       <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
-    
-      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
       <category term="G1" scheme="https://nicksxs.me/tags/G1/"/>
     
@@ -483,11 +517,11 @@
     </summary>
     
     
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
       <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
     
       <category term="村上春树" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E6%9D%91%E4%B8%8A%E6%98%A5%E6%A0%91/"/>
+    
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
     
     
       <category term="读后感" scheme="https://nicksxs.me/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
@@ -554,20 +588,20 @@
     </summary>
     
     
+      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
     
-      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
+    
+      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
       <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
-    
-      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
   </entry>
   
@@ -683,40 +717,11 @@
       <category term="php" scheme="https://nicksxs.me/categories/php/"/>
     
     
-      <category term="php" scheme="https://nicksxs.me/tags/php/"/>
-    
       <category term="mq" scheme="https://nicksxs.me/tags/mq/"/>
     
+      <category term="php" scheme="https://nicksxs.me/tags/php/"/>
+    
       <category term="im" scheme="https://nicksxs.me/tags/im/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>spark-little-tips</title>
-    <link href="https://nicksxs.me/2017/03/28/spark-little-tips/"/>
-    <id>https://nicksxs.me/2017/03/28/spark-little-tips/</id>
-    <published>2017-03-28T11:20:56.000Z</published>
-    <updated>2020-01-12T13:08:26.998Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;spark-的一些粗浅使用经验&quot;&gt;&lt;a href=&quot;#spark-的一些粗浅使用经验&quot; class=&quot;headerlink&quot; title=&quot;spark 的一些粗浅使用经验&quot;&gt;&lt;/a&gt;spark
-        
-      
-    
-    </summary>
-    
-    
-      <category term="data analysis" scheme="https://nicksxs.me/categories/data-analysis/"/>
-    
-    
-      <category term="spark" scheme="https://nicksxs.me/tags/spark/"/>
-    
-      <category term="python" scheme="https://nicksxs.me/tags/python/"/>
     
   </entry>
   
