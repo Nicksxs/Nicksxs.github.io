@@ -69,7 +69,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/08/RJAvlhEMD7VfbXz.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/08/L4YRni95lBzEmFh.png">
 <meta property="article:published_time" content="2020-03-08T15:25:40.000Z">
-<meta property="article:modified_time" content="2020-03-08T15:27:19.890Z">
+<meta property="article:modified_time" content="2020-03-15T12:25:02.990Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="namespace">
@@ -257,10 +257,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-03-08 23:25:40 / Modified: 23:27:19" itemprop="dateCreated datePublished" datetime="2020-03-08T23:25:40+08:00">2020-03-08</time>
+              <time title="Created: 2020-03-08 23:25:40" itemprop="dateCreated datePublished" datetime="2020-03-08T23:25:40+08:00">2020-03-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-15 20:25:02" itemprop="dateModified" datetime="2020-03-15T20:25:02+08:00">2020-03-15</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -312,11 +318,11 @@
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>那么我们先安装下 docker，参考官方的教程，<a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">安装</a>，我的系统是 ubuntu 的，就贴了 ubuntu 的链接，用其他系统的可以找到对应的系统文档安装，安装完了的话看看 docker 的信息</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker info</span><br></pre></td></tr></table></figure>
 
-<p>输出以下信息<br><img data-src="https://i.loli.net/2020/03/08/IJP157hLqlgo4Ow.png" alt="IJP157hLqlgo4Ow"></p>
+<p>输出以下信息<br><img data-src="https://i.loli.net/2020/03/08/IJP157hLqlgo4Ow.png" alt=""></p>
 <h2 id="简单运行"><a href="#简单运行" class="headerlink" title="简单运行"></a>简单运行</h2><p>然后再来运行个 hello world 呗，</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
 
-<p>输出了这些<br><img data-src="https://i.loli.net/2020/03/08/7dO2JWbf3wVLPsN.png" alt="7dO2JWbf3wVLPsN"></p>
+<p>输出了这些<br><img data-src="https://i.loli.net/2020/03/08/7dO2JWbf3wVLPsN.png" alt=""></p>
 <p>看看这个运行命令是怎么用的，一般都会看到这样子的，sudo docker run -it ubuntu bash<code>, 前面的 docker run 反正就是运行一个容器的意思，</code>-it<code>是啥呢，还有这个什么 ubuntu bash，来看看</code>docker run`的命令帮助信息</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-i, --interactive                    Keep STDIN open even if not attached</span><br></pre></td></tr></table></figure>
 
@@ -327,23 +333,23 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Usage:	docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br><span class="line"></span><br><span class="line">Run a command in a new container</span><br></pre></td></tr></table></figure>
 
 <h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p>上面说的-it 就是这里的 options，后面那个 ubuntu 就是 image 辣，image 是啥呢</p>
-<p><strong>Docker 把应用程序及其依赖，打包在 image 文件里面</strong>，可以把它理解成为类似于虚拟机的镜像或者运行一个进程的代码，跑起来了的叫docker 容器或者进程，比如我们将要运行的<code>docker run -it ubuntu bash</code>的ubuntu 就是个 ubuntu 容器的镜像，将这个镜像运行起来后，我们可以进入容器像使用 ubuntu 一样使用它，来看下我们的镜像</p>
-<p><img data-src="https://i.loli.net/2020/03/08/G3ltzyVLqheDRgo.png" alt="G3ltzyVLqheDRgo"></p>
+<p><strong>Docker 把应用程序及其依赖，打包在 image 文件里面</strong>，可以把它理解成为类似于虚拟机的镜像或者运行一个进程的代码，跑起来了的叫docker 容器或者进程，比如我们将要运行的<code>docker run -it ubuntu bash</code>的ubuntu 就是个 ubuntu 容器的镜像，将这个镜像运行起来后，我们可以进入容器像使用 ubuntu 一样使用它，来看下我们的镜像，使用<code>sudo docker image ls</code>就能列出我们宿主机上的 docker 镜像了</p>
+<p><img data-src="https://i.loli.net/2020/03/08/G3ltzyVLqheDRgo.png" alt=""></p>
 <p>一个 ubuntu 镜像才 64MB，非常小巧，然后是后面的<code>bash</code>，我通过交互式启动了一个 ubuntu 容器，然后在这个启动的容器里运行了 bash 命令，这样就可以在容器里玩一下了</p>
-<h2 id="在容器里看下进程，"><a href="#在容器里看下进程，" class="headerlink" title="在容器里看下进程，"></a>在容器里看下进程，</h2><p><img data-src="https://i.loli.net/2020/03/08/2qQFPbxB9uEzcrJ.png" alt="2qQFPbxB9uEzcrJ"></p>
+<h2 id="在容器里看下进程，"><a href="#在容器里看下进程，" class="headerlink" title="在容器里看下进程，"></a>在容器里看下进程，</h2><p><img data-src="https://i.loli.net/2020/03/08/2qQFPbxB9uEzcrJ.png" alt=""></p>
 <p>只有刚才运行容器的 bash 进程和我刚执行的 ps，这里有个可以注意下的，bash 这个进程的 pid 是 1，其实这里就用到了 linux 中的PID Namespace，容器会隔离出一个 pid 的名字空间，这里面的进程跟外部的 pid 命名独立</p>
 <h2 id="查看宿主机上的容器"><a href="#查看宿主机上的容器" class="headerlink" title="查看宿主机上的容器"></a>查看宿主机上的容器</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a</span><br></pre></td></tr></table></figure>
 
-<p><img data-src="https://i.loli.net/2020/03/08/spGtzcDXKv3ORU7.png" alt="spGtzcDXKv3ORU7"></p>
+<p><img data-src="https://i.loli.net/2020/03/08/spGtzcDXKv3ORU7.png" alt=""></p>
 <h2 id="如何进入一个正在运行中的-docker-容器"><a href="#如何进入一个正在运行中的-docker-容器" class="headerlink" title="如何进入一个正在运行中的 docker 容器"></a>如何进入一个正在运行中的 docker 容器</h2><p>这个应该是比较常用的，因为比如是一个微服务容器，有时候就像看下运行状态，日志啥的</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it [containerID] bash</span><br></pre></td></tr></table></figure>
 
-<p><img data-src="https://i.loli.net/2020/03/08/uswmh3Izp65kc9n.png" alt="uswmh3Izp65kc9n"></p>
+<p><img data-src="https://i.loli.net/2020/03/08/uswmh3Izp65kc9n.png" alt=""></p>
 <h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker logs [containerID]</span><br></pre></td></tr></table></figure>
 
 <p>我在运行容器的终端里胡乱输入点啥，然后通过上面的命令就可以看到啦</p>
-<p><img data-src="https://i.loli.net/2020/03/08/RJAvlhEMD7VfbXz.png" alt="RJAvlhEMD7VfbXz"></p>
-<p><img data-src="https://i.loli.net/2020/03/08/L4YRni95lBzEmFh.png" alt="L4YRni95lBzEmFh"></p>
+<p><img data-src="https://i.loli.net/2020/03/08/RJAvlhEMD7VfbXz.png" alt=""></p>
+<p><img data-src="https://i.loli.net/2020/03/08/L4YRni95lBzEmFh.png" alt=""></p>
 
     </div>
 
@@ -406,7 +412,10 @@
     <a href="/2020/03/01/%E5%AF%84%E7%94%9F%E8%99%AB%E8%A7%82%E5%90%8E%E6%84%9F/" rel="prev" title="寄生虫观后感">
       <i class="fa fa-chevron-left"></i> 寄生虫观后感
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/09/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/" rel="next" title="docker比一般多一点的初学者介绍二">
+      docker比一般多一点的初学者介绍二 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -489,7 +498,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

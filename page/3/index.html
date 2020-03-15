@@ -226,6 +226,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2017/04/25/rabbitmq-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Nicksxs">
+      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nicksxs's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/25/rabbitmq-tips/" class="post-title-link" itemprop="url">rabbitmq-tips</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-04-25 21:46:55" itemprop="dateCreated datePublished" datetime="2017-04-25T21:46:55+08:00">2017-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-12 21:08:26" itemprop="dateModified" datetime="2020-01-12T21:08:26+08:00">2020-01-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/php/" itemprop="url" rel="index">
+                    <span itemprop="name">php</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2017/04/25/rabbitmq-tips/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/04/25/rabbitmq-tips/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="rabbitmq-介绍"><a href="#rabbitmq-介绍" class="headerlink" title="rabbitmq 介绍"></a>rabbitmq 介绍</h2><p>接触了一下rabbitmq，原来在选型的时候是在rabbitmq跟kafka之间做选择，网上搜了一下之后发现kafka的优势在于吞吐量，而rabbitmq相对注重可靠性，因为应用在im上，需要保证消息不能丢失所以就暂时选定rabbitmq，<br>Message Queue的需求由来已久，80年代最早在金融交易中，高盛等公司采用Teknekron公司的产品，当时的Message queuing软件叫做：the information bus（TIB）。 TIB被电信和通讯公司采用，路透社收购了Teknekron公司。之后，IBM开发了MQSeries，微软开发了Microsoft Message Queue（MSMQ）。这些商业MQ供应商的问题是厂商锁定，价格高昂。2001年，Java Message queuing试图解决锁定和交互性的问题，但对应用来说反而更加麻烦了。<br>RabbitMQ采用Erlang语言开发。Erlang语言由Ericson设计，专门为开发concurrent和distribution系统的一种语言，在电信领域使用广泛。OTP（Open Telecom Platform）作为Erlang语言的一部分，包含了很多基于Erlang开发的中间件／库／工具，如mnesia／SASL，极大方便了Erlang应用的开发。OTP就类似于Python语言中众多的module，用户借助这些module可以很方便的开发应用。<br>于是2004年，摩根大通和iMatrix开始着手<a href="https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol" target="_blank" rel="noopener">Advanced Message Queuing Protocol （AMQP）</a>开放标准的开发。2006年，AMQP规范发布。2007年，Rabbit技术公司基于AMQP标准开发的RabbitMQ 1.0 发布。所有主要的编程语言均有与代理接口通讯的客户端库。</p>
+<h2 id="简单的使用经验"><a href="#简单的使用经验" class="headerlink" title="简单的使用经验"></a>简单的使用经验</h2><h3 id="通俗的理解"><a href="#通俗的理解" class="headerlink" title="通俗的理解"></a>通俗的理解</h3><p>这里介绍下其中的一些概念，connection表示和队列服务器的连接，一般情况下是tcp连接， channel表示通道，可以在一个连接上建立多个通道，这里主要是节省了tcp连接握手的成本，exchange可以理解成一个路由器，将消息推送给对应的队列queue，其实是像一个订阅的模式。</p>
+<h3 id="集群经验"><a href="#集群经验" class="headerlink" title="集群经验"></a>集群经验</h3><p><code>rabbitmqctl stop</code>这个是关闭rabbitmq，在搭建集群时候先关闭服务，然后使用<code>rabbitmq-server -detached</code>静默启动，这时候使用<code>rabbitmqctl cluster_status</code>查看集群状态，因为还没将节点加入集群，所以只能看到类似</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Cluster status of node rabbit@rabbit1 ...</span><br><span class="line">[&#123;nodes,[&#123;disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]&#125;]&#125;,</span><br><span class="line"> &#123;running_nodes,[rabbit@rabbit2,rabbit@rabbit1]&#125;]</span><br><span class="line">...done.</span><br></pre></td></tr></table></figure>
+<p>然后就可以把当前节点加入集群，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">rabbit2$</span><span class="bash"> rabbitmqctl stop_app <span class="comment">#这个stop_app与stop的区别是前者停的是rabbitmq应用，保留erlang节点，</span></span></span><br><span class="line">                              #后者是停止了rabbitmq和erlang节点</span><br><span class="line">Stopping node rabbit@rabbit2 ...done.</span><br><span class="line"><span class="meta">rabbit2$</span><span class="bash"> rabbitmqctl join_cluster rabbit@rabbit1 <span class="comment">#这里可以用--ram指定将当前节点作为内存节点加入集群</span></span></span><br><span class="line">Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.</span><br><span class="line"><span class="meta">rabbit2$</span><span class="bash"> rabbitmqctl start_app</span></span><br><span class="line">Starting node rabbit@rabbit2 ...done.</span><br></pre></td></tr></table></figure>
+<p>其他可以参考<a href="http://www.rabbitmq.com/clustering.html" target="_blank" rel="noopener">官方文档</a></p>
+<h2 id="一些坑"><a href="#一些坑" class="headerlink" title="一些坑"></a>一些坑</h2><h3 id="消息丢失"><a href="#消息丢失" class="headerlink" title="消息丢失"></a>消息丢失</h3><p>这里碰到过一个坑，对于使用exchange来做消息路由的，会有一个情况，就是在routing_key没被订阅的时候，会将该条找不到路由对应的queue的消息丢掉<code>What happens if we break our contract and send a message with one or four words, like &quot;orange&quot; or &quot;quick.orange.male.rabbit&quot;? Well, these messages won&#39;t match any bindings and will be lost.</code><a href="http://www.rabbitmq.com/tutorials/tutorial-five-python.html" target="_blank" rel="noopener">对应链接</a>,而当使用空的exchange时，会保留消息，当出现消费者的时候就可以将收到之前生产者所推送的消息<a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html" target="_blank" rel="noopener">对应链接</a>,这里就是用了空的exchange。</p>
+<h3 id="集群搭建"><a href="#集群搭建" class="headerlink" title="集群搭建"></a>集群搭建</h3><p>集群搭建的时候有个erlang vm生成的random cookie，这个是用来做集群之间认证的，相同的cookie才能连接，但是如果通过vim打开复制后在其他几点新建文件写入会多一个换行，导致集群建立是报错，所以这里最好使用scp等传输命令直接传输cookie文件，同时要注意下cookie的文件权限。<br>另外在集群搭建的时候如果更改过hostname，那么要把rabbitmq的数据库删除，否则启动后会马上挂掉</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2017/03/28/spark-little-tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1114,110 +1214,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2015/04/15/Leetcode-No-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Nicksxs">
-      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nicksxs's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/04/15/Leetcode-No-3/" class="post-title-link" itemprop="url">leetcode no.3</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-04-15 13:49:00" itemprop="dateCreated datePublished" datetime="2015-04-15T13:49:00+08:00">2015-04-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-12 21:08:26" itemprop="dateModified" datetime="2020-01-12T21:08:26+08:00">2020-01-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2015/04/15/Leetcode-No-3/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/04/15/Leetcode-No-3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>*<em>Longest Substring Without Repeating Characters *</em></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2015/04/15/Leetcode-No-3/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1285,7 +1286,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
