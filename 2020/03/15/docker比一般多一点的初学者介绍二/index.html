@@ -57,7 +57,7 @@
   <meta name="description" content="限制下 docker 的 cpu 使用率这里我们开始玩一点有意思的，我们在容器里装下 vim 和 gcc，然后写这样一段 c 代码 1234567#include &lt;stdio.h&gt;int main(void)&amp;#123;    int i &#x3D; 0;    for(;;) i++;    return 0;&amp;#125; 就是一个最简单的死循环，然后在容器里跑起来 12$ gcc 1.c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker比一般多一点的初学者介绍二">
-<meta property="og:url" content="https://nicksxs.me/2020/03/09/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/index.html">
+<meta property="og:url" content="https://nicksxs.me/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="限制下 docker 的 cpu 使用率这里我们开始玩一点有意思的，我们在容器里装下 vim 和 gcc，然后写这样一段 c 代码 1234567#include &lt;stdio.h&gt;int main(void)&amp;#123;    int i &#x3D; 0;    for(;;) i++;    return 0;&amp;#125; 就是一个最简单的死循环，然后在容器里跑起来 12$ gcc 1.c">
 <meta property="og:image" content="https://i.loli.net/2020/03/09/Xs562iawhHyMxeO.png">
@@ -69,8 +69,8 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/11/op5c7UGTbhjwPOI.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/14/ALWIobjchnu1Rvi.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/14/grcMNVxTabDPipu.png">
-<meta property="article:published_time" content="2020-03-09T14:33:55.000Z">
-<meta property="article:modified_time" content="2020-03-15T16:05:31.872Z">
+<meta property="article:published_time" content="2020-03-15T14:33:55.000Z">
+<meta property="article:modified_time" content="2020-03-16T14:16:28.120Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="namespace">
@@ -79,7 +79,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2020/03/09/Xs562iawhHyMxeO.png">
 
-<link rel="canonical" href="https://nicksxs.me/2020/03/09/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/">
+<link rel="canonical" href="https://nicksxs.me/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/">
 
 
 <script id="page-configurations">
@@ -237,7 +237,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/03/09/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/">
+    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -260,14 +260,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-03-09 22:33:55" itemprop="dateCreated datePublished" datetime="2020-03-09T22:33:55+08:00">2020-03-09</time>
+              <time title="Created: 2020-03-15 22:33:55" itemprop="dateCreated datePublished" datetime="2020-03-15T22:33:55+08:00">2020-03-15</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-16 00:05:31" itemprop="dateModified" datetime="2020-03-16T00:05:31+08:00">2020-03-16</time>
+                <time title="Modified: 2020-03-16 22:16:28" itemprop="dateModified" datetime="2020-03-16T22:16:28+08:00">2020-03-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -296,8 +296,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2020/03/09/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/09/docker比一般多一点的初学者介绍二/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/15/docker比一般多一点的初学者介绍二/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -367,7 +367,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://nicksxs.me/2020/03/09/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/" title="docker比一般多一点的初学者介绍二">https://nicksxs.me/2020/03/09/docker比一般多一点的初学者介绍二/</a>
+    <a href="https://nicksxs.me/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/" title="docker比一般多一点的初学者介绍二">https://nicksxs.me/2020/03/15/docker比一般多一点的初学者介绍二/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -639,7 +639,7 @@
       quicklink({
         timeout: 3000,
         priority: true,
-        ignores: [uri => uri.includes('#'),uri => uri == 'https://nicksxs.me/2020/03/09/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/',]
+        ignores: [uri => uri.includes('#'),uri => uri == 'https://nicksxs.me/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/',]
       });
       });
   </script>
@@ -660,8 +660,8 @@
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "https://nicksxs.me/2020/03/09/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/",
-            identifier: "2020/03/09/docker比一般多一点的初学者介绍二/",
+            url: "https://nicksxs.me/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/",
+            identifier: "2020/03/15/docker比一般多一点的初学者介绍二/",
             title: "docker比一般多一点的初学者介绍二"
           }
         }
