@@ -247,8 +247,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-03-21 14:43:39" itemprop="dateCreated datePublished" datetime="2020-03-21T14:43:39+08:00">2020-03-21</time>
+              <time title="Created: 2020-03-21 14:43:39 / Modified: 16:19:01" itemprop="dateCreated datePublished" datetime="2020-03-21T14:43:39+08:00">2020-03-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,8 +294,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <hr>
-<h2 id="运行第一个-Dockerfile"><a href="#运行第一个-Dockerfile" class="headerlink" title="运行第一个 Dockerfile"></a>运行第一个 Dockerfile</h2><p>上一篇的 Dockerfile 我们停留在构建阶段，现在来把它跑起来</p>
+          <h2 id="运行第一个-Dockerfile"><a href="#运行第一个-Dockerfile" class="headerlink" title="运行第一个 Dockerfile"></a>运行第一个 Dockerfile</h2><p>上一篇的 Dockerfile 我们停留在构建阶段，现在来把它跑起来</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80 --name static_web nicksxs/static_web \</span><br><span class="line">nginx -g "daemon off;"</span><br></pre></td></tr></table></figure>
 <p>这里的<code>-d</code>表示以分离模型运行docker (detached),然后-p 是表示将容器的 80 端口开放给宿主机，然后容器名就叫 static_web,使用了我们上次构建的 static_web 镜像，后面的是让 nginx 在前台运行<br><img data-src="https://i.loli.net/2020/03/21/VCEuf5BTopXNkcA.png" alt=""><br>可以看到返回了个容器 id，但是具体情况没出现，也没连上去，那我们想看看怎么访问在 Dockerfile 里写的静态页面，我们来看下docker 进程<br><img data-src="https://i.loli.net/2020/03/21/Cx1JYGBrHRqojpz.png" alt=""><br>发现为我们随机分配了一个宿主机的端口，32768，去服务器的防火墙把这个外网端口开一下，看看是不是符合我们的预期呢<br><img data-src="https://i.loli.net/2020/03/21/xhAcQlX5iP9KnYB.png" alt=""><br>好像不太对额，应该是 ubuntu 安装的 nginx 的默认工作目录不对，我们来进容器看看，再熟悉下命令<code>docker exec -it 4792455ca2ed /bin/bash</code><br>记得容器 id 换成自己的，进入容器后得找找 nginx 的配置文件，通常在<code>/etc/nginx</code>,<code>/usr/local/etc</code>等目录下，然后找到我们的目录是在这<br><img data-src="https://i.loli.net/2020/03/21/wE8TfkbC2d9pNuv.png" alt=""><br>所以把刚才的内容复制过去再试试<br><img data-src="https://i.loli.net/2020/03/21/qNkpHn3GW8aiwIr.png" alt=""><br>目标达成，give me five✌️</p>
 <h2 id="第二个-Dockerfile"><a href="#第二个-Dockerfile" class="headerlink" title="第二个 Dockerfile"></a>第二个 Dockerfile</h2><p>然后就想来动态一点的，毕竟写过 PHP，就来试试 PHP<br>再建一个目录叫 dynamic_web，里面创建 src 目录，放一个 index.php<br>内容是</p>
@@ -1179,18 +1179,6 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
                     <span itemprop="name">数据结构</span>
                   </a>
@@ -1199,6 +1187,18 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Redis/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
                     <span itemprop="name">源码</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
             </span>
@@ -1311,18 +1311,6 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
                     <span itemprop="name">数据结构</span>
                   </a>
@@ -1331,6 +1319,18 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Redis/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
                     <span itemprop="name">源码</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
             </span>
