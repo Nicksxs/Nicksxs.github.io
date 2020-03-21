@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-03-16T14:16:28.120Z</updated>
+  <updated>2020-03-21T06:43:39.832Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>docker比一般多一点的初学者介绍三</title>
+    <link href="https://nicksxs.me/2020/03/21/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%B8%89/"/>
+    <id>https://nicksxs.me/2020/03/21/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%B8%89/</id>
+    <published>2020-03-21T06:43:39.000Z</published>
+    <updated>2020-03-21T06:43:39.832Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;hr&gt;
+&lt;h2 id=&quot;运行第一个-Dockerfile&quot;&gt;&lt;a href=&quot;#运行第一个-Dockerfile&quot; class=&quot;headerlink&quot; title=&quot;运行第一个 Dockerfile&quot;&gt;&lt;/a&gt;运行第一个 Dockerfile&lt;/h2&gt;&lt;p&gt;上一篇的
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Docker" scheme="https://nicksxs.me/categories/Docker/"/>
+    
+      <category term="介绍" scheme="https://nicksxs.me/categories/Docker/%E4%BB%8B%E7%BB%8D/"/>
+    
+    
+      <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
+    
+      <category term="namespace" scheme="https://nicksxs.me/tags/namespace/"/>
+    
+      <category term="Dockerfile" scheme="https://nicksxs.me/tags/Dockerfile/"/>
+    
+  </entry>
   
   <entry>
     <title>docker比一般多一点的初学者介绍二</title>
@@ -280,13 +314,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -319,13 +353,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -358,13 +392,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -398,13 +432,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -437,13 +471,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -476,13 +510,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -550,9 +584,9 @@
     </summary>
     
     
-      <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
-    
       <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
     
       <category term="村上春树" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E6%9D%91%E4%B8%8A%E6%98%A5%E6%A0%91/"/>
     
@@ -695,35 +729,6 @@
       <category term="openresty" scheme="https://nicksxs.me/tags/openresty/"/>
     
       <category term="nginx" scheme="https://nicksxs.me/tags/nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ambari-summary</title>
-    <link href="https://nicksxs.me/2017/05/09/ambari-summary/"/>
-    <id>https://nicksxs.me/2017/05/09/ambari-summary/</id>
-    <published>2017-05-09T15:53:05.000Z</published>
-    <updated>2020-01-12T13:08:27.010Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;初识ambari&quot;&gt;&lt;a href=&quot;#初识ambari&quot; class=&quot;headerlink&quot; title=&quot;初识ambari&quot;&gt;&lt;/a&gt;初识ambari&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://ambari.apache.org/&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="data analysis" scheme="https://nicksxs.me/categories/data-analysis/"/>
-    
-    
-      <category term="hadoop" scheme="https://nicksxs.me/tags/hadoop/"/>
-    
-      <category term="cluster" scheme="https://nicksxs.me/tags/cluster/"/>
     
   </entry>
   
