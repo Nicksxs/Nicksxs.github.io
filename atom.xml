@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-03-21T08:19:01.533Z</updated>
+  <updated>2020-03-29T13:48:50.198Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,49 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>docker使用中发现的echo命令的一个小技巧及其他</title>
+    <link href="https://nicksxs.me/2020/03/29/echo%E5%91%BD%E4%BB%A4%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    <id>https://nicksxs.me/2020/03/29/echo%E5%91%BD%E4%BB%A4%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7/</id>
+    <published>2020-03-29T13:48:50.000Z</published>
+    <updated>2020-03-29T13:48:50.198Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;最近做 docker 系列，会经常进到 docker 内部，如上一篇介绍的，这些镜像一般都有用 ubuntu 或者alpine 这样的 Linux 系统作为底包，如果构建镜像的时候没有替换源的话，因为你懂的原因，在内部想编辑下东西要安装 vim
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Docker" scheme="https://nicksxs.me/categories/Docker/"/>
+    
+      <category term="Linux" scheme="https://nicksxs.me/categories/Linux/"/>
+    
+      <category term="命令" scheme="https://nicksxs.me/categories/Linux/%E5%91%BD%E4%BB%A4/"/>
+    
+      <category term="echo" scheme="https://nicksxs.me/categories/Linux/%E5%91%BD%E4%BB%A4/echo/"/>
+    
+      <category term="发行版本" scheme="https://nicksxs.me/categories/Docker/%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC/"/>
+    
+    
+      <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
+    
+      <category term="linux" scheme="https://nicksxs.me/tags/linux/"/>
+    
+      <category term="echo" scheme="https://nicksxs.me/tags/echo/"/>
+    
+      <category term="uname" scheme="https://nicksxs.me/tags/uname/"/>
+    
+      <category term="发行版" scheme="https://nicksxs.me/tags/%E5%8F%91%E8%A1%8C%E7%89%88/"/>
+    
+  </entry>
   
   <entry>
     <title>docker比一般多一点的初学者介绍三</title>
@@ -315,9 +358,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -354,9 +397,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -393,9 +436,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -433,9 +476,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -472,9 +515,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -511,9 +554,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -583,9 +626,9 @@
     </summary>
     
     
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
       <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
     
       <category term="村上春树" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E6%9D%91%E4%B8%8A%E6%98%A5%E6%A0%91/"/>
     
@@ -698,36 +741,6 @@
       <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
       <category term="aqs" scheme="https://nicksxs.me/tags/aqs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>openresty</title>
-    <link href="https://nicksxs.me/2019/06/18/openresty/"/>
-    <id>https://nicksxs.me/2019/06/18/openresty/</id>
-    <published>2019-06-18T11:03:05.000Z</published>
-    <updated>2020-01-12T13:08:27.010Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;目前公司要对一些新的产品功能做灰度测试，因为在后端业务代码层面添加判断比较麻烦，所以想在nginx上做点手脚，就想到了openresty&lt;br&gt;前后也踩了不少坑，这边先写一点&lt;/p&gt;
-&lt;p&gt;首先是日志&lt;br&gt;&lt;code&gt;error_log logs/error.log
-        
-      
-    
-    </summary>
-    
-    
-      <category term="nginx" scheme="https://nicksxs.me/categories/nginx/"/>
-    
-    
-      <category term="openresty" scheme="https://nicksxs.me/tags/openresty/"/>
-    
-      <category term="nginx" scheme="https://nicksxs.me/tags/nginx/"/>
     
   </entry>
   
