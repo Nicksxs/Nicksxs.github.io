@@ -277,18 +277,18 @@
     
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
-    
       <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
     
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
     
+      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
+    
       <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
-    
-      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
       <category term="G1" scheme="https://nicksxs.me/tags/G1/"/>
     
@@ -626,9 +626,9 @@
     </summary>
     
     
-      <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
-    
       <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
     
       <category term="村上春树" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E6%9D%91%E4%B8%8A%E6%98%A5%E6%A0%91/"/>
     
@@ -699,18 +699,18 @@
     
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
-    
       <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
     
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
     
+      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
+    
       <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
-    
-      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
   </entry>
   
