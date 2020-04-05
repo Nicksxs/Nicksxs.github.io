@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-03-29T13:48:50.198Z</updated>
+  <updated>2020-04-05T13:42:20.733Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Comparator使用小记</title>
+    <link href="https://nicksxs.me/2020/04/05/Comparator%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0/"/>
+    <id>https://nicksxs.me/2020/04/05/Comparator%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0/</id>
+    <published>2020-04-05T13:41:41.000Z</published>
+    <updated>2020-04-05T13:42:20.733Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在Java8的stream之前，将对象进行排序的时候，可能需要对象实现Comparable接口，或者自己实现一个Comparator，&lt;/p&gt;
+&lt;p&gt;比如这样子&lt;/p&gt;
+&lt;p&gt;我的对象是Entity&lt;/p&gt;
+&lt;figure class=&quot;highlight
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="集合" scheme="https://nicksxs.me/categories/Java/%E9%9B%86%E5%90%88/"/>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+      <category term="Stream" scheme="https://nicksxs.me/tags/Stream/"/>
+    
+      <category term="Comparator" scheme="https://nicksxs.me/tags/Comparator/"/>
+    
+      <category term="排序" scheme="https://nicksxs.me/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+      <category term="sort" scheme="https://nicksxs.me/tags/sort/"/>
+    
+      <category term="nullsfirst" scheme="https://nicksxs.me/tags/nullsfirst/"/>
+    
+  </entry>
   
   <entry>
     <title>docker使用中发现的echo命令的一个小技巧及其他</title>
@@ -711,36 +753,6 @@
       <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AbstractQueuedSynchronizer</title>
-    <link href="https://nicksxs.me/2019/09/23/AbstractQueuedSynchronizer/"/>
-    <id>https://nicksxs.me/2019/09/23/AbstractQueuedSynchronizer/</id>
-    <published>2019-09-23T15:40:05.000Z</published>
-    <updated>2020-01-12T13:08:26.991Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;最近看了大神的 AQS 的文章，之前总是断断续续地看一点，每次都知难而退，下次看又从头开始，昨天总算硬着头皮看完了第一部分&lt;br&gt;首先 AQS 只要有这些属性&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
-        
-      
-    
-    </summary>
-    
-    
-      <category term="java" scheme="https://nicksxs.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-      <category term="aqs" scheme="https://nicksxs.me/tags/aqs/"/>
     
   </entry>
   
