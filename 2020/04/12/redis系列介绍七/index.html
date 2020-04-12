@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="2X6S9P7CAjXjVvw8YyQR8pCu-B0oEu7O9quLgxXuWyA">
+  <meta name="baidu-site-verification" content="dV8JGNzi0c">
+<meta name="chinaz-site-verification" content="500A176AA29CFB31">
+
+<script data-ad-client="ca-pub-7480618470784058" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic|M+ 2p:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://nicksxs.me').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="这一篇不再是数据结构介绍了，大致的数据结构基本都介绍了，这一篇主要是查漏补缺，或者说讲一些重要且基本的概念，也可能是经常被忽略的，很多讲 redis 的系列文章可能都会忽略，学习 redis 的时候也会，因为觉得源码学习就是讲主要的数据结构和“算法”学习了就好了。redis 的主要应用就是拿来作为高性能的缓存，那么缓存一般有些啥需要注意的，首先是访问速度，如果取得跟数据库一样快，那就没什么存在的意">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis系列介绍七-过期策略">
+<meta property="og:url" content="https://nicksxs.me/2020/04/12/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E4%B8%83/index.html">
+<meta property="og:site_name" content="Nicksxs&#39;s Blog">
+<meta property="og:description" content="这一篇不再是数据结构介绍了，大致的数据结构基本都介绍了，这一篇主要是查漏补缺，或者说讲一些重要且基本的概念，也可能是经常被忽略的，很多讲 redis 的系列文章可能都会忽略，学习 redis 的时候也会，因为觉得源码学习就是讲主要的数据结构和“算法”学习了就好了。redis 的主要应用就是拿来作为高性能的缓存，那么缓存一般有些啥需要注意的，首先是访问速度，如果取得跟数据库一样快，那就没什么存在的意">
+<meta property="article:published_time" content="2020-04-12T13:22:00.000Z">
+<meta property="article:modified_time" content="2020-04-12T14:57:42.769Z">
+<meta property="article:author" content="Nicksxs">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="源码">
+<meta property="article:tag" content="源码分析">
+<meta property="article:tag" content="过期策略">
+<meta property="article:tag" content="expire">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://nicksxs.me/2020/04/12/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E4%B8%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>redis系列介绍七-过期策略 | Nicksxs's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61358619-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-61358619-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?20f33b3c0c0eff9b1522999c0015646d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nicksxs's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nicksxs's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">What hurts more, the pain of hard work or the pain of regret?</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-about"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-categories"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archives"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>Sitemap</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>Commonweal 404</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/nicksxs" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/04/12/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E4%B8%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Nicksxs">
+      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nicksxs's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          redis系列介绍七-过期策略
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-12 21:22:00 / Modified: 22:57:42" itemprop="dateCreated datePublished" datetime="2020-04-12T21:22:00+08:00">2020-04-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
+                    <span itemprop="name">源码</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/04/12/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E4%B8%83/" class="post-meta-item leancloud_visitors" data-flag-title="redis系列介绍七-过期策略" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/04/12/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E4%B8%83/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/12/redis系列介绍七/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这一篇不再是数据结构介绍了，大致的数据结构基本都介绍了，这一篇主要是查漏补缺，或者说讲一些重要且基本的概念，也可能是经常被忽略的，很多讲 redis 的系列文章可能都会忽略，学习 redis 的时候也会，因为觉得源码学习就是讲主要的数据结构和“算法”学习了就好了。<br>redis 的主要应用就是拿来作为高性能的缓存，那么缓存一般有些啥需要注意的，首先是访问速度，如果取得跟数据库一样快，那就没什么存在的意义，第二个是缓存的字面意思，我只是为了让数据读取快一些，通常大部分的场景这个是需要更新过期的，这里就把我要讲的第一点引出来了（真累，</p>
+<h2 id="redis过期策略"><a href="#redis过期策略" class="headerlink" title="redis过期策略"></a>redis过期策略</h2><p>redis 是如何过期缓存的，可以猜测下，最无脑的就是每个设置了过期时间的 key 都设个定时器，过期了就删除，这种显然消耗太大，清理地最及时，还有的就是 redis 正在采用的懒汉清理策略和定期清理<br>懒汉策略就是在使用的时候去检查缓存是否过期，比如 get 操作时，先判断下这个 key 是否已经过期了，如果过期了就删掉，并且返回空，如果没过期则正常返回<br>主要代码是</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* This function is called when we are going to perform some operation</span></span><br><span class="line"><span class="comment"> * in a given key, but such key may be already logically expired even if</span></span><br><span class="line"><span class="comment"> * it still exists in the database. The main way this function is called</span></span><br><span class="line"><span class="comment"> * is via lookupKey*() family of functions.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The behavior of the function depends on the replication role of the</span></span><br><span class="line"><span class="comment"> * instance, because slave instances do not expire keys, they wait</span></span><br><span class="line"><span class="comment"> * for DELs from the master for consistency matters. However even</span></span><br><span class="line"><span class="comment"> * slaves will try to have a coherent return value for the function,</span></span><br><span class="line"><span class="comment"> * so that read commands executed in the slave side will be able to</span></span><br><span class="line"><span class="comment"> * behave like if the key is expired even if still present (because the</span></span><br><span class="line"><span class="comment"> * master has yet to propagate the DEL).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * In masters as a side effect of finding a key which is expired, such</span></span><br><span class="line"><span class="comment"> * key will be evicted from the database. Also this may trigger the</span></span><br><span class="line"><span class="comment"> * propagation of a DEL/UNLINK command in AOF / replication stream.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The return value of the function is 0 if the key is still valid,</span></span><br><span class="line"><span class="comment"> * otherwise the function returns 1 if the key is expired. */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">expireIfNeeded</span><span class="params">(redisDb *db, robj *key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!keyIsExpired(db,key)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* If we are running in the context of a slave, instead of</span></span><br><span class="line"><span class="comment">     * evicting the expired key from the database, we return ASAP:</span></span><br><span class="line"><span class="comment">     * the slave key expiration is controlled by the master that will</span></span><br><span class="line"><span class="comment">     * send us synthesized DEL operations for expired keys.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Still we try to return the right information to the caller,</span></span><br><span class="line"><span class="comment">     * that is, 0 if we think the key should be still valid, 1 if</span></span><br><span class="line"><span class="comment">     * we think the key is expired at this time. */</span></span><br><span class="line">    <span class="keyword">if</span> (server.masterhost != <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Delete the key */</span></span><br><span class="line">    server.stat_expiredkeys++;</span><br><span class="line">    propagateExpire(db,key,server.lazyfree_lazy_expire);</span><br><span class="line">    notifyKeyspaceEvent(NOTIFY_EXPIRED,</span><br><span class="line">        <span class="string">"expired"</span>,key,db-&gt;id);</span><br><span class="line">    <span class="keyword">return</span> server.lazyfree_lazy_expire ? dbAsyncDelete(db,key) :</span><br><span class="line">                                         dbSyncDelete(db,key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Check if the key is expired. */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">keyIsExpired</span><span class="params">(redisDb *db, robj *key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">mstime_t</span> when = getExpire(db,key);</span><br><span class="line">    <span class="keyword">mstime_t</span> now;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (when &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">/* No expire for this key */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Don't expire anything while loading. It will be done later. */</span></span><br><span class="line">    <span class="keyword">if</span> (server.loading) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* If we are in the context of a Lua script, we pretend that time is</span></span><br><span class="line"><span class="comment">     * blocked to when the Lua script started. This way a key can expire</span></span><br><span class="line"><span class="comment">     * only the first time it is accessed and not in the middle of the</span></span><br><span class="line"><span class="comment">     * script execution, making propagation to slaves / AOF consistent.</span></span><br><span class="line"><span class="comment">     * See issue #1525 on Github for more information. */</span></span><br><span class="line">    <span class="keyword">if</span> (server.lua_caller) &#123;</span><br><span class="line">        now = server.lua_time_start;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* If we are in the middle of a command execution, we still want to use</span></span><br><span class="line"><span class="comment">     * a reference time that does not change: in that case we just use the</span></span><br><span class="line"><span class="comment">     * cached time, that we update before each call in the call() function.</span></span><br><span class="line"><span class="comment">     * This way we avoid that commands such as RPOPLPUSH or similar, that</span></span><br><span class="line"><span class="comment">     * may re-open the same key multiple times, can invalidate an already</span></span><br><span class="line"><span class="comment">     * open object in a next call, if the next call will see the key expired,</span></span><br><span class="line"><span class="comment">     * while the first did not. */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (server.fixed_time_expire &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        now = server.mstime;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* For the other cases, we want to use the most fresh time we have. */</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        now = mstime();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* The key expired if the current (virtual or real) time is greater</span></span><br><span class="line"><span class="comment">     * than the expire time of the key. */</span></span><br><span class="line">    <span class="keyword">return</span> now &gt; when;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Return the expire time of the specified key, or -1 if no expire</span></span><br><span class="line"><span class="comment"> * is associated with this key (i.e. the key is non volatile) */</span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">getExpire</span><span class="params">(redisDb *db, robj *key)</span> </span>&#123;</span><br><span class="line">    dictEntry *de;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* No expire? return ASAP */</span></span><br><span class="line">    <span class="keyword">if</span> (dictSize(db-&gt;expires) == <span class="number">0</span> ||</span><br><span class="line">       (de = dictFind(db-&gt;expires,key-&gt;ptr)) == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* The entry was found in the expire dict, this means it should also</span></span><br><span class="line"><span class="comment">     * be present in the main dict (safety check). */</span></span><br><span class="line">    serverAssertWithInfo(<span class="literal">NULL</span>,key,dictFind(db-&gt;dict,key-&gt;ptr) != <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">return</span> dictGetSignedIntegerVal(de);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里有几点要注意的，第一是当惰性删除时会根据lazyfree_lazy_expire这个参数去判断是执行同步删除还是异步删除，另外一点是对于 slave，是不需要执行的，因为会在 master 过期时向 slave 发送 del 指令。<br>光采用这个策略会有什么问题呢，假如一些key 一直未被访问，那这些 key 就不会过期了，导致一直被占用着内存，所以 redis 采取了懒汉式过期加定期过期策略，定期策略是怎么执行的呢</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* This function handles 'background' operations we are required to do</span></span><br><span class="line"><span class="comment"> * incrementally in Redis databases, such as active key expiring, resizing,</span></span><br><span class="line"><span class="comment"> * rehashing. */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">databasesCron</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* Expire keys by random sampling. Not required for slaves</span></span><br><span class="line"><span class="comment">     * as master will synthesize DELs for us. */</span></span><br><span class="line">    <span class="keyword">if</span> (server.active_expire_enabled) &#123;</span><br><span class="line">        <span class="keyword">if</span> (server.masterhost == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            activeExpireCycle(ACTIVE_EXPIRE_CYCLE_SLOW);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            expireSlaveKeys();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Defrag keys gradually. */</span></span><br><span class="line">    activeDefragCycle();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Perform hash tables rehashing if needed, but only if there are no</span></span><br><span class="line"><span class="comment">     * other processes saving the DB on disk. Otherwise rehashing is bad</span></span><br><span class="line"><span class="comment">     * as will cause a lot of copy-on-write of memory pages. */</span></span><br><span class="line">    <span class="keyword">if</span> (!hasActiveChildProcess()) &#123;</span><br><span class="line">        <span class="comment">/* We use global counters so if we stop the computation at a given</span></span><br><span class="line"><span class="comment">         * DB we'll be able to start from the successive in the next</span></span><br><span class="line"><span class="comment">         * cron loop iteration. */</span></span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> resize_db = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> rehash_db = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> dbs_per_call = CRON_DBS_PER_CALL;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Don't test more DBs than we have. */</span></span><br><span class="line">        <span class="keyword">if</span> (dbs_per_call &gt; server.dbnum) dbs_per_call = server.dbnum;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Resize */</span></span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; dbs_per_call; j++) &#123;</span><br><span class="line">            tryResizeHashTables(resize_db % server.dbnum);</span><br><span class="line">            resize_db++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Rehash */</span></span><br><span class="line">        <span class="keyword">if</span> (server.activerehashing) &#123;</span><br><span class="line">            <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; dbs_per_call; j++) &#123;</span><br><span class="line">                <span class="keyword">int</span> work_done = incrementallyRehash(rehash_db);</span><br><span class="line">                <span class="keyword">if</span> (work_done) &#123;</span><br><span class="line">                    <span class="comment">/* If the function did some work, stop here, we'll do</span></span><br><span class="line"><span class="comment">                     * more at the next cron loop. */</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">/* If this db didn't need rehash, we'll try the next one. */</span></span><br><span class="line">                    rehash_db++;</span><br><span class="line">                    rehash_db %= server.dbnum;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Try to expire a few timed out keys. The algorithm used is adaptive and</span></span><br><span class="line"><span class="comment"> * will use few CPU cycles if there are few expiring keys, otherwise</span></span><br><span class="line"><span class="comment"> * it will get more aggressive to avoid that too much memory is used by</span></span><br><span class="line"><span class="comment"> * keys that can be removed from the keyspace.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Every expire cycle tests multiple databases: the next call will start</span></span><br><span class="line"><span class="comment"> * again from the next db, with the exception of exists for time limit: in that</span></span><br><span class="line"><span class="comment"> * case we restart again from the last database we were processing. Anyway</span></span><br><span class="line"><span class="comment"> * no more than CRON_DBS_PER_CALL databases are tested at every iteration.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The function can perform more or less work, depending on the "type"</span></span><br><span class="line"><span class="comment"> * argument. It can execute a "fast cycle" or a "slow cycle". The slow</span></span><br><span class="line"><span class="comment"> * cycle is the main way we collect expired cycles: this happens with</span></span><br><span class="line"><span class="comment"> * the "server.hz" frequency (usually 10 hertz).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * However the slow cycle can exit for timeout, since it used too much time.</span></span><br><span class="line"><span class="comment"> * For this reason the function is also invoked to perform a fast cycle</span></span><br><span class="line"><span class="comment"> * at every event loop cycle, in the beforeSleep() function. The fast cycle</span></span><br><span class="line"><span class="comment"> * will try to perform less work, but will do it much more often.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The following are the details of the two expire cycles and their stop</span></span><br><span class="line"><span class="comment"> * conditions:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * If type is ACTIVE_EXPIRE_CYCLE_FAST the function will try to run a</span></span><br><span class="line"><span class="comment"> * "fast" expire cycle that takes no longer than EXPIRE_FAST_CYCLE_DURATION</span></span><br><span class="line"><span class="comment"> * microseconds, and is not repeated again before the same amount of time.</span></span><br><span class="line"><span class="comment"> * The cycle will also refuse to run at all if the latest slow cycle did not</span></span><br><span class="line"><span class="comment"> * terminate because of a time limit condition.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * If type is ACTIVE_EXPIRE_CYCLE_SLOW, that normal expire cycle is</span></span><br><span class="line"><span class="comment"> * executed, where the time limit is a percentage of the REDIS_HZ period</span></span><br><span class="line"><span class="comment"> * as specified by the ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC define. In the</span></span><br><span class="line"><span class="comment"> * fast cycle, the check of every database is interrupted once the number</span></span><br><span class="line"><span class="comment"> * of already expired keys in the database is estimated to be lower than</span></span><br><span class="line"><span class="comment"> * a given percentage, in order to avoid doing too much work to gain too</span></span><br><span class="line"><span class="comment"> * little memory.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The configured expire "effort" will modify the baseline parameters in</span></span><br><span class="line"><span class="comment"> * order to do more work in both the fast and slow expire cycles.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ACTIVE_EXPIRE_CYCLE_KEYS_PER_LOOP 20 <span class="comment">/* Keys for each DB loop. */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ACTIVE_EXPIRE_CYCLE_FAST_DURATION 1000 <span class="comment">/* Microseconds. */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC 25 <span class="comment">/* Max % of CPU to use. */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ACTIVE_EXPIRE_CYCLE_ACCEPTABLE_STALE 10 <span class="comment">/* % of stale keys after which</span></span></span><br><span class="line"><span class="meta"><span class="comment">                                                   we do extra efforts. */</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">activeExpireCycle</span><span class="params">(<span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* Adjust the running parameters according to the configured expire</span></span><br><span class="line"><span class="comment">     * effort. The default effort is 1, and the maximum configurable effort</span></span><br><span class="line"><span class="comment">     * is 10. */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span></span><br><span class="line">    effort = server.active_expire_effort<span class="number">-1</span>, <span class="comment">/* Rescale from 0 to 9. */</span></span><br><span class="line">    config_keys_per_loop = ACTIVE_EXPIRE_CYCLE_KEYS_PER_LOOP +</span><br><span class="line">                           ACTIVE_EXPIRE_CYCLE_KEYS_PER_LOOP/<span class="number">4</span>*effort,</span><br><span class="line">    config_cycle_fast_duration = ACTIVE_EXPIRE_CYCLE_FAST_DURATION +</span><br><span class="line">                                 ACTIVE_EXPIRE_CYCLE_FAST_DURATION/<span class="number">4</span>*effort,</span><br><span class="line">    config_cycle_slow_time_perc = ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC +</span><br><span class="line">                                  <span class="number">2</span>*effort,</span><br><span class="line">    config_cycle_acceptable_stale = ACTIVE_EXPIRE_CYCLE_ACCEPTABLE_STALE-</span><br><span class="line">                                    effort;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* This function has some global state in order to continue the work</span></span><br><span class="line"><span class="comment">     * incrementally across calls. */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_db = <span class="number">0</span>; <span class="comment">/* Last DB tested. */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> timelimit_exit = <span class="number">0</span>;      <span class="comment">/* Time limit hit in previous call? */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">long</span> <span class="keyword">long</span> last_fast_cycle = <span class="number">0</span>; <span class="comment">/* When last fast cycle ran. */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> j, iteration = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> dbs_per_call = CRON_DBS_PER_CALL;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> start = ustime(), timelimit, elapsed;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* When clients are paused the dataset should be static not just from the</span></span><br><span class="line"><span class="comment">     * POV of clients not being able to write, but also from the POV of</span></span><br><span class="line"><span class="comment">     * expires and evictions of keys not being performed. */</span></span><br><span class="line">    <span class="keyword">if</span> (clientsArePaused()) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (type == ACTIVE_EXPIRE_CYCLE_FAST) &#123;</span><br><span class="line">        <span class="comment">/* Don't start a fast cycle if the previous cycle did not exit</span></span><br><span class="line"><span class="comment">         * for time limit, unless the percentage of estimated stale keys is</span></span><br><span class="line"><span class="comment">         * too high. Also never repeat a fast cycle for the same period</span></span><br><span class="line"><span class="comment">         * as the fast cycle total duration itself. */</span></span><br><span class="line">        <span class="keyword">if</span> (!timelimit_exit &amp;&amp;</span><br><span class="line">            server.stat_expired_stale_perc &lt; config_cycle_acceptable_stale)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (start &lt; last_fast_cycle + (<span class="keyword">long</span> <span class="keyword">long</span>)config_cycle_fast_duration*<span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        last_fast_cycle = start;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* We usually should test CRON_DBS_PER_CALL per iteration, with</span></span><br><span class="line"><span class="comment">     * two exceptions:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 1) Don't test more DBs than we have.</span></span><br><span class="line"><span class="comment">     * 2) If last time we hit the time limit, we want to scan all DBs</span></span><br><span class="line"><span class="comment">     * in this iteration, as there is work to do in some DB and we don't want</span></span><br><span class="line"><span class="comment">     * expired keys to use memory for too much time. */</span></span><br><span class="line">    <span class="keyword">if</span> (dbs_per_call &gt; server.dbnum || timelimit_exit)</span><br><span class="line">        dbs_per_call = server.dbnum;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* We can use at max 'config_cycle_slow_time_perc' percentage of CPU</span></span><br><span class="line"><span class="comment">     * time per iteration. Since this function gets called with a frequency of</span></span><br><span class="line"><span class="comment">     * server.hz times per second, the following is the max amount of</span></span><br><span class="line"><span class="comment">     * microseconds we can spend in this function. */</span></span><br><span class="line">    timelimit = config_cycle_slow_time_perc*<span class="number">1000000</span>/server.hz/<span class="number">100</span>;</span><br><span class="line">    timelimit_exit = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (timelimit &lt;= <span class="number">0</span>) timelimit = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (type == ACTIVE_EXPIRE_CYCLE_FAST)</span><br><span class="line">        timelimit = config_cycle_fast_duration; <span class="comment">/* in microseconds. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Accumulate some global stats as we expire keys, to have some idea</span></span><br><span class="line"><span class="comment">     * about the number of keys that are already logically expired, but still</span></span><br><span class="line"><span class="comment">     * existing inside the database. */</span></span><br><span class="line">    <span class="keyword">long</span> total_sampled = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">long</span> total_expired = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; dbs_per_call &amp;&amp; timelimit_exit == <span class="number">0</span>; j++) &#123;</span><br><span class="line">        <span class="comment">/* Expired and checked in a single loop. */</span></span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> expired, sampled;</span><br><span class="line"></span><br><span class="line">        redisDb *db = server.db+(current_db % server.dbnum);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Increment the DB now so we are sure if we run out of time</span></span><br><span class="line"><span class="comment">         * in the current DB we'll restart from the next. This allows to</span></span><br><span class="line"><span class="comment">         * distribute the time evenly across DBs. */</span></span><br><span class="line">        current_db++;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Continue to expire if at the end of the cycle more than 25%</span></span><br><span class="line"><span class="comment">         * of the keys were expired. */</span></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="keyword">unsigned</span> <span class="keyword">long</span> num, slots;</span><br><span class="line">            <span class="keyword">long</span> <span class="keyword">long</span> now, ttl_sum;</span><br><span class="line">            <span class="keyword">int</span> ttl_samples;</span><br><span class="line">            iteration++;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* If there is nothing to expire try next DB ASAP. */</span></span><br><span class="line">            <span class="keyword">if</span> ((num = dictSize(db-&gt;expires)) == <span class="number">0</span>) &#123;</span><br><span class="line">                db-&gt;avg_ttl = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            slots = dictSlots(db-&gt;expires);</span><br><span class="line">            now = mstime();</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* When there are less than 1% filled slots, sampling the key</span></span><br><span class="line"><span class="comment">             * space is expensive, so stop here waiting for better times...</span></span><br><span class="line"><span class="comment">             * The dictionary will be resized asap. */</span></span><br><span class="line">            <span class="keyword">if</span> (num &amp;&amp; slots &gt; DICT_HT_INITIAL_SIZE &amp;&amp;</span><br><span class="line">                (num*<span class="number">100</span>/slots &lt; <span class="number">1</span>)) <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* The main collection cycle. Sample random keys among keys</span></span><br><span class="line"><span class="comment">             * with an expire set, checking for expired ones. */</span></span><br><span class="line">            expired = <span class="number">0</span>;</span><br><span class="line">            sampled = <span class="number">0</span>;</span><br><span class="line">            ttl_sum = <span class="number">0</span>;</span><br><span class="line">            ttl_samples = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (num &gt; config_keys_per_loop)</span><br><span class="line">                num = config_keys_per_loop;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* Here we access the low level representation of the hash table</span></span><br><span class="line"><span class="comment">             * for speed concerns: this makes this code coupled with dict.c,</span></span><br><span class="line"><span class="comment">             * but it hardly changed in ten years.</span></span><br><span class="line"><span class="comment">             *</span></span><br><span class="line"><span class="comment">             * Note that certain places of the hash table may be empty,</span></span><br><span class="line"><span class="comment">             * so we want also a stop condition about the number of</span></span><br><span class="line"><span class="comment">             * buckets that we scanned. However scanning for free buckets</span></span><br><span class="line"><span class="comment">             * is very fast: we are in the cache line scanning a sequential</span></span><br><span class="line"><span class="comment">             * array of NULL pointers, so we can scan a lot more buckets</span></span><br><span class="line"><span class="comment">             * than keys in the same time. */</span></span><br><span class="line">            <span class="keyword">long</span> max_buckets = num*<span class="number">20</span>;</span><br><span class="line">            <span class="keyword">long</span> checked_buckets = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (sampled &lt; num &amp;&amp; checked_buckets &lt; max_buckets) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> table = <span class="number">0</span>; table &lt; <span class="number">2</span>; table++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (table == <span class="number">1</span> &amp;&amp; !dictIsRehashing(db-&gt;expires)) <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">unsigned</span> <span class="keyword">long</span> idx = db-&gt;expires_cursor;</span><br><span class="line">                    idx &amp;= db-&gt;expires-&gt;ht[table].sizemask;</span><br><span class="line">                    dictEntry *de = db-&gt;expires-&gt;ht[table].table[idx];</span><br><span class="line">                    <span class="keyword">long</span> <span class="keyword">long</span> ttl;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">/* Scan the current bucket of the current table. */</span></span><br><span class="line">                    checked_buckets++;</span><br><span class="line">                    <span class="keyword">while</span>(de) &#123;</span><br><span class="line">                        <span class="comment">/* Get the next entry now since this entry may get</span></span><br><span class="line"><span class="comment">                         * deleted. */</span></span><br><span class="line">                        dictEntry *e = de;</span><br><span class="line">                        de = de-&gt;next;</span><br><span class="line"></span><br><span class="line">                        ttl = dictGetSignedIntegerVal(e)-now;</span><br><span class="line">                        <span class="keyword">if</span> (activeExpireCycleTryExpire(db,e,now)) expired++;</span><br><span class="line">                        <span class="keyword">if</span> (ttl &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                            <span class="comment">/* We want the average TTL of keys yet</span></span><br><span class="line"><span class="comment">                             * not expired. */</span></span><br><span class="line">                            ttl_sum += ttl;</span><br><span class="line">                            ttl_samples++;</span><br><span class="line">                        &#125;</span><br><span class="line">                        sampled++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                db-&gt;expires_cursor++;</span><br><span class="line">            &#125;</span><br><span class="line">            total_expired += expired;</span><br><span class="line">            total_sampled += sampled;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* Update the average TTL stats for this database. */</span></span><br><span class="line">            <span class="keyword">if</span> (ttl_samples) &#123;</span><br><span class="line">                <span class="keyword">long</span> <span class="keyword">long</span> avg_ttl = ttl_sum/ttl_samples;</span><br><span class="line"></span><br><span class="line">                <span class="comment">/* Do a simple running average with a few samples.</span></span><br><span class="line"><span class="comment">                 * We just use the current estimate with a weight of 2%</span></span><br><span class="line"><span class="comment">                 * and the previous estimate with a weight of 98%. */</span></span><br><span class="line">                <span class="keyword">if</span> (db-&gt;avg_ttl == <span class="number">0</span>) db-&gt;avg_ttl = avg_ttl;</span><br><span class="line">                db-&gt;avg_ttl = (db-&gt;avg_ttl/<span class="number">50</span>)*<span class="number">49</span> + (avg_ttl/<span class="number">50</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* We can't block forever here even if there are many keys to</span></span><br><span class="line"><span class="comment">             * expire. So after a given amount of milliseconds return to the</span></span><br><span class="line"><span class="comment">             * caller waiting for the other active expire cycle. */</span></span><br><span class="line">            <span class="keyword">if</span> ((iteration &amp; <span class="number">0xf</span>) == <span class="number">0</span>) &#123; <span class="comment">/* check once every 16 iterations. */</span></span><br><span class="line">                elapsed = ustime()-start;</span><br><span class="line">                <span class="keyword">if</span> (elapsed &gt; timelimit) &#123;</span><br><span class="line">                    timelimit_exit = <span class="number">1</span>;</span><br><span class="line">                    server.stat_expired_time_cap_reached_count++;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">/* We don't repeat the cycle for the current database if there are</span></span><br><span class="line"><span class="comment">             * an acceptable amount of stale keys (logically expired but yet</span></span><br><span class="line"><span class="comment">             * not reclained). */</span></span><br><span class="line">        &#125; <span class="keyword">while</span> ((expired*<span class="number">100</span>/sampled) &gt; config_cycle_acceptable_stale);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    elapsed = ustime()-start;</span><br><span class="line">    server.stat_expire_cycle_time_used += elapsed;</span><br><span class="line">    latencyAddSampleIfNeeded(<span class="string">"expire-cycle"</span>,elapsed/<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Update our estimate of keys existing but yet to be expired.</span></span><br><span class="line"><span class="comment">     * Running average with this sample accounting for 5%. */</span></span><br><span class="line">    <span class="keyword">double</span> current_perc;</span><br><span class="line">    <span class="keyword">if</span> (total_sampled) &#123;</span><br><span class="line">        current_perc = (<span class="keyword">double</span>)total_expired/total_sampled;</span><br><span class="line">    &#125; <span class="keyword">else</span></span><br><span class="line">        current_perc = <span class="number">0</span>;</span><br><span class="line">    server.stat_expired_stale_perc = (current_perc*<span class="number">0.05</span>)+</span><br><span class="line">                                     (server.stat_expired_stale_perc*<span class="number">0.95</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行定期清除分成两种类型，快和慢，分别由<code>beforeSleep</code>和<code>databasesCron</code>调用，快版有两个限制，一个是执行时长由ACTIVE_EXPIRE_CYCLE_FAST_DURATION限制，另一个是执行间隔是 2 倍的ACTIVE_EXPIRE_CYCLE_FAST_DURATION，另外这还可以由配置的server.active_expire_effort参数来控制，默认是 1，最大是 10</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onfig_cycle_fast_duration = ACTIVE_EXPIRE_CYCLE_FAST_DURATION +</span><br><span class="line">                                 ACTIVE_EXPIRE_CYCLE_FAST_DURATION/<span class="number">4</span>*effort</span><br></pre></td></tr></table></figure>
+<p>然后会从一定数量的 db 中找出一定数量的带过期时间的 key（保存在 expires中），这里的数量是由</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config_keys_per_loop = ACTIVE_EXPIRE_CYCLE_KEYS_PER_LOOP +</span><br><span class="line">                           ACTIVE_EXPIRE_CYCLE_KEYS_PER_LOOP/<span class="number">4</span>*effort</span><br><span class="line">```                                 </span><br><span class="line">控制，慢速的执行时长是</span><br><span class="line">```C</span><br><span class="line">config_cycle_slow_time_perc = ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC +</span><br><span class="line">                                  <span class="number">2</span>*effort</span><br><span class="line">timelimit = config_cycle_slow_time_perc*<span class="number">1000000</span>/server.hz/<span class="number">100</span>;</span><br></pre></td></tr></table></figure>
+<p>这里还有一个额外的退出条件，如果当前数据库的抽样结果已经达到我们所允许的过期 key 百分比，则下次不再处理当前 db，继续处理下个 db</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/01/10/redis数据结构介绍三/" rel="bookmark">redis数据结构介绍三-第三部分 整数集合</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/01/04/redis数据结构介绍二/" rel="bookmark">redis数据结构介绍二-第二部分 跳表</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/01/20/redis数据结构介绍五/" rel="bookmark">redis数据结构介绍五-第五部分 对象</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/01/19/redis数据结构介绍四/" rel="bookmark">redis数据结构介绍四-第四部分 压缩表</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/12/26/redis数据结构介绍/" rel="bookmark">redis数据结构介绍-第一部分 SDS，链表，字典</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div>请我喝杯咖啡</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://i.loli.net/2020/01/12/NUlWanT31E8LQGx.png" alt="Nicksxs WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://ooo.0o0.ooo/2016/08/17/57b421e773057.jpg" alt="Nicksxs Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Nicksxs
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://nicksxs.me/2020/04/12/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E4%B8%83/" title="redis系列介绍七-过期策略">https://nicksxs.me/2020/04/12/redis系列介绍七/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/redis/" rel="tag"># redis</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+              <a href="/tags/%E6%BA%90%E7%A0%81/" rel="tag"># 源码</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/05/Comparator%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0/" rel="prev" title="Comparator使用小记">
+      <i class="fa fa-chevron-left"></i> Comparator使用小记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#redis过期策略"><span class="nav-number">1.</span> <span class="nav-text">redis过期策略</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Nicksxs"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Nicksxs</p>
+  <div class="site-description" itemprop="description">learn from zero,技术博客，Nicksxs，史学森</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nicksxs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nicksxs" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nicksxs1202@gmail.com" title="E-Mail → mailto:nicksxs1202@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+  <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+  <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+  <div class="widget-wrap">
+    <div id="myCanvasContainer" class="widget tagcloud">
+      <canvas width="250" height="250" id="resCanvas" style="width=100%">
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2019/" rel="tag">2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Comparator/" rel="tag">Comparator</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/" rel="tag">Design Patterns</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Lock/" rel="tag">Distributed Lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dockerfile/" rel="tag">Dockerfile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/G1/" rel="tag">G1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/" rel="tag">GC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garbage-First-Collector/" rel="tag">Garbage-First Collector</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gogs/" rel="tag">Gogs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Singleton/" rel="tag">Singleton</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stream/" rel="tag">Stream</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webhook/" rel="tag">Webhook</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aqs/" rel="tag">aqs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cgroup/" rel="tag">cgroup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cluster/" rel="tag">cluster</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echo/" rel="tag">echo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/im/" rel="tag">im</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mfc/" rel="tag">mfc</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namespace/" rel="tag">namespace</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nullsfirst/" rel="tag">nullsfirst</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openresty/" rel="tag">openresty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/" rel="tag">sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/" rel="tag">spark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swoole/" rel="tag">swoole</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uname/" rel="tag">uname</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websocket/" rel="tag">websocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="tag">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B/" rel="tag">单例</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%EF%BC%8C%E6%96%87%E7%AB%A0/" rel="tag">博客，文章</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E8%A1%8C%E7%89%88/" rel="tag">发行版</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%84%E7%94%9F%E8%99%AB/" rel="tag">寄生虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" rel="tag">年终总结</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BD%B1%E8%AF%84/" rel="tag">影评</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="tag">读后感</a><span class="tag-list-count">1</span></li></ul>
+      </canvas>
+    </div>
+  </div>
+
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.zipperary.com/" title="http:&#x2F;&#x2F;www.zipperary.com&#x2F;" rel="noopener" target="_blank">Zippera's blog</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://x20a.xyz/" title="http:&#x2F;&#x2F;x20a.xyz&#x2F;" rel="noopener" target="_blank">Freedom</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://samuel.group/" title="http:&#x2F;&#x2F;samuel.group&#x2F;" rel="noopener" target="_blank">sfwtt</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.leanote.com/buru" title="http:&#x2F;&#x2F;blog.leanote.com&#x2F;buru" rel="noopener" target="_blank">bruce</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://m2shad0w.com/" title="http:&#x2F;&#x2F;m2shad0w.com&#x2F;" rel="noopener" target="_blank">m2shad0w</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.programcat.com/" title="http:&#x2F;&#x2F;www.programcat.com" rel="noopener" target="_blank">程序喵的厨房</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nicksxs</span>
+</div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=ysza182Vghlqjdt7QiwGLLJy-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'ysza182Vghlqjdt7QiwGLLJy-gzGzoHsz',
+            'X-LC-Key': 's9GDqbn7gnGGkusf66YRVccw',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'https://nicksxs.me/2020/04/12/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E4%B8%83/',]
+      });
+      });
+  </script>
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://nicksxs.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "https://nicksxs.me/2020/04/12/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E4%B8%83/",
+            identifier: "2020/04/12/redis系列介绍七/",
+            title: "redis系列介绍七-过期策略"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://nicksxs.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
