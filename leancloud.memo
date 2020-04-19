@@ -44,4 +44,5 @@
 {"title":"docker使用中发现的echo命令的一个小技巧及其他","url":"/2020/03/29/echo命令的一个小技巧/"},
 {"title":"Comparator使用小记","url":"/2020/04/05/Comparator使用小记/"},
 {"title":"redis系列介绍七-过期策略","url":"/2020/04/12/redis系列介绍七/"},
+{"title":"redis系列介绍八-淘汰策略","url":"/2020/04/18/redis系列介绍八/"},
 ]

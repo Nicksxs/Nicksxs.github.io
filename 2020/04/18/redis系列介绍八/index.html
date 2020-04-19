@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/14/wWyhc2dQfb4BYsK.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/18/QwcROpB345ezEkX.png">
 <meta property="article:published_time" content="2020-04-18T15:23:41.000Z">
-<meta property="article:modified_time" content="2020-04-18T15:25:04.854Z">
+<meta property="article:modified_time" content="2020-04-19T09:28:42.555Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="Redis">
 <meta property="article:tag" content="C语言">
@@ -236,10 +236,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-04-18 23:23:41 / Modified: 23:25:04" itemprop="dateCreated datePublished" datetime="2020-04-18T23:23:41+08:00">2020-04-18</time>
+              <time title="Created: 2020-04-18 23:23:41" itemprop="dateCreated datePublished" datetime="2020-04-18T23:23:41+08:00">2020-04-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-19 17:28:42" itemprop="dateModified" datetime="2020-04-19T17:28:42+08:00">2020-04-19</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -250,19 +256,19 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">源码</span></a>
+                  <a href="/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/C/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">源码</span></a>
                 </span>
             </span>
 
@@ -319,15 +325,16 @@
 <p>前16位字段是最后一次递减时间，因此Redis知道 上一次计数器递减，后8位是 计数器 counter。<br>LFU 的主体策略就是当这个 key 被访问的次数越多频率越高他就越容易被保留下来，并且是最近被访问的频率越高。这其实有两个事情要做，一个是在访问的时候增加计数值，在一定长时间不访问时进行衰减，所以这里用了两个值，前 16 位记录上一次衰减的时间，后 8 位记录具体的计数值。<br>Redis4.0之后为maxmemory_policy淘汰策略添加了两个LFU模式：</p>
 <p><code>volatile-lfu</code>：对有过期时间的key采用LFU淘汰策略<br><code>allkeys-lfu</code>：对全部key采用LFU淘汰策略<br>还有2个配置可以调整LFU算法：  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">lfu-log-factor 10</span><br><span class="line">lfu-decay-time 1</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">&#96;lfu-log-factor&#96; 可以调整计数器counter的增长速度，lfu-log-factor越大，counter增长的越慢。</span><br><span class="line"></span><br><span class="line">&#96;lfu-decay-time&#96;是一个以分钟为单位的数值，可以调整counter的减少速度</span><br><span class="line">这里有个问题是 8 位大小够计么，访问一次加 1 的话的确不够，不过大神就是大神，才不会这么简单的加一。往下看代码</span><br><span class="line">&#96;&#96;&#96;C</span><br><span class="line">&#x2F;* Low level key lookup API, not actually called directly from commands</span><br><span class="line"> * implementations that should instead rely on lookupKeyRead(),</span><br><span class="line"> * lookupKeyWrite() and lookupKeyReadWithFlags(). *&#x2F;</span><br><span class="line">robj *lookupKey(redisDb *db, robj *key, int flags) &#123;</span><br><span class="line">    dictEntry *de &#x3D; dictFind(db-&gt;dict,key-&gt;ptr);</span><br><span class="line">    if (de) &#123;</span><br><span class="line">        robj *val &#x3D; dictGetVal(de);</span><br><span class="line"></span><br><span class="line">        &#x2F;* Update the access time for the ageing algorithm.</span><br><span class="line">         * Don&#39;t do it if we have a saving child, as this will trigger</span><br><span class="line">         * a copy on write madness. *&#x2F;</span><br><span class="line">        if (!hasActiveChildProcess() &amp;&amp; !(flags &amp; LOOKUP_NOTOUCH))&#123;</span><br><span class="line">            if (server.maxmemory_policy &amp; MAXMEMORY_FLAG_LFU) &#123;</span><br><span class="line">                &#x2F;&#x2F; 当淘汰策略是 LFU 时，就会调用这个updateLFU</span><br><span class="line">                updateLFU(val);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                val-&gt;lru &#x3D; LRU_CLOCK();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return val;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return NULL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>updateLFU 这个其实个入口，调用了两个重要的方法</p>
+<p><a href="https://github.com/antirez/redis/blob/unstable/src/db.c#L46" target="_blank" rel="noopener"><code>updateLFU</code></a> 这个其实个入口，调用了两个重要的方法</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Update LFU when an object is accessed.</span></span><br><span class="line"><span class="comment"> * Firstly, decrement the counter if the decrement time is reached.</span></span><br><span class="line"><span class="comment"> * Then logarithmically increment the counter, and update the access time. */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">updateLFU</span><span class="params">(robj *val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> counter = LFUDecrAndReturn(val);</span><br><span class="line">    counter = LFULogIncr(counter);</span><br><span class="line">    val-&gt;lru = (LFUGetTimeInMinutes()&lt;&lt;<span class="number">8</span>) | counter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>首先来看看<code>LFUDecrAndReturn</code>，这个方法的作用是根据上一次衰减时间和系统配置的 <code>lfu-decay-time</code> 参数来确定需要将 counter 减去多少</p>
+<p>首先来看看<a href="https://github.com/antirez/redis/blob/unstable/src/evict.c#L335" target="_blank" rel="noopener"><code>LFUDecrAndReturn</code></a>，这个方法的作用是根据上一次衰减时间和系统配置的 <code>lfu-decay-time</code> 参数来确定需要将 counter 减去多少</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* If the object decrement time is reached decrement the LFU counter but</span></span><br><span class="line"><span class="comment"> * do not update LFU fields of the object, we update the access time</span></span><br><span class="line"><span class="comment"> * and counter in an explicit way when the object is really accessed.</span></span><br><span class="line"><span class="comment"> * And we will times halve the counter according to the times of</span></span><br><span class="line"><span class="comment"> * elapsed time than server.lfu_decay_time.</span></span><br><span class="line"><span class="comment"> * Return the object frequency counter.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This function is used in order to scan the dataset for the best object</span></span><br><span class="line"><span class="comment"> * to fit: as we check for the candidate, we incrementally decrement the</span></span><br><span class="line"><span class="comment"> * counter of the scanned objects if needed. */</span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">LFUDecrAndReturn</span><span class="params">(robj *o)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 右移 8 位，拿到上次衰减时间</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> ldt = o-&gt;lru &gt;&gt; <span class="number">8</span>;</span><br><span class="line">    <span class="comment">// 对 255 做与操作，拿到 counter 值</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> counter = o-&gt;lru &amp; <span class="number">255</span>;</span><br><span class="line">    <span class="comment">// 根据lfu_decay_time来算出过了多少个衰减周期</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> num_periods = server.lfu_decay_time ? LFUTimeElapsed(ldt) / server.lfu_decay_time : <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (num_periods)</span><br><span class="line">        counter = (num_periods &gt; counter) ? <span class="number">0</span> : counter - num_periods;</span><br><span class="line">    <span class="keyword">return</span> counter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后是加</p>
+<p>然后是加，调用了<a href="https://github.com/antirez/redis/blob/unstable/src/evict.c#L315" target="_blank" rel="noopener"><code>LFULogIncr</code></a></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Logarithmically increment a counter. The greater is the current counter value</span></span><br><span class="line"><span class="comment"> * the less likely is that it gets really implemented. Saturate it at 255. */</span></span><br><span class="line"><span class="function"><span class="keyword">uint8_t</span> <span class="title">LFULogIncr</span><span class="params">(<span class="keyword">uint8_t</span> counter)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 最大值就是 255，到顶了就不加了</span></span><br><span class="line">    <span class="keyword">if</span> (counter == <span class="number">255</span>) <span class="keyword">return</span> <span class="number">255</span>;</span><br><span class="line">    <span class="comment">// 生成个随机小数</span></span><br><span class="line">    <span class="keyword">double</span> r = (<span class="keyword">double</span>)rand()/RAND_MAX;</span><br><span class="line">    <span class="comment">// 减去个基础值，LFU_INIT_VAL = 5，防止刚进来就被逐出</span></span><br><span class="line">    <span class="keyword">double</span> baseval = counter - LFU_INIT_VAL;</span><br><span class="line">    <span class="comment">// 如果是小于 0，</span></span><br><span class="line">    <span class="keyword">if</span> (baseval &lt; <span class="number">0</span>) baseval = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 如果 baseval 是 0，那么 p 就是 1了，后面 counter 直接加一，如果不是的话，得看系统参数lfu_log_factor，这个越大，除出来的 p 越小，那么 counter++的可能性也越小，这样子就把前面的疑问给解决了，不是直接+1 的</span></span><br><span class="line">    <span class="keyword">double</span> p = <span class="number">1.0</span>/(baseval*server.lfu_log_factor+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (r &lt; p) counter++;</span><br><span class="line">    <span class="keyword">return</span> counter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>大概的变化速度可以参考</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+--------+------------+------------+------------+------------+------------+</span><br><span class="line">| factor | 100 hits   | 1000 hits  | 100K hits  | 1M hits    | 10M hits   |</span><br><span class="line">+--------+------------+------------+------------+------------+------------+</span><br><span class="line">| 0      | 104        | 255        | 255        | 255        | 255        |</span><br><span class="line">+--------+------------+------------+------------+------------+------------+</span><br><span class="line">| 1      | 18         | 49         | 255        | 255        | 255        |</span><br><span class="line">+--------+------------+------------+------------+------------+------------+</span><br><span class="line">| 10     | 10         | 18         | 142        | 255        | 255        |</span><br><span class="line">+--------+------------+------------+------------+------------+------------+</span><br><span class="line">| 100    | 8          | 11         | 49         | 143        | 255        |</span><br><span class="line">+--------+------------+------------+------------+------------+------------+</span><br></pre></td></tr></table></figure>
-<p>factor 越大变化的越慢</p>
+<p>简而言之就是 lfu_log_factor 越大变化的越慢</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总结一下，redis 实现了近似的 lru 淘汰策略，通过增加了淘汰 key 的池子(pool)，并且增大每次抽样的 key 的数量来将淘汰效果更进一步地接近于 lru，这是 lru 策略，但是对于前面举的一个例子，其实 lru 并不能保证 key 的淘汰就如我们预期，所以在后期又引入了 lfu 的策略，lfu的策略比较巧妙，复用了 redis 对象的 lru 字段，并且使用了factor 参数来控制计数器递增的速度，防止 8 位的计数器太早溢出。</p>
 
     </div>
 
@@ -344,13 +351,13 @@
       <div class="popular-posts-title"><a href="/2020/01/04/redis数据结构介绍二/" rel="bookmark">redis数据结构介绍二-第二部分 跳表</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/01/20/redis数据结构介绍五/" rel="bookmark">redis数据结构介绍五-第五部分 对象</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/01/19/redis数据结构介绍四/" rel="bookmark">redis数据结构介绍四-第四部分 压缩表</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2019/12/26/redis数据结构介绍/" rel="bookmark">redis数据结构介绍-第一部分 SDS，链表，字典</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/01/20/redis数据结构介绍五/" rel="bookmark">redis数据结构介绍五-第五部分 对象</a></div>
     </li>
   </ul>
 
@@ -474,7 +481,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#LRU"><span class="nav-number">1.</span> <span class="nav-text">LRU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LFU"><span class="nav-number">2.</span> <span class="nav-text">LFU</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#LRU"><span class="nav-number">1.</span> <span class="nav-text">LRU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LFU"><span class="nav-number">2.</span> <span class="nav-text">LFU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
