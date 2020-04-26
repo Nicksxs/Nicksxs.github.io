@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-04-19T09:28:42.555Z</updated>
+  <updated>2020-04-26T14:16:52.788Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,49 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊聊 mysql 的 MVCC</title>
+    <link href="https://nicksxs.me/2020/04/26/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC/"/>
+    <id>https://nicksxs.me/2020/04/26/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC/</id>
+    <published>2020-04-26T14:14:01.000Z</published>
+    <updated>2020-04-26T14:16:52.788Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;很久以前，有位面试官问到，你知道 mysql 的事务隔离级别吗，“额 O__O …，不太清楚”，完了之后我就去网上找相关的文章，找到了这篇&lt;a href=&quot;https://www.cnblogs.com/zhoujinyi/p/3437475.html&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Mysql" scheme="https://nicksxs.me/categories/C/Mysql/"/>
+    
+    
+      <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="mvcc" scheme="https://nicksxs.me/tags/mvcc/"/>
+    
+      <category term="read view" scheme="https://nicksxs.me/tags/read-view/"/>
+    
+  </entry>
   
   <entry>
     <title>redis系列介绍八-淘汰策略</title>
@@ -38,13 +81,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -77,13 +120,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -397,9 +440,9 @@
     
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
+    
+      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
@@ -476,13 +519,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -515,13 +558,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -554,13 +597,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -594,13 +637,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -633,13 +676,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -672,13 +715,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -723,37 +766,6 @@
       <category term="单例" scheme="https://nicksxs.me/tags/%E5%8D%95%E4%BE%8B/"/>
     
       <category term="Singleton" scheme="https://nicksxs.me/tags/Singleton/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>村上春树《1Q84》读后感</title>
-    <link href="https://nicksxs.me/2019/12/18/1Q84%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
-    <id>https://nicksxs.me/2019/12/18/1Q84%E8%AF%BB%E5%90%8E%E6%84%9F/</id>
-    <published>2019-12-17T16:33:09.000Z</published>
-    <updated>2019-12-18T16:08:42.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;看完了村上春树的《1Q84》，这应该是第五本看的他的书了，继
-        
-      
-    
-    </summary>
-    
-    
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-      <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
-    
-      <category term="村上春树" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E6%9D%91%E4%B8%8A%E6%98%A5%E6%A0%91/"/>
-    
-    
-      <category term="读后感" scheme="https://nicksxs.me/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
     
   </entry>
   
