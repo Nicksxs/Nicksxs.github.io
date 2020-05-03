@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-04-26T14:16:52.788Z</updated>
+  <updated>2020-05-03T14:24:19.261Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,60 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>聊聊 mysql 的 MVCC 续篇</title>
+    <link href="https://nicksxs.me/2020/05/02/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%AF%87/"/>
+    <id>https://nicksxs.me/2020/05/02/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%AF%87/</id>
+    <published>2020-05-02T06:46:35.000Z</published>
+    <updated>2020-05-03T14:24:19.261Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;上一篇聊了mysql 的 innodb 引擎基于 read view 实现的 mvcc 和事务隔离级别，可能有些细心的小伙伴会发现一些问题，第一个是在 RC
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Mysql" scheme="https://nicksxs.me/categories/C/Mysql/"/>
+    
+    
+      <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="mvcc" scheme="https://nicksxs.me/tags/mvcc/"/>
+    
+      <category term="read view" scheme="https://nicksxs.me/tags/read-view/"/>
+    
+      <category term="gap lock" scheme="https://nicksxs.me/tags/gap-lock/"/>
+    
+      <category term="next-key lock" scheme="https://nicksxs.me/tags/next-key-lock/"/>
+    
+      <category term="幻读" scheme="https://nicksxs.me/tags/%E5%B9%BB%E8%AF%BB/"/>
+    
+  </entry>
+  
+  <entry>
     <title>聊聊 mysql 的 MVCC</title>
     <link href="https://nicksxs.me/2020/04/26/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC/"/>
     <id>https://nicksxs.me/2020/04/26/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC/</id>
     <published>2020-04-26T14:14:01.000Z</published>
-    <updated>2020-04-26T14:16:52.788Z</updated>
+    <updated>2020-05-02T11:46:21.370Z</updated>
     
     <summary type="html">
     
@@ -38,9 +87,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -729,43 +778,6 @@
       <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊Java中的单例模式</title>
-    <link href="https://nicksxs.me/2019/12/21/%E8%81%8A%E8%81%8AJava%E4%B8%AD%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://nicksxs.me/2019/12/21/%E8%81%8A%E8%81%8AJava%E4%B8%AD%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</id>
-    <published>2019-12-20T17:03:09.000Z</published>
-    <updated>2019-12-22T00:46:11.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;这是个 Java
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-      <category term="Design Patterns" scheme="https://nicksxs.me/categories/Java/Design-Patterns/"/>
-    
-      <category term="Singleton" scheme="https://nicksxs.me/categories/Java/Singleton/"/>
-    
-    
-      <category term="设计模式" scheme="https://nicksxs.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-      <category term="Design Patterns" scheme="https://nicksxs.me/tags/Design-Patterns/"/>
-    
-      <category term="单例" scheme="https://nicksxs.me/tags/%E5%8D%95%E4%BE%8B/"/>
-    
-      <category term="Singleton" scheme="https://nicksxs.me/tags/Singleton/"/>
     
   </entry>
   

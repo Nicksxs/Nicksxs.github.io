@@ -45,4 +45,5 @@
 {"title":"Comparator使用小记","url":"/2020/04/05/Comparator使用小记/"},
 {"title":"redis系列介绍七-过期策略","url":"/2020/04/12/redis系列介绍七/"},
 {"title":"redis系列介绍八-淘汰策略","url":"/2020/04/18/redis系列介绍八/"},
+{"title":"聊聊 mysql 的 MVCC","url":"/2020/04/26/聊聊-mysql-的-MVCC/"},
 ]
