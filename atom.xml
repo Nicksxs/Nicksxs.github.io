@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-05-03T14:24:19.261Z</updated>
+  <updated>2020-05-10T14:23:36.231Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,60 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>聊聊 mysql 的 MVCC 续续篇之锁分析</title>
+    <link href="https://nicksxs.me/2020/05/10/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%BB%AD%E7%AF%87%E4%B9%8B%E5%8A%A0%E9%94%81%E5%88%86%E6%9E%90/"/>
+    <id>https://nicksxs.me/2020/05/10/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%BB%AD%E7%AF%87%E4%B9%8B%E5%8A%A0%E9%94%81%E5%88%86%E6%9E%90/</id>
+    <published>2020-05-10T01:55:10.000Z</published>
+    <updated>2020-05-10T14:23:36.231Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;看完前面两篇水文之后，感觉不得不来分析下 mysql 的锁了，其实前面说到幻读的时候是有个前提没提到的，比如一个&lt;code&gt;select * from table1 where id  = 1&lt;/code&gt;这种查询语句其实是不会加传说中的锁的，当然这里是指在 RR 或者
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="Mysql" scheme="https://nicksxs.me/categories/C/Mysql/"/>
+    
+    
+      <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="mvcc" scheme="https://nicksxs.me/tags/mvcc/"/>
+    
+      <category term="read view" scheme="https://nicksxs.me/tags/read-view/"/>
+    
+      <category term="gap lock" scheme="https://nicksxs.me/tags/gap-lock/"/>
+    
+      <category term="next-key lock" scheme="https://nicksxs.me/tags/next-key-lock/"/>
+    
+      <category term="幻读" scheme="https://nicksxs.me/tags/%E5%B9%BB%E8%AF%BB/"/>
+    
+  </entry>
+  
+  <entry>
     <title>聊聊 mysql 的 MVCC 续篇</title>
     <link href="https://nicksxs.me/2020/05/02/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%AF%87/"/>
     <id>https://nicksxs.me/2020/05/02/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%AF%87/</id>
     <published>2020-05-02T06:46:35.000Z</published>
-    <updated>2020-05-03T14:24:19.261Z</updated>
+    <updated>2020-05-03T14:26:29.291Z</updated>
     
     <summary type="html">
     
@@ -717,45 +766,6 @@
         
         
           &lt;h2 id=&quot;跳表-skiplist&quot;&gt;&lt;a href=&quot;#跳表-skiplist&quot; class=&quot;headerlink&quot; title=&quot;跳表 skiplist&quot;&gt;&lt;/a&gt;跳表
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
-    
-    
-      <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis数据结构介绍-第一部分 SDS，链表，字典</title>
-    <link href="https://nicksxs.me/2019/12/26/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D/"/>
-    <id>https://nicksxs.me/2019/12/26/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D/</id>
-    <published>2019-12-25T16:03:49.000Z</published>
-    <updated>2020-01-12T13:08:27.013Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;redis是现在服务端很常用的缓存中间件，其实原来还有&lt;code&gt;memcache&lt;/code&gt;之类的竞品，但是现在貌似 redis 快一统江湖，这里当然不是在吹，只是个人角度的一个感觉，不权威只是主观感觉。&lt;br&gt;redis
         
       
     
