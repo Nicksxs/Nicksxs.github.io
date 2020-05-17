@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-05-10T14:23:36.231Z</updated>
+  <updated>2020-05-17T15:57:30.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,52 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>聊聊我理解的分布式事务</title>
+    <link href="https://nicksxs.me/2020/05/17/%E8%81%8A%E8%81%8A%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
+    <id>https://nicksxs.me/2020/05/17/%E8%81%8A%E8%81%8A%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</id>
+    <published>2020-05-17T15:56:01.000Z</published>
+    <updated>2020-05-17T15:57:30.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;前面说了mysql数据库的事务相关的，那事务是用来干嘛的，这里得补一下ACID，&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/ACID&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="分布式事务" scheme="https://nicksxs.me/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
+    
+      <category term="两阶段提交" scheme="https://nicksxs.me/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/"/>
+    
+      <category term="三阶段提交" scheme="https://nicksxs.me/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/"/>
+    
+    
+      <category term="分布式事务" scheme="https://nicksxs.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
+    
+      <category term="两阶段提交" scheme="https://nicksxs.me/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/"/>
+    
+      <category term="三阶段提交" scheme="https://nicksxs.me/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/"/>
+    
+      <category term="2PC" scheme="https://nicksxs.me/tags/2PC/"/>
+    
+      <category term="3PC" scheme="https://nicksxs.me/tags/3PC/"/>
+    
+  </entry>
+  
+  <entry>
     <title>聊聊 mysql 的 MVCC 续续篇之锁分析</title>
     <link href="https://nicksxs.me/2020/05/10/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%BB%AD%E7%AF%87%E4%B9%8B%E5%8A%A0%E9%94%81%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2020/05/10/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%BB%AD%E7%AF%87%E4%B9%8B%E5%8A%A0%E9%94%81%E5%88%86%E6%9E%90/</id>
     <published>2020-05-10T01:55:10.000Z</published>
-    <updated>2020-05-10T14:23:36.231Z</updated>
+    <updated>2020-05-10T14:26:13.027Z</updated>
     
     <summary type="html">
     
@@ -727,45 +768,6 @@
         
           &lt;p&gt;redis中对于 set 其实有两种处理，对于元素均为整型，并且元素数目较少时，使用 intset 作为底层数据结构，否则使用 dict 作为底层数据结构，先看一下代码先&lt;/p&gt;
 &lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
-    
-    
-      <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis数据结构介绍二-第二部分 跳表</title>
-    <link href="https://nicksxs.me/2020/01/04/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%8C/"/>
-    <id>https://nicksxs.me/2020/01/04/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%8C/</id>
-    <published>2020-01-03T16:03:05.000Z</published>
-    <updated>2020-01-12T13:08:27.009Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;跳表-skiplist&quot;&gt;&lt;a href=&quot;#跳表-skiplist&quot; class=&quot;headerlink&quot; title=&quot;跳表 skiplist&quot;&gt;&lt;/a&gt;跳表
         
       
     

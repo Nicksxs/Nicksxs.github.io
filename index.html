@@ -204,6 +204,130 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/05/17/%E8%81%8A%E8%81%8A%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Nicksxs">
+      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nicksxs's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/17/%E8%81%8A%E8%81%8A%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" class="post-title-link" itemprop="url">聊聊我理解的分布式事务</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-05-17 23:56:01 / Modified: 23:57:30" itemprop="dateCreated datePublished" datetime="2020-05-17T23:56:01+08:00">2020-05-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">分布式事务</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" itemprop="url" rel="index"><span itemprop="name">两阶段提交</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" itemprop="url" rel="index"><span itemprop="name">三阶段提交</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/05/17/%E8%81%8A%E8%81%8A%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" class="post-meta-item leancloud_visitors" data-flag-title="聊聊我理解的分布式事务" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/05/17/%E8%81%8A%E8%81%8A%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/05/17/聊聊我理解的分布式事务/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>前面说了mysql数据库的事务相关的，那事务是用来干嘛的，这里得补一下ACID，</p>
+<blockquote>
+<p><a href="https://zh.wikipedia.org/wiki/ACID" target="_blank" rel="noopener"><strong>ACID</strong></a>，是指<a href="https://zh.wikipedia.org/wiki/数据库管理系统" target="_blank" rel="noopener">数据库管理系统</a>（<a href="https://zh.wikipedia.org/wiki/DBMS" target="_blank" rel="noopener">DBMS</a>）在写入或更新资料的过程中，为保证<a href="https://zh.wikipedia.org/wiki/数据库事务" target="_blank" rel="noopener">事务</a>（transaction）是正确可靠的，所必须具备的四个特性：<a href="https://zh.wikipedia.org/w/index.php?title=原子性&action=edit&redlink=1" target="_blank" rel="noopener">原子性</a>（atomicity，或称不可分割性）、<a href="https://zh.wikipedia.org/w/index.php?title=一致性_(数据库系统)&action=edit&redlink=1" target="_blank" rel="noopener">一致性</a>（consistency）、<a href="https://zh.wikipedia.org/wiki/隔離性" target="_blank" rel="noopener">隔离性</a>（isolation，又称独立性）、<a href="https://zh.wikipedia.org/w/index.php?title=持久性&action=edit&redlink=1" target="_blank" rel="noopener">持久性</a>（durability）。</p>
+</blockquote>
+<ul>
+<li><p>Atomicity（原子性）：一个事务（transaction）中的所有操作，或者全部完成，或者全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被<a href="https://zh.wikipedia.org/wiki/回滚_(数据管理)" target="_blank" rel="noopener">回滚</a>（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。即，事务不可分割、不可约简。<a href="https://zh.wikipedia.org/wiki/ACID#cite_note-acid-1" target="_blank" rel="noopener">[1]</a></p>
+</li>
+<li><p>Consistency（一致性）：在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设<a href="https://zh.wikipedia.org/wiki/数据完整性" target="_blank" rel="noopener">约束</a>、<a href="https://zh.wikipedia.org/wiki/触发器_(数据库)" target="_blank" rel="noopener">触发器</a>、<a href="https://zh.wikipedia.org/wiki/级联回滚" target="_blank" rel="noopener">级联回滚</a>等。<a href="https://zh.wikipedia.org/wiki/ACID#cite_note-acid-1" target="_blank" rel="noopener">[1]</a></p>
+</li>
+<li><p>Isolation（隔离性）：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括未提交读（Read uncommitted）、提交读（read committed）、可重复读（repeatable read）和串行化（Serializable）。<a href="https://zh.wikipedia.org/wiki/ACID#cite_note-acid-1" target="_blank" rel="noopener">[1]</a></p>
+</li>
+<li><p>Durability（持久性）：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。<a href="https://zh.wikipedia.org/wiki/ACID#cite_note-acid-1" target="_blank" rel="noopener">[1]</a></p>
+</li>
+</ul>
+<p>在mysql中，借助于MVCC，各种级别的锁，日志等特性来实现了事务的ACID，但是这个我们通常是对于一个数据库服务的定义，常见的情况下我们的数据库随着业务发展也会从单实例变成多实例，组成主从Master-Slave架构，这个时候其实会有一些问题随之出现，比如说主从同步延迟，假如在业务代码中做了读写分离，对于一些敏感度较低的数据其实问题不是很大，只要主从延迟不到特别夸张的地步一般都是可以忍受的，但是对于一些核心的业务数据，比如订单之类的，不能忍受数据不一致，下了单了，付了款了，一刷订单列表，发现这个订单还没支付，甚至订单都没在，这对于用户来讲是恨不能容忍的错误，那么这里就需要一些措施，要不就不读写分离，要不就在 redis 这类缓存下订单，或者支付后加个延时等，这些都是一些补偿措施，并且这也是一个不太切当的例子，比较合适的例子也可以用这个下单来说，一般在电商平台下单会有挺多要做的事情，比如像下面这个图</p>
+<p><img data-src="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/WX20200517-2127322x.png" alt=""></p>
+<p>下单的是后要冻结核销优惠券，如果账户里有钱要冻结扣除账户里的钱，如果使用了J 豆也一样，可能还有 E 卡，忽略我借用的平台，因为目前一般后台服务化之后，可能每一项都是对应的一个后台服务，我们期望的执行过程是要不全成功，要不就全保持执行前状态，不能是部分扣减核销成功了，部分还不行，所以我们处理这种情况会引入一些通用的方案，第一种叫<a href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4" target="_blank" rel="noopener">二阶段提交</a>,</p>
+<blockquote>
+<p><strong>二阶段提交</strong>（英语：Two-phase Commit）是指在<a href="https://zh.wikipedia.org/wiki/计算机网络" target="_blank" rel="noopener">计算机网络</a>以及<a href="https://zh.wikipedia.org/wiki/数据库" target="_blank" rel="noopener">数据库</a>领域内，为了使基于<a href="https://zh.wikipedia.org/wiki/分布式系统" target="_blank" rel="noopener">分布式系统</a>架构下的所有节点在进行<a href="https://zh.wikipedia.org/wiki/数据库事务" target="_blank" rel="noopener">事务</a>提交时保持一致性而设计的一种<a href="https://zh.wikipedia.org/wiki/演算法" target="_blank" rel="noopener">算法</a>。通常，<strong>二阶段提交</strong>也被称为是一种<strong>协议</strong>（Protocol）。在分布式系统中，每个节点虽然可以知晓自己的操作时成功或者失败，却无法知道其他节点的操作的成功或失败。当一个事务跨越多个节点时，为了保持事务的<a href="https://zh.wikipedia.org/wiki/ACID" target="_blank" rel="noopener">ACID</a>特性，需要引入一个作为<strong>协调者</strong>的组件来统一掌控所有节点（称作<strong>参与者</strong>）的操作结果并最终指示这些节点是否要把操作结果进行真正的提交（比如将更新后的数据写入磁盘等等）。因此，二阶段提交的算法思路可以概括为： 参与者将操作成败通知协调者，再由协调者根据所有参与者的反馈情报决定各参与者是否要提交操作还是中止操作。</p>
+</blockquote>
+<p>对于上面的例子，我们将整个过程分成两个阶段，首先是提交请求阶段，这个阶段大概需要做的是确定资源存在，锁定资源，可能还要做好失败后回滚的准备，如果这些都 ok 了那么就响应成功，这里其实用到了一个叫事务的协调者的角色，类似于裁判员，每个节点都反馈第一阶段成功后，开始执行第二阶段，也就是实际执行操作，这里也是需要所有节点都反馈成功后才是执行成功，要不就是失败回滚。其实常用的分布式事务的解决方案主要也是基于此方案的改进，比如后面介绍的<a href="https://zh.wikipedia.org/wiki/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4" target="_blank" rel="noopener">三阶段提交</a>，有三阶段提交就是因为二阶段提交比较尴尬的几个点，</p>
+<ul>
+<li>第一是对于两阶段提交，其中默认只有协调者有超时时间，当一个参与者进入卡死状态时只能依赖协调者的超时来结束任务，这中间的时间参与者都是锁定着资源</li>
+<li>第二是协调者的单点问题，万一挂了，参与者就会在那傻等着</li>
+</ul>
+<p>所以三阶段提交引入了各节点的超时机制和一个准备阶段，首先是一个<code>can commit</code>阶段，询问下各个节点有没有资源，能不能进行操作，这个阶段不阻塞，只是提前做个摸底，这个阶段其实人畜无害，但是能提高成功率，在这个阶段如果就有节点反馈是不接受的，那就不用执行下去了，也没有锁资源，然后第二阶段是 <code>pre commit</code> ，这个阶段做的事情跟原来的 第一阶段比较类似，然后是第三阶段<code>do commit</code>，其实三阶段提交我个人觉得只是加了个超时，和准备阶段，好像木有根本性的解决的两阶段提交的问题，后续可以再看看一些论文来思考讨论下。</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/05/10/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%BB%AD%E7%AF%87%E4%B9%8B%E5%8A%A0%E9%94%81%E5%88%86%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -229,7 +353,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-05-10 09:55:10 / Modified: 22:23:36" itemprop="dateCreated datePublished" datetime="2020-05-10T09:55:10+08:00">2020-05-10</time>
+              <time title="Created: 2020-05-10 09:55:10 / Modified: 22:26:13" itemprop="dateCreated datePublished" datetime="2020-05-10T09:55:10+08:00">2020-05-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -301,7 +425,7 @@
 <li><code>update table set ? where ?;</code></li>
 <li><code>delete from table where ?;</code>  </li>
 </ul>
-<p>除了第一条是 S 锁之外，其他都是 X 排他锁，这边在顺带下，S 锁表示共享锁， X 表示独占锁，同为 S 锁之间不冲突，S 与 X，X 与 S，X 与 X 之间都冲突，也就是加了前者，后者就加不上了<br>我们知道对于 RC 级别会出现幻读现象，对于 RR 级别不会出现，主要的区别是 RR 级别下对于以上的加锁读取都根据情况加上了 gap 锁，那么是不是 RR 级别下以上所有的都是要加 gap 锁呢，当然不是<br>举个例子，RR 事务隔离级别下，table1 有个主键id 字段<br><code>select * from table1 where id = 10 for update</code><br>这条语句要加 gap 锁吗？<br>答案是不需要，这里其实算是我看了这么久的一点自己的理解，啥时候要加 gap 锁，判断的条件是根据我查询的数据是否会因为不加 gap 锁而出现数量的不一致，我上面这条查询语句，在什么情况下会出现查询结果数量不一致呢，只要在这条记录被更新或者删除的时候，有没有可能我第一次查出来一条，第二次变成两条了呢，不可能，因为是主键索引。<br>再变更下这个题的条件，当 id 不是主键，但是是唯一索引，这样需要怎么加锁，注意问题是怎么加锁，不是需不需要加 gap 锁，这里呢就是稍微延伸一下，把聚簇索引（主键索引）和二级索引带一下，当 id 不是主键，说明是个二级索引，但是它是唯一索引，体会下，首先对于 id = 10这个二级索引肯定要加锁，要不要锁 gap 呢，不用，因为是唯一索引，id = 10 只可能有这一条记录，然后呢，这样是不是就好了，还不行，因为啥，因为它是二级索引，对应的主键索引的记录才是真正的数据，万一被更新掉了咋办，所以在 id = 10 对应的主键索引上也需要加上锁（默认都是 record lock行锁），那主键索引上要不要加 gap 呢，也不用，也是精确定位到这一条记录<br>最后呢，当 id 不是主键，也不是唯一索引，只是个普通的索引，这里就需要大名鼎鼎的 gap 锁了，<br>是时候画个图了<br><img data-src="https://i.loli.net/2020/05/10/7eqTnf1Bt5MzVwY.png" alt=""><br>其实核心的目的还是不让这个 id=10 的记录不会出现幻读，那么就需要在 id 这个索引上加上三个 gap 锁，主键索引上就不用了，在 id 索引上已经控制住了id = 10 不会出现幻读，主键索引上这两条对应的记录已经锁了，所以就这样 OK 了</p>
+<p>除了第一条是 S 锁之外，其他都是 X 排他锁，这边在顺带下，S 锁表示共享锁， X 表示独占锁，同为 S 锁之间不冲突，S 与 X，X 与 S，X 与 X 之间都冲突，也就是加了前者，后者就加不上了<br>我们知道对于 RC 级别会出现幻读现象，对于 RR 级别不会出现，主要的区别是 RR 级别下对于以上的加锁读取都根据情况加上了 gap 锁，那么是不是 RR 级别下以上所有的都是要加 gap 锁呢，当然不是<br>举个例子，RR 事务隔离级别下，table1 有个主键id 字段<br><code>select * from table1 where id = 10 for update</code><br>这条语句要加 gap 锁吗？<br>答案是不需要，这里其实算是我看了这么久的一点自己的理解，啥时候要加 gap 锁，判断的条件是根据我查询的数据是否会因为不加 gap 锁而出现数量的不一致，我上面这条查询语句，在什么情况下会出现查询结果数量不一致呢，只要在这条记录被更新或者删除的时候，有没有可能我第一次查出来一条，第二次变成两条了呢，不可能，因为是主键索引。<br>再变更下这个题的条件，当 id 不是主键，但是是唯一索引，这样需要怎么加锁，注意问题是怎么加锁，不是需不需要加 gap 锁，这里呢就是稍微延伸一下，把聚簇索引（主键索引）和二级索引带一下，当 id 不是主键，说明是个二级索引，但是它是唯一索引，体会下，首先对于 id = 10这个二级索引肯定要加锁，要不要锁 gap 呢，不用，因为是唯一索引，id = 10 只可能有这一条记录，然后呢，这样是不是就好了，还不行，因为啥，因为它是二级索引，对应的主键索引的记录才是真正的数据，万一被更新掉了咋办，所以在 id = 10 对应的主键索引上也需要加上锁（默认都是 record lock行锁），那主键索引上要不要加 gap 呢，也不用，也是精确定位到这一条记录<br>最后呢，当 id 不是主键，也不是唯一索引，只是个普通的索引，这里就需要大名鼎鼎的 gap 锁了，<br>是时候画个图了<br><img data-src="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/WX20200510-1126082x.png" alt=""><br>其实核心的目的还是不让这个 id=10 的记录不会出现幻读，那么就需要在 id 这个索引上加上三个 gap 锁，主键索引上就不用了，在 id 索引上已经控制住了id = 10 不会出现幻读，主键索引上这两条对应的记录已经锁了，所以就这样 OK 了</p>
 
       
     </div>
@@ -1272,146 +1396,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/03/08/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Nicksxs">
-      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nicksxs's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/08/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D/" class="post-title-link" itemprop="url">docker比一般多一点的初学者介绍</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-08 23:25:40" itemprop="dateCreated datePublished" datetime="2020-03-08T23:25:40+08:00">2020-03-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-15 20:25:02" itemprop="dateModified" datetime="2020-03-15T20:25:02+08:00">2020-03-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/%E4%BB%8B%E7%BB%8D/" itemprop="url" rel="index"><span itemprop="name">介绍</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/03/08/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D/" class="post-meta-item leancloud_visitors" data-flag-title="docker比一般多一点的初学者介绍" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/03/08/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/08/docker比一般多一点的初学者介绍/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>因为最近想搭一个phabricator用来做看板和任务管理，一开始了解这个是Easy大大有在微博推荐过，后来苏洋也在群里和博客里说到了，看上去还不错的样子，因为主角是docker所以就不介绍太多，后面有机会写一下。</p>
-<p>docker最开始是之前在某位大佬的博客看到的，看上去有点神奇，感觉是一种轻量级的虚拟机，但是能做的事情好像差不多，那时候是在Ubuntu系统的vps里起一个Ubuntu的docker，然后在里面装个nginx，配置端口映射就可以访问了，后来也草草写过一篇使用docker搭建mysql集群，但是最近看了下好像是因为装docker的大佬做了一些别名还是什么操作，导致里面用的操作都不具有普遍性，而且主要是把搭的过程写了下，属于囫囵吞枣，没理解docker是干啥的，为啥用docker，就是操作了下，这几天借着搭phabricator的过程，把一些原来不理解，或者原来理解错误的地方重新理一下。</p>
-<p>之前写的 mysql 集群，一主二备，这种架构在很多小型应用里都是这么配置的，而且一般是直接在三台 vps 里启动三个 mysql 实例，但是如果换成 docker 会有什么好处呢，其实就是方便部署，比如其中一台备库挂了，我要加一台，或者说备库的 qps 太高了，需要再加一个，如果要在 vps 上搭建的话，首先要买一台机器，等初始化，然后在上面修改源，更新，装 mysql ，然后配置主从，可能还要处理防火墙等等，如果把这些打包成一个 docker 镜像，并且放在自己的 docker registry，那就直接run 一下就可以了；还有比如在公司要给一个新同学整一套开发测试环境，以 Java 开发为例，要装 git，maven，jdk，配置 maven settings 和各种 rc，整合在一个镜像里的话，就会很方便了；再比如微服务的水平扩展。</p>
-<p>但是为啥 docker 会有这种优势，听起来好像虚拟机也可以干这个事，但是虚拟机动辄上 G，而且需要 VMware，virtual box 等支持，不适合在Linux服务器环境使用，而且占用资源也会非常大。说得这么好，那么 docker 是啥呢</p>
-<p>docker 主要使用 Linux 中已经存在的两种技术的一个整合升级，一个是 namespace，一个是cgroups，相比于虚拟机需要完整虚拟出一个操作系统运行基础，docker 基于宿主机内核，通过 namespace 和 cgroups 分隔进程，理念就是提供一个隔离的最小化运行依赖，这样子相对于虚拟机就有了巨大的便利性，具体的 namespace 和 cgroups 就先不展开讲，可以参考耗子叔的文章</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>那么我们先安装下 docker，参考官方的教程，<a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">安装</a>，我的系统是 ubuntu 的，就贴了 ubuntu 的链接，用其他系统的可以找到对应的系统文档安装，安装完了的话看看 docker 的信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker info</span><br></pre></td></tr></table></figure>
-
-<p>输出以下信息<br><img data-src="https://i.loli.net/2020/03/08/IJP157hLqlgo4Ow.png" alt=""></p>
-<h2 id="简单运行"><a href="#简单运行" class="headerlink" title="简单运行"></a>简单运行</h2><p>然后再来运行个 hello world 呗，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<p>输出了这些<br><img data-src="https://i.loli.net/2020/03/08/7dO2JWbf3wVLPsN.png" alt=""></p>
-<p>看看这个运行命令是怎么用的，一般都会看到这样子的，sudo docker run -it ubuntu bash<code>, 前面的 docker run 反正就是运行一个容器的意思，</code>-it<code>是啥呢，还有这个什么 ubuntu bash，来看看</code>docker run`的命令帮助信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-i, --interactive                    Keep STDIN open even if not attached</span><br></pre></td></tr></table></figure>
-
-<p>就是要有输入，我们运行的时候能输入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-t, --tty                            Allocate a pseudo-TTY</span><br></pre></td></tr></table></figure>
-
-<p>要有个虚拟终端，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Usage:	docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br><span class="line"></span><br><span class="line">Run a command in a new container</span><br></pre></td></tr></table></figure>
-
-<h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p>上面说的-it 就是这里的 options，后面那个 ubuntu 就是 image 辣，image 是啥呢</p>
-<p><strong>Docker 把应用程序及其依赖，打包在 image 文件里面</strong>，可以把它理解成为类似于虚拟机的镜像或者运行一个进程的代码，跑起来了的叫docker 容器或者进程，比如我们将要运行的<code>docker run -it ubuntu bash</code>的ubuntu 就是个 ubuntu 容器的镜像，将这个镜像运行起来后，我们可以进入容器像使用 ubuntu 一样使用它，来看下我们的镜像，使用<code>sudo docker image ls</code>就能列出我们宿主机上的 docker 镜像了</p>
-<p><img data-src="https://i.loli.net/2020/03/08/G3ltzyVLqheDRgo.png" alt=""></p>
-<p>一个 ubuntu 镜像才 64MB，非常小巧，然后是后面的<code>bash</code>，我通过交互式启动了一个 ubuntu 容器，然后在这个启动的容器里运行了 bash 命令，这样就可以在容器里玩一下了</p>
-<h2 id="在容器里看下进程，"><a href="#在容器里看下进程，" class="headerlink" title="在容器里看下进程，"></a>在容器里看下进程，</h2><p><img data-src="https://i.loli.net/2020/03/08/2qQFPbxB9uEzcrJ.png" alt=""></p>
-<p>只有刚才运行容器的 bash 进程和我刚执行的 ps，这里有个可以注意下的，bash 这个进程的 pid 是 1，其实这里就用到了 linux 中的PID Namespace，容器会隔离出一个 pid 的名字空间，这里面的进程跟外部的 pid 命名独立</p>
-<h2 id="查看宿主机上的容器"><a href="#查看宿主机上的容器" class="headerlink" title="查看宿主机上的容器"></a>查看宿主机上的容器</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="https://i.loli.net/2020/03/08/spGtzcDXKv3ORU7.png" alt=""></p>
-<h2 id="如何进入一个正在运行中的-docker-容器"><a href="#如何进入一个正在运行中的-docker-容器" class="headerlink" title="如何进入一个正在运行中的 docker 容器"></a>如何进入一个正在运行中的 docker 容器</h2><p>这个应该是比较常用的，因为比如是一个微服务容器，有时候就像看下运行状态，日志啥的</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it [containerID] bash</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="https://i.loli.net/2020/03/08/uswmh3Izp65kc9n.png" alt=""></p>
-<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker logs [containerID]</span><br></pre></td></tr></table></figure>
-
-<p>我在运行容器的终端里胡乱输入点啥，然后通过上面的命令就可以看到啦</p>
-<p><img data-src="https://i.loli.net/2020/03/08/RJAvlhEMD7VfbXz.png" alt=""></p>
-<p><img data-src="https://i.loli.net/2020/03/08/L4YRni95lBzEmFh.png" alt=""></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1483,20 +1467,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-count">68</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1521,7 +1505,7 @@
   <div class="widget-wrap">
     <div id="myCanvasContainer" class="widget tagcloud">
       <canvas width="250" height="250" id="resCanvas" style="width=100%">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2019/" rel="tag">2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Comparator/" rel="tag">Comparator</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/" rel="tag">Design Patterns</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Lock/" rel="tag">Distributed Lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dockerfile/" rel="tag">Dockerfile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/G1/" rel="tag">G1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/" rel="tag">GC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garbage-First-Collector/" rel="tag">Garbage-First Collector</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gogs/" rel="tag">Gogs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Singleton/" rel="tag">Singleton</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stream/" rel="tag">Stream</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webhook/" rel="tag">Webhook</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aqs/" rel="tag">aqs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cgroup/" rel="tag">cgroup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cluster/" rel="tag">cluster</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echo/" rel="tag">echo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gap-lock/" rel="tag">gap lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/im/" rel="tag">im</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mfc/" rel="tag">mfc</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvcc/" rel="tag">mvcc</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namespace/" rel="tag">namespace</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/next-key-lock/" rel="tag">next-key lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nullsfirst/" rel="tag">nullsfirst</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openresty/" rel="tag">openresty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-view/" rel="tag">read view</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/" rel="tag">sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/" rel="tag">spark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swoole/" rel="tag">swoole</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uname/" rel="tag">uname</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websocket/" rel="tag">websocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="tag">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B/" rel="tag">单例</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%EF%BC%8C%E6%96%87%E7%AB%A0/" rel="tag">博客，文章</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E8%A1%8C%E7%89%88/" rel="tag">发行版</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%84%E7%94%9F%E8%99%AB/" rel="tag">寄生虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" rel="tag">年终总结</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%BB%E8%AF%BB/" rel="tag">幻读</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BD%B1%E8%AF%84/" rel="tag">影评</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="tag">读后感</a><span class="tag-list-count">1</span></li></ul>
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2019/" rel="tag">2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2PC/" rel="tag">2PC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3PC/" rel="tag">3PC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Comparator/" rel="tag">Comparator</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/" rel="tag">Design Patterns</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Lock/" rel="tag">Distributed Lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dockerfile/" rel="tag">Dockerfile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/G1/" rel="tag">G1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/" rel="tag">GC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garbage-First-Collector/" rel="tag">Garbage-First Collector</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gogs/" rel="tag">Gogs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Singleton/" rel="tag">Singleton</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stream/" rel="tag">Stream</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webhook/" rel="tag">Webhook</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aqs/" rel="tag">aqs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cgroup/" rel="tag">cgroup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cluster/" rel="tag">cluster</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echo/" rel="tag">echo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gap-lock/" rel="tag">gap lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/im/" rel="tag">im</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mfc/" rel="tag">mfc</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvcc/" rel="tag">mvcc</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namespace/" rel="tag">namespace</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/next-key-lock/" rel="tag">next-key lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nullsfirst/" rel="tag">nullsfirst</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openresty/" rel="tag">openresty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-view/" rel="tag">read view</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/" rel="tag">sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/" rel="tag">spark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swoole/" rel="tag">swoole</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uname/" rel="tag">uname</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websocket/" rel="tag">websocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">三阶段提交</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">两阶段提交</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="tag">分布式事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="tag">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B/" rel="tag">单例</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%EF%BC%8C%E6%96%87%E7%AB%A0/" rel="tag">博客，文章</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E8%A1%8C%E7%89%88/" rel="tag">发行版</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%84%E7%94%9F%E8%99%AB/" rel="tag">寄生虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" rel="tag">年终总结</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%BB%E8%AF%BB/" rel="tag">幻读</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BD%B1%E8%AF%84/" rel="tag">影评</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="tag">读后感</a><span class="tag-list-count">1</span></li></ul>
       </canvas>
     </div>
   </div>

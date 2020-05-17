@@ -47,4 +47,5 @@
 {"title":"redis系列介绍八-淘汰策略","url":"/2020/04/18/redis系列介绍八/"},
 {"title":"聊聊 mysql 的 MVCC","url":"/2020/04/26/聊聊-mysql-的-MVCC/"},
 {"title":"聊聊 mysql 的 MVCC 续篇","url":"/2020/05/02/聊聊-mysql-的-MVCC-续篇/"},
+{"title":"聊聊 mysql 的 MVCC 续续篇之锁分析","url":"/2020/05/10/聊聊-mysql-的-MVCC-续续篇之加锁分析/"},
 ]
