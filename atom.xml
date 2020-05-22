@@ -222,9 +222,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -261,9 +261,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -579,18 +579,18 @@
     
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
-    
       <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
     
       <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
     
     
+      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
+    
       <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
       <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
-    
-      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
     
       <category term="G1" scheme="https://nicksxs.me/tags/G1/"/>
     
@@ -660,9 +660,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -699,9 +699,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -738,9 +738,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -778,9 +778,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
