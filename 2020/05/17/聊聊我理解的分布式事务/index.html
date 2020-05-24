@@ -34,7 +34,7 @@
 <meta property="og:description" content="前面说了mysql数据库的事务相关的，那事务是用来干嘛的，这里得补一下ACID，  ACID，是指数据库管理系统（DBMS）在写入或更新资料的过程中，为保证事务（transaction）是正确可靠的，所必须具备的四个特性：原子性（atomicity，或称不可分割性）、一致性（consistency）、隔离性（isolation，又称独立性）、持久性（durability）。   Atomicity">
 <meta property="og:image" content="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/WX20200517-2127322x.png">
 <meta property="article:published_time" content="2020-05-17T15:56:01.000Z">
-<meta property="article:modified_time" content="2020-05-17T15:57:30.000Z">
+<meta property="article:modified_time" content="2020-05-24T14:18:43.082Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="分布式事务">
 <meta property="article:tag" content="两阶段提交">
@@ -231,10 +231,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-05-17 23:56:01 / Modified: 23:57:30" itemprop="dateCreated datePublished" datetime="2020-05-17T23:56:01+08:00">2020-05-17</time>
+              <time title="Created: 2020-05-17 23:56:01" itemprop="dateCreated datePublished" datetime="2020-05-17T23:56:01+08:00">2020-05-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-24 22:18:43" itemprop="dateModified" datetime="2020-05-24T22:18:43+08:00">2020-05-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -318,6 +324,7 @@
 <li>第二是协调者的单点问题，万一挂了，参与者就会在那傻等着</li>
 </ul>
 <p>所以三阶段提交引入了各节点的超时机制和一个准备阶段，首先是一个<code>can commit</code>阶段，询问下各个节点有没有资源，能不能进行操作，这个阶段不阻塞，只是提前做个摸底，这个阶段其实人畜无害，但是能提高成功率，在这个阶段如果就有节点反馈是不接受的，那就不用执行下去了，也没有锁资源，然后第二阶段是 <code>pre commit</code> ，这个阶段做的事情跟原来的 第一阶段比较类似，然后是第三阶段<code>do commit</code>，其实三阶段提交我个人觉得只是加了个超时，和准备阶段，好像木有根本性的解决的两阶段提交的问题，后续可以再看看一些论文来思考讨论下。</p>
+<p>2020年05月24日22:11 更新<br>这里跟朋友讨论了下，好像想通了最核心的一点，对于前面说的那个场景，如果是两阶段提交，如果各个节点中有一个没回应，并且协调者也挂了，这个时候会有什么情况呢，再加一个假设，其实比如这个一阶段其实是检验就失败的，理论上应该大家都释放资源，那么对于这种异常情况，其他的参与者就不知所措了，就傻傻地锁着资源阻塞着，那么三阶段提交的意义就出现了，把第一阶段拆开，那么即使在这个阶段出现上述的异常，即也不会锁定资源，同时参与者也有超时机制，在第二阶段锁定资源出现异常是，其他参与者节点等超时后就自动释放资源了，也就没啥问题了，不过对于那种异常恢复后的一些情况还是没有很好地解决，需要借助 zk 等，后面有空可以讲讲 paxos 跟 raft 等</p>
 
     </div>
 
