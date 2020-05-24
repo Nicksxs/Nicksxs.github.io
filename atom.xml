@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-05-17T15:57:30.000Z</updated>
+  <updated>2020-05-24T13:51:43.115Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊聊我刚学会的应用诊断方法</title>
+    <link href="https://nicksxs.me/2020/05/22/%E8%81%8A%E8%81%8A%E6%88%91%E5%88%9A%E5%AD%A6%E4%BC%9A%E7%9A%84%E5%BA%94%E7%94%A8%E8%AF%8A%E6%96%AD%E6%96%B9%E6%B3%95/"/>
+    <id>https://nicksxs.me/2020/05/22/%E8%81%8A%E8%81%8A%E6%88%91%E5%88%9A%E5%AD%A6%E4%BC%9A%E7%9A%84%E5%BA%94%E7%94%A8%E8%AF%8A%E6%96%AD%E6%96%B9%E6%B3%95/</id>
+    <published>2020-05-22T15:26:50.000Z</published>
+    <updated>2020-05-24T13:51:43.115Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;因为传说中的出身问题，我以前写的是PHP，在使用 swoole 之前，基本的应用调试手段就是简单粗暴的 var_dump，exit，对于单进程模型的 PHP 也是简单有效，技术栈换成 Java 之后，就变得没那么容易，一方面是需要编译，另一方面是一般都是基于 spring
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="Thread dump" scheme="https://nicksxs.me/categories/Thread-dump/"/>
+    
+      <category term="问题排查" scheme="https://nicksxs.me/categories/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/"/>
+    
+      <category term="工具" scheme="https://nicksxs.me/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+      <category term="Thread dump" scheme="https://nicksxs.me/tags/Thread-dump/"/>
+    
+  </entry>
   
   <entry>
     <title>聊聊我理解的分布式事务</title>
@@ -79,9 +114,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -128,9 +163,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -177,9 +212,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -728,46 +763,6 @@
         
         
           &lt;p&gt;在 redis
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
-    
-    
-      <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis数据结构介绍三-第三部分 整数集合</title>
-    <link href="https://nicksxs.me/2020/01/10/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%B8%89/"/>
-    <id>https://nicksxs.me/2020/01/10/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%B8%89/</id>
-    <published>2020-01-09T16:54:04.000Z</published>
-    <updated>2020-01-12T13:08:27.005Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;redis中对于 set 其实有两种处理，对于元素均为整型，并且元素数目较少时，使用 intset 作为底层数据结构，否则使用 dict 作为底层数据结构，先看一下代码先&lt;/p&gt;
-&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
         
       
     
