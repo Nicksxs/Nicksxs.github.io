@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-05-31T13:09:38.605Z</updated>
+  <updated>2020-06-06T14:41:29.129Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,51 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊聊 Dubbo 的 SPI 续之自适应拓展</title>
+    <link href="https://nicksxs.me/2020/06/06/%E8%81%8A%E8%81%8A-Dubbo-%E7%9A%84-SPI-%E7%BB%AD%E4%B9%8B%E8%87%AA%E9%80%82%E5%BA%94%E6%8B%93%E5%B1%95/"/>
+    <id>https://nicksxs.me/2020/06/06/%E8%81%8A%E8%81%8A-Dubbo-%E7%9A%84-SPI-%E7%BB%AD%E4%B9%8B%E8%87%AA%E9%80%82%E5%BA%94%E6%8B%93%E5%B1%95/</id>
+    <published>2020-06-06T14:39:38.000Z</published>
+    <updated>2020-06-06T14:41:29.129Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Adaptive&quot;&gt;&lt;a href=&quot;#Adaptive&quot; class=&quot;headerlink&quot; title=&quot;Adaptive&quot;&gt;&lt;/a&gt;Adaptive&lt;/h2&gt;&lt;p&gt;这个应该是 Dubbo SPI
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="Dubbo - RPC - SPI" scheme="https://nicksxs.me/categories/Dubbo-RPC-SPI/"/>
+    
+      <category term="Dubbo" scheme="https://nicksxs.me/categories/Dubbo/"/>
+    
+      <category term="SPI" scheme="https://nicksxs.me/categories/Dubbo/SPI/"/>
+    
+      <category term="Adaptive" scheme="https://nicksxs.me/categories/Dubbo/SPI/Adaptive/"/>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+      <category term="Dubbo" scheme="https://nicksxs.me/tags/Dubbo/"/>
+    
+      <category term="RPC" scheme="https://nicksxs.me/tags/RPC/"/>
+    
+      <category term="SPI" scheme="https://nicksxs.me/tags/SPI/"/>
+    
+      <category term="Adaptive" scheme="https://nicksxs.me/tags/Adaptive/"/>
+    
+      <category term="自适应拓展" scheme="https://nicksxs.me/tags/%E8%87%AA%E9%80%82%E5%BA%94%E6%8B%93%E5%B1%95/"/>
+    
+  </entry>
   
   <entry>
     <title>聊聊 Dubbo 的 SPI</title>
@@ -724,45 +769,6 @@
         
         
           &lt;p&gt;这应该是 redis 系列的最后一篇了，讲下快表，其实最前面讲的链表在早先的 redis 版本中也作为 list 的数据结构使用过，但是单纯的链表的缺陷之前也说了，插入便利，但是空间利用率低，并且不能进行二分查找等，检索效率低，ziplist
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
-    
-    
-      <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis数据结构介绍五-第五部分 对象</title>
-    <link href="https://nicksxs.me/2020/01/20/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%94/"/>
-    <id>https://nicksxs.me/2020/01/20/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%94/</id>
-    <published>2020-01-19T17:02:48.000Z</published>
-    <updated>2020-01-19T17:02:48.081Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;前面说了这么些数据结构，其实大家对于 redis 最初的印象应该就是个 key-value 的缓存，类似于 memcache，redis 其实也是个 key-value，key 还是一样的字符串，或者说就是用 redis 自己的动态字符串实现，但是 value
         
       
     
