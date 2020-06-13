@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-06-06T14:41:29.129Z</updated>
+  <updated>2020-06-13T14:31:35.522Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,52 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>聊聊一次 brew update 引发的血案</title>
+    <link href="https://nicksxs.me/2020/06/13/%E8%81%8A%E8%81%8A%E4%B8%80%E6%AC%A1-brew-update-%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/"/>
+    <id>https://nicksxs.me/2020/06/13/%E8%81%8A%E8%81%8A%E4%B8%80%E6%AC%A1-brew-update-%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/</id>
+    <published>2020-06-13T14:28:56.000Z</published>
+    <updated>2020-06-13T14:31:35.522Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;熟悉我的人（谁熟悉你啊🙄）知道我以前写过 PHP，虽然现在在工作中没用到了，但是自己的一些小工具还是会用 PHP 来写，但是在 Mac 碰到了一个环境相关的问题，因为我也是个更新狂魔，用了 brew 之后因为 gfw
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Mac" scheme="https://nicksxs.me/categories/Mac/"/>
+    
+      <category term="PHP" scheme="https://nicksxs.me/categories/PHP/"/>
+    
+      <category term="Homebrew" scheme="https://nicksxs.me/categories/Mac/Homebrew/"/>
+    
+      <category term="icu4c" scheme="https://nicksxs.me/categories/PHP/icu4c/"/>
+    
+    
+      <category term="Mac" scheme="https://nicksxs.me/tags/Mac/"/>
+    
+      <category term="PHP" scheme="https://nicksxs.me/tags/PHP/"/>
+    
+      <category term="Homebrew" scheme="https://nicksxs.me/tags/Homebrew/"/>
+    
+      <category term="icu4c" scheme="https://nicksxs.me/tags/icu4c/"/>
+    
+      <category term="zsh" scheme="https://nicksxs.me/tags/zsh/"/>
+    
+  </entry>
+  
+  <entry>
     <title>聊聊 Dubbo 的 SPI 续之自适应拓展</title>
     <link href="https://nicksxs.me/2020/06/06/%E8%81%8A%E8%81%8A-Dubbo-%E7%9A%84-SPI-%E7%BB%AD%E4%B9%8B%E8%87%AA%E9%80%82%E5%BA%94%E6%8B%93%E5%B1%95/"/>
     <id>https://nicksxs.me/2020/06/06/%E8%81%8A%E8%81%8A-Dubbo-%E7%9A%84-SPI-%E7%BB%AD%E4%B9%8B%E8%87%AA%E9%80%82%E5%BA%94%E6%8B%93%E5%B1%95/</id>
     <published>2020-06-06T14:39:38.000Z</published>
-    <updated>2020-06-06T14:41:29.129Z</updated>
+    <updated>2020-06-06T14:48:09.324Z</updated>
     
     <summary type="html">
     
@@ -752,45 +793,6 @@
       <category term="年终总结" scheme="https://nicksxs.me/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
     
       <category term="2019" scheme="https://nicksxs.me/tags/2019/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis数据结构介绍六 快表</title>
-    <link href="https://nicksxs.me/2020/01/22/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%85%AD/"/>
-    <id>https://nicksxs.me/2020/01/22/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%85%AD/</id>
-    <published>2020-01-22T13:51:30.000Z</published>
-    <updated>2020-01-26T13:39:57.340Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;这应该是 redis 系列的最后一篇了，讲下快表，其实最前面讲的链表在早先的 redis 版本中也作为 list 的数据结构使用过，但是单纯的链表的缺陷之前也说了，插入便利，但是空间利用率低，并且不能进行二分查找等，检索效率低，ziplist
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
-    
-    
-      <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
     
   </entry>
   
