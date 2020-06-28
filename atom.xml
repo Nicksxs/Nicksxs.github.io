@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-06-21T13:27:47.175Z</updated>
+  <updated>2020-06-28T10:10:11.852Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,59 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>聊一下 RocketMQ 的 Consumer</title>
+    <link href="https://nicksxs.me/2020/06/26/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84-Consumer/"/>
+    <id>https://nicksxs.me/2020/06/26/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84-Consumer/</id>
+    <published>2020-06-26T14:21:20.000Z</published>
+    <updated>2020-06-28T10:10:11.852Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;首先看下官方的小 demo&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+    
+      <category term="MQ" scheme="https://nicksxs.me/categories/MQ/"/>
+    
+      <category term="RocketMQ" scheme="https://nicksxs.me/categories/RocketMQ/"/>
+    
+      <category term="消息队列" scheme="https://nicksxs.me/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+      <category term="RocketMQ" scheme="https://nicksxs.me/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/RocketMQ/"/>
+    
+      <category term="中间件" scheme="https://nicksxs.me/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+      <category term="RocketMQ" scheme="https://nicksxs.me/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/"/>
+    
+    
+      <category term="MQ" scheme="https://nicksxs.me/tags/MQ/"/>
+    
+      <category term="消息队列" scheme="https://nicksxs.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+      <category term="RocketMQ" scheme="https://nicksxs.me/tags/RocketMQ/"/>
+    
+      <category term="削峰填谷" scheme="https://nicksxs.me/tags/%E5%89%8A%E5%B3%B0%E5%A1%AB%E8%B0%B7/"/>
+    
+      <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+      <category term="DefaultMQPushConsumer" scheme="https://nicksxs.me/tags/DefaultMQPushConsumer/"/>
+    
+  </entry>
+  
+  <entry>
     <title>介绍一下 RocketMQ</title>
     <link href="https://nicksxs.me/2020/06/21/%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B-RocketMQ/"/>
     <id>https://nicksxs.me/2020/06/21/%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B-RocketMQ/</id>
     <published>2020-06-21T13:25:22.000Z</published>
-    <updated>2020-06-21T13:27:47.175Z</updated>
+    <updated>2020-06-21T13:35:12.826Z</updated>
     
     <summary type="html">
     
@@ -427,9 +475,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -466,9 +514,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -759,49 +807,6 @@
       <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
       <category term="Maven" scheme="https://nicksxs.me/tags/Maven/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>G1收集器概述</title>
-    <link href="https://nicksxs.me/2020/02/09/G1%E6%94%B6%E9%9B%86%E5%99%A8%E6%A6%82%E8%BF%B0/"/>
-    <id>https://nicksxs.me/2020/02/09/G1%E6%94%B6%E9%9B%86%E5%99%A8%E6%A6%82%E8%BF%B0/</id>
-    <published>2020-02-09T12:52:02.000Z</published>
-    <updated>2020-02-09T12:56:16.421Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;G1: The Garbage-First Collector, 垃圾回收优先的垃圾回收器，目标是用户多核 cpu 和大内存的机器，最大的特点就是可预测的停顿时间，官方给出的介绍是提供一个用户在大的堆内存情况下一个低延迟表现的解决方案，通常是 6GB
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-      <category term="JVM" scheme="https://nicksxs.me/categories/Java/JVM/"/>
-    
-      <category term="C++" scheme="https://nicksxs.me/categories/C/"/>
-    
-      <category term="GC" scheme="https://nicksxs.me/categories/Java/GC/"/>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-      <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
-    
-      <category term="C++" scheme="https://nicksxs.me/tags/C/"/>
-    
-      <category term="G1" scheme="https://nicksxs.me/tags/G1/"/>
-    
-      <category term="GC" scheme="https://nicksxs.me/tags/GC/"/>
-    
-      <category term="Garbage-First Collector" scheme="https://nicksxs.me/tags/Garbage-First-Collector/"/>
     
   </entry>
   
