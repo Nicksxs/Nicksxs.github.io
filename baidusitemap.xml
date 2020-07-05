@@ -2,7 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://nicksxs.me/2020/06/26/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84-Consumer/</loc>
-    <lastmod>2020-06-28</lastmod>
+    <lastmod>2020-07-05</lastmod>
+  </url>  <url>
+    <loc>https://nicksxs.me/2020/07/05/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84-NameServer-%E6%BA%90%E7%A0%81/</loc>
+    <lastmod>2020-07-05</lastmod>
   </url>  <url>
     <loc>https://nicksxs.me/2020/06/21/%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B-RocketMQ/</loc>
     <lastmod>2020-06-21</lastmod>
@@ -82,10 +85,10 @@
     <loc>https://nicksxs.me/2015/01/14/Two-Sum/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2016/11/10/php-abstract-class-and-interface/</loc>
+    <loc>https://nicksxs.me/2016/09/29/binary-watch/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2016/09/29/binary-watch/</loc>
+    <loc>https://nicksxs.me/2016/11/10/php-abstract-class-and-interface/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
     <loc>https://nicksxs.me/2019/12/26/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D/</loc>
@@ -136,10 +139,10 @@
     <loc>https://nicksxs.me/2016/07/13/swoole-websocket-test/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2016/10/12/summary-ranges-228/</loc>
+    <loc>https://nicksxs.me/2015/06/22/invert-binary-tree/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2015/06/22/invert-binary-tree/</loc>
+    <loc>https://nicksxs.me/2016/10/12/summary-ranges-228/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
     <loc>https://nicksxs.me/2015/01/04/Path-Sum/</loc>
@@ -151,10 +154,10 @@
     <loc>https://nicksxs.me/2015/03/11/Number-Of-1-Bits/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2015/04/15/Leetcode-No-3/</loc>
+    <loc>https://nicksxs.me/2019/09/23/AbstractQueuedSynchronizer/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2019/09/23/AbstractQueuedSynchronizer/</loc>
+    <loc>https://nicksxs.me/2015/04/15/Leetcode-No-3/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
     <loc>https://nicksxs.me/2015/01/16/pcre-intro-and-a-simple-package/</loc>

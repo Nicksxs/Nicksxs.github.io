@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-06-28T10:10:11.852Z</updated>
+  <updated>2020-07-05T13:03:29.036Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,60 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>聊一下 RocketMQ 的 Consumer</title>
+    <title>聊一下 RocketMQ 的 NameServer 源码</title>
+    <link href="https://nicksxs.me/2020/07/05/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84-NameServer-%E6%BA%90%E7%A0%81/"/>
+    <id>https://nicksxs.me/2020/07/05/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84-NameServer-%E6%BA%90%E7%A0%81/</id>
+    <published>2020-07-05T13:01:47.000Z</published>
+    <updated>2020-07-05T13:03:29.036Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;前面介绍了，nameserver相当于dubbo的注册中心，用与管理broker，broker会在启动的时候注册到nameserver，并且会发送心跳给namaserver，nameserver负责保存活跃的broker，包括master和slave，同时保存topic和t
+        
+      
+    
+    </summary>
+    
+    
+      <category term="MQ" scheme="https://nicksxs.me/categories/MQ/"/>
+    
+      <category term="RocketMQ" scheme="https://nicksxs.me/categories/RocketMQ/"/>
+    
+      <category term="消息队列" scheme="https://nicksxs.me/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+      <category term="RocketMQ" scheme="https://nicksxs.me/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/RocketMQ/"/>
+    
+      <category term="中间件" scheme="https://nicksxs.me/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+      <category term="RocketMQ" scheme="https://nicksxs.me/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/"/>
+    
+    
+      <category term="MQ" scheme="https://nicksxs.me/tags/MQ/"/>
+    
+      <category term="消息队列" scheme="https://nicksxs.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+      <category term="RocketMQ" scheme="https://nicksxs.me/tags/RocketMQ/"/>
+    
+      <category term="削峰填谷" scheme="https://nicksxs.me/tags/%E5%89%8A%E5%B3%B0%E5%A1%AB%E8%B0%B7/"/>
+    
+      <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+      <category term="NameServer" scheme="https://nicksxs.me/tags/NameServer/"/>
+    
+      <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>聊一下 RocketMQ 的 DefaultMQPushConsumer 源码</title>
     <link href="https://nicksxs.me/2020/06/26/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84-Consumer/"/>
     <id>https://nicksxs.me/2020/06/26/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84-Consumer/</id>
     <published>2020-06-26T14:21:20.000Z</published>
-    <updated>2020-06-28T10:10:11.852Z</updated>
+    <updated>2020-07-05T13:03:52.441Z</updated>
     
     <summary type="html">
     
@@ -59,6 +108,8 @@
       <category term="削峰填谷" scheme="https://nicksxs.me/tags/%E5%89%8A%E5%B3%B0%E5%A1%AB%E8%B0%B7/"/>
     
       <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+      <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     
       <category term="DefaultMQPushConsumer" scheme="https://nicksxs.me/tags/DefaultMQPushConsumer/"/>
     
@@ -330,9 +381,9 @@
     </summary>
     
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
@@ -379,9 +430,9 @@
     </summary>
     
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
@@ -428,9 +479,9 @@
     </summary>
     
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
@@ -775,38 +826,6 @@
       <category term="Gogs" scheme="https://nicksxs.me/tags/Gogs/"/>
     
       <category term="Webhook" scheme="https://nicksxs.me/tags/Webhook/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Maven实用小技巧</title>
-    <link href="https://nicksxs.me/2020/02/16/Maven%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    <id>https://nicksxs.me/2020/02/16/Maven%E5%AE%9E%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/</id>
-    <published>2020-02-16T02:39:42.000Z</published>
-    <updated>2020-02-16T06:36:56.046Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;Maven 翻译为”专家”、”内行”，是 Apache 下的一个纯 Java 开发的开源项目。基于项目对象模型（缩写：POM）概念，Maven利用一个中央信息片断能管理一个项目的构建、报告和文档等步骤。&lt;/p&gt;
-&lt;p&gt;Maven 是一个项目管理工具，可以对 Java
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-      <category term="Maven" scheme="https://nicksxs.me/categories/Java/Maven/"/>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-      <category term="Maven" scheme="https://nicksxs.me/tags/Maven/"/>
     
   </entry>
   
