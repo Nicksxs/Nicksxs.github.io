@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-07-05T13:03:29.036Z</updated>
+  <updated>2020-07-11T15:21:22.299Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2020年中总结</title>
+    <link href="https://nicksxs.me/2020/07/11/2020%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/"/>
+    <id>https://nicksxs.me/2020/07/11/2020%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/</id>
+    <published>2020-07-11T15:20:38.000Z</published>
+    <updated>2020-07-11T15:21:22.299Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;很快2020
+        
+      
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="年中总结" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/"/>
+    
+      <category term="2020" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/2020/"/>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="年中总结" scheme="https://nicksxs.me/tags/%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/"/>
+    
+      <category term="2020" scheme="https://nicksxs.me/tags/2020/"/>
+    
+  </entry>
   
   <entry>
     <title>聊一下 RocketMQ 的 NameServer 源码</title>
@@ -383,9 +418,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -432,9 +467,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -481,9 +516,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -526,9 +561,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -565,9 +600,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -797,35 +832,6 @@
       <category term="影评" scheme="https://nicksxs.me/tags/%E5%BD%B1%E8%AF%84/"/>
     
       <category term="寄生虫" scheme="https://nicksxs.me/tags/%E5%AF%84%E7%94%9F%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>gogs使用webhook部署react单页应用</title>
-    <link href="https://nicksxs.me/2020/02/22/gogs%E4%BD%BF%E7%94%A8webhook%E9%83%A8%E7%BD%B2react%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8/"/>
-    <id>https://nicksxs.me/2020/02/22/gogs%E4%BD%BF%E7%94%A8webhook%E9%83%A8%E7%BD%B2react%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8/</id>
-    <published>2020-02-22T04:25:25.000Z</published>
-    <updated>2020-02-23T09:42:22.035Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;众所周知，我是个前端彩笔，但是也想做点自己可以用的工具页面，所以就让朋友推荐了蚂蚁出品的 ant design，说基本可以直接 ctrl-c ctrl-v，实测对我这种来说还是有点难的，不过也能写点，但是现在碰到的问题是怎么部署到自己的服务器上去&lt;br&gt;用 ant
-        
-      
-    
-    </summary>
-    
-    
-      <category term="持续集成" scheme="https://nicksxs.me/categories/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
-    
-    
-      <category term="Gogs" scheme="https://nicksxs.me/tags/Gogs/"/>
-    
-      <category term="Webhook" scheme="https://nicksxs.me/tags/Webhook/"/>
     
   </entry>
   
