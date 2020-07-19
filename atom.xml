@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-07-11T15:21:22.299Z</updated>
+  <updated>2020-07-19T13:49:39.193Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊聊 RocketMQ 的 Broker 源码</title>
+    <link href="https://nicksxs.me/2020/07/19/%E8%81%8A%E8%81%8A-RocketMQ-%E7%9A%84-Broker-%E6%BA%90%E7%A0%81/"/>
+    <id>https://nicksxs.me/2020/07/19/%E8%81%8A%E8%81%8A-RocketMQ-%E7%9A%84-Broker-%E6%BA%90%E7%A0%81/</id>
+    <published>2020-07-19T13:48:48.000Z</published>
+    <updated>2020-07-19T13:49:39.193Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;broker 的启动形式有点类似于 NameServer，都是服务类型的，跟 Consumer 差别比较大，&lt;/p&gt;
+&lt;p&gt;首先是org.apache.rocketmq.broker.BrokerStartup中的 main
+        
+      
+    
+    </summary>
+    
+    
+      <category term="MQ" scheme="https://nicksxs.me/categories/MQ/"/>
+    
+      <category term="RocketMQ" scheme="https://nicksxs.me/categories/RocketMQ/"/>
+    
+      <category term="消息队列" scheme="https://nicksxs.me/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+      <category term="RocketMQ" scheme="https://nicksxs.me/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/RocketMQ/"/>
+    
+      <category term="中间件" scheme="https://nicksxs.me/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+      <category term="RocketMQ" scheme="https://nicksxs.me/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/"/>
+    
+    
+      <category term="MQ" scheme="https://nicksxs.me/tags/MQ/"/>
+    
+      <category term="消息队列" scheme="https://nicksxs.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+      <category term="RocketMQ" scheme="https://nicksxs.me/tags/RocketMQ/"/>
+    
+      <category term="削峰填谷" scheme="https://nicksxs.me/tags/%E5%89%8A%E5%B3%B0%E5%A1%AB%E8%B0%B7/"/>
+    
+      <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+      <category term="Broker" scheme="https://nicksxs.me/tags/Broker/"/>
+    
+      <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+    
+  </entry>
   
   <entry>
     <title>2020年中总结</title>
@@ -94,9 +144,9 @@
     
       <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
-      <category term="NameServer" scheme="https://nicksxs.me/tags/NameServer/"/>
-    
       <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+    
+      <category term="NameServer" scheme="https://nicksxs.me/tags/NameServer/"/>
     
   </entry>
   
@@ -418,9 +468,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -467,9 +517,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -516,9 +566,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -797,41 +847,6 @@
       <category term="namespace" scheme="https://nicksxs.me/tags/namespace/"/>
     
       <category term="cgroup" scheme="https://nicksxs.me/tags/cgroup/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>寄生虫观后感</title>
-    <link href="https://nicksxs.me/2020/03/01/%E5%AF%84%E7%94%9F%E8%99%AB%E8%A7%82%E5%90%8E%E6%84%9F/"/>
-    <id>https://nicksxs.me/2020/03/01/%E5%AF%84%E7%94%9F%E8%99%AB%E8%A7%82%E5%90%8E%E6%84%9F/</id>
-    <published>2020-03-01T14:56:02.000Z</published>
-    <updated>2020-03-01T14:57:29.521Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;寄生虫这部电影在获得奥斯卡之前就有关注了，豆瓣评分很高，一开始看到这个片名以为是像《铁线虫入侵》那种灾难片，后来看到男主，宋康昊，也是老面孔了，从高中时候在学校操场组织看的《汉江怪物》，有点二的感觉，后来在大学寝室电脑上重新看的时候，室友跟我说是韩国国宝级演员，真人不可貌相
-        
-      
-    
-    </summary>
-    
-    
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-      <category term="影评" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%BD%B1%E8%AF%84/"/>
-    
-      <category term="2020" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%BD%B1%E8%AF%84/2020/"/>
-    
-    
-      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-      <category term="影评" scheme="https://nicksxs.me/tags/%E5%BD%B1%E8%AF%84/"/>
-    
-      <category term="寄生虫" scheme="https://nicksxs.me/tags/%E5%AF%84%E7%94%9F%E8%99%AB/"/>
     
   </entry>
   

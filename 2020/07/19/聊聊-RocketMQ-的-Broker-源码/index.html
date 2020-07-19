@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="2X6S9P7CAjXjVvw8YyQR8pCu-B0oEu7O9quLgxXuWyA">
+  <meta name="baidu-site-verification" content="dV8JGNzi0c">
+<meta name="chinaz-site-verification" content="500A176AA29CFB31">
+
+<script data-ad-client="ca-pub-7480618470784058" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic|M+ 2p:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nicksxs.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="broker 的启动形式有点类似于 NameServer，都是服务类型的，跟 Consumer 差别比较大， 首先是org.apache.rocketmq.broker.BrokerStartup中的 main 函数，org.apache.rocketmq.broker.BrokerStartup#createBrokerController基本就是读取参数，这里差点把最核心的初始化给漏了， 12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="聊聊 RocketMQ 的 Broker 源码">
+<meta property="og:url" content="https://nicksxs.me/2020/07/19/%E8%81%8A%E8%81%8A-RocketMQ-%E7%9A%84-Broker-%E6%BA%90%E7%A0%81/index.html">
+<meta property="og:site_name" content="Nicksxs&#39;s Blog">
+<meta property="og:description" content="broker 的启动形式有点类似于 NameServer，都是服务类型的，跟 Consumer 差别比较大， 首先是org.apache.rocketmq.broker.BrokerStartup中的 main 函数，org.apache.rocketmq.broker.BrokerStartup#createBrokerController基本就是读取参数，这里差点把最核心的初始化给漏了， 12">
+<meta property="article:published_time" content="2020-07-19T13:48:48.000Z">
+<meta property="article:modified_time" content="2020-07-19T13:49:39.193Z">
+<meta property="article:author" content="Nicksxs">
+<meta property="article:tag" content="MQ">
+<meta property="article:tag" content="消息队列">
+<meta property="article:tag" content="RocketMQ">
+<meta property="article:tag" content="削峰填谷">
+<meta property="article:tag" content="中间件">
+<meta property="article:tag" content="Broker">
+<meta property="article:tag" content="源码解析">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://nicksxs.me/2020/07/19/%E8%81%8A%E8%81%8A-RocketMQ-%E7%9A%84-Broker-%E6%BA%90%E7%A0%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>聊聊 RocketMQ 的 Broker 源码 | Nicksxs's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61358619-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-61358619-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?20f33b3c0c0eff9b1522999c0015646d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nicksxs's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nicksxs's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">What hurts more, the pain of hard work or the pain of regret?</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="about fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="categories fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archives fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="heartbeat fa-fw"></i>Commonweal 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/nicksxs" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/07/19/%E8%81%8A%E8%81%8A-RocketMQ-%E7%9A%84-Broker-%E6%BA%90%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Nicksxs">
+      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nicksxs's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          聊聊 RocketMQ 的 Broker 源码
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-07-19 21:48:48 / Modified: 21:49:39" itemprop="dateCreated datePublished" datetime="2020-07-19T21:48:48+08:00">2020-07-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MQ/" itemprop="url" rel="index"><span itemprop="name">MQ</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/RocketMQ/" itemprop="url" rel="index"><span itemprop="name">RocketMQ</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">消息队列</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/RocketMQ/" itemprop="url" rel="index"><span itemprop="name">RocketMQ</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/" itemprop="url" rel="index"><span itemprop="name">RocketMQ</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/07/19/%E8%81%8A%E8%81%8A-RocketMQ-%E7%9A%84-Broker-%E6%BA%90%E7%A0%81/" class="post-meta-item leancloud_visitors" data-flag-title="聊聊 RocketMQ 的 Broker 源码" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/07/19/%E8%81%8A%E8%81%8A-RocketMQ-%E7%9A%84-Broker-%E6%BA%90%E7%A0%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/07/19/聊聊-RocketMQ-的-Broker-源码/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>broker 的启动形式有点类似于 NameServer，都是服务类型的，跟 Consumer 差别比较大，</p>
+<p>首先是org.apache.rocketmq.broker.BrokerStartup中的 main 函数，org.apache.rocketmq.broker.BrokerStartup#createBrokerController基本就是读取参数，这里差点把最核心的初始化给漏了，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> BrokerController controller = <span class="keyword">new</span> BrokerController(</span><br><span class="line">                brokerConfig,</span><br><span class="line">                nettyServerConfig,</span><br><span class="line">                nettyClientConfig,</span><br><span class="line">                messageStoreConfig);</span><br><span class="line">            <span class="comment">// remember all configs to prevent discard</span></span><br><span class="line">            controller.getConfiguration().registerConfig(properties);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">boolean</span> initResult = controller.initialize();</span><br></pre></td></tr></table></figure>
+
+<p>前面是以 broker 配置，netty 的服务端和客户端配置，以及消息存储配置在实例化 BrokerController，然后就是初始化了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">initialize</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> result = <span class="keyword">this</span>.topicConfigManager.load();</span><br><span class="line"></span><br><span class="line">        result = result &amp;&amp; <span class="keyword">this</span>.consumerOffsetManager.load();</span><br><span class="line">        result = result &amp;&amp; <span class="keyword">this</span>.subscriptionGroupManager.load();</span><br><span class="line">        result = result &amp;&amp; <span class="keyword">this</span>.consumerFilterManager.load();</span><br></pre></td></tr></table></figure>
+
+<p>前面这些就是各个配置的 load 了，然后是个我认为比较重要的部分messageStore 的实例化，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (result) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.messageStore =</span><br><span class="line">            <span class="keyword">new</span> DefaultMessageStore(<span class="keyword">this</span>.messageStoreConfig, <span class="keyword">this</span>.brokerStatsManager, <span class="keyword">this</span>.messageArrivingListener,</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig);</span><br><span class="line">        <span class="keyword">if</span> (messageStoreConfig.isEnableDLegerCommitLog()) &#123;</span><br><span class="line">            DLedgerRoleChangeHandler roleChangeHandler = <span class="keyword">new</span> DLedgerRoleChangeHandler(<span class="keyword">this</span>, (DefaultMessageStore) messageStore);</span><br><span class="line">            ((DLedgerCommitLog)((DefaultMessageStore) messageStore).getCommitLog()).getdLedgerServer().getdLedgerLeaderElector().addRoleChangeHandler(roleChangeHandler);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.brokerStats = <span class="keyword">new</span> BrokerStats((DefaultMessageStore) <span class="keyword">this</span>.messageStore);</span><br><span class="line">        <span class="comment">//load plugin</span></span><br><span class="line">        MessageStorePluginContext context = <span class="keyword">new</span> MessageStorePluginContext(messageStoreConfig, brokerStatsManager, messageArrivingListener, brokerConfig);</span><br><span class="line">        <span class="keyword">this</span>.messageStore = MessageStoreFactory.build(context, <span class="keyword">this</span>.messageStore);</span><br><span class="line">        <span class="keyword">this</span>.messageStore.getDispatcherList().addFirst(<span class="keyword">new</span> CommitLogDispatcherCalcBitMap(<span class="keyword">this</span>.brokerConfig, <span class="keyword">this</span>.consumerFilterManager));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        result = <span class="keyword">false</span>;</span><br><span class="line">        log.error(<span class="string">"Failed to initialize"</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">result = result &amp;&amp; <span class="keyword">this</span>.messageStore.load();</span><br></pre></td></tr></table></figure>
+
+<p>先是实例化，实例化构造函数里的代码比较重要，重点看一下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">DefaultMessageStore</span><span class="params">(<span class="keyword">final</span> MessageStoreConfig messageStoreConfig, <span class="keyword">final</span> BrokerStatsManager brokerStatsManager,</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">final</span> MessageArrivingListener messageArrivingListener, <span class="keyword">final</span> BrokerConfig brokerConfig)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.messageArrivingListener = messageArrivingListener;</span><br><span class="line">        <span class="keyword">this</span>.brokerConfig = brokerConfig;</span><br><span class="line">        <span class="keyword">this</span>.messageStoreConfig = messageStoreConfig;</span><br><span class="line">        <span class="keyword">this</span>.brokerStatsManager = brokerStatsManager;</span><br><span class="line">        <span class="keyword">this</span>.allocateMappedFileService = <span class="keyword">new</span> AllocateMappedFileService(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">if</span> (messageStoreConfig.isEnableDLegerCommitLog()) &#123;</span><br><span class="line">            <span class="keyword">this</span>.commitLog = <span class="keyword">new</span> DLedgerCommitLog(<span class="keyword">this</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.commitLog = <span class="keyword">new</span> CommitLog(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.consumeQueueTable = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;(<span class="number">32</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.flushConsumeQueueService = <span class="keyword">new</span> FlushConsumeQueueService();</span><br><span class="line">        <span class="keyword">this</span>.cleanCommitLogService = <span class="keyword">new</span> CleanCommitLogService();</span><br><span class="line">        <span class="keyword">this</span>.cleanConsumeQueueService = <span class="keyword">new</span> CleanConsumeQueueService();</span><br><span class="line">        <span class="keyword">this</span>.storeStatsService = <span class="keyword">new</span> StoreStatsService();</span><br><span class="line">        <span class="keyword">this</span>.indexService = <span class="keyword">new</span> IndexService(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">if</span> (!messageStoreConfig.isEnableDLegerCommitLog()) &#123;</span><br><span class="line">            <span class="keyword">this</span>.haService = <span class="keyword">new</span> HAService(<span class="keyword">this</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.haService = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.reputMessageService = <span class="keyword">new</span> ReputMessageService();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.scheduleMessageService = <span class="keyword">new</span> ScheduleMessageService(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.transientStorePool = <span class="keyword">new</span> TransientStorePool(messageStoreConfig);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (messageStoreConfig.isTransientStorePoolEnable()) &#123;</span><br><span class="line">            <span class="keyword">this</span>.transientStorePool.init();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.allocateMappedFileService.start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.indexService.start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.dispatcherList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="keyword">this</span>.dispatcherList.addLast(<span class="keyword">new</span> CommitLogDispatcherBuildConsumeQueue());</span><br><span class="line">        <span class="keyword">this</span>.dispatcherList.addLast(<span class="keyword">new</span> CommitLogDispatcherBuildIndex());</span><br><span class="line"></span><br><span class="line">        File file = <span class="keyword">new</span> File(StorePathConfigHelper.getLockFile(messageStoreConfig.getStorePathRootDir()));</span><br><span class="line">        MappedFile.ensureDirOK(file.getParent());</span><br><span class="line">        lockFile = <span class="keyword">new</span> RandomAccessFile(file, <span class="string">"rw"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里面有很多类，不过先把从构造函数里传进来的忽略下，接下来就是 <code>AllocateMappedFileService</code> 这个service，前面看过文章的可能会根据上面的代码猜到，这也是个 ServiceThread，如果是对RocketMQ 有所了解的可能从名字可以看出这个类是关于 RocketMQ 消息怎么落盘的，当需要创建MappedFile时（在MapedFileQueue.getLastMapedFile方法中），向该线程的requestQueue队列中放入AllocateRequest请求对象，该线程会在后台监听该队列，并在后台创建MapedFile对象，即同时创建了物理文件。然后是创建了 IndexService 服务线程，用来给创建索引；还有是FlushConsumeQueueService是将ConsumeQueue 刷入磁盘；CleanCommitLogService用来清理过期的 CommitLog，默认是 72 小时以上；CleanConsumeQueueService是将小于最新的 CommitLog 偏移量的 ConsumeQueue 清理掉；StoreStatsService是储存统计服务；HAService用于CommitLog 的主备同步；ScheduleMessageService用于定时消息；还有就是这个ReputMessageService非常重要，就是由它实现了将 CommitLog 以 topic+queue 纬度构建 ConsumeQueue，后面TransientStorePool是异步刷盘时的存储buffer，也可以从后面的判断中看出来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isTransientStorePoolEnable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> transientStorePoolEnable &amp;&amp; FlushDiskType.ASYNC_FLUSH == getFlushDiskType()</span><br><span class="line">            &amp;&amp; BrokerRole.SLAVE != getBrokerRole();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>再然后就是启动两个服务线程，dispatcherList是为CommitLog文件转发请求，差不多这个初始化就这些内容。</p>
+<p>然后回到外层，下面是主备切换的配置，然后是数据统计，接着是存储插件加载，然后是往转发器链表里再加一个过滤器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (messageStoreConfig.isEnableDLegerCommitLog()) &#123;</span><br><span class="line">            DLedgerRoleChangeHandler roleChangeHandler = <span class="keyword">new</span> DLedgerRoleChangeHandler(<span class="keyword">this</span>, (DefaultMessageStore) messageStore);</span><br><span class="line">            ((DLedgerCommitLog)((DefaultMessageStore) messageStore).getCommitLog()).getdLedgerServer().getdLedgerLeaderElector().addRoleChangeHandler(roleChangeHandler);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.brokerStats = <span class="keyword">new</span> BrokerStats((DefaultMessageStore) <span class="keyword">this</span>.messageStore);</span><br><span class="line">        <span class="comment">//load plugin</span></span><br><span class="line">        MessageStorePluginContext context = <span class="keyword">new</span> MessageStorePluginContext(messageStoreConfig, brokerStatsManager, messageArrivingListener, brokerConfig);</span><br><span class="line">        <span class="keyword">this</span>.messageStore = MessageStoreFactory.build(context, <span class="keyword">this</span>.messageStore);</span><br><span class="line">        <span class="keyword">this</span>.messageStore.getDispatcherList().addFirst(<span class="keyword">new</span> CommitLogDispatcherCalcBitMap(<span class="keyword">this</span>.brokerConfig, <span class="keyword">this</span>.consumerFilterManager));</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是org.apache.rocketmq.store.MessageStore#load的过程了，</p>
+<p>1) 调用ScheduleMessageService.load方法，初始化延迟级别列表。将这些级别（”1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h”）的延时存入延迟级别delayLevelTable：ConcurrentHashMap&lt;Integer /* level <em>/, Long/</em> delay timeMillis */&gt;变量中，例如1s的kv值为1:1000,5s的kv值为2:5000，key值依次类推；每个延迟级别即为一个队列。</p>
+<p>2)调用CommitLog.load方法，在此方法中调用MapedFileQueue.load方法，将$HOME /store/commitlog目录下的所有文件加载到MapedFileQueue的List<MapedFile>变量中；</p>
+<p>3)调用DefaultMessageStore.loadConsumeQueue方法加载consumequeue文件数据到DefaultMessageStore.consumeQueueTable集合中。</p>
+<p>初始化StoreCheckPoint对象，加载$HOME/store/checkpoint文件，该文件记录三个字段值，分别是物理队列消息时间戳、逻辑队列消息时间戳、索引队列消息时间戳。</p>
+<p>调用IndexService.load方法加载$HOME/store/index目录下的文件。对该目录下的每个文件初始化一个IndexFile对象。然后调用IndexFile对象的load方法将IndexHeader加载到对象的变量中；再根据检查是否存在abort文件，若有存在abort文件，则表示Broker表示上次是异常退出的，则检查checkpoint的indexMsgTimestamp字段值是否小于IndexHeader的endTimestamp值，indexMsgTimestamp值表示最后刷盘的时间，若小于则表示在最后刷盘之后在该文件中还创建了索引，则要删除该Index文件，否则将该IndexFile对象放入indexFileList:ArrayList<IndexFile>索引文件集合中。</p>
+<p>然后调用org.apache.rocketmq.store.DefaultMessageStore#recover恢复，前面有根据<code>boolean lastExitOK = !this.isTempFileExist();</code>临时文件是否存在来判断上一次是否正常退出，根据这个状态来选择什么恢复策略</p>
+<p>接下去是初始化 Netty 服务端，初始化发送消息线程池（sendMessageExecutor）、拉取消息线程池（pullMessageExecutor）、管理Broker线程池（adminBrokerExecutor）、客户端管理线程池（clientManageExecutor），注册事件处理器，包括发送消息事件处理器（SendMessageProcessor）、拉取消息事件处理器、查询消息事件处理器（QueryMessageProcessor，包括客户端的心跳事件、注销事件、获取消费者列表事件、更新更新和查询消费进度consumerOffset）、客户端管理事件处理器（ClientManageProcessor）、结束事务处理器（EndTransactionProcessor）、默认事件处理器（AdminBrokerProcessor），然后是定时任务</p>
+<p><code>BrokerController.this.getBrokerStats().record();</code> 记录 Broker 状态</p>
+<p><code>BrokerController.this.consumerOffsetManager.persist();</code> 持久化consumerOffset</p>
+<p><code>BrokerController.this.consumerFilterManager.persist();</code>持久化consumerFilter</p>
+<p><code>BrokerController.this.protectBroker();</code> 保护 broker，消费慢，不让继续投递</p>
+<p><code>BrokerController.this.printWaterMark();</code> 打印水位</p>
+<p><code>log.info(&quot;dispatch behind commit log {} bytes&quot;, BrokerController.this.getMessageStore().dispatchBehindBytes());</code> 检查落后程度</p>
+<p><code>BrokerController.this.brokerOuterAPI.fetchNameServerAddr();</code> 定时获取 nameserver</p>
+<p><code>BrokerController.this.printMasterAndSlaveDiff();</code> 打印主从不一致</p>
+<p>然后是 tsl，初始化事务消息，初始化 RPCHook</p>
+<p>请把害怕打到公屏上🤦‍♂️，从线程池名字和调用的方法应该可以看出大部分的用途</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.remotingServer = <span class="keyword">new</span> NettyRemotingServer(<span class="keyword">this</span>.nettyServerConfig, <span class="keyword">this</span>.clientHousekeepingService);</span><br><span class="line">            NettyServerConfig fastConfig = (NettyServerConfig) <span class="keyword">this</span>.nettyServerConfig.clone();</span><br><span class="line">            fastConfig.setListenPort(nettyServerConfig.getListenPort() - <span class="number">2</span>);</span><br><span class="line">            <span class="keyword">this</span>.fastRemotingServer = <span class="keyword">new</span> NettyRemotingServer(fastConfig, <span class="keyword">this</span>.clientHousekeepingService);</span><br><span class="line">            <span class="keyword">this</span>.sendMessageExecutor = <span class="keyword">new</span> BrokerFixedThreadPoolExecutor(</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getSendMessageThreadPoolNums(),</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getSendMessageThreadPoolNums(),</span><br><span class="line">                <span class="number">1000</span> * <span class="number">60</span>,</span><br><span class="line">                TimeUnit.MILLISECONDS,</span><br><span class="line">                <span class="keyword">this</span>.sendThreadPoolQueue,</span><br><span class="line">                <span class="keyword">new</span> ThreadFactoryImpl(<span class="string">"SendMessageThread_"</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.pullMessageExecutor = <span class="keyword">new</span> BrokerFixedThreadPoolExecutor(</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getPullMessageThreadPoolNums(),</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getPullMessageThreadPoolNums(),</span><br><span class="line">                <span class="number">1000</span> * <span class="number">60</span>,</span><br><span class="line">                TimeUnit.MILLISECONDS,</span><br><span class="line">                <span class="keyword">this</span>.pullThreadPoolQueue,</span><br><span class="line">                <span class="keyword">new</span> ThreadFactoryImpl(<span class="string">"PullMessageThread_"</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.replyMessageExecutor = <span class="keyword">new</span> BrokerFixedThreadPoolExecutor(</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getProcessReplyMessageThreadPoolNums(),</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getProcessReplyMessageThreadPoolNums(),</span><br><span class="line">                <span class="number">1000</span> * <span class="number">60</span>,</span><br><span class="line">                TimeUnit.MILLISECONDS,</span><br><span class="line">                <span class="keyword">this</span>.replyThreadPoolQueue,</span><br><span class="line">                <span class="keyword">new</span> ThreadFactoryImpl(<span class="string">"ProcessReplyMessageThread_"</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.queryMessageExecutor = <span class="keyword">new</span> BrokerFixedThreadPoolExecutor(</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getQueryMessageThreadPoolNums(),</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getQueryMessageThreadPoolNums(),</span><br><span class="line">                <span class="number">1000</span> * <span class="number">60</span>,</span><br><span class="line">                TimeUnit.MILLISECONDS,</span><br><span class="line">                <span class="keyword">this</span>.queryThreadPoolQueue,</span><br><span class="line">                <span class="keyword">new</span> ThreadFactoryImpl(<span class="string">"QueryMessageThread_"</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.adminBrokerExecutor =</span><br><span class="line">                Executors.newFixedThreadPool(<span class="keyword">this</span>.brokerConfig.getAdminBrokerThreadPoolNums(), <span class="keyword">new</span> ThreadFactoryImpl(</span><br><span class="line">                    <span class="string">"AdminBrokerThread_"</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.clientManageExecutor = <span class="keyword">new</span> ThreadPoolExecutor(</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getClientManageThreadPoolNums(),</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getClientManageThreadPoolNums(),</span><br><span class="line">                <span class="number">1000</span> * <span class="number">60</span>,</span><br><span class="line">                TimeUnit.MILLISECONDS,</span><br><span class="line">                <span class="keyword">this</span>.clientManagerThreadPoolQueue,</span><br><span class="line">                <span class="keyword">new</span> ThreadFactoryImpl(<span class="string">"ClientManageThread_"</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.heartbeatExecutor = <span class="keyword">new</span> BrokerFixedThreadPoolExecutor(</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getHeartbeatThreadPoolNums(),</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getHeartbeatThreadPoolNums(),</span><br><span class="line">                <span class="number">1000</span> * <span class="number">60</span>,</span><br><span class="line">                TimeUnit.MILLISECONDS,</span><br><span class="line">                <span class="keyword">this</span>.heartbeatThreadPoolQueue,</span><br><span class="line">                <span class="keyword">new</span> ThreadFactoryImpl(<span class="string">"HeartbeatThread_"</span>, <span class="keyword">true</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.endTransactionExecutor = <span class="keyword">new</span> BrokerFixedThreadPoolExecutor(</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getEndTransactionThreadPoolNums(),</span><br><span class="line">                <span class="keyword">this</span>.brokerConfig.getEndTransactionThreadPoolNums(),</span><br><span class="line">                <span class="number">1000</span> * <span class="number">60</span>,</span><br><span class="line">                TimeUnit.MILLISECONDS,</span><br><span class="line">                <span class="keyword">this</span>.endTransactionThreadPoolQueue,</span><br><span class="line">                <span class="keyword">new</span> ThreadFactoryImpl(<span class="string">"EndTransactionThread_"</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.consumerManageExecutor =</span><br><span class="line">                Executors.newFixedThreadPool(<span class="keyword">this</span>.brokerConfig.getConsumerManageThreadPoolNums(), <span class="keyword">new</span> ThreadFactoryImpl(</span><br><span class="line">                    <span class="string">"ConsumerManageThread_"</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.registerProcessor();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">long</span> initialDelay = UtilAll.computeNextMorningTimeMillis() - System.currentTimeMillis();</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">long</span> period = <span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span>;</span><br><span class="line">            <span class="keyword">this</span>.scheduledExecutorService.scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        BrokerController.<span class="keyword">this</span>.getBrokerStats().record();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                        log.error(<span class="string">"schedule record error."</span>, e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, initialDelay, period, TimeUnit.MILLISECONDS);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.scheduledExecutorService.scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        BrokerController.<span class="keyword">this</span>.consumerOffsetManager.persist();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                        log.error(<span class="string">"schedule persist consumerOffset error."</span>, e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="number">1000</span> * <span class="number">10</span>, <span class="keyword">this</span>.brokerConfig.getFlushConsumerOffsetInterval(), TimeUnit.MILLISECONDS);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.scheduledExecutorService.scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        BrokerController.<span class="keyword">this</span>.consumerFilterManager.persist();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                        log.error(<span class="string">"schedule persist consumer filter error."</span>, e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="number">1000</span> * <span class="number">10</span>, <span class="number">1000</span> * <span class="number">10</span>, TimeUnit.MILLISECONDS);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.scheduledExecutorService.scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        BrokerController.<span class="keyword">this</span>.protectBroker();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                        log.error(<span class="string">"protectBroker error."</span>, e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="number">3</span>, <span class="number">3</span>, TimeUnit.MINUTES);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.scheduledExecutorService.scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        BrokerController.<span class="keyword">this</span>.printWaterMark();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                        log.error(<span class="string">"printWaterMark error."</span>, e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="number">10</span>, <span class="number">1</span>, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.scheduledExecutorService.scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        log.info(<span class="string">"dispatch behind commit log &#123;&#125; bytes"</span>, BrokerController.<span class="keyword">this</span>.getMessageStore().dispatchBehindBytes());</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                        log.error(<span class="string">"schedule dispatchBehindBytes error."</span>, e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="number">1000</span> * <span class="number">10</span>, <span class="number">1000</span> * <span class="number">60</span>, TimeUnit.MILLISECONDS);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.brokerConfig.getNamesrvAddr() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">this</span>.brokerOuterAPI.updateNameServerAddressList(<span class="keyword">this</span>.brokerConfig.getNamesrvAddr());</span><br><span class="line">                log.info(<span class="string">"Set user specified name server address: &#123;&#125;"</span>, <span class="keyword">this</span>.brokerConfig.getNamesrvAddr());</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.brokerConfig.isFetchNamesrvAddrByAddressServer()) &#123;</span><br><span class="line">                <span class="keyword">this</span>.scheduledExecutorService.scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            BrokerController.<span class="keyword">this</span>.brokerOuterAPI.fetchNameServerAddr();</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                            log.error(<span class="string">"ScheduledTask fetchNameServerAddr exception"</span>, e);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, <span class="number">1000</span> * <span class="number">10</span>, <span class="number">1000</span> * <span class="number">60</span> * <span class="number">2</span>, TimeUnit.MILLISECONDS);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!messageStoreConfig.isEnableDLegerCommitLog()) &#123;</span><br><span class="line">                <span class="keyword">if</span> (BrokerRole.SLAVE == <span class="keyword">this</span>.messageStoreConfig.getBrokerRole()) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="keyword">this</span>.messageStoreConfig.getHaMasterAddress() != <span class="keyword">null</span> &amp;&amp; <span class="keyword">this</span>.messageStoreConfig.getHaMasterAddress().length() &gt;= <span class="number">6</span>) &#123;</span><br><span class="line">                        <span class="keyword">this</span>.messageStore.updateHaMasterAddress(<span class="keyword">this</span>.messageStoreConfig.getHaMasterAddress());</span><br><span class="line">                        <span class="keyword">this</span>.updateMasterHAServerAddrPeriodically = <span class="keyword">false</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">this</span>.updateMasterHAServerAddrPeriodically = <span class="keyword">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">this</span>.scheduledExecutorService.scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                        <span class="meta">@Override</span></span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                            <span class="keyword">try</span> &#123;</span><br><span class="line">                                BrokerController.<span class="keyword">this</span>.printMasterAndSlaveDiff();</span><br><span class="line">                            &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                                log.error(<span class="string">"schedule printMasterAndSlaveDiff error."</span>, e);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;, <span class="number">1000</span> * <span class="number">10</span>, <span class="number">1000</span> * <span class="number">60</span>, TimeUnit.MILLISECONDS);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (TlsSystemConfig.tlsMode != TlsMode.DISABLED) &#123;</span><br><span class="line">                <span class="comment">// Register a listener to reload SslContext</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    fileWatchService = <span class="keyword">new</span> FileWatchService(</span><br><span class="line">                        <span class="keyword">new</span> String[] &#123;</span><br><span class="line">                            TlsSystemConfig.tlsServerCertPath,</span><br><span class="line">                            TlsSystemConfig.tlsServerKeyPath,</span><br><span class="line">                            TlsSystemConfig.tlsServerTrustCertPath</span><br><span class="line">                        &#125;,</span><br><span class="line">                        <span class="keyword">new</span> FileWatchService.Listener() &#123;</span><br><span class="line">                            <span class="keyword">boolean</span> certChanged, keyChanged = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">                            <span class="meta">@Override</span></span><br><span class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onChanged</span><span class="params">(String path)</span> </span>&#123;</span><br><span class="line">                                <span class="keyword">if</span> (path.equals(TlsSystemConfig.tlsServerTrustCertPath)) &#123;</span><br><span class="line">                                    log.info(<span class="string">"The trust certificate changed, reload the ssl context"</span>);</span><br><span class="line">                                    reloadServerSslContext();</span><br><span class="line">                                &#125;</span><br><span class="line">                                <span class="keyword">if</span> (path.equals(TlsSystemConfig.tlsServerCertPath)) &#123;</span><br><span class="line">                                    certChanged = <span class="keyword">true</span>;</span><br><span class="line">                                &#125;</span><br><span class="line">                                <span class="keyword">if</span> (path.equals(TlsSystemConfig.tlsServerKeyPath)) &#123;</span><br><span class="line">                                    keyChanged = <span class="keyword">true</span>;</span><br><span class="line">                                &#125;</span><br><span class="line">                                <span class="keyword">if</span> (certChanged &amp;&amp; keyChanged) &#123;</span><br><span class="line">                                    log.info(<span class="string">"The certificate and private key changed, reload the ssl context"</span>);</span><br><span class="line">                                    certChanged = keyChanged = <span class="keyword">false</span>;</span><br><span class="line">                                    reloadServerSslContext();</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line"></span><br><span class="line">                            <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">reloadServerSslContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                                ((NettyRemotingServer) remotingServer).loadSslContext();</span><br><span class="line">                                ((NettyRemotingServer) fastRemotingServer).loadSslContext();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    log.warn(<span class="string">"FileWatchService created error, can't load the certificate dynamically"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            initialTransaction();</span><br><span class="line">            initialAcl();</span><br><span class="line">            initialRpcHooks();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Broker 启动过程</p>
+<p>贴代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.messageStore != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.messageStore.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.remotingServer != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.remotingServer.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.fastRemotingServer != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.fastRemotingServer.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.fileWatchService != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.fileWatchService.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.brokerOuterAPI != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.brokerOuterAPI.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.pullRequestHoldService != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.pullRequestHoldService.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.clientHousekeepingService != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.clientHousekeepingService.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.filterServerManager != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.filterServerManager.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!messageStoreConfig.isEnableDLegerCommitLog()) &#123;</span><br><span class="line">            startProcessorByHa(messageStoreConfig.getBrokerRole());</span><br><span class="line">            handleSlaveSynchronize(messageStoreConfig.getBrokerRole());</span><br><span class="line">            <span class="keyword">this</span>.registerBrokerAll(<span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.scheduledExecutorService.scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    BrokerController.<span class="keyword">this</span>.registerBrokerAll(<span class="keyword">true</span>, <span class="keyword">false</span>, brokerConfig.isForceRegister());</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                    log.error(<span class="string">"registerBrokerAll Exception"</span>, e);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">1000</span> * <span class="number">10</span>, Math.max(<span class="number">10000</span>, Math.min(brokerConfig.getRegisterNameServerPeriod(), <span class="number">60000</span>)), TimeUnit.MILLISECONDS);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.brokerStatsManager != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.brokerStatsManager.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.brokerFastFailure != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.brokerFastFailure.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先是启动messageStore，调用 start 方法，这里面又调用了一些代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        lock = lockFile.getChannel().tryLock(<span class="number">0</span>, <span class="number">1</span>, <span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">if</span> (lock == <span class="keyword">null</span> || lock.isShared() || !lock.isValid()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Lock failed,MQ already started"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        lockFile.getChannel().write(ByteBuffer.wrap(<span class="string">"lock"</span>.getBytes()));</span><br><span class="line">        lockFile.getChannel().force(<span class="keyword">true</span>);</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 1. Make sure the fast-forward messages to be truncated during the recovering according to the max physical offset of the commitlog;</span></span><br><span class="line"><span class="comment">             * 2. DLedger committedPos may be missing, so the maxPhysicalPosInLogicQueue maybe bigger that maxOffset returned by DLedgerCommitLog, just let it go;</span></span><br><span class="line"><span class="comment">             * 3. Calculate the reput offset according to the consume queue;</span></span><br><span class="line"><span class="comment">             * 4. Make sure the fall-behind messages to be dispatched before starting the commitlog, especially when the broker role are automatically changed.</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="keyword">long</span> maxPhysicalPosInLogicQueue = commitLog.getMinOffset();</span><br><span class="line">            <span class="keyword">for</span> (ConcurrentMap&lt;Integer, ConsumeQueue&gt; maps : <span class="keyword">this</span>.consumeQueueTable.values()) &#123;</span><br><span class="line">                <span class="keyword">for</span> (ConsumeQueue logic : maps.values()) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (logic.getMaxPhysicOffset() &gt; maxPhysicalPosInLogicQueue) &#123;</span><br><span class="line">                        maxPhysicalPosInLogicQueue = logic.getMaxPhysicOffset();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (maxPhysicalPosInLogicQueue &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                maxPhysicalPosInLogicQueue = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (maxPhysicalPosInLogicQueue &lt; <span class="keyword">this</span>.commitLog.getMinOffset()) &#123;</span><br><span class="line">                maxPhysicalPosInLogicQueue = <span class="keyword">this</span>.commitLog.getMinOffset();</span><br><span class="line">                <span class="comment">/**</span></span><br><span class="line"><span class="comment">                 * This happens in following conditions:</span></span><br><span class="line"><span class="comment">                 * 1. If someone removes all the consumequeue files or the disk get damaged.</span></span><br><span class="line"><span class="comment">                 * 2. Launch a new broker, and copy the commitlog from other brokers.</span></span><br><span class="line"><span class="comment">                 *</span></span><br><span class="line"><span class="comment">                 * All the conditions has the same in common that the maxPhysicalPosInLogicQueue should be 0.</span></span><br><span class="line"><span class="comment">                 * If the maxPhysicalPosInLogicQueue is gt 0, there maybe something wrong.</span></span><br><span class="line"><span class="comment">                 */</span></span><br><span class="line">                log.warn(<span class="string">"[TooSmallCqOffset] maxPhysicalPosInLogicQueue=&#123;&#125; clMinOffset=&#123;&#125;"</span>, maxPhysicalPosInLogicQueue, <span class="keyword">this</span>.commitLog.getMinOffset());</span><br><span class="line">            &#125;</span><br><span class="line">            log.info(<span class="string">"[SetReputOffset] maxPhysicalPosInLogicQueue=&#123;&#125; clMinOffset=&#123;&#125; clMaxOffset=&#123;&#125; clConfirmedOffset=&#123;&#125;"</span>,</span><br><span class="line">                maxPhysicalPosInLogicQueue, <span class="keyword">this</span>.commitLog.getMinOffset(), <span class="keyword">this</span>.commitLog.getMaxOffset(), <span class="keyword">this</span>.commitLog.getConfirmOffset());</span><br><span class="line">            <span class="keyword">this</span>.reputMessageService.setReputFromOffset(maxPhysicalPosInLogicQueue);</span><br><span class="line">            <span class="keyword">this</span>.reputMessageService.start();</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             *  1. Finish dispatching the messages fall behind, then to start other services.</span></span><br><span class="line"><span class="comment">             *  2. DLedger committedPos may be missing, so here just require dispatchBehindBytes &lt;= 0</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dispatchBehindBytes() &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                log.info(<span class="string">"Try to finish doing reput the messages fall behind during the starting, reputOffset=&#123;&#125; maxOffset=&#123;&#125; behind=&#123;&#125;"</span>, <span class="keyword">this</span>.reputMessageService.getReputFromOffset(), <span class="keyword">this</span>.getMaxPhyOffset(), <span class="keyword">this</span>.dispatchBehindBytes());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">this</span>.recoverTopicQueueTable();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!messageStoreConfig.isEnableDLegerCommitLog()) &#123;</span><br><span class="line">            <span class="keyword">this</span>.haService.start();</span><br><span class="line">            <span class="keyword">this</span>.handleScheduleMessageService(messageStoreConfig.getBrokerRole());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.flushConsumeQueueService.start();</span><br><span class="line">        <span class="keyword">this</span>.commitLog.start();</span><br><span class="line">        <span class="keyword">this</span>.storeStatsService.start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.createTempFile();</span><br><span class="line">        <span class="keyword">this</span>.addScheduleTask();</span><br><span class="line">        <span class="keyword">this</span>.shutdown = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>调用DefaultMessageStore.start方法启动DefaultMessageStore对象中的一些服务线程。</p>
+<ol>
+<li>启动ReputMessageService服务线程</li>
+<li>启动FlushConsumeQueueService服务线程；</li>
+<li>调用CommitLog.start方法，启动CommitLog对象中的FlushCommitLogService线程服务，若是同步刷盘（SYNC_FLUSH）则是启动GroupCommitService线程服务；若是异步刷盘（ASYNC_FLUSH）则是启动FlushRealTimeService线程服务；</li>
+<li>启动StoreStatsService线程服务；</li>
+<li>启动定时清理任务</li>
+</ol>
+<p>然后是启动ClientHousekeepingService的 netty 服务端和客户端，然后是启动fileWatchService证书服务，接着启动BrokerOuterAPI中的NettyRemotingClient，即建立与NameServer的链接，用于自身Broker与其他模块的RPC功能调用；包括获取NameServer的地址、注册Broker、注销Broker、获取Topic配置、获取消息进度信息、获取订阅关系等RPC功能，然后是PullRequestHoldService服务线程，这个就是实现长轮询的，然后启动管家ClientHousekeepingService服务，负责扫描不活跃的生产者，消费者和 filter，启动FilterServerManager 过滤器服务管理，然后启动定时任务调用org.apache.rocketmq.broker.BrokerController#registerBrokerAll向所有 nameserver 注册 broker，最后是按需开启org.apache.rocketmq.store.stats.BrokerStatsManager和org.apache.rocketmq.broker.latency.BrokerFastFailure，基本上启动过程就完成了</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/07/05/聊一下-RocketMQ-的-NameServer-源码/" rel="bookmark">聊一下 RocketMQ 的 NameServer 源码</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/06/26/聊一下-RocketMQ-的-Consumer/" rel="bookmark">聊一下 RocketMQ 的 DefaultMQPushConsumer 源码</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/06/21/介绍一下-RocketMQ/" rel="bookmark">介绍一下 RocketMQ</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div>请我喝杯咖啡</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://i.loli.net/2020/01/12/NUlWanT31E8LQGx.png" alt="Nicksxs WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://ooo.0o0.ooo/2016/08/17/57b421e773057.jpg" alt="Nicksxs Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Nicksxs
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://nicksxs.me/2020/07/19/%E8%81%8A%E8%81%8A-RocketMQ-%E7%9A%84-Broker-%E6%BA%90%E7%A0%81/" title="聊聊 RocketMQ 的 Broker 源码">https://nicksxs.me/2020/07/19/聊聊-RocketMQ-的-Broker-源码/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MQ/" rel="tag"># MQ</a>
+              <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"># 消息队列</a>
+              <a href="/tags/RocketMQ/" rel="tag"># RocketMQ</a>
+              <a href="/tags/%E5%89%8A%E5%B3%B0%E5%A1%AB%E8%B0%B7/" rel="tag"># 削峰填谷</a>
+              <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag"># 中间件</a>
+              <a href="/tags/Broker/" rel="tag"># Broker</a>
+              <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag"># 源码解析</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/11/2020%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/" rel="prev" title="2020年中总结">
+      <i class="fa fa-chevron-left"></i> 2020年中总结
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Nicksxs"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Nicksxs</p>
+  <div class="site-description" itemprop="description">learn from zero,技术博客，Nicksxs，史学森</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nicksxs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nicksxs" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nicksxs1202@gmail.com" title="E-Mail → mailto:nicksxs1202@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+  <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+  <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+  <div class="widget-wrap">
+    <div id="myCanvasContainer" class="widget tagcloud">
+      <canvas width="250" height="250" id="resCanvas" style="width=100%">
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2019/" rel="tag">2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2020/" rel="tag">2020</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2PC/" rel="tag">2PC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3PC/" rel="tag">3PC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adaptive/" rel="tag">Adaptive</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Broker/" rel="tag">Broker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Comparator/" rel="tag">Comparator</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DefaultMQPushConsumer/" rel="tag">DefaultMQPushConsumer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/" rel="tag">Design Patterns</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Lock/" rel="tag">Distributed Lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dockerfile/" rel="tag">Dockerfile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/" rel="tag">Dubbo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/G1/" rel="tag">G1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/" rel="tag">GC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garbage-First-Collector/" rel="tag">Garbage-First Collector</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gogs/" rel="tag">Gogs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Homebrew/" rel="tag">Homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/" rel="tag">MQ</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NameServer/" rel="tag">NameServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RPC/" rel="tag">RPC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RocketMQ/" rel="tag">RocketMQ</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPI/" rel="tag">SPI</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Singleton/" rel="tag">Singleton</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stream/" rel="tag">Stream</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread-dump/" rel="tag">Thread dump</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webhook/" rel="tag">Webhook</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aqs/" rel="tag">aqs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cgroup/" rel="tag">cgroup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cluster/" rel="tag">cluster</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echo/" rel="tag">echo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gap-lock/" rel="tag">gap lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/icu4c/" rel="tag">icu4c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/im/" rel="tag">im</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mfc/" rel="tag">mfc</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvcc/" rel="tag">mvcc</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namespace/" rel="tag">namespace</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/next-key-lock/" rel="tag">next-key lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nullsfirst/" rel="tag">nullsfirst</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openresty/" rel="tag">openresty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-view/" rel="tag">read view</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/" rel="tag">sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/" rel="tag">spark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swoole/" rel="tag">swoole</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uname/" rel="tag">uname</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websocket/" rel="tag">websocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zsh/" rel="tag">zsh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">三阶段提交</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">两阶段提交</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">中间件</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="tag">分布式事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="tag">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8A%E5%B3%B0%E5%A1%AB%E8%B0%B7/" rel="tag">削峰填谷</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B/" rel="tag">单例</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%EF%BC%8C%E6%96%87%E7%AB%A0/" rel="tag">博客，文章</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E8%A1%8C%E7%89%88/" rel="tag">发行版</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%84%E7%94%9F%E8%99%AB/" rel="tag">寄生虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/" rel="tag">年中总结</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" rel="tag">年终总结</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%BB%E8%AF%BB/" rel="tag">幻读</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BD%B1%E8%AF%84/" rel="tag">影评</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E6%8B%93%E5%B1%95/" rel="tag">自适应拓展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="tag">读后感</a><span class="tag-list-count">1</span></li></ul>
+      </canvas>
+    </div>
+  </div>
+
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.zipperary.com/" title="http:&#x2F;&#x2F;www.zipperary.com&#x2F;" rel="noopener" target="_blank">Zippera's blog</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://x20a.xyz/" title="http:&#x2F;&#x2F;x20a.xyz&#x2F;" rel="noopener" target="_blank">Freedom</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://samuel.group/" title="http:&#x2F;&#x2F;samuel.group&#x2F;" rel="noopener" target="_blank">sfwtt</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.leanote.com/buru" title="http:&#x2F;&#x2F;blog.leanote.com&#x2F;buru" rel="noopener" target="_blank">bruce</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://m2shad0w.com/" title="http:&#x2F;&#x2F;m2shad0w.com&#x2F;" rel="noopener" target="_blank">m2shad0w</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.programcat.com/" title="http:&#x2F;&#x2F;www.programcat.com" rel="noopener" target="_blank">程序喵的厨房</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nicksxs</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"ysza182Vghlqjdt7QiwGLLJy-gzGzoHsz","app_key":"s9GDqbn7gnGGkusf66YRVccw","server_url":"https://leancloud.cn","security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://nicksxs.me/2020/07/19/%E8%81%8A%E8%81%8A-RocketMQ-%E7%9A%84-Broker-%E6%BA%90%E7%A0%81/',]
+      });
+      });
+  </script>
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://nicksxs.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://nicksxs.me/2020/07/19/%E8%81%8A%E8%81%8A-RocketMQ-%E7%9A%84-Broker-%E6%BA%90%E7%A0%81/";
+    this.page.identifier = "2020/07/19/聊聊-RocketMQ-的-Broker-源码/";
+    this.page.title = "聊聊 RocketMQ 的 Broker 源码";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://nicksxs.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
