@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-07-19T13:49:39.193Z</updated>
+  <updated>2020-07-26T15:34:01.230Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,44 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我是如何走上跑步这条不归路的</title>
+    <link href="https://nicksxs.me/2020/07/26/%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E8%B5%B0%E4%B8%8A%E8%B7%91%E6%AD%A5%E8%BF%99%E6%9D%A1%E4%B8%8D%E5%BD%92%E8%B7%AF%E7%9A%84/"/>
+    <id>https://nicksxs.me/2020/07/26/%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E8%B5%B0%E4%B8%8A%E8%B7%91%E6%AD%A5%E8%BF%99%E6%9D%A1%E4%B8%8D%E5%BD%92%E8%B7%AF%E7%9A%84/</id>
+    <published>2020-07-26T15:32:55.000Z</published>
+    <updated>2020-07-26T15:34:01.230Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;这周因为没有准备技术方面的内容加之之前有想分享下我和跑步的一些事情，我从小学开始就是个体育渣，因为体重大非常胖，小学的时候要做仰卧起坐，基本是一个都起不来，然后那时候跑步也是要我命那种，跟另外一个比较胖的同学在跑步队尾苟延残喘，只有立定跳远还行。&lt;/p&gt;
+&lt;p&gt;时光飞逝，我
+        
+      
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="运动" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/"/>
+    
+      <category term="跑步" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/%E8%B7%91%E6%AD%A5/"/>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="运动" scheme="https://nicksxs.me/tags/%E8%BF%90%E5%8A%A8/"/>
+    
+      <category term="减肥" scheme="https://nicksxs.me/tags/%E5%87%8F%E8%82%A5/"/>
+    
+      <category term="跑步" scheme="https://nicksxs.me/tags/%E8%B7%91%E6%AD%A5/"/>
+    
+  </entry>
   
   <entry>
     <title>聊聊 RocketMQ 的 Broker 源码</title>
@@ -60,9 +98,9 @@
     
       <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
-      <category term="Broker" scheme="https://nicksxs.me/tags/Broker/"/>
-    
       <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+    
+      <category term="Broker" scheme="https://nicksxs.me/tags/Broker/"/>
     
   </entry>
   
@@ -144,9 +182,9 @@
     
       <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
-      <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    
       <category term="NameServer" scheme="https://nicksxs.me/tags/NameServer/"/>
+    
+      <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     
   </entry>
   
@@ -468,9 +506,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -517,9 +555,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -566,9 +604,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -797,40 +835,6 @@
         
         
           &lt;h2 id=&quot;限制下-docker-的-cpu-使用率&quot;&gt;&lt;a href=&quot;#限制下-docker-的-cpu-使用率&quot; class=&quot;headerlink&quot; title=&quot;限制下 docker 的 cpu 使用率&quot;&gt;&lt;/a&gt;限制下 docker 的 cpu
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Docker" scheme="https://nicksxs.me/categories/Docker/"/>
-    
-      <category term="介绍" scheme="https://nicksxs.me/categories/Docker/%E4%BB%8B%E7%BB%8D/"/>
-    
-    
-      <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
-    
-      <category term="namespace" scheme="https://nicksxs.me/tags/namespace/"/>
-    
-      <category term="cgroup" scheme="https://nicksxs.me/tags/cgroup/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker比一般多一点的初学者介绍</title>
-    <link href="https://nicksxs.me/2020/03/08/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D/"/>
-    <id>https://nicksxs.me/2020/03/08/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D/</id>
-    <published>2020-03-08T15:25:40.000Z</published>
-    <updated>2020-03-15T12:25:02.990Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;因为最近想搭一个phabricator用来做看板和任务管理，一开始了解这个是Easy大大有在微博推荐过，后来苏洋也在群里和博客里说到了，看上去还不错的样子，因为主角是docker所以就不介绍太多，后面有机会写一下。&lt;/p&gt;
-&lt;p&gt;docker最开始是之前在某位大佬的博客看到
         
       
     
