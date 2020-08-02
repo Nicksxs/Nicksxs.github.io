@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-07-26T15:34:01.230Z</updated>
+  <updated>2020-08-02T15:17:35.776Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,45 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊聊 Java 自带的那些&quot;逆天&quot;工具</title>
+    <link href="https://nicksxs.me/2020/08/02/%E8%81%8A%E8%81%8A-Java-%E8%87%AA%E5%B8%A6%E7%9A%84%E9%82%A3%E4%BA%9B%E9%80%86%E5%A4%A9%E5%B7%A5%E5%85%B7/"/>
+    <id>https://nicksxs.me/2020/08/02/%E8%81%8A%E8%81%8A-Java-%E8%87%AA%E5%B8%A6%E7%9A%84%E9%82%A3%E4%BA%9B%E9%80%86%E5%A4%A9%E5%B7%A5%E5%85%B7/</id>
+    <published>2020-08-02T13:13:59.000Z</published>
+    <updated>2020-08-02T15:17:35.776Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;原谅我的标题党，其实这些工具的确很厉害，之前其实介绍过一点相关的，是从我一次问题排查的过程中用到的，但是最近又有碰到一次排查问题，发现其实用 idea 直接 &lt;code&gt;dump thread&lt;/code&gt; 是不现实的，毕竟服务器环境的没法这么操作，那就得用 Java
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="Thread dump" scheme="https://nicksxs.me/categories/Thread-dump/"/>
+    
+      <category term="问题排查" scheme="https://nicksxs.me/categories/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/"/>
+    
+      <category term="工具" scheme="https://nicksxs.me/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+      <category term="JPS" scheme="https://nicksxs.me/tags/JPS/"/>
+    
+      <category term="JStack" scheme="https://nicksxs.me/tags/JStack/"/>
+    
+      <category term="JMap" scheme="https://nicksxs.me/tags/JMap/"/>
+    
+  </entry>
   
   <entry>
     <title>我是如何走上跑步这条不归路的</title>
@@ -506,9 +545,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -555,9 +594,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -604,9 +643,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -818,39 +857,6 @@
       <category term="namespace" scheme="https://nicksxs.me/tags/namespace/"/>
     
       <category term="Dockerfile" scheme="https://nicksxs.me/tags/Dockerfile/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker比一般多一点的初学者介绍二</title>
-    <link href="https://nicksxs.me/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/"/>
-    <id>https://nicksxs.me/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/</id>
-    <published>2020-03-15T14:33:55.000Z</published>
-    <updated>2020-03-16T14:16:28.120Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;限制下-docker-的-cpu-使用率&quot;&gt;&lt;a href=&quot;#限制下-docker-的-cpu-使用率&quot; class=&quot;headerlink&quot; title=&quot;限制下 docker 的 cpu 使用率&quot;&gt;&lt;/a&gt;限制下 docker 的 cpu
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Docker" scheme="https://nicksxs.me/categories/Docker/"/>
-    
-      <category term="介绍" scheme="https://nicksxs.me/categories/Docker/%E4%BB%8B%E7%BB%8D/"/>
-    
-    
-      <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
-    
-      <category term="namespace" scheme="https://nicksxs.me/tags/namespace/"/>
-    
-      <category term="cgroup" scheme="https://nicksxs.me/tags/cgroup/"/>
     
   </entry>
   
