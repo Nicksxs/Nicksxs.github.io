@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-08-02T15:17:35.776Z</updated>
+  <updated>2020-08-06T13:30:26.239Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,49 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux 下 grep 命令的一点小技巧</title>
+    <link href="https://nicksxs.me/2020/08/06/Linux-%E4%B8%8B-grep-%E5%91%BD%E4%BB%A4%E7%9A%84%E4%B8%80%E7%82%B9%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    <id>https://nicksxs.me/2020/08/06/Linux-%E4%B8%8B-grep-%E5%91%BD%E4%BB%A4%E7%9A%84%E4%B8%80%E7%82%B9%E5%B0%8F%E6%8A%80%E5%B7%A7/</id>
+    <published>2020-08-06T09:07:17.000Z</published>
+    <updated>2020-08-06T13:30:26.239Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;用了比较久的 grep 命令，其实都只是用了最最基本的功能来查日志，&lt;/p&gt;
+&lt;p&gt;譬如&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://nicksxs.me/categories/Linux/"/>
+    
+      <category term="命令" scheme="https://nicksxs.me/categories/Linux/%E5%91%BD%E4%BB%A4/"/>
+    
+      <category term="grep" scheme="https://nicksxs.me/categories/Linux/%E5%91%BD%E4%BB%A4/grep/"/>
+    
+      <category term="小技巧" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+      <category term="grep" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/grep/"/>
+    
+      <category term="查日志" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/grep/%E6%9F%A5%E6%97%A5%E5%BF%97/"/>
+    
+    
+      <category term="linux" scheme="https://nicksxs.me/tags/linux/"/>
+    
+      <category term="grep" scheme="https://nicksxs.me/tags/grep/"/>
+    
+      <category term="转义" scheme="https://nicksxs.me/tags/%E8%BD%AC%E4%B9%89/"/>
+    
+  </entry>
   
   <entry>
     <title>聊聊 Java 自带的那些&quot;逆天&quot;工具</title>
@@ -543,9 +586,9 @@
     </summary>
     
     
-      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
@@ -592,9 +635,9 @@
     </summary>
     
     
-      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
@@ -641,9 +684,9 @@
     </summary>
     
     
-      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
@@ -804,59 +847,26 @@
     </summary>
     
     
-      <category term="Docker" scheme="https://nicksxs.me/categories/Docker/"/>
-    
       <category term="Linux" scheme="https://nicksxs.me/categories/Linux/"/>
     
       <category term="命令" scheme="https://nicksxs.me/categories/Linux/%E5%91%BD%E4%BB%A4/"/>
+    
+      <category term="Docker" scheme="https://nicksxs.me/categories/Docker/"/>
     
       <category term="echo" scheme="https://nicksxs.me/categories/Linux/%E5%91%BD%E4%BB%A4/echo/"/>
     
       <category term="发行版本" scheme="https://nicksxs.me/categories/Docker/%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC/"/>
     
     
-      <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
-    
       <category term="linux" scheme="https://nicksxs.me/tags/linux/"/>
+    
+      <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
     
       <category term="echo" scheme="https://nicksxs.me/tags/echo/"/>
     
       <category term="uname" scheme="https://nicksxs.me/tags/uname/"/>
     
       <category term="发行版" scheme="https://nicksxs.me/tags/%E5%8F%91%E8%A1%8C%E7%89%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker比一般多一点的初学者介绍三</title>
-    <link href="https://nicksxs.me/2020/03/21/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%B8%89/"/>
-    <id>https://nicksxs.me/2020/03/21/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%B8%89/</id>
-    <published>2020-03-21T06:43:39.000Z</published>
-    <updated>2020-03-21T08:19:01.533Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;运行第一个-Dockerfile&quot;&gt;&lt;a href=&quot;#运行第一个-Dockerfile&quot; class=&quot;headerlink&quot; title=&quot;运行第一个 Dockerfile&quot;&gt;&lt;/a&gt;运行第一个 Dockerfile&lt;/h2&gt;&lt;p&gt;上一篇的
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Docker" scheme="https://nicksxs.me/categories/Docker/"/>
-    
-      <category term="介绍" scheme="https://nicksxs.me/categories/Docker/%E4%BB%8B%E7%BB%8D/"/>
-    
-    
-      <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
-    
-      <category term="namespace" scheme="https://nicksxs.me/tags/namespace/"/>
-    
-      <category term="Dockerfile" scheme="https://nicksxs.me/tags/Dockerfile/"/>
     
   </entry>
   
