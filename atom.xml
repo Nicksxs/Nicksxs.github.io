@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-08-06T13:30:26.239Z</updated>
+  <updated>2020-08-16T15:48:08.194Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,47 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>周末我在老丈人家打了天小工</title>
+    <link href="https://nicksxs.me/2020/08/16/%E5%91%A8%E6%9C%AB%E6%88%91%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E6%89%93%E4%BA%86%E5%A4%A9%E5%B0%8F%E5%B7%A5/"/>
+    <id>https://nicksxs.me/2020/08/16/%E5%91%A8%E6%9C%AB%E6%88%91%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E6%89%93%E4%BA%86%E5%A4%A9%E5%B0%8F%E5%B7%A5/</id>
+    <published>2020-08-16T15:01:09.000Z</published>
+    <updated>2020-08-16T15:48:08.194Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;这周回家提前约好了要去老丈人家帮下忙，因为在翻修下老房子，活不是特别整的那种，所以大部分都是自己干，或者找个大工临时干几天（我们这那种比较专业的泥工匠叫做大工），像我这样去帮忙的，就是干点小工（把给大工帮忙的，干些偏体力活的叫做小工）的活。从大学毕业以后真的蛮少帮家里干活了
+        
+      
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="运动" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/"/>
+    
+      <category term="跑步" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/%E8%B7%91%E6%AD%A5/"/>
+    
+      <category term="干活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/%E8%B7%91%E6%AD%A5/%E5%B9%B2%E6%B4%BB/"/>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="运动" scheme="https://nicksxs.me/tags/%E8%BF%90%E5%8A%A8/"/>
+    
+      <category term="减肥" scheme="https://nicksxs.me/tags/%E5%87%8F%E8%82%A5/"/>
+    
+      <category term="跑步" scheme="https://nicksxs.me/tags/%E8%B7%91%E6%AD%A5/"/>
+    
+      <category term="干活" scheme="https://nicksxs.me/tags/%E5%B9%B2%E6%B4%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux 下 grep 命令的一点小技巧</title>
@@ -729,13 +770,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -768,13 +809,13 @@
     
       <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
     
       <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
@@ -824,49 +865,6 @@
       <category term="sort" scheme="https://nicksxs.me/tags/sort/"/>
     
       <category term="nullsfirst" scheme="https://nicksxs.me/tags/nullsfirst/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker使用中发现的echo命令的一个小技巧及其他</title>
-    <link href="https://nicksxs.me/2020/03/29/echo%E5%91%BD%E4%BB%A4%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    <id>https://nicksxs.me/2020/03/29/echo%E5%91%BD%E4%BB%A4%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7/</id>
-    <published>2020-03-29T13:48:50.000Z</published>
-    <updated>2020-03-29T13:48:50.198Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;最近做 docker 系列，会经常进到 docker 内部，如上一篇介绍的，这些镜像一般都有用 ubuntu 或者alpine 这样的 Linux 系统作为底包，如果构建镜像的时候没有替换源的话，因为你懂的原因，在内部想编辑下东西要安装 vim
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="https://nicksxs.me/categories/Linux/"/>
-    
-      <category term="命令" scheme="https://nicksxs.me/categories/Linux/%E5%91%BD%E4%BB%A4/"/>
-    
-      <category term="Docker" scheme="https://nicksxs.me/categories/Docker/"/>
-    
-      <category term="echo" scheme="https://nicksxs.me/categories/Linux/%E5%91%BD%E4%BB%A4/echo/"/>
-    
-      <category term="发行版本" scheme="https://nicksxs.me/categories/Docker/%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC/"/>
-    
-    
-      <category term="linux" scheme="https://nicksxs.me/tags/linux/"/>
-    
-      <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
-    
-      <category term="echo" scheme="https://nicksxs.me/tags/echo/"/>
-    
-      <category term="uname" scheme="https://nicksxs.me/tags/uname/"/>
-    
-      <category term="发行版" scheme="https://nicksxs.me/tags/%E5%8F%91%E8%A1%8C%E7%89%88/"/>
     
   </entry>
   
