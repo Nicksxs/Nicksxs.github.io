@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-08-16T15:48:08.194Z</updated>
+  <updated>2020-08-23T15:10:23.155Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Filter, Interceptor, Aop, 啥, 啥, 啥? 这些都是啥?</title>
+    <link href="https://nicksxs.me/2020/08/22/Filter-Intercepter-Aop-%E5%95%A5-%E5%95%A5-%E5%95%A5-%E8%BF%99%E4%BA%9B%E9%83%BD%E6%98%AF%E5%95%A5/"/>
+    <id>https://nicksxs.me/2020/08/22/Filter-Intercepter-Aop-%E5%95%A5-%E5%95%A5-%E5%95%A5-%E8%BF%99%E4%BA%9B%E9%83%BD%E6%98%AF%E5%95%A5/</id>
+    <published>2020-08-22T12:44:32.000Z</published>
+    <updated>2020-08-23T15:10:23.155Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;本来是想取个像现在那些公众号转了又转的文章标题，”面试官再问你xxxxx，就把这篇文章甩给他看”这种标题，但是觉得实在太 low
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="Filter" scheme="https://nicksxs.me/categories/Filter/"/>
+    
+      <category term="Interceptor - AOP" scheme="https://nicksxs.me/categories/Interceptor-AOP/"/>
+    
+      <category term="Spring" scheme="https://nicksxs.me/categories/Spring/"/>
+    
+      <category term="Servlet" scheme="https://nicksxs.me/categories/Spring/Servlet/"/>
+    
+      <category term="Interceptor" scheme="https://nicksxs.me/categories/Spring/Servlet/Interceptor/"/>
+    
+      <category term="AOP" scheme="https://nicksxs.me/categories/Spring/Servlet/Interceptor/AOP/"/>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+      <category term="Filter" scheme="https://nicksxs.me/tags/Filter/"/>
+    
+      <category term="Interceptor" scheme="https://nicksxs.me/tags/Interceptor/"/>
+    
+      <category term="AOP" scheme="https://nicksxs.me/tags/AOP/"/>
+    
+      <category term="Spring" scheme="https://nicksxs.me/tags/Spring/"/>
+    
+      <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
+    
+      <category term="Servlet" scheme="https://nicksxs.me/tags/Servlet/"/>
+    
+      <category term="Web" scheme="https://nicksxs.me/tags/Web/"/>
+    
+  </entry>
   
   <entry>
     <title>周末我在老丈人家打了天小工</title>
@@ -221,9 +274,9 @@
     
       <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
-      <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    
       <category term="Broker" scheme="https://nicksxs.me/tags/Broker/"/>
+    
+      <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     
   </entry>
   
@@ -305,9 +358,9 @@
     
       <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
-      <category term="NameServer" scheme="https://nicksxs.me/tags/NameServer/"/>
-    
       <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+    
+      <category term="NameServer" scheme="https://nicksxs.me/tags/NameServer/"/>
     
   </entry>
   
@@ -629,9 +682,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -678,9 +731,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -727,9 +780,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -772,9 +825,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -811,9 +864,9 @@
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
     
       <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
     
@@ -823,48 +876,6 @@
       <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Comparator使用小记</title>
-    <link href="https://nicksxs.me/2020/04/05/Comparator%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0/"/>
-    <id>https://nicksxs.me/2020/04/05/Comparator%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0/</id>
-    <published>2020-04-05T13:41:41.000Z</published>
-    <updated>2020-04-05T13:42:20.733Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;在Java8的stream之前，将对象进行排序的时候，可能需要对象实现Comparable接口，或者自己实现一个Comparator，&lt;/p&gt;
-&lt;p&gt;比如这样子&lt;/p&gt;
-&lt;p&gt;我的对象是Entity&lt;/p&gt;
-&lt;figure class=&quot;highlight
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-      <category term="集合" scheme="https://nicksxs.me/categories/Java/%E9%9B%86%E5%90%88/"/>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-      <category term="Stream" scheme="https://nicksxs.me/tags/Stream/"/>
-    
-      <category term="Comparator" scheme="https://nicksxs.me/tags/Comparator/"/>
-    
-      <category term="排序" scheme="https://nicksxs.me/tags/%E6%8E%92%E5%BA%8F/"/>
-    
-      <category term="sort" scheme="https://nicksxs.me/tags/sort/"/>
-    
-      <category term="nullsfirst" scheme="https://nicksxs.me/tags/nullsfirst/"/>
     
   </entry>
   
