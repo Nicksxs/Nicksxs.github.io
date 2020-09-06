@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-08-30T15:31:08.939Z</updated>
+  <updated>2020-09-06T15:18:32.309Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,49 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mybatis 的 $ 和 # 是有啥区别</title>
+    <link href="https://nicksxs.me/2020/09/06/mybatis-%E7%9A%84-%E5%92%8C-%E6%98%AF%E6%9C%89%E5%95%A5%E5%8C%BA%E5%88%AB/"/>
+    <id>https://nicksxs.me/2020/09/06/mybatis-%E7%9A%84-%E5%92%8C-%E6%98%AF%E6%9C%89%E5%95%A5%E5%8C%BA%E5%88%AB/</id>
+    <published>2020-09-06T15:14:50.000Z</published>
+    <updated>2020-09-06T15:18:32.309Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;这个问题也是面试中常被问到的，就抽空来了解下这个，跳过一大段前面初始化的逻辑，&lt;br&gt;对于一条&lt;code&gt;select * from t1 where id = #{id}&lt;/code&gt;这样的 sql，在初始化扫描 mapper 的xml文件的时候会根据是否是
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="Mybatis" scheme="https://nicksxs.me/categories/Java/Mybatis/"/>
+    
+      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
+    
+      <category term="Sql注入" scheme="https://nicksxs.me/categories/Mysql/Sql%E6%B3%A8%E5%85%A5/"/>
+    
+      <category term="Spring" scheme="https://nicksxs.me/categories/Spring/"/>
+    
+      <category term="Mybatis" scheme="https://nicksxs.me/categories/Spring/Mybatis/"/>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+      <category term="Mysql" scheme="https://nicksxs.me/tags/Mysql/"/>
+    
+      <category term="Mybatis" scheme="https://nicksxs.me/tags/Mybatis/"/>
+    
+      <category term="Sql注入" scheme="https://nicksxs.me/tags/Sql%E6%B3%A8%E5%85%A5/"/>
+    
+  </entry>
   
   <entry>
     <title>这周末我又在老丈人家打了天小工</title>
@@ -79,11 +122,11 @@
     
       <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
+      <category term="Spring" scheme="https://nicksxs.me/categories/Spring/"/>
+    
       <category term="Filter" scheme="https://nicksxs.me/categories/Filter/"/>
     
       <category term="Interceptor - AOP" scheme="https://nicksxs.me/categories/Interceptor-AOP/"/>
-    
-      <category term="Spring" scheme="https://nicksxs.me/categories/Spring/"/>
     
       <category term="Servlet" scheme="https://nicksxs.me/categories/Spring/Servlet/"/>
     
@@ -723,9 +766,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -772,9 +815,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -821,9 +864,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
@@ -839,45 +882,6 @@
       <category term="mvcc" scheme="https://nicksxs.me/tags/mvcc/"/>
     
       <category term="read view" scheme="https://nicksxs.me/tags/read-view/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis系列介绍八-淘汰策略</title>
-    <link href="https://nicksxs.me/2020/04/18/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E5%85%AB/"/>
-    <id>https://nicksxs.me/2020/04/18/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E5%85%AB/</id>
-    <published>2020-04-18T15:23:41.000Z</published>
-    <updated>2020-04-19T09:28:42.555Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h3 id=&quot;LRU&quot;&gt;&lt;a href=&quot;#LRU&quot; class=&quot;headerlink&quot; title=&quot;LRU&quot;&gt;&lt;/a&gt;LRU&lt;/h3&gt;&lt;p&gt;说完了过期策略再说下淘汰策略，redis 使用的策略是近似的 lru 策略，为什么是近似的呢，先来看下什么是 lru，看下
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/categories/Redis/%E6%BA%90%E7%A0%81/"/>
-    
-      <category term="Redis" scheme="https://nicksxs.me/categories/C/Redis/"/>
-    
-    
-      <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
     
   </entry>
   
