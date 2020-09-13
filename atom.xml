@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-09-06T15:18:32.309Z</updated>
+  <updated>2020-09-13T15:39:01.118Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,49 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在老丈人家的小工记三</title>
+    <link href="https://nicksxs.me/2020/09/13/%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E7%9A%84%E5%B0%8F%E5%B7%A5%E8%AE%B0%E4%B8%89/"/>
+    <id>https://nicksxs.me/2020/09/13/%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E7%9A%84%E5%B0%8F%E5%B7%A5%E8%AE%B0%E4%B8%89/</id>
+    <published>2020-09-13T15:37:21.000Z</published>
+    <updated>2020-09-13T15:39:01.118Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;小工记三&quot;&gt;&lt;a href=&quot;#小工记三&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="运动" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/"/>
+    
+      <category term="跑步" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/%E8%B7%91%E6%AD%A5/"/>
+    
+      <category term="干活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/%E8%B7%91%E6%AD%A5/%E5%B9%B2%E6%B4%BB/"/>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="运动" scheme="https://nicksxs.me/tags/%E8%BF%90%E5%8A%A8/"/>
+    
+      <category term="减肥" scheme="https://nicksxs.me/tags/%E5%87%8F%E8%82%A5/"/>
+    
+      <category term="跑步" scheme="https://nicksxs.me/tags/%E8%B7%91%E6%AD%A5/"/>
+    
+      <category term="干活" scheme="https://nicksxs.me/tags/%E5%B9%B2%E6%B4%BB/"/>
+    
+      <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
   
   <entry>
     <title>mybatis 的 $ 和 # 是有啥区别</title>
@@ -764,9 +807,9 @@
     </summary>
     
     
-      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
@@ -813,9 +856,9 @@
     </summary>
     
     
-      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
@@ -839,49 +882,6 @@
       <category term="next-key lock" scheme="https://nicksxs.me/tags/next-key-lock/"/>
     
       <category term="幻读" scheme="https://nicksxs.me/tags/%E5%B9%BB%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊 mysql 的 MVCC</title>
-    <link href="https://nicksxs.me/2020/04/26/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC/"/>
-    <id>https://nicksxs.me/2020/04/26/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC/</id>
-    <published>2020-04-26T14:14:01.000Z</published>
-    <updated>2020-05-02T11:46:21.370Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;很久以前，有位面试官问到，你知道 mysql 的事务隔离级别吗，“额 O__O …，不太清楚”，完了之后我就去网上找相关的文章，找到了这篇&lt;a href=&quot;https://www.cnblogs.com/zhoujinyi/p/3437475.html&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
-    
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
-    
-      <category term="Mysql" scheme="https://nicksxs.me/categories/C/Mysql/"/>
-    
-    
-      <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
-    
-      <category term="mvcc" scheme="https://nicksxs.me/tags/mvcc/"/>
-    
-      <category term="read view" scheme="https://nicksxs.me/tags/read-view/"/>
     
   </entry>
   
