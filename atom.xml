@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-09-13T15:39:01.118Z</updated>
+  <updated>2020-09-20T13:45:17.936Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode 3 Longest Substring Without Repeating Characters 题解分析</title>
+    <link href="https://nicksxs.me/2020/09/20/Leetcode-3-Longest-Substring-Without-Repeating-Characters-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
+    <id>https://nicksxs.me/2020/09/20/Leetcode-3-Longest-Substring-Without-Repeating-Characters-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
+    <published>2020-09-20T13:40:23.000Z</published>
+    <updated>2020-09-20T13:45:17.936Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;又做了个题，看记录是以前用 C++写过的，现在捋一捋思路，用 Java 再写了一下，思路还是比较清晰的，但是边界细节处理得比较差&lt;/p&gt;
+&lt;h2 id=&quot;简要介绍&quot;&gt;&lt;a href=&quot;#简要介绍&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
+    
+      <category term="字符串 - online" scheme="https://nicksxs.me/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2-online/"/>
+    
+      <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
+    
+      <category term="string" scheme="https://nicksxs.me/categories/leetcode/java/string/"/>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+      <category term="string" scheme="https://nicksxs.me/tags/string/"/>
+    
+      <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    
+  </entry>
   
   <entry>
     <title>在老丈人家的小工记三</title>
@@ -281,11 +323,11 @@
   </entry>
   
   <entry>
-    <title>聊聊 Java 自带的那些&quot;逆天&quot;工具</title>
+    <title>聊聊 Java 自带的那些*逆天*工具</title>
     <link href="https://nicksxs.me/2020/08/02/%E8%81%8A%E8%81%8A-Java-%E8%87%AA%E5%B8%A6%E7%9A%84%E9%82%A3%E4%BA%9B%E9%80%86%E5%A4%A9%E5%B7%A5%E5%85%B7/"/>
     <id>https://nicksxs.me/2020/08/02/%E8%81%8A%E8%81%8A-Java-%E8%87%AA%E5%B8%A6%E7%9A%84%E9%82%A3%E4%BA%9B%E9%80%86%E5%A4%A9%E5%B7%A5%E5%85%B7/</id>
     <published>2020-08-02T13:13:59.000Z</published>
-    <updated>2020-08-02T15:17:35.776Z</updated>
+    <updated>2020-09-13T15:40:17.563Z</updated>
     
     <summary type="html">
     
@@ -807,60 +849,11 @@
     </summary>
     
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
       <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-      <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
-    
-      <category term="Mysql" scheme="https://nicksxs.me/categories/C/Mysql/"/>
-    
-    
-      <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
-    
-      <category term="mvcc" scheme="https://nicksxs.me/tags/mvcc/"/>
-    
-      <category term="read view" scheme="https://nicksxs.me/tags/read-view/"/>
-    
-      <category term="gap lock" scheme="https://nicksxs.me/tags/gap-lock/"/>
-    
-      <category term="next-key lock" scheme="https://nicksxs.me/tags/next-key-lock/"/>
-    
-      <category term="幻读" scheme="https://nicksxs.me/tags/%E5%B9%BB%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊 mysql 的 MVCC 续篇</title>
-    <link href="https://nicksxs.me/2020/05/02/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%AF%87/"/>
-    <id>https://nicksxs.me/2020/05/02/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%AF%87/</id>
-    <published>2020-05-02T06:46:35.000Z</published>
-    <updated>2020-05-03T14:26:29.291Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;上一篇聊了mysql 的 innodb 引擎基于 read view 实现的 mvcc 和事务隔离级别，可能有些细心的小伙伴会发现一些问题，第一个是在 RC
-        
-      
-    
-    </summary>
-    
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
-      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
     
