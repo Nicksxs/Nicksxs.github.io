@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-09-20T13:45:17.936Z</updated>
+  <updated>2020-09-26T15:48:05.568Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,49 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在老丈人家的小工记四</title>
+    <link href="https://nicksxs.me/2020/09/26/%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E7%9A%84%E5%B0%8F%E5%B7%A5%E8%AE%B0%E5%9B%9B/"/>
+    <id>https://nicksxs.me/2020/09/26/%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E7%9A%84%E5%B0%8F%E5%B7%A5%E8%AE%B0%E5%9B%9B/</id>
+    <published>2020-09-26T15:48:05.000Z</published>
+    <updated>2020-09-26T15:48:05.568Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;小工记四&quot;&gt;&lt;a href=&quot;#小工记四&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="运动" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/"/>
+    
+      <category term="跑步" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/%E8%B7%91%E6%AD%A5/"/>
+    
+      <category term="干活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/%E8%B7%91%E6%AD%A5/%E5%B9%B2%E6%B4%BB/"/>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="运动" scheme="https://nicksxs.me/tags/%E8%BF%90%E5%8A%A8/"/>
+    
+      <category term="减肥" scheme="https://nicksxs.me/tags/%E5%87%8F%E8%82%A5/"/>
+    
+      <category term="跑步" scheme="https://nicksxs.me/tags/%E8%B7%91%E6%AD%A5/"/>
+    
+      <category term="干活" scheme="https://nicksxs.me/tags/%E5%B9%B2%E6%B4%BB/"/>
+    
+      <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
   
   <entry>
     <title>Leetcode 3 Longest Substring Without Repeating Characters 题解分析</title>
@@ -37,9 +80,9 @@
     </summary>
     
     
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
       <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
       <category term="字符串 - online" scheme="https://nicksxs.me/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2-online/"/>
     
@@ -826,55 +869,6 @@
       <category term="2PC" scheme="https://nicksxs.me/tags/2PC/"/>
     
       <category term="3PC" scheme="https://nicksxs.me/tags/3PC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊 mysql 的 MVCC 续续篇之锁分析</title>
-    <link href="https://nicksxs.me/2020/05/10/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%BB%AD%E7%AF%87%E4%B9%8B%E5%8A%A0%E9%94%81%E5%88%86%E6%9E%90/"/>
-    <id>https://nicksxs.me/2020/05/10/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%BB%AD%E7%AF%87%E4%B9%8B%E5%8A%A0%E9%94%81%E5%88%86%E6%9E%90/</id>
-    <published>2020-05-10T01:55:10.000Z</published>
-    <updated>2020-05-10T14:26:13.027Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;看完前面两篇水文之后，感觉不得不来分析下 mysql 的锁了，其实前面说到幻读的时候是有个前提没提到的，比如一个&lt;code&gt;select * from table1 where id  = 1&lt;/code&gt;这种查询语句其实是不会加传说中的锁的，当然这里是指在 RR 或者
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/categories/Mysql/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/categories/Mysql/%E6%BA%90%E7%A0%81/"/>
-    
-      <category term="Mysql" scheme="https://nicksxs.me/categories/C/Mysql/"/>
-    
-    
-      <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
-    
-      <category term="数据结构" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="源码" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81/"/>
-    
-      <category term="mvcc" scheme="https://nicksxs.me/tags/mvcc/"/>
-    
-      <category term="read view" scheme="https://nicksxs.me/tags/read-view/"/>
-    
-      <category term="gap lock" scheme="https://nicksxs.me/tags/gap-lock/"/>
-    
-      <category term="next-key lock" scheme="https://nicksxs.me/tags/next-key-lock/"/>
-    
-      <category term="幻读" scheme="https://nicksxs.me/tags/%E5%B9%BB%E8%AF%BB/"/>
     
   </entry>
   
