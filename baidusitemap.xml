@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://nicksxs.me/2020/10/03/mybatis-%E7%9A%84%E7%BC%93%E5%AD%98%E6%98%AF%E6%80%8E%E4%B9%88%E5%9B%9E%E4%BA%8B/</loc>
+    <lastmod>2020-10-03</lastmod>
+  </url>  <url>
     <loc>https://nicksxs.me/2020/09/26/%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E7%9A%84%E5%B0%8F%E5%B7%A5%E8%AE%B0%E5%9B%9B/</loc>
     <lastmod>2020-09-26</lastmod>
   </url>  <url>
@@ -115,10 +118,10 @@
     <loc>https://nicksxs.me/2020/01/19/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%9B%9B/</loc>
     <lastmod>2020-01-18</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2015/01/14/Two-Sum/</loc>
+    <loc>https://nicksxs.me/2019/12/10/Redis-Part-1/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2019/12/10/Redis-Part-1/</loc>
+    <loc>https://nicksxs.me/2015/01/14/Two-Sum/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
     <loc>https://nicksxs.me/2016/09/29/binary-watch/</loc>
@@ -130,10 +133,10 @@
     <loc>https://nicksxs.me/2019/12/26/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2015/04/14/Add-Two-Number/</loc>
+    <loc>https://nicksxs.me/2015/03/13/Reverse-Integer/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2015/03/13/Reverse-Integer/</loc>
+    <loc>https://nicksxs.me/2015/04/14/Add-Two-Number/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
     <loc>https://nicksxs.me/2014/12/24/MFC%20%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86/</loc>
@@ -163,10 +166,10 @@
     <loc>https://nicksxs.me/2020/01/10/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%B8%89/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2017/03/28/spark-little-tips/</loc>
+    <loc>https://nicksxs.me/2014/12/23/my-new-post/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2014/12/23/my-new-post/</loc>
+    <loc>https://nicksxs.me/2017/03/28/spark-little-tips/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
     <loc>https://nicksxs.me/2014/12/30/Clone-Graph-Part-I/</loc>
@@ -190,10 +193,10 @@
     <loc>https://nicksxs.me/2015/03/11/Number-Of-1-Bits/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2019/09/23/AbstractQueuedSynchronizer/</loc>
+    <loc>https://nicksxs.me/2015/04/15/Leetcode-No-3/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
-    <loc>https://nicksxs.me/2015/04/15/Leetcode-No-3/</loc>
+    <loc>https://nicksxs.me/2019/09/23/AbstractQueuedSynchronizer/</loc>
     <lastmod>2020-01-12</lastmod>
   </url>  <url>
     <loc>https://nicksxs.me/2015/01/16/pcre-intro-and-a-simple-package/</loc>
