@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-10-03T14:43:13.750Z</updated>
+  <updated>2020-10-11T15:23:51.554Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode 2 Add Two Numbers 题解分析</title>
+    <link href="https://nicksxs.me/2020/10/11/Leetcode-2-Add-Two-Numbers-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
+    <id>https://nicksxs.me/2020/10/11/Leetcode-2-Add-Two-Numbers-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
+    <published>2020-10-11T15:22:45.000Z</published>
+    <updated>2020-10-11T15:23:51.554Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;又 roll 到了一个以前做过的题，不过现在用 Java 也来写一下，是 easy 级别的，所以就简单说下&lt;/p&gt;
+&lt;h2 id=&quot;简要介绍&quot;&gt;&lt;a href=&quot;#简要介绍&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
+    
+      <category term="linked list" scheme="https://nicksxs.me/categories/linked-list/"/>
+    
+      <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
+    
+      <category term="linked list" scheme="https://nicksxs.me/categories/leetcode/java/linked-list/"/>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+      <category term="linked list" scheme="https://nicksxs.me/tags/linked-list/"/>
+    
+      <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    
+  </entry>
   
   <entry>
     <title>mybatis 的缓存是怎么回事</title>
@@ -138,9 +180,9 @@
     
       <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
-      <category term="string" scheme="https://nicksxs.me/tags/string/"/>
-    
       <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    
+      <category term="string" scheme="https://nicksxs.me/tags/string/"/>
     
   </entry>
   
@@ -529,9 +571,9 @@
     
       <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
-      <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    
       <category term="Broker" scheme="https://nicksxs.me/tags/Broker/"/>
+    
+      <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     
   </entry>
   
@@ -613,9 +655,9 @@
     
       <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
-      <category term="NameServer" scheme="https://nicksxs.me/tags/NameServer/"/>
-    
       <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+    
+      <category term="NameServer" scheme="https://nicksxs.me/tags/NameServer/"/>
     
   </entry>
   
@@ -836,41 +878,6 @@
       <category term="RPC" scheme="https://nicksxs.me/tags/RPC/"/>
     
       <category term="SPI" scheme="https://nicksxs.me/tags/SPI/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊我刚学会的应用诊断方法</title>
-    <link href="https://nicksxs.me/2020/05/22/%E8%81%8A%E8%81%8A%E6%88%91%E5%88%9A%E5%AD%A6%E4%BC%9A%E7%9A%84%E5%BA%94%E7%94%A8%E8%AF%8A%E6%96%AD%E6%96%B9%E6%B3%95/"/>
-    <id>https://nicksxs.me/2020/05/22/%E8%81%8A%E8%81%8A%E6%88%91%E5%88%9A%E5%AD%A6%E4%BC%9A%E7%9A%84%E5%BA%94%E7%94%A8%E8%AF%8A%E6%96%AD%E6%96%B9%E6%B3%95/</id>
-    <published>2020-05-22T15:26:50.000Z</published>
-    <updated>2020-05-24T13:51:43.115Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;因为传说中的出身问题，我以前写的是PHP，在使用 swoole 之前，基本的应用调试手段就是简单粗暴的 var_dump，exit，对于单进程模型的 PHP 也是简单有效，技术栈换成 Java 之后，就变得没那么容易，一方面是需要编译，另一方面是一般都是基于 spring
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-      <category term="Thread dump" scheme="https://nicksxs.me/categories/Thread-dump/"/>
-    
-      <category term="问题排查" scheme="https://nicksxs.me/categories/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/"/>
-    
-      <category term="工具" scheme="https://nicksxs.me/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-      <category term="Thread dump" scheme="https://nicksxs.me/tags/Thread-dump/"/>
     
   </entry>
   
