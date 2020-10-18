@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-10-11T15:23:51.554Z</updated>
+  <updated>2020-10-18T15:15:50.458Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,49 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在老丈人家的小工记五</title>
+    <link href="https://nicksxs.me/2020/10/18/%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E7%9A%84%E5%B0%8F%E5%B7%A5%E8%AE%B0%E4%BA%94/"/>
+    <id>https://nicksxs.me/2020/10/18/%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E7%9A%84%E5%B0%8F%E5%B7%A5%E8%AE%B0%E4%BA%94/</id>
+    <published>2020-10-18T15:14:52.000Z</published>
+    <updated>2020-10-18T15:15:50.458Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;终于回忆起来了，年纪大了写这种东西真的要立马写，不然很容易想不起来，那天应该是 9 月 12 日，也就是上周六，因为我爸也去了，而且娘亲（丈母娘，LD
+        
+      
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="运动" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/"/>
+    
+      <category term="跑步" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/%E8%B7%91%E6%AD%A5/"/>
+    
+      <category term="干活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/%E8%B7%91%E6%AD%A5/%E5%B9%B2%E6%B4%BB/"/>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="运动" scheme="https://nicksxs.me/tags/%E8%BF%90%E5%8A%A8/"/>
+    
+      <category term="减肥" scheme="https://nicksxs.me/tags/%E5%87%8F%E8%82%A5/"/>
+    
+      <category term="跑步" scheme="https://nicksxs.me/tags/%E8%B7%91%E6%AD%A5/"/>
+    
+      <category term="干活" scheme="https://nicksxs.me/tags/%E5%B9%B2%E6%B4%BB/"/>
+    
+      <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
   
   <entry>
     <title>Leetcode 2 Add Two Numbers 题解分析</title>
@@ -52,9 +95,9 @@
     
       <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
-      <category term="linked list" scheme="https://nicksxs.me/tags/linked-list/"/>
-    
       <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    
+      <category term="linked list" scheme="https://nicksxs.me/tags/linked-list/"/>
     
   </entry>
   
@@ -180,9 +223,9 @@
     
       <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
-      <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
-    
       <category term="string" scheme="https://nicksxs.me/tags/string/"/>
+    
+      <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
   </entry>
   
@@ -571,9 +614,9 @@
     
       <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
-      <category term="Broker" scheme="https://nicksxs.me/tags/Broker/"/>
-    
       <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+    
+      <category term="Broker" scheme="https://nicksxs.me/tags/Broker/"/>
     
   </entry>
   
@@ -655,9 +698,9 @@
     
       <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
-      <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    
       <category term="NameServer" scheme="https://nicksxs.me/tags/NameServer/"/>
+    
+      <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     
   </entry>
   
@@ -839,45 +882,6 @@
       <category term="Adaptive" scheme="https://nicksxs.me/tags/Adaptive/"/>
     
       <category term="自适应拓展" scheme="https://nicksxs.me/tags/%E8%87%AA%E9%80%82%E5%BA%94%E6%8B%93%E5%B1%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊 Dubbo 的 SPI</title>
-    <link href="https://nicksxs.me/2020/05/31/%E8%81%8A%E8%81%8A-Dubbo-%E7%9A%84-SPI/"/>
-    <id>https://nicksxs.me/2020/05/31/%E8%81%8A%E8%81%8A-Dubbo-%E7%9A%84-SPI/</id>
-    <published>2020-05-31T13:06:13.000Z</published>
-    <updated>2020-05-31T13:09:38.605Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;SPI全称是Service Provider Interface，咋眼看跟api是不是有点相似，api是application interface，这两个其实在某些方面有类似的地方，也有蛮大的区别，比如我们基于 dubbo
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-      <category term="Dubbo - RPC - SPI" scheme="https://nicksxs.me/categories/Dubbo-RPC-SPI/"/>
-    
-      <category term="Dubbo" scheme="https://nicksxs.me/categories/Dubbo/"/>
-    
-      <category term="SPI" scheme="https://nicksxs.me/categories/Dubbo/SPI/"/>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-      <category term="Dubbo" scheme="https://nicksxs.me/tags/Dubbo/"/>
-    
-      <category term="RPC" scheme="https://nicksxs.me/tags/RPC/"/>
-    
-      <category term="SPI" scheme="https://nicksxs.me/tags/SPI/"/>
     
   </entry>
   
