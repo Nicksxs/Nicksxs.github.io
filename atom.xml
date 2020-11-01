@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-10-25T15:43:29.574Z</updated>
+  <updated>2020-11-01T15:29:20.246Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,45 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Apollo 的 value 注解是怎么自动更新的</title>
+    <link href="https://nicksxs.me/2020/11/01/Apollo-%E7%9A%84-value-%E6%B3%A8%E8%A7%A3%E6%98%AF%E6%80%8E%E4%B9%88%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E7%9A%84/"/>
+    <id>https://nicksxs.me/2020/11/01/Apollo-%E7%9A%84-value-%E6%B3%A8%E8%A7%A3%E6%98%AF%E6%80%8E%E4%B9%88%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E7%9A%84/</id>
+    <published>2020-11-01T15:26:43.000Z</published>
+    <updated>2020-11-01T15:29:20.246Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在前司和目前公司，用的配置中心都是使用的 Apollo，经过了业界验证，比较强大的配置管理系统，特别是在0.10 后开始支持对使用 value 注解的配置值进行自动更新，今天刚好有个同学问到我，就顺便写篇文章记录下，其实也是借助于 spring 强大的 bean
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="Apollo" scheme="https://nicksxs.me/categories/Java/Apollo/"/>
+    
+      <category term="value" scheme="https://nicksxs.me/categories/Java/Apollo/value/"/>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+      <category term="Apollo" scheme="https://nicksxs.me/tags/Apollo/"/>
+    
+      <category term="value" scheme="https://nicksxs.me/tags/value/"/>
+    
+      <category term="注解" scheme="https://nicksxs.me/tags/%E6%B3%A8%E8%A7%A3/"/>
+    
+      <category term="environment" scheme="https://nicksxs.me/tags/environment/"/>
+    
+  </entry>
   
   <entry>
     <title>Leetcode 104 二叉树的最大深度(Maximum Depth of Binary Tree) 题解分析</title>
@@ -259,9 +298,9 @@
     
       <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
     
-      <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
-    
       <category term="字符串 - online" scheme="https://nicksxs.me/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2-online/"/>
+    
+      <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
     
       <category term="string" scheme="https://nicksxs.me/categories/leetcode/java/string/"/>
     
@@ -843,47 +882,6 @@
       <category term="削峰填谷" scheme="https://nicksxs.me/tags/%E5%89%8A%E5%B3%B0%E5%A1%AB%E8%B0%B7/"/>
     
       <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊一次 brew update 引发的血案</title>
-    <link href="https://nicksxs.me/2020/06/13/%E8%81%8A%E8%81%8A%E4%B8%80%E6%AC%A1-brew-update-%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/"/>
-    <id>https://nicksxs.me/2020/06/13/%E8%81%8A%E8%81%8A%E4%B8%80%E6%AC%A1-brew-update-%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/</id>
-    <published>2020-06-13T14:28:56.000Z</published>
-    <updated>2020-06-13T14:31:35.522Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;熟悉我的人（谁熟悉你啊🙄）知道我以前写过 PHP，虽然现在在工作中没用到了，但是自己的一些小工具还是会用 PHP 来写，但是在 Mac 碰到了一个环境相关的问题，因为我也是个更新狂魔，用了 brew 之后因为 gfw
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Mac" scheme="https://nicksxs.me/categories/Mac/"/>
-    
-      <category term="PHP" scheme="https://nicksxs.me/categories/PHP/"/>
-    
-      <category term="Homebrew" scheme="https://nicksxs.me/categories/Mac/Homebrew/"/>
-    
-      <category term="icu4c" scheme="https://nicksxs.me/categories/PHP/icu4c/"/>
-    
-    
-      <category term="Mac" scheme="https://nicksxs.me/tags/Mac/"/>
-    
-      <category term="PHP" scheme="https://nicksxs.me/tags/PHP/"/>
-    
-      <category term="Homebrew" scheme="https://nicksxs.me/tags/Homebrew/"/>
-    
-      <category term="icu4c" scheme="https://nicksxs.me/tags/icu4c/"/>
-    
-      <category term="zsh" scheme="https://nicksxs.me/tags/zsh/"/>
     
   </entry>
   
