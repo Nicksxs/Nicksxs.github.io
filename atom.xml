@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-11-01T15:29:20.246Z</updated>
+  <updated>2020-11-08T14:55:23.161Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊聊 Java 的类加载机制一</title>
+    <link href="https://nicksxs.me/2020/11/08/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/"/>
+    <id>https://nicksxs.me/2020/11/08/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</id>
+    <published>2020-11-08T14:53:19.575Z</published>
+    <updated>2020-11-08T14:55:23.161Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;一说到这个主题，想到的应该是双亲委派模型，不过讲的包括但不限于这个，主要内容是参考深入理解 Java 虚拟机书中的介绍，&lt;br&gt;一个类型的生命周期包含了七个阶段，加载，验证，准备，解析，初始化，使用，卸载。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;h2 id=&quot;加载&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="类加载" scheme="https://nicksxs.me/categories/Java/%E7%B1%BB%E5%8A%A0%E8%BD%BD/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Apollo 的 value 注解是怎么自动更新的</title>
@@ -837,51 +866,6 @@
       <category term="源码解析" scheme="https://nicksxs.me/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     
       <category term="DefaultMQPushConsumer" scheme="https://nicksxs.me/tags/DefaultMQPushConsumer/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>介绍一下 RocketMQ</title>
-    <link href="https://nicksxs.me/2020/06/21/%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B-RocketMQ/"/>
-    <id>https://nicksxs.me/2020/06/21/%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B-RocketMQ/</id>
-    <published>2020-06-21T13:25:22.000Z</published>
-    <updated>2020-06-21T13:35:12.826Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;说起消息队列一般Web后端做过一段时间开发的肯定会用过，在前司的时候用的是改良版的 NSQ，有点像 NOSQL 的简写版🙄，其实是个go 语言写的消息队列，&lt;a href=&quot;https://github.com/nsqio/nsq&quot; target=&quot;_blank&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="MQ" scheme="https://nicksxs.me/categories/MQ/"/>
-    
-      <category term="RocketMQ" scheme="https://nicksxs.me/categories/RocketMQ/"/>
-    
-      <category term="消息队列" scheme="https://nicksxs.me/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
-    
-      <category term="RocketMQ" scheme="https://nicksxs.me/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/RocketMQ/"/>
-    
-      <category term="中间件" scheme="https://nicksxs.me/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
-    
-      <category term="RocketMQ" scheme="https://nicksxs.me/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/"/>
-    
-    
-      <category term="MQ" scheme="https://nicksxs.me/tags/MQ/"/>
-    
-      <category term="消息队列" scheme="https://nicksxs.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
-    
-      <category term="RocketMQ" scheme="https://nicksxs.me/tags/RocketMQ/"/>
-    
-      <category term="削峰填谷" scheme="https://nicksxs.me/tags/%E5%89%8A%E5%B3%B0%E5%A1%AB%E8%B0%B7/"/>
-    
-      <category term="中间件" scheme="https://nicksxs.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
   </entry>
   

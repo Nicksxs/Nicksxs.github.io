@@ -204,6 +204,165 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/06/21/%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B-RocketMQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Nicksxs">
+      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nicksxs's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/21/%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B-RocketMQ/" class="post-title-link" itemprop="url">介绍一下 RocketMQ</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-21 21:25:22 / Modified: 21:35:12" itemprop="dateCreated datePublished" datetime="2020-06-21T21:25:22+08:00">2020-06-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MQ/" itemprop="url" rel="index"><span itemprop="name">MQ</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/RocketMQ/" itemprop="url" rel="index"><span itemprop="name">RocketMQ</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">消息队列</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/RocketMQ/" itemprop="url" rel="index"><span itemprop="name">RocketMQ</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/" itemprop="url" rel="index"><span itemprop="name">RocketMQ</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/06/21/%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B-RocketMQ/" class="post-meta-item leancloud_visitors" data-flag-title="介绍一下 RocketMQ" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/06/21/%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B-RocketMQ/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/06/21/介绍一下-RocketMQ/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>说起消息队列一般Web后端做过一段时间开发的肯定会用过，在前司的时候用的是改良版的 NSQ，有点像 NOSQL 的简写版🙄，其实是个go 语言写的消息队列，<a href="https://github.com/nsqio/nsq" target="_blank" rel="noopener">nsq</a> 看代码提交感觉最近更新的不是很勤，不过因为前司有专门的中间件团队，所以还是挺好用的，而且中间件团队的大牛也很厉害，一次都没碰到过丢消息之类的错误，然后现在公司用的是 RocketMQ，本着总还是要了解下的，并且消息队列也是服务端开发中一个很重要的中间件，因为不太有不需要用消息队列的后端团队了吧，原来对 nsq 也不是特别了解原理，就打算了解下 RocketMQ。</p>
+<p>还是像我这样的小白专属，消息队列用来干啥，很多都是标准答案，用来削峰填谷的，这个完全对，只是我想结合场景说给像我这样的小白同学听，想想一个电商的下单功能，除了 AT 两家之外应该大部分都是接入的支付，那么下单支付完成后一般都是等支付回调，告诉你支付完成了（也有可能是失败了，或者超时了咱们主动去查），然后这个回调里我们自己的业务代码干点啥，首先比如是把订单状态改掉了，然后会有各类的操作，比如把优惠券核销了，把其他金钱相关的也核销了，把购物车里对应的商品给删了，还有更次要的，比如发个客服消息，让用户确认下地址的，给用户加积分的等等等等，想象下如果这些都是回调里一股脑儿做掉了，那可能你的代码健壮性跟相关服务的稳定性还有性能要达到一个非常高的水平才能让业务不出现异常，并且万一流量打起来了，这些重要的不重要的操作都会阻塞着，所以需要用一个消息队列，在接到回调后只处理极少的几个核心操作，完了就把这个消息丢进消息队列里，让各个业务方去消费这个消息，把客服消息发一下，给用户加个积分等等，这样子主要的业务流程需要处理的事情就少了，速度也加快了，这个例子呢不能严格算是削峰填谷的例子，不过也算是消息队列的比较典型的使用场景了，要说真实的削峰填谷的话其实可以这么理解，假如短时间内有 1w 个请求进来，系统能支持的 QPS 才 1000，那么正常情况下服务就挂了，或者被限流了，为了让服务正常，那么可以把这些请求先放进消息队列里，我服务端以拉的模式按我的处理能力来消费，这样就没啥问题了</p>
+<p>扯了这么多来聊聊 RocketMQ 长啥样</p>
+<p><img data-src="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/6073827-a998e005dd13967c.png" alt="6073827-a998e005dd13967c"></p>
+<p>总共有四大部分：<strong>NameServer，Broker，Producer，Consumer。</strong></p>
+<h4 id="NameServer"><a href="#NameServer" class="headerlink" title="NameServer"></a>NameServer</h4><p>NameServer是一个非常简单的Topic路由注册中心，其角色类似Dubbo中的zookeeper，支持Broker的动态注册与发现。主要包括两个功能：Broker管理，NameServer接受Broker集群的注册信息并且保存下来作为路由信息的基本数据。然后提供心跳检测机制，检查Broker是否还存活；路由信息管理，每个NameServer将保存关于Broker集群的整个路由信息和用于客户端查询的队列信息。然后Producer和Conumser通过NameServer就可以知道整个Broker集群的路由信息，从而进行消息的投递和消费。NameServer通常也是集群的方式部署，各实例间相互不进行信息通讯。Broker是向每一台NameServer注册自己的路由信息，所以每一个NameServer实例上面都保存一份完整的路由信息。当某个NameServer因某种原因下线了，Broker仍然可以向其它NameServer同步其路由信息，Producer,Consumer仍然可以动态感知Broker的路由的信息。</p>
+<p>NameServer压力不会太大，正常情况主要负责维持心跳和提供Topic-Broker的关系数据。但有一点需要注意，Broker向Namesr发心跳时，会带上当前自己所负责的所有Topic信息，<strong>如果Topic个数太多，会导致一次心跳中，光Topic的数据就非常大，网络情况差的话，网络传输失败，心跳失败，导致Namesrv误认为Broker心跳失败。</strong></p>
+<h4 id="Broker"><a href="#Broker" class="headerlink" title="Broker"></a>Broker</h4><p>Broker主要负责消息的存储、投递和查询以及服务高可用保证，为了实现这些功能，Broker包含了以下几个重要子模块。</p>
+<ul>
+<li>Remoting Module：整个Broker的实体，负责处理来自clients端的请求。</li>
+<li>Client Manager：负责管理客户端(Producer/Consumer)和维护Consumer的Topic订阅信息</li>
+<li>Store Service：提供方便简单的API接口处理消息存储到物理硬盘和查询功能。</li>
+<li>HA Service：高可用服务，提供Master Broker 和 Slave Broker之间的数据同步功能。</li>
+<li>Index Service：根据特定的Message key对投递到Broker的消息进行索引服务，以提供消息的快速查询。</li>
+</ul>
+<h6 id="Broker的特点"><a href="#Broker的特点" class="headerlink" title="Broker的特点"></a>Broker的特点</h6><p><strong>1.负载均衡：</strong>Broker上存Topic信息，<strong>Topic由多个队列组成，队列会平均分散在多个Broker上，</strong>而Producer的发送机制保证消息尽量平均分布到所有队列中，<strong>最终效果就是所有消息都平均落在每个Broker上。</strong></p>
+<p><strong>2.动态伸缩能力（非顺序消息）</strong>：Broker的伸缩性体现在两个维度：Topic, Broker。</p>
+<blockquote>
+<p><strong>Topic维度：</strong>假如一个Topic的消息量特别大，但集群水位压力还是很低，就可以扩大该Topic的队列数，Topic的队列数跟发送、消费速度成正比。<br> <strong>Broker维度：</strong>如果集群水位很高了，需要扩容，直接加机器部署Broker就可以。Broker起来后想NameServer注册，Producer、Consumer通过NameServer发现新Broker，立即跟该Broker直连，收发消息。</p>
+</blockquote>
+<p><strong>3.高可用&amp;高可靠</strong></p>
+<blockquote>
+<p><strong>高可用：</strong>集群部署时一般都为主备，备机实时从主机同步消息，如果其中一个主机宕机，备机提供消费服务，但不提供写服务。<br> <strong>高可靠：</strong>所有发往broker的消息，有同步刷盘和异步刷盘机制；同步刷盘时，消息写入物理文件才会返回成功，异步刷盘时，只有机器宕机，才会产生消息丢失，broker挂掉可能会发生，但是机器宕机崩溃是很少发生的，除非突然断电</p>
+</blockquote>
+<h4 id="Producer"><a href="#Producer" class="headerlink" title="Producer"></a>Producer</h4><p>Producer与NameServer集群中的其中一个节点（随机选择）建立长连接，定期从NameServer获取Topic路由信息，并向提供Topic 服务的Master建立长连接，且定时向Master发送心跳。Producer完全无状态，可集群部署。<br> <strong>RocketMQ提供三种发送方式：</strong></p>
+<blockquote>
+<p><strong>同步：</strong>在广泛的场景中使用可靠的同步传输，如重要的通知信息、短信通知、短信营销系统等。<br> <strong>异步：</strong>异步发送通常用于响应时间敏感的业务场景，发送出去即刻返回，利用回调做后续处理。<br> <strong>一次性：</strong>一次性发送用于需要中等可靠性的情况，如日志收集，发送出去即完成，不用等待发送结果，回调等等。</p>
+</blockquote>
+<h6 id="生产者端的负载均衡"><a href="#生产者端的负载均衡" class="headerlink" title="生产者端的负载均衡"></a>生产者端的负载均衡</h6><p>生产者发送时，会自动轮询当前所有可发送的broker，一条消息发送成功，下次换另外一个broker发送，以达到消息平均落到所有的broker上。</p>
+<h4 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h4><p>Consumer与NameServer集群中的其中一个节点（随机选择）建立长连接，定期从NameServer获取Topic路由信息，并向提供Topic服务的Master、Slave建立长连接，且定时向Master、Slave发送心跳。Consumer既可以从Master订阅消息，也可以从Slave订阅消息，消费者在向Master拉取消息时，Master服务器会根据拉取偏移量与最大偏移量的距离（判断是否读老消息，产生读I/O），以及从服务器是否可读等因素建议下一次是从Master还是Slave拉取。</p>
+<h6 id="消费者端的负载均衡"><a href="#消费者端的负载均衡" class="headerlink" title="消费者端的负载均衡"></a>消费者端的负载均衡</h6><p>先讨论消费者的消费模式，<strong>消费者有两种模式消费：集群消费，广播消费。</strong></p>
+<blockquote>
+<p><strong>广播消费：每个消费者消费Topic下的所有队列。</strong><br> <strong>集群消费：一个topic可以由同一个ID下所有消费者分担消费。</strong><br> 具体例子：假如TopicA有6个队列，某个消费者ID起了2个消费者实例，那么每个消费者负责消费3个队列。如果再增加一个消费者ID相同消费者实例，即当前共有3个消费者同时消费6个队列，那每个消费者负责2个队列的消费。</p>
+</blockquote>
+<p>消费者端的负载均衡，就是集群消费模式下，同一个ID的所有消费者实例平均消费该Topic的所有队列。</p>
+<p><strong>消费者从用户角度来看有两种类型：</strong></p>
+<blockquote>
+<p><strong>PullConsumer：主动从brokers处拉取消息。</strong>Consumer消费的一种类型，应用通常主动调用Consumer的拉消息方法从Broker服务器拉消息、主动权由应用控制。一旦获取了批量消息，应用就会启动消费过程。<br><strong>PushConsumer：Consumer消费的一种类型，该模式下Broker收到数据后会主动推送给消费端，该消费模式一般实时性较高。</strong></p>
+</blockquote>
+<h4 id="补充一些概念"><a href="#补充一些概念" class="headerlink" title="补充一些概念"></a>补充一些概念</h4><p><strong>Topic：主题，表示一类消息的集合，每个主题包含若干条消息，每条消息只能属于一个主题，是RocketMQ进行消息订阅的基本单位。</strong>Topic与生产者和消费者都是非常松散的关系，一个topic可以有0个或者1个或者多个生产者向其发送消息，换句话说，一个生产者可以同时向不同和topic发送消息。从消费者的解度来说，一个topic可能被0个或者一个或者多个消费组订阅，类似的，一个消费组可以订阅一个或者多个主题只要这个消费组的实例保持他们的订阅一致。</p>
+<p><strong>Message：消息</strong>消息系统所传输信息的物理载体，生产和消费数据的最小单位，每条消息必须属于一个主题。RocketMQ中每个消息拥有唯一的Message ID，且可以携带具有业务标识的Key。系统提供了通过Message ID和Key查询消息的功能。。</p>
+<p><strong>Message Queue：消息队列，</strong>一个主题被化分为一个或者多个子主题（sub-topics），“消息队列”.</p>
+<p><strong>Tag：标签，为消息设置的标志，用于同一主题下区分不同类型的消息。来自同一业务单元的消息，可以根据不同业务目的在同一主题下设置不同标签。标签能够有效地保持代码的清晰度和连贯性，并优化RocketMQ提供的查询系统。消费者可以根据Tag实现对不同子主题的不同消费逻辑，实现更好的扩展性。</strong>使用tag，同一业务模块不同目的的messages就可以用相同topic不同tag来标识。Tags有益于保持你的代码干净而条理清晰，同时促进使用RocketMQ提供的查询系统的效率。Topic：主题，是生产者发送的消息和消费者拉取的消息的归类。Topic与生产者和消费者都是非常松散的关系，一个topic可以有0个或者1个或者多个生产者向其发送消息，换句话说，一个生产者可以同时向不同和topic发送消息。从消费者的解度来说，一个topic可能被0个或者一个或者多个消费组订阅，类似的，一个消费组可以订阅一个或者多个主题只要这个消费组的实例保持他们的订阅一致。</p>
+<p><strong>Message Order：当使用DefaultMQPushConsumer时，你需要确定消费消息的方式：</strong></p>
+<blockquote>
+<p>Orderly：顺序地消费消息即表示消费的消息顺序同生产者发送的顺序一致。<br> Concurrently：并行消费。指定此方式消费，信息消费的最大并行数量仅受限于每个消费者客户端指定的线程池。</p>
+</blockquote>
+<p><strong>Consumer Group：消费组，</strong>同一类Consumer的集合，这类Consumer通常消费同一类消息且消费逻辑一致。消费者组使得在消息消费方面，实现负载均衡和容错的目标变得非常容易。要注意的是，消费者组的消费者实例必须订阅完全相同的Topic。RocketMQ 支持两种消息模式：集群消费（Clustering）和广播消费（Broadcasting）。<br><strong>Producer Group:生产者组，</strong>同一类Producer的集合，这类Producer发送同一类消息且发送逻辑一致。如果发送的是事务消息且原始生产者在发送之后崩溃，则Broker服务器会联系同一生产者组的其他生产者实例以提交或回溯消费。</p>
+<p>上面的这些我主要参考了 RocketMQ 的 GitHub 介绍和一些优秀网文的介绍，侵权请联系我删除。</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/06/13/%E8%81%8A%E8%81%8A%E4%B8%80%E6%AC%A1-brew-update-%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -669,137 +828,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/05/17/%E8%81%8A%E8%81%8A%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Nicksxs">
-      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nicksxs's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/17/%E8%81%8A%E8%81%8A%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" class="post-title-link" itemprop="url">聊聊我理解的分布式事务</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-05-17 23:56:01" itemprop="dateCreated datePublished" datetime="2020-05-17T23:56:01+08:00">2020-05-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-24 22:18:43" itemprop="dateModified" datetime="2020-05-24T22:18:43+08:00">2020-05-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">分布式事务</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" itemprop="url" rel="index"><span itemprop="name">两阶段提交</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" itemprop="url" rel="index"><span itemprop="name">三阶段提交</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/05/17/%E8%81%8A%E8%81%8A%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" class="post-meta-item leancloud_visitors" data-flag-title="聊聊我理解的分布式事务" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/05/17/%E8%81%8A%E8%81%8A%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/05/17/聊聊我理解的分布式事务/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>前面说了mysql数据库的事务相关的，那事务是用来干嘛的，这里得补一下ACID，</p>
-<blockquote>
-<p><a href="https://zh.wikipedia.org/wiki/ACID" target="_blank" rel="noopener"><strong>ACID</strong></a>，是指<a href="https://zh.wikipedia.org/wiki/数据库管理系统" target="_blank" rel="noopener">数据库管理系统</a>（<a href="https://zh.wikipedia.org/wiki/DBMS" target="_blank" rel="noopener">DBMS</a>）在写入或更新资料的过程中，为保证<a href="https://zh.wikipedia.org/wiki/数据库事务" target="_blank" rel="noopener">事务</a>（transaction）是正确可靠的，所必须具备的四个特性：<a href="https://zh.wikipedia.org/w/index.php?title=原子性&action=edit&redlink=1" target="_blank" rel="noopener">原子性</a>（atomicity，或称不可分割性）、<a href="https://zh.wikipedia.org/w/index.php?title=一致性_(数据库系统)&action=edit&redlink=1" target="_blank" rel="noopener">一致性</a>（consistency）、<a href="https://zh.wikipedia.org/wiki/隔離性" target="_blank" rel="noopener">隔离性</a>（isolation，又称独立性）、<a href="https://zh.wikipedia.org/w/index.php?title=持久性&action=edit&redlink=1" target="_blank" rel="noopener">持久性</a>（durability）。</p>
-</blockquote>
-<ul>
-<li><p>Atomicity（原子性）：一个事务（transaction）中的所有操作，或者全部完成，或者全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被<a href="https://zh.wikipedia.org/wiki/回滚_(数据管理)" target="_blank" rel="noopener">回滚</a>（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。即，事务不可分割、不可约简。<a href="https://zh.wikipedia.org/wiki/ACID#cite_note-acid-1" target="_blank" rel="noopener">[1]</a></p>
-</li>
-<li><p>Consistency（一致性）：在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设<a href="https://zh.wikipedia.org/wiki/数据完整性" target="_blank" rel="noopener">约束</a>、<a href="https://zh.wikipedia.org/wiki/触发器_(数据库)" target="_blank" rel="noopener">触发器</a>、<a href="https://zh.wikipedia.org/wiki/级联回滚" target="_blank" rel="noopener">级联回滚</a>等。<a href="https://zh.wikipedia.org/wiki/ACID#cite_note-acid-1" target="_blank" rel="noopener">[1]</a></p>
-</li>
-<li><p>Isolation（隔离性）：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括未提交读（Read uncommitted）、提交读（read committed）、可重复读（repeatable read）和串行化（Serializable）。<a href="https://zh.wikipedia.org/wiki/ACID#cite_note-acid-1" target="_blank" rel="noopener">[1]</a></p>
-</li>
-<li><p>Durability（持久性）：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。<a href="https://zh.wikipedia.org/wiki/ACID#cite_note-acid-1" target="_blank" rel="noopener">[1]</a></p>
-</li>
-</ul>
-<p>在mysql中，借助于MVCC，各种级别的锁，日志等特性来实现了事务的ACID，但是这个我们通常是对于一个数据库服务的定义，常见的情况下我们的数据库随着业务发展也会从单实例变成多实例，组成主从Master-Slave架构，这个时候其实会有一些问题随之出现，比如说主从同步延迟，假如在业务代码中做了读写分离，对于一些敏感度较低的数据其实问题不是很大，只要主从延迟不到特别夸张的地步一般都是可以忍受的，但是对于一些核心的业务数据，比如订单之类的，不能忍受数据不一致，下了单了，付了款了，一刷订单列表，发现这个订单还没支付，甚至订单都没在，这对于用户来讲是恨不能容忍的错误，那么这里就需要一些措施，要不就不读写分离，要不就在 redis 这类缓存下订单，或者支付后加个延时等，这些都是一些补偿措施，并且这也是一个不太切当的例子，比较合适的例子也可以用这个下单来说，一般在电商平台下单会有挺多要做的事情，比如像下面这个图</p>
-<p><img data-src="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/WX20200517-2127322x.png" alt=""></p>
-<p>下单的是后要冻结核销优惠券，如果账户里有钱要冻结扣除账户里的钱，如果使用了J 豆也一样，可能还有 E 卡，忽略我借用的平台，因为目前一般后台服务化之后，可能每一项都是对应的一个后台服务，我们期望的执行过程是要不全成功，要不就全保持执行前状态，不能是部分扣减核销成功了，部分还不行，所以我们处理这种情况会引入一些通用的方案，第一种叫<a href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4" target="_blank" rel="noopener">二阶段提交</a>,</p>
-<blockquote>
-<p><strong>二阶段提交</strong>（英语：Two-phase Commit）是指在<a href="https://zh.wikipedia.org/wiki/计算机网络" target="_blank" rel="noopener">计算机网络</a>以及<a href="https://zh.wikipedia.org/wiki/数据库" target="_blank" rel="noopener">数据库</a>领域内，为了使基于<a href="https://zh.wikipedia.org/wiki/分布式系统" target="_blank" rel="noopener">分布式系统</a>架构下的所有节点在进行<a href="https://zh.wikipedia.org/wiki/数据库事务" target="_blank" rel="noopener">事务</a>提交时保持一致性而设计的一种<a href="https://zh.wikipedia.org/wiki/演算法" target="_blank" rel="noopener">算法</a>。通常，<strong>二阶段提交</strong>也被称为是一种<strong>协议</strong>（Protocol）。在分布式系统中，每个节点虽然可以知晓自己的操作时成功或者失败，却无法知道其他节点的操作的成功或失败。当一个事务跨越多个节点时，为了保持事务的<a href="https://zh.wikipedia.org/wiki/ACID" target="_blank" rel="noopener">ACID</a>特性，需要引入一个作为<strong>协调者</strong>的组件来统一掌控所有节点（称作<strong>参与者</strong>）的操作结果并最终指示这些节点是否要把操作结果进行真正的提交（比如将更新后的数据写入磁盘等等）。因此，二阶段提交的算法思路可以概括为： 参与者将操作成败通知协调者，再由协调者根据所有参与者的反馈情报决定各参与者是否要提交操作还是中止操作。</p>
-</blockquote>
-<p>对于上面的例子，我们将整个过程分成两个阶段，首先是提交请求阶段，这个阶段大概需要做的是确定资源存在，锁定资源，可能还要做好失败后回滚的准备，如果这些都 ok 了那么就响应成功，这里其实用到了一个叫事务的协调者的角色，类似于裁判员，每个节点都反馈第一阶段成功后，开始执行第二阶段，也就是实际执行操作，这里也是需要所有节点都反馈成功后才是执行成功，要不就是失败回滚。其实常用的分布式事务的解决方案主要也是基于此方案的改进，比如后面介绍的<a href="https://zh.wikipedia.org/wiki/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4" target="_blank" rel="noopener">三阶段提交</a>，有三阶段提交就是因为二阶段提交比较尴尬的几个点，</p>
-<ul>
-<li>第一是对于两阶段提交，其中默认只有协调者有超时时间，当一个参与者进入卡死状态时只能依赖协调者的超时来结束任务，这中间的时间参与者都是锁定着资源</li>
-<li>第二是协调者的单点问题，万一挂了，参与者就会在那傻等着</li>
-</ul>
-<p>所以三阶段提交引入了各节点的超时机制和一个准备阶段，首先是一个<code>can commit</code>阶段，询问下各个节点有没有资源，能不能进行操作，这个阶段不阻塞，只是提前做个摸底，这个阶段其实人畜无害，但是能提高成功率，在这个阶段如果就有节点反馈是不接受的，那就不用执行下去了，也没有锁资源，然后第二阶段是 <code>pre commit</code> ，这个阶段做的事情跟原来的 第一阶段比较类似，然后是第三阶段<code>do commit</code>，其实三阶段提交我个人觉得只是加了个超时，和准备阶段，好像木有根本性的解决的两阶段提交的问题，后续可以再看看一些论文来思考讨论下。</p>
-<p>2020年05月24日22:11 更新<br>这里跟朋友讨论了下，好像想通了最核心的一点，对于前面说的那个场景，如果是两阶段提交，如果各个节点中有一个没回应，并且协调者也挂了，这个时候会有什么情况呢，再加一个假设，其实比如这个一阶段其实是检验就失败的，理论上应该大家都释放资源，那么对于这种异常情况，其他的参与者就不知所措了，就傻傻地锁着资源阻塞着，那么三阶段提交的意义就出现了，把第一阶段拆开，那么即使在这个阶段出现上述的异常，即也不会锁定资源，同时参与者也有超时机制，在第二阶段锁定资源出现异常是，其他参与者节点等超时后就自动释放资源了，也就没啥问题了，不过对于那种异常恢复后的一些情况还是没有很好地解决，需要借助 zk 等，后面有空可以讲讲 paxos 跟 raft 等</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -871,14 +899,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-count">89</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

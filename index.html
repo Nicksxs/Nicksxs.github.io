@@ -204,6 +204,129 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/11/08/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Nicksxs">
+      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nicksxs's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/08/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">聊聊 Java 的类加载机制一</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-11-08 22:53:19 / Modified: 22:55:23" itemprop="dateCreated datePublished" datetime="2020-11-08T22:53:19+08:00">2020-11-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E7%B1%BB%E5%8A%A0%E8%BD%BD/" itemprop="url" rel="index"><span itemprop="name">类加载</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/08/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="post-meta-item leancloud_visitors" data-flag-title="聊聊 Java 的类加载机制一" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/11/08/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/08/聊聊-Java-的类加载机制/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一说到这个主题，想到的应该是双亲委派模型，不过讲的包括但不限于这个，主要内容是参考深入理解 Java 虚拟机书中的介绍，<br>一个类型的生命周期包含了七个阶段，加载，验证，准备，解析，初始化，使用，卸载。</p>
+<ul>
+<li><h2 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h2></li>
+</ul>
+<ol>
+<li>通过一个类的全限定名来获取定义此类的二进制字节流</li>
+<li>将这个字节流代表的静态存储结构转化为方法区的运行时数据结构</li>
+<li>在内存中生成了一个代表这个类的 java.lang.Class 对象，作为方法区这个类的各种数据的访问入口</li>
+</ol>
+<ul>
+<li><h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2></li>
+</ul>
+<ol>
+<li>文件格式验证</li>
+<li>元数据验证</li>
+<li>字节码验证</li>
+<li>符号引用验证</li>
+</ol>
+<ul>
+<li><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>准备阶段是正式为类中定义的变量（即静态变量，被static修饰的变量）分配内存并设置类变量初始值的阶段</p>
+</li>
+<li><h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>解析阶段是 Java 虚拟机将常量池内的符号引用替换为直接引用的过程</p>
+</li>
+</ul>
+<p>以上<a href="##链接">验证</a>、<a href="##准备">准备</a>、<a href="##解析">解析</a> 三个阶段又合称为链接阶段，链接阶段要做的是将加载到JVM中的二进制字节流的类数据信息合并到JVM的运行时状态中。</p>
+<ul>
+<li><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2>类的初始化阶段是类加载过程的最后一个步骤，也是除了自定义类加载器之外将主动权交给了应用程序，其实就是执行类构造器<clinit>()方法的过程，<clinit>()并不是我们在 Java 代码中直接编写的方法，它是 Javac编译器的自动生成物，<clinit>()方法是由编译器自动收集类中的所有类变量的复制动作和静态句块(static{}块)中的语句合并产生的，编译器收集的顺序是由语句在原文件中出现的顺序决定的，静态语句块中只能访问定义在静态语句块之前的变量，定义在它之后的变量，在前面的静态语句块可以复制，但是不能访问，同时还要保证父类的执行先于子类，然后保证多线程下的并发问题</li>
+</ul>
+<p>最终，方法区会存储当前类类信息，包括类的静态变量、类初始化代码（定义静态变量时的赋值语句 和 静态初始化代码块）、实例变量定义、实例初始化代码（定义实例变量时的赋值语句实例代码块和构造方法）和实例方法，还有父类的类信息引用。</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/11/01/Apollo-%E7%9A%84-value-%E6%B3%A8%E8%A7%A3%E6%98%AF%E6%80%8E%E4%B9%88%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E7%9A%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -642,141 +765,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/10/03/mybatis-%E7%9A%84%E7%BC%93%E5%AD%98%E6%98%AF%E6%80%8E%E4%B9%88%E5%9B%9E%E4%BA%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Nicksxs">
-      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nicksxs's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/03/mybatis-%E7%9A%84%E7%BC%93%E5%AD%98%E6%98%AF%E6%80%8E%E4%B9%88%E5%9B%9E%E4%BA%8B/" class="post-title-link" itemprop="url">mybatis 的缓存是怎么回事</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-03 22:43:13" itemprop="dateCreated datePublished" datetime="2020-10-03T22:43:13+08:00">2020-10-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/Mybatis/" itemprop="url" rel="index"><span itemprop="name">Mybatis</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/Mybatis/" itemprop="url" rel="index"><span itemprop="name">Mybatis</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mybatis/" itemprop="url" rel="index"><span itemprop="name">Mybatis</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mybatis/%E7%BC%93%E5%AD%98/" itemprop="url" rel="index"><span itemprop="name">缓存</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/10/03/mybatis-%E7%9A%84%E7%BC%93%E5%AD%98%E6%98%AF%E6%80%8E%E4%B9%88%E5%9B%9E%E4%BA%8B/" class="post-meta-item leancloud_visitors" data-flag-title="mybatis 的缓存是怎么回事" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/10/03/mybatis-%E7%9A%84%E7%BC%93%E5%AD%98%E6%98%AF%E6%80%8E%E4%B9%88%E5%9B%9E%E4%BA%8B/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/03/mybatis-的缓存是怎么回事/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Java 真的是任何一个中间件，比较常用的那种，都有很多内容值得深挖，比如这个缓存，慢慢有过一些感悟，比如如何提升性能，缓存无疑是一大重要手段，最底层开始 CPU 就有缓存，而且又小又贵，再往上一点内存一般作为硬盘存储在运行时的存储，一般在代码里也会用内存作为一些本地缓存，譬如数据库，像 mysql 这种也是有innodb_buffer_pool来提升查询效率，本质上理解就是用更快的存储作为相对慢存储的缓存，减少查询直接访问较慢的存储，并且这个都是相对的，比起 cpu 的缓存，那内存也是渣，但是与普通机械硬盘相比，那也是两个次元的水平。</p>
-<p>闲扯这么多来说说 mybatis 的缓存，mybatis 一般作为一个轻量级的 orm 使用，相对应的就是比较重量级的 hibernate，不过不在这次讨论范围，上一次是主要讲了 mybatis 在解析 sql 过程中，对于两种占位符的不同替换实现策略，这次主要聊下 mybatis 的缓存，前面其实得了解下前置的东西，比如 sqlsession，先当做我们知道 sqlsession 是个什么玩意，可能或多或少的知道 mybatis 是有两级缓存，</p>
-<h3 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h3><p>第一级的缓存是在 <a href="https://github.com/mybatis/mybatis-3/blob/master/src/main/java/org/apache/ibatis/executor/BaseExecutor.java#L65" target="_blank" rel="noopener">BaseExecutor</a> 中的 <a href="https://github.com/mybatis/mybatis-3/blob/master/src/main/java/org/apache/ibatis/cache/impl/PerpetualCache.java#L27" target="_blank" rel="noopener">PerpetualCache</a>，它是个最基本的缓存实现类，使用了 HashMap 实现缓存功能，代码其实没几十行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PerpetualCache</span> <span class="keyword">implements</span> <span class="title">Cache</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String id;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;Object, Object&gt; cache = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">PerpetualCache</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.id = id;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> id;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> cache.size();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putObject</span><span class="params">(Object key, Object value)</span> </span>&#123;</span><br><span class="line">    cache.put(key, value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">getObject</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> cache.get(key);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">removeObject</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> cache.remove(key);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cache.clear();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (getId() == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> CacheException(<span class="string">"Cache instances require an ID."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == o) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!(o <span class="keyword">instanceof</span> Cache)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Cache otherCache = (Cache) o;</span><br><span class="line">    <span class="keyword">return</span> getId().equals(otherCache.getId());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (getId() == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> CacheException(<span class="string">"Cache instances require an ID."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> getId().hashCode();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看一下BaseExecutor 的构造函数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="title">BaseExecutor</span><span class="params">(Configuration configuration, Transaction transaction)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.transaction = transaction;</span><br><span class="line">    <span class="keyword">this</span>.deferredLoads = <span class="keyword">new</span> ConcurrentLinkedQueue&lt;&gt;();</span><br><span class="line">    <span class="keyword">this</span>.localCache = <span class="keyword">new</span> PerpetualCache(<span class="string">"LocalCache"</span>);</span><br><span class="line">    <span class="keyword">this</span>.localOutputParameterCache = <span class="keyword">new</span> PerpetualCache(<span class="string">"LocalOutputParameterCache"</span>);</span><br><span class="line">    <span class="keyword">this</span>.closed = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">this</span>.configuration = configuration;</span><br><span class="line">    <span class="keyword">this</span>.wrapper = <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>就是把 PerpetualCache 作为 localCache，然后怎么使用我看简单看一下，BaseExecutor 的查询首先是调用这个函数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">query</span><span class="params">(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    BoundSql boundSql = ms.getBoundSql(parameter);</span><br><span class="line">    CacheKey key = createCacheKey(ms, parameter, rowBounds, boundSql);</span><br><span class="line">    <span class="keyword">return</span> query(ms, parameter, rowBounds, resultHandler, key, boundSql);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>可以看到首先是调用了 <a href="https://github.com/mybatis/mybatis-3/blob/master/src/main/java/org/apache/ibatis/executor/BaseExecutor.java#L195" target="_blank" rel="noopener">createCacheKey</a> 方法，这个方法呢，先不看怎么写的，如果我们自己要实现这么个缓存，首先这个缓存 key 的设计也是个问题，如果是以表名加主键作为 key，那么分页查询，或者没有主键的时候就不行，来看看 mybatis 是怎么设计的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> CacheKey <span class="title">createCacheKey</span><span class="params">(MappedStatement ms, Object parameterObject, RowBounds rowBounds, BoundSql boundSql)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (closed) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> ExecutorException(<span class="string">"Executor was closed."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    CacheKey cacheKey = <span class="keyword">new</span> CacheKey();</span><br><span class="line">    cacheKey.update(ms.getId());</span><br><span class="line">    cacheKey.update(rowBounds.getOffset());</span><br><span class="line">    cacheKey.update(rowBounds.getLimit());</span><br><span class="line">    cacheKey.update(boundSql.getSql());</span><br><span class="line">    List&lt;ParameterMapping&gt; parameterMappings = boundSql.getParameterMappings();</span><br><span class="line">    TypeHandlerRegistry typeHandlerRegistry = ms.getConfiguration().getTypeHandlerRegistry();</span><br><span class="line">    <span class="comment">// mimic DefaultParameterHandler logic</span></span><br><span class="line">    <span class="keyword">for</span> (ParameterMapping parameterMapping : parameterMappings) &#123;</span><br><span class="line">      <span class="keyword">if</span> (parameterMapping.getMode() != ParameterMode.OUT) &#123;</span><br><span class="line">        Object value;</span><br><span class="line">        String propertyName = parameterMapping.getProperty();</span><br><span class="line">        <span class="keyword">if</span> (boundSql.hasAdditionalParameter(propertyName)) &#123;</span><br><span class="line">          value = boundSql.getAdditionalParameter(propertyName);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (parameterObject == <span class="keyword">null</span>) &#123;</span><br><span class="line">          value = <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) &#123;</span><br><span class="line">          value = parameterObject;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          MetaObject metaObject = configuration.newMetaObject(parameterObject);</span><br><span class="line">          value = metaObject.getValue(propertyName);</span><br><span class="line">        &#125;</span><br><span class="line">        cacheKey.update(value);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (configuration.getEnvironment() != <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="comment">// issue #176</span></span><br><span class="line">      cacheKey.update(configuration.getEnvironment().getId());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cacheKey;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>首先需要 id，这个 id 是 mapper 里方法的 id， 然后是偏移量跟返回行数，再就是 sql，然后是参数，基本上是会有影响的都加进去了，在这个 update 里面</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Object object)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> baseHashCode = object == <span class="keyword">null</span> ? <span class="number">1</span> : ArrayUtil.hashCode(object);</span><br><span class="line"></span><br><span class="line">    count++;</span><br><span class="line">    checksum += baseHashCode;</span><br><span class="line">    baseHashCode *= count;</span><br><span class="line"></span><br><span class="line">    hashcode = multiplier * hashcode + baseHashCode;</span><br><span class="line"></span><br><span class="line">    updateList.add(object);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>其实是一个 hash 转换，具体不纠结，就是提高特异性，然后回来就是继续调用 query</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">query</span><span class="params">(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    ErrorContext.instance().resource(ms.getResource()).activity(<span class="string">"executing a query"</span>).object(ms.getId());</span><br><span class="line">    <span class="keyword">if</span> (closed) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> ExecutorException(<span class="string">"Executor was closed."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (queryStack == <span class="number">0</span> &amp;&amp; ms.isFlushCacheRequired()) &#123;</span><br><span class="line">      clearLocalCache();</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;E&gt; list;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      queryStack++;</span><br><span class="line">      list = resultHandler == <span class="keyword">null</span> ? (List&lt;E&gt;) localCache.getObject(key) : <span class="keyword">null</span>;</span><br><span class="line">      <span class="keyword">if</span> (list != <span class="keyword">null</span>) &#123;</span><br><span class="line">        handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      queryStack--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (queryStack == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">for</span> (DeferredLoad deferredLoad : deferredLoads) &#123;</span><br><span class="line">        deferredLoad.load();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// issue #601</span></span><br><span class="line">      deferredLoads.clear();</span><br><span class="line">      <span class="keyword">if</span> (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) &#123;</span><br><span class="line">        <span class="comment">// issue #482</span></span><br><span class="line">        clearLocalCache();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>可以看到是先从 localCache 里取，取不到再 queryFromDatabase，其实比较简单，这是一级缓存，考虑到 sqlsession 跟 BaseExecutor 的关系，其实是随着 sqlsession 来保证这个缓存不会出现脏数据幻读的情况，当然事务相关的后面可能再单独聊。</p>
-<h3 id="二级缓存"><a href="#二级缓存" class="headerlink" title="二级缓存"></a>二级缓存</h3><p>其实这个一级二级顺序有点反过来，其实查询的是先走的二级缓存，当然二级的需要配置开启，默认不开，<br>需要通过</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"cacheEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>来开启，然后我们的查询就会走到</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CachingExecutor</span> <span class="keyword">implements</span> <span class="title">Executor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Executor delegate;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> TransactionalCacheManager tcm = <span class="keyword">new</span> TransactionalCacheManager();</span><br></pre></td></tr></table></figure>
-<p>这个 Executor 中，这里我放了类里面的元素，发现没有一个 Cache 类，这就是一个特点了，往下看查询过程</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">query</span><span class="params">(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    BoundSql boundSql = ms.getBoundSql(parameterObject);</span><br><span class="line">    CacheKey key = createCacheKey(ms, parameterObject, rowBounds, boundSql);</span><br><span class="line">    <span class="keyword">return</span> query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">query</span><span class="params">(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql)</span></span></span><br><span class="line"><span class="function">      <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    Cache cache = ms.getCache();</span><br><span class="line">    <span class="keyword">if</span> (cache != <span class="keyword">null</span>) &#123;</span><br><span class="line">      flushCacheIfRequired(ms);</span><br><span class="line">      <span class="keyword">if</span> (ms.isUseCache() &amp;&amp; resultHandler == <span class="keyword">null</span>) &#123;</span><br><span class="line">        ensureNoOutParams(ms, boundSql);</span><br><span class="line">        <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">        List&lt;E&gt; list = (List&lt;E&gt;) tcm.getObject(cache, key);</span><br><span class="line">        <span class="keyword">if</span> (list == <span class="keyword">null</span>) &#123;</span><br><span class="line">          list = delegate.query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);</span><br><span class="line">          tcm.putObject(cache, key, list); <span class="comment">// issue #578 and #116</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> delegate.query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>看到没，其实缓存是从 tcm 这个成员变量里取，而这个是什么呢，事务性缓存(直译下)，因为这个其实是用 MappedStatement 里的 Cache 作为key 从 tcm 的 map 取出来的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TransactionalCacheManager</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;Cache, TransactionalCache&gt; transactionalCaches = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br></pre></td></tr></table></figure>
-<p>MappedStatement是被全局使用的，所以其实二级缓存是跟着 mapper 的 namespace 走的，可以被多个 CachingExecutor 获取到，就会出现线程安全问题，线程安全问题可以用SynchronizedCache来解决，就是加锁，但是对于事务中的脏读，使用了TransactionalCache来解决这个问题，</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TransactionalCache</span> <span class="keyword">implements</span> <span class="title">Cache</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Log log = LogFactory.getLog(TransactionalCache<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Cache delegate;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">boolean</span> clearOnCommit;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;Object, Object&gt; entriesToAddOnCommit;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Set&lt;Object&gt; entriesMissedInCache;</span><br></pre></td></tr></table></figure>
-<p>在事务还没提交的时候，会把中间状态的数据放在 entriesToAddOnCommit 中，只有在提交后会放进共享缓存中，</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">commit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (clearOnCommit) &#123;</span><br><span class="line">      delegate.clear();</span><br><span class="line">    &#125;</span><br><span class="line">    flushPendingEntries();</span><br><span class="line">    reset();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -848,14 +836,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-count">89</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
