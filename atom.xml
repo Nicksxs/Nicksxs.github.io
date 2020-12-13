@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-12-06T13:55:55.404Z</updated>
+  <updated>2020-12-13T13:19:43.353Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,61 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode 105 从前序与中序遍历序列构造二叉树(Construct Binary Tree from Preorder and Inorder Traversal) 题解分析</title>
+    <link href="https://nicksxs.me/2020/12/13/Leetcode-105-%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
+    <id>https://nicksxs.me/2020/12/13/Leetcode-105-%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
+    <published>2020-12-13T13:19:43.000Z</published>
+    <updated>2020-12-13T13:19:43.353Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h2&gt;&lt;p&gt;Given preorder and inorder traversal of a tree, construct the
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
+    
+      <category term="Binary Tree" scheme="https://nicksxs.me/categories/Binary-Tree/"/>
+    
+      <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
+    
+      <category term="Binary Tree" scheme="https://nicksxs.me/categories/leetcode/java/Binary-Tree/"/>
+    
+      <category term="DFS" scheme="https://nicksxs.me/categories/leetcode/java/Binary-Tree/DFS/"/>
+    
+    
+      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+      <category term="Binary Tree" scheme="https://nicksxs.me/tags/Binary-Tree/"/>
+    
+      <category term="二叉树" scheme="https://nicksxs.me/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+      <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    
+      <category term="递归" scheme="https://nicksxs.me/tags/%E9%80%92%E5%BD%92/"/>
+    
+      <category term="Preorder Traversal" scheme="https://nicksxs.me/tags/Preorder-Traversal/"/>
+    
+      <category term="Inorder Traversal" scheme="https://nicksxs.me/tags/Inorder-Traversal/"/>
+    
+      <category term="前序" scheme="https://nicksxs.me/tags/%E5%89%8D%E5%BA%8F/"/>
+    
+      <category term="中序" scheme="https://nicksxs.me/tags/%E4%B8%AD%E5%BA%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>Leetcode 155 最小栈(Min Stack) 题解分析</title>
@@ -146,11 +201,11 @@
   </entry>
   
   <entry>
-    <title>Leetcode 234 回文联表(Palindrome Linked List) 题解分析</title>
+    <title>Leetcode 234 回文链表(Palindrome Linked List) 题解分析</title>
     <link href="https://nicksxs.me/2020/11/15/Leetcode-234-%E5%9B%9E%E6%96%87%E8%81%94%E8%A1%A8-Palindrome-Linked-List-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2020/11/15/Leetcode-234-%E5%9B%9E%E6%96%87%E8%81%94%E8%A1%A8-Palindrome-Linked-List-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2020-11-15T15:47:20.000Z</published>
-    <updated>2020-11-22T12:10:51.523Z</updated>
+    <updated>2020-12-13T12:59:06.873Z</updated>
     
     <summary type="html">
     
@@ -814,44 +869,6 @@
       <category term="JStack" scheme="https://nicksxs.me/tags/JStack/"/>
     
       <category term="JMap" scheme="https://nicksxs.me/tags/JMap/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我是如何走上跑步这条不归路的</title>
-    <link href="https://nicksxs.me/2020/07/26/%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E8%B5%B0%E4%B8%8A%E8%B7%91%E6%AD%A5%E8%BF%99%E6%9D%A1%E4%B8%8D%E5%BD%92%E8%B7%AF%E7%9A%84/"/>
-    <id>https://nicksxs.me/2020/07/26/%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E8%B5%B0%E4%B8%8A%E8%B7%91%E6%AD%A5%E8%BF%99%E6%9D%A1%E4%B8%8D%E5%BD%92%E8%B7%AF%E7%9A%84/</id>
-    <published>2020-07-26T15:32:55.000Z</published>
-    <updated>2020-07-26T15:34:01.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;这周因为没有准备技术方面的内容加之之前有想分享下我和跑步的一些事情，我从小学开始就是个体育渣，因为体重大非常胖，小学的时候要做仰卧起坐，基本是一个都起不来，然后那时候跑步也是要我命那种，跟另外一个比较胖的同学在跑步队尾苟延残喘，只有立定跳远还行。&lt;/p&gt;
-&lt;p&gt;时光飞逝，我
-        
-      
-    
-    </summary>
-    
-    
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-      <category term="运动" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/"/>
-    
-      <category term="跑步" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/%E8%B7%91%E6%AD%A5/"/>
-    
-    
-      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-      <category term="运动" scheme="https://nicksxs.me/tags/%E8%BF%90%E5%8A%A8/"/>
-    
-      <category term="减肥" scheme="https://nicksxs.me/tags/%E5%87%8F%E8%82%A5/"/>
-    
-      <category term="跑步" scheme="https://nicksxs.me/tags/%E8%B7%91%E6%AD%A5/"/>
     
   </entry>
   
