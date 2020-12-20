@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2020-12-13T13:19:43.353Z</updated>
+  <updated>2020-12-20T15:18:50.349Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,45 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从丁仲礼被美国制裁聊点啥</title>
+    <link href="https://nicksxs.me/2020/12/20/%E4%BB%8E%E4%B8%81%E4%BB%B2%E7%A4%BC%E8%A2%AB%E7%BE%8E%E5%9B%BD%E5%88%B6%E8%A3%81%E8%81%8A%E7%82%B9%E5%95%A5/"/>
+    <id>https://nicksxs.me/2020/12/20/%E4%BB%8E%E4%B8%81%E4%BB%B2%E7%A4%BC%E8%A2%AB%E7%BE%8E%E5%9B%BD%E5%88%B6%E8%A3%81%E8%81%8A%E7%82%B9%E5%95%A5/</id>
+    <published>2020-12-20T15:18:50.000Z</published>
+    <updated>2020-12-20T15:18:50.349Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;几年前看了柴静的《穹顶之下》觉得这个记者调查得很深入，挺有水平，然后再看到了她跟丁仲礼的采访，其实没看完整，也没试着去理解，就觉得环境问题挺严重的，为啥柴静这个对面的这位好像对这个很不屑的样子，最近因为丁仲礼上了美国制裁名单，B
+        
+      
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="吐槽" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%90%90%E6%A7%BD/"/>
+    
+      <category term="疫情" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%90%90%E6%A7%BD/%E7%96%AB%E6%83%85/"/>
+    
+      <category term="美国" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%90%90%E6%A7%BD/%E7%96%AB%E6%83%85/%E7%BE%8E%E5%9B%BD/"/>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="吐槽" scheme="https://nicksxs.me/tags/%E5%90%90%E6%A7%BD/"/>
+    
+      <category term="疫情" scheme="https://nicksxs.me/tags/%E7%96%AB%E6%83%85/"/>
+    
+      <category term="美国" scheme="https://nicksxs.me/tags/%E7%BE%8E%E5%9B%BD/"/>
+    
+  </entry>
   
   <entry>
     <title>Leetcode 105 从前序与中序遍历序列构造二叉树(Construct Binary Tree from Preorder and Inorder Traversal) 题解分析</title>
@@ -830,45 +869,6 @@
       <category term="grep" scheme="https://nicksxs.me/tags/grep/"/>
     
       <category term="转义" scheme="https://nicksxs.me/tags/%E8%BD%AC%E4%B9%89/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊 Java 自带的那些*逆天*工具</title>
-    <link href="https://nicksxs.me/2020/08/02/%E8%81%8A%E8%81%8A-Java-%E8%87%AA%E5%B8%A6%E7%9A%84%E9%82%A3%E4%BA%9B%E9%80%86%E5%A4%A9%E5%B7%A5%E5%85%B7/"/>
-    <id>https://nicksxs.me/2020/08/02/%E8%81%8A%E8%81%8A-Java-%E8%87%AA%E5%B8%A6%E7%9A%84%E9%82%A3%E4%BA%9B%E9%80%86%E5%A4%A9%E5%B7%A5%E5%85%B7/</id>
-    <published>2020-08-02T13:13:59.000Z</published>
-    <updated>2020-09-13T15:40:17.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;原谅我的标题党，其实这些工具的确很厉害，之前其实介绍过一点相关的，是从我一次问题排查的过程中用到的，但是最近又有碰到一次排查问题，发现其实用 idea 直接 &lt;code&gt;dump thread&lt;/code&gt; 是不现实的，毕竟服务器环境的没法这么操作，那就得用 Java
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-      <category term="Thread dump" scheme="https://nicksxs.me/categories/Thread-dump/"/>
-    
-      <category term="问题排查" scheme="https://nicksxs.me/categories/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/"/>
-    
-      <category term="工具" scheme="https://nicksxs.me/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-      <category term="JPS" scheme="https://nicksxs.me/tags/JPS/"/>
-    
-      <category term="JStack" scheme="https://nicksxs.me/tags/JStack/"/>
-    
-      <category term="JMap" scheme="https://nicksxs.me/tags/JMap/"/>
     
   </entry>
   
