@@ -34,8 +34,11 @@
 <meta property="og:description" content="前几天同事问了我个 mysql 索引的问题，虽然大概知道，但是还是想来实践下，就是 is null，is not null 这类查询是否能用索引，可能之前有些网上的文章说都是不能用索引，但是其实不是，我们来看个小试验 12345678910CREATE TABLE &#96;null_index_t&#96; (  &#96;id&#96; int(10) unsigned NOT NULL AUTO_INCREMENT,  &#96;">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/IejArR.png">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/vwttcE.png">
+<meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/McIoej.png">
+<meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/i4ki84.png">
+<meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/1HKVQH.png">
 <meta property="article:published_time" content="2020-12-27T15:49:05.000Z">
-<meta property="article:modified_time" content="2020-12-27T15:50:46.713Z">
+<meta property="article:modified_time" content="2020-12-27T16:16:08.313Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="Mysql">
 <meta property="article:tag" content="索引">
@@ -232,10 +235,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-12-27 23:49:05 / Modified: 23:50:46" itemprop="dateCreated datePublished" datetime="2020-12-27T23:49:05+08:00">2020-12-27</time>
+              <time title="Created: 2020-12-27 23:49:05" itemprop="dateCreated datePublished" datetime="2020-12-27T23:49:05+08:00">2020-12-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-28 00:16:08" itemprop="dateModified" datetime="2020-12-28T00:16:08+08:00">2020-12-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -250,11 +259,11 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mysql/%E7%B4%A2%E5%BC%95/" itemprop="url" rel="index"><span itemprop="name">索引</span></a>
+                  <a href="/categories/C/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
+                  <a href="/categories/Mysql/%E7%B4%A2%E5%BC%95/" itemprop="url" rel="index"><span itemprop="name">索引</span></a>
                 </span>
             </span>
 
@@ -306,6 +315,11 @@
 <p><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/IejArR.png" alt=""><br>再来看看另一个</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">select</span> * <span class="keyword">from</span> null_index_t <span class="keyword">WHERE</span> null_key <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
 <p><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/vwttcE.png" alt=""><br>从这里能看出来啥呢，可以思考下</p>
+<p>从上面可以发现，<code>is null</code>应该是用上了索引了，所以至少不是一刀切不能用，但是看着<code>is not null</code>好像不太行额<br>我们在做一点小改动，把这个表里的数据改成 9100 条是 null，剩下 900 条是有值的，然后再执行下<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/McIoej.png" alt=""><br>然后再来看看执行结果</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">select</span> * <span class="keyword">from</span> null_index_t <span class="keyword">WHERE</span> null_key <span class="keyword">is</span> <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/i4ki84.png" alt=""></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">select</span> * <span class="keyword">from</span> null_index_t <span class="keyword">WHERE</span> null_key <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/1HKVQH.png" alt=""><br>是不是不一样了，这里再补充下我试验使用的 mysql 是 5.7 的，不保证在其他版本的一致性，<br>其实可以看出随着数据量的变化，mysql 会不会使用索引是会变化的，不是说 is not null 一定会使用，也不是一定不会使用，而是优化器会根据查询成本做个预判，这个预判尽可能会减小查询成本，主要包括回表啥的，但是也不一定完全准确。</p>
 
     </div>
 
@@ -319,10 +333,10 @@
       <div class="popular-posts-title"><a href="/2016/08/14/docker-mysql-cluster/" rel="bookmark">docker-mysql-cluster</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/05/02/聊聊-mysql-的-MVCC-续篇/" rel="bookmark">聊聊 mysql 的 MVCC 续篇</a></div>
+      <div class="popular-posts-title"><a href="/2020/05/10/聊聊-mysql-的-MVCC-续续篇之加锁分析/" rel="bookmark">聊聊 mysql 的 MVCC 续续篇之锁分析</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/05/10/聊聊-mysql-的-MVCC-续续篇之加锁分析/" rel="bookmark">聊聊 mysql 的 MVCC 续续篇之锁分析</a></div>
+      <div class="popular-posts-title"><a href="/2020/05/02/聊聊-mysql-的-MVCC-续篇/" rel="bookmark">聊聊 mysql 的 MVCC 续篇</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/04/26/聊聊-mysql-的-MVCC/" rel="bookmark">聊聊 mysql 的 MVCC</a></div>
