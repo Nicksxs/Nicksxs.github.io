@@ -204,6 +204,123 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/09/20/Leetcode-3-Longest-Substring-Without-Repeating-Characters-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Nicksxs">
+      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nicksxs's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/20/Leetcode-3-Longest-Substring-Without-Repeating-Characters-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">Leetcode 3 Longest Substring Without Repeating Characters 题解分析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-20 21:40:23 / Modified: 21:45:17" itemprop="dateCreated datePublished" datetime="2020-09-20T21:40:23+08:00">2020-09-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2-online/" itemprop="url" rel="index"><span itemprop="name">字符串 - online</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/java/string/" itemprop="url" rel="index"><span itemprop="name">string</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/09/20/Leetcode-3-Longest-Substring-Without-Repeating-Characters-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/" class="post-meta-item leancloud_visitors" data-flag-title="Leetcode 3 Longest Substring Without Repeating Characters 题解分析" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/09/20/Leetcode-3-Longest-Substring-Without-Repeating-Characters-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/20/Leetcode-3-Longest-Substring-Without-Repeating-Characters-题解分析/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>又做了个题，看记录是以前用 C++写过的，现在捋一捋思路，用 Java 再写了一下，思路还是比较清晰的，但是边界细节处理得比较差</p>
+<h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>Given a string <code>s</code>, find the length of the <strong>longest substring</strong> without repeating characters.</p>
+<h2 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h2><h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1:"></a>Example 1:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;abcabcbb&quot;</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: The answer is &quot;abc&quot;, with the length of 3.</span><br></pre></td></tr></table></figure>
+
+<h4 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2:"></a>Example 2:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;bbbbb&quot;</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: The answer is &quot;b&quot;, with the length of 1.</span><br></pre></td></tr></table></figure>
+<h4 id="Example-3"><a href="#Example-3" class="headerlink" title="Example 3:"></a>Example 3:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;pwwkew&quot;</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: The answer is &quot;wke&quot;, with the length of 3.</span><br><span class="line">Notice that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.</span><br></pre></td></tr></table></figure>
+<h4 id="Example-4"><a href="#Example-4" class="headerlink" title="Example 4:"></a>Example 4:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;&quot;</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
+
+<p>就是一个最长不重复的字符串长度，因为也是中等难度的题，不太需要特别复杂的思考，最基本的就是O(N*N)两重循环，不过显然不太好，万一超时间，还有一种就是线性复杂度的了，这个就是需要搞定一个思路，比如字符串时 <code>a</code>bcdefg<code>a</code>qwrty，比如遍历到第二个<code>a</code>的时候其实不用再从头去遍历了，只要把前面那个<code>a</code>给排除掉，继续往下算就好了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Map&lt;String, Integer&gt; counter = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = s.length();</span><br><span class="line">        <span class="comment">// 当前的长度</span></span><br><span class="line">        <span class="keyword">int</span> subStringLength = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 最长的长度</span></span><br><span class="line">        <span class="keyword">int</span> maxSubStringLength = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 考虑到重复的位置已经被跳过的情况，即已经在当前长度的字符串范围之前的重复字符不需要回溯</span></span><br><span class="line">        <span class="keyword">int</span> lastDuplicatePos = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">            <span class="comment">// 使用 map 存储字符和上一次出现的位置，如果存在并且大于上一次重复位置</span></span><br><span class="line">            <span class="keyword">if</span> (counter.get(String.valueOf(s.charAt(i))) != <span class="keyword">null</span> &amp;&amp; counter.get(String.valueOf(s.charAt(i))) &gt; lastDuplicatePos) &#123;</span><br><span class="line">                <span class="comment">// 记录重复位置</span></span><br><span class="line">                lastDuplicatePos = counter.get(String.valueOf(s.charAt(i)));</span><br><span class="line">                <span class="comment">// 重置不重复子串的长度，减去重复起点</span></span><br><span class="line">                subStringLength = i - counter.get(String.valueOf(s.charAt(i))) - <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// 替换当前位置</span></span><br><span class="line">                counter.replace(String.valueOf(s.charAt(i)), i);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 如果不存在就直接 put</span></span><br><span class="line">                counter.put(String.valueOf(s.charAt(i)), i);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 长度累加</span></span><br><span class="line">            subStringLength++;</span><br><span class="line">            <span class="keyword">if</span> (subStringLength &gt; maxSubStringLength) &#123;</span><br><span class="line">                <span class="comment">// 简单替换</span></span><br><span class="line">                maxSubStringLength = subStringLength;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxSubStringLength;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注释应该写的比较清楚了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/09/13/%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E7%9A%84%E5%B0%8F%E5%B7%A5%E8%AE%B0%E4%B8%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -654,109 +771,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/08/16/%E5%91%A8%E6%9C%AB%E6%88%91%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E6%89%93%E4%BA%86%E5%A4%A9%E5%B0%8F%E5%B7%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Nicksxs">
-      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nicksxs's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/16/%E5%91%A8%E6%9C%AB%E6%88%91%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E6%89%93%E4%BA%86%E5%A4%A9%E5%B0%8F%E5%B7%A5/" class="post-title-link" itemprop="url">周末我在老丈人家打了天小工</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-08-16 23:01:09 / Modified: 23:48:08" itemprop="dateCreated datePublished" datetime="2020-08-16T23:01:09+08:00">2020-08-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%94%9F%E6%B4%BB/" itemprop="url" rel="index"><span itemprop="name">生活</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/" itemprop="url" rel="index"><span itemprop="name">运动</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/%E8%B7%91%E6%AD%A5/" itemprop="url" rel="index"><span itemprop="name">跑步</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/%E8%B7%91%E6%AD%A5/%E5%B9%B2%E6%B4%BB/" itemprop="url" rel="index"><span itemprop="name">干活</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/08/16/%E5%91%A8%E6%9C%AB%E6%88%91%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E6%89%93%E4%BA%86%E5%A4%A9%E5%B0%8F%E5%B7%A5/" class="post-meta-item leancloud_visitors" data-flag-title="周末我在老丈人家打了天小工" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/08/16/%E5%91%A8%E6%9C%AB%E6%88%91%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E6%89%93%E4%BA%86%E5%A4%A9%E5%B0%8F%E5%B7%A5/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/08/16/周末我在老丈人家打了天小工/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这周回家提前约好了要去老丈人家帮下忙，因为在翻修下老房子，活不是特别整的那种，所以大部分都是自己干，或者找个大工临时干几天（我们这那种比较专业的泥工匠叫做大工），像我这样去帮忙的，就是干点小工（把给大工帮忙的，干些偏体力活的叫做小工）的活。从大学毕业以后真的蛮少帮家里干活了，以前上学的时候放假还是帮家里淘个米，简单的扫地拖地啥的，当然刚高考完的时候，还去我爸厂里帮忙干了几天的活，实在是比较累，不过现在想着是觉得自己那时候比较牛，而不是特别排斥这个活，相对于现在的工作来说，导致了一系列的职业病，颈椎腰背都很僵硬，眼镜也不好，还有反流，像我爸那种活反而是脑力加体力的比较好的结合。<br>这一天的活前半部分主要是在清理厨房，瓷砖上的油污和墙上天花板上即将脱落的石灰或者白色涂料层，这种活特别是瓷砖上的油污，之前在自己家里也干活，还是比较熟悉的，不过前面主要是LD 在干，我主要是先搞墙上和天花板上的，干活还是很需要技巧的，如果直接去铲，那基本我会变成一个灰人，而且吸一鼻子灰，老丈人比较专业，先接上软管用水冲，一冲效果特别好，有些石灰涂料层直接就冲掉了，冲完之后先用带加长杆的刀片铲铲了一圈墙面，说实话因为老房子之前租出去了，所以墙面什么的被糟蹋的比较难看，一层一层的，不过这还算还好，后面主要是天花板上的，这可难倒我了，从小我爸妈是比较把我当小孩管着，爬上爬下的基本都是我爸搞定，但是到了老丈人家也只得硬着头皮上了，爬到跳（一种建筑工地用的架子）上，还有点晃，小心脏扑通扑通跳，而且带加长杆的铲子还是比较重的，铲一会手也有点累，不过坚持着铲完了，上面还是比较平整的，不过下来的时候又把我难住了🤦‍♂️，往下爬的时候有根杆子要跨过去，由于裤子比较紧，强行一把跨过去怕抽筋，所以以一个非常尴尬的姿势停留休息了一会，再跨了过去，幸好事后问 LD，他们都没看到，哈哈哈，然后就是帮忙一起搞瓷砖上的油污，这个太有经验了，不过老丈人更有意思，一会试试啤酒，一会用用沙子，后面在午饭前基本就弄的比较干净了，就坐着等吃饭了，下午午休了会，就继续干活了。<br>下午是我这次体验的重点了，因为要清理以前贴的墙纸，真的是个很麻烦的活，只能说贴墙纸的师傅活干得太好了，基本不可能整个撕下来，想用铲子一点点铲下来也不行，太轻了就只铲掉表面一层，太重了就把墙纸跟墙面的石灰啥的整个铲下来了，而且手又累又酸，后来想着是不是继续用水冲一下，对着一小面墙试验了下，效果还不错，但是又发现了个问题，那一面墙又有一块是后面糊上去的，铲掉外层的石灰后不平，然后就是最最重头的，也是让我后遗症持续到第二天的，要把那一块糊上去的水泥敲下来，毛估下大概是敲了80%左右，剩下的我的手已经不会用力了，因为那一块应该是要糊上去的始作俑者，就一块里面凹进去的，我拿着榔头敲到我手已经没法使劲了，而且大下午，感觉没五分钟，我的汗已经糊满脸，眼睛也睁不开，不然就流到眼睛里了，此处获得成就一：用榔头敲墙壁，也是个技术加体力的活，而且需要非常好的技巧，否则手马上就废了，敲下去的反作用力，没一会就不行了，然后是看着老丈人兄弟帮忙拆一个柜子，在我看来是个几天都搞不定的活，他轻轻松松在我敲墙的那会就搞定了，以前总觉得我干的活非常有技术含量，可是这个事情真的也是很有技巧啊，它是个把一间房间分隔开的柜子，从底到顶上，还带着门，我还在旁边帮忙撬一下脚踢，一根木条撬半天，唉，成就二：专业的人就是不一样。<br>最后就是成就三了：我之前沾沾自喜的跑了多少步，做了什么锻炼，其实都是渣渣，像这样干一天活，没经历过的，基本大半天就废了，反过来说，如果能经常去这么干一天活，跑步啥的都是渣渣，消耗的能量远远超过跑个十公里啥的。</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -828,7 +842,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -903,7 +917,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
