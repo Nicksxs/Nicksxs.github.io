@@ -415,6 +415,13 @@
   </url>
   
   <url>
+    <loc>https://nicksxs.me/2016/09/29/binary-watch/</loc>
+    
+    <lastmod>2020-01-12T13:08:27.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://nicksxs.me/2015/03/13/Reverse-Integer/</loc>
     
     <lastmod>2020-01-12T13:08:27.000Z</lastmod>
@@ -422,14 +429,7 @@
   </url>
   
   <url>
-    <loc>https://nicksxs.me/2019/12/26/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D/</loc>
-    
-    <lastmod>2020-01-12T13:08:27.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://nicksxs.me/2020/01/04/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%8C/</loc>
+    <loc>https://nicksxs.me/2020/01/10/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%B8%89/</loc>
     
     <lastmod>2020-01-12T13:08:27.000Z</lastmod>
     
@@ -478,14 +478,14 @@
   </url>
   
   <url>
-    <loc>https://nicksxs.me/2020/01/10/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%B8%89/</loc>
+    <loc>https://nicksxs.me/2020/01/04/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%8C/</loc>
     
     <lastmod>2020-01-12T13:08:27.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://nicksxs.me/2016/09/29/binary-watch/</loc>
+    <loc>https://nicksxs.me/2019/12/26/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D/</loc>
     
     <lastmod>2020-01-12T13:08:27.000Z</lastmod>
     
@@ -493,6 +493,13 @@
   
   <url>
     <loc>https://nicksxs.me/2017/05/09/ambari-summary/</loc>
+    
+    <lastmod>2020-01-12T13:08:27.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://nicksxs.me/2015/03/11/Reverse-Bits/</loc>
     
     <lastmod>2020-01-12T13:08:27.000Z</lastmod>
     
@@ -507,13 +514,6 @@
   
   <url>
     <loc>https://nicksxs.me/categories/index.html</loc>
-    
-    <lastmod>2020-01-12T13:08:27.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://nicksxs.me/2015/03/11/Reverse-Bits/</loc>
     
     <lastmod>2020-01-12T13:08:27.000Z</lastmod>
     
@@ -548,6 +548,13 @@
   </url>
   
   <url>
+    <loc>https://nicksxs.me/2015/06/22/invert-binary-tree/</loc>
+    
+    <lastmod>2020-01-12T13:08:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://nicksxs.me/2017/03/28/spark-little-tips/</loc>
     
     <lastmod>2020-01-12T13:08:26.000Z</lastmod>
@@ -569,13 +576,6 @@
   </url>
   
   <url>
-    <loc>https://nicksxs.me/2015/06/22/invert-binary-tree/</loc>
-    
-    <lastmod>2020-01-12T13:08:26.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://nicksxs.me/2015/01/16/pcre-intro-and-a-simple-package/</loc>
     
     <lastmod>2020-01-12T13:08:26.000Z</lastmod>
@@ -583,7 +583,7 @@
   </url>
   
   <url>
-    <loc>https://nicksxs.me/2016/07/13/swoole-websocket-test/</loc>
+    <loc>https://nicksxs.me/2017/04/25/rabbitmq-tips/</loc>
     
     <lastmod>2020-01-12T13:08:26.000Z</lastmod>
     
@@ -632,7 +632,7 @@
   </url>
   
   <url>
-    <loc>https://nicksxs.me/2017/04/25/rabbitmq-tips/</loc>
+    <loc>https://nicksxs.me/2016/07/13/swoole-websocket-test/</loc>
     
     <lastmod>2020-01-12T13:08:26.000Z</lastmod>
     
