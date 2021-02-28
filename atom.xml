@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2021-02-21T13:27:06.183Z</updated>
+  <updated>2021-02-28T13:56:42.363Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,53 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>闲聊下乘公交的用户体验</title>
+    <link href="https://nicksxs.me/2021/02/28/%E9%97%B2%E8%81%8A%E4%B8%8B%E4%B9%98%E5%85%AC%E4%BA%A4%E7%9A%84%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/"/>
+    <id>https://nicksxs.me/2021/02/28/%E9%97%B2%E8%81%8A%E4%B8%8B%E4%B9%98%E5%85%AC%E4%BA%A4%E7%9A%84%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/</id>
+    <published>2021-02-28T13:56:42.000Z</published>
+    <updated>2021-02-28T13:56:42.363Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;新年开工开车来杭州，因为没有车位加限行今天来就没开车来了，从东站做公交回住的地方，这班神奇的车我之前也吐槽过了，有神奇的乘客和神奇的司机，因为基本上这班车是从我毕业就开始乘了，所以也算是比较熟悉了，以前总体感觉不太好的是乘坐时间太长了，不过这个也不能怪车，是我自己住得远（离
+        
+      
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="公交" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%85%AC%E4%BA%A4/"/>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="开车" scheme="https://nicksxs.me/tags/%E5%BC%80%E8%BD%A6/"/>
+    
+      <category term="加塞" scheme="https://nicksxs.me/tags/%E5%8A%A0%E5%A1%9E/"/>
+    
+      <category term="糟心事" scheme="https://nicksxs.me/tags/%E7%B3%9F%E5%BF%83%E4%BA%8B/"/>
+    
+      <category term="规则" scheme="https://nicksxs.me/tags/%E8%A7%84%E5%88%99/"/>
+    
+      <category term="公交" scheme="https://nicksxs.me/tags/%E5%85%AC%E4%BA%A4/"/>
+    
+      <category term="路政规划" scheme="https://nicksxs.me/tags/%E8%B7%AF%E6%94%BF%E8%A7%84%E5%88%92/"/>
+    
+      <category term="高速" scheme="https://nicksxs.me/tags/%E9%AB%98%E9%80%9F/"/>
+    
+      <category term="基础设施" scheme="https://nicksxs.me/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/"/>
+    
+      <category term="杭州" scheme="https://nicksxs.me/tags/%E6%9D%AD%E5%B7%9E/"/>
+    
+  </entry>
   
   <entry>
     <title>AQS篇二 之 Condition 浅析笔记</title>
@@ -66,7 +113,7 @@
     <link href="https://nicksxs.me/2021/02/14/AQS%E7%AF%87%E4%B8%80/"/>
     <id>https://nicksxs.me/2021/02/14/AQS%E7%AF%87%E4%B8%80/</id>
     <published>2021-02-14T14:51:54.000Z</published>
-    <updated>2021-02-18T02:31:08.213Z</updated>
+    <updated>2021-02-28T12:02:18.297Z</updated>
     
     <summary type="html">
     
@@ -796,48 +843,6 @@
       <category term="干活" scheme="https://nicksxs.me/tags/%E5%B9%B2%E6%B4%BB/"/>
     
       <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode 2 Add Two Numbers 题解分析</title>
-    <link href="https://nicksxs.me/2020/10/11/Leetcode-2-Add-Two-Numbers-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
-    <id>https://nicksxs.me/2020/10/11/Leetcode-2-Add-Two-Numbers-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
-    <published>2020-10-11T15:22:45.000Z</published>
-    <updated>2020-10-11T15:23:51.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;又 roll 到了一个以前做过的题，不过现在用 Java 也来写一下，是 easy 级别的，所以就简单说下&lt;/p&gt;
-&lt;h2 id=&quot;简要介绍&quot;&gt;&lt;a href=&quot;#简要介绍&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
-    
-      <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
-    
-      <category term="linked list" scheme="https://nicksxs.me/categories/linked-list/"/>
-    
-      <category term="linked list" scheme="https://nicksxs.me/categories/leetcode/java/linked-list/"/>
-    
-    
-      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
-      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-      <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
-    
-      <category term="linked list" scheme="https://nicksxs.me/tags/linked-list/"/>
     
   </entry>
   
