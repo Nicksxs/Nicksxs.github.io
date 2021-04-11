@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2021-04-04T14:14:57.278Z</updated>
+  <updated>2021-04-11T15:38:07.755Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,57 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊聊厦门旅游的好与不好</title>
+    <link href="https://nicksxs.me/2021/04/11/%E8%81%8A%E8%81%8A%E5%8E%A6%E9%97%A8%E6%97%85%E6%B8%B8%E7%9A%84%E5%A5%BD%E4%B8%8E%E4%B8%8D%E5%A5%BD/"/>
+    <id>https://nicksxs.me/2021/04/11/%E8%81%8A%E8%81%8A%E5%8E%A6%E9%97%A8%E6%97%85%E6%B8%B8%E7%9A%84%E5%A5%BD%E4%B8%8E%E4%B8%8D%E5%A5%BD/</id>
+    <published>2021-04-11T15:38:07.000Z</published>
+    <updated>2021-04-11T15:38:07.755Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;这几天去了趟厦门，原来几年前就想去了，本来都请好假了，后面因为一些事情没去成，这次刚好公司组织，就跟 LD
+        
+      
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="旅游" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E6%97%85%E6%B8%B8/"/>
+    
+    
+      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="杭州" scheme="https://nicksxs.me/tags/%E6%9D%AD%E5%B7%9E/"/>
+    
+      <category term="旅游" scheme="https://nicksxs.me/tags/%E6%97%85%E6%B8%B8/"/>
+    
+      <category term="厦门" scheme="https://nicksxs.me/tags/%E5%8E%A6%E9%97%A8/"/>
+    
+      <category term="中山路" scheme="https://nicksxs.me/tags/%E4%B8%AD%E5%B1%B1%E8%B7%AF/"/>
+    
+      <category term="局口街" scheme="https://nicksxs.me/tags/%E5%B1%80%E5%8F%A3%E8%A1%97/"/>
+    
+      <category term="鼓浪屿" scheme="https://nicksxs.me/tags/%E9%BC%93%E6%B5%AA%E5%B1%BF/"/>
+    
+      <category term="曾厝垵" scheme="https://nicksxs.me/tags/%E6%9B%BE%E5%8E%9D%E5%9E%B5/"/>
+    
+      <category term="植物园" scheme="https://nicksxs.me/tags/%E6%A4%8D%E7%89%A9%E5%9B%AD/"/>
+    
+      <category term="马戏团" scheme="https://nicksxs.me/tags/%E9%A9%AC%E6%88%8F%E5%9B%A2/"/>
+    
+      <category term="沙茶面" scheme="https://nicksxs.me/tags/%E6%B2%99%E8%8C%B6%E9%9D%A2/"/>
+    
+      <category term="海蛎煎" scheme="https://nicksxs.me/tags/%E6%B5%B7%E8%9B%8E%E7%85%8E/"/>
+    
+  </entry>
   
   <entry>
     <title>聊聊 dubbo 的线程池</title>
@@ -668,9 +719,9 @@
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="索引" scheme="https://nicksxs.me/categories/Mysql/%E7%B4%A2%E5%BC%95/"/>
-    
       <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    
+      <category term="索引" scheme="https://nicksxs.me/categories/Mysql/%E7%B4%A2%E5%BC%95/"/>
     
       <category term="Mysql" scheme="https://nicksxs.me/categories/C/Mysql/"/>
     
@@ -825,49 +876,6 @@
       <category term="最小栈" scheme="https://nicksxs.me/tags/%E6%9C%80%E5%B0%8F%E6%A0%88/"/>
     
       <category term="leetcode 155" scheme="https://nicksxs.me/tags/leetcode-155/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从清华美院学姐聊聊我们身边的恶人</title>
-    <link href="https://nicksxs.me/2020/11/29/%E4%BB%8E%E6%B8%85%E5%8D%8E%E7%BE%8E%E9%99%A2%E5%AD%A6%E5%A7%90%E8%81%8A%E8%81%8A%E6%88%91%E4%BB%AC%E8%BA%AB%E8%BE%B9%E7%9A%84%E6%81%B6%E4%BA%BA/"/>
-    <id>https://nicksxs.me/2020/11/29/%E4%BB%8E%E6%B8%85%E5%8D%8E%E7%BE%8E%E9%99%A2%E5%AD%A6%E5%A7%90%E8%81%8A%E8%81%8A%E6%88%91%E4%BB%AC%E8%BA%AB%E8%BE%B9%E7%9A%84%E6%81%B6%E4%BA%BA/</id>
-    <published>2020-11-29T15:55:41.000Z</published>
-    <updated>2020-11-29T15:55:41.170Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;前几天清华美院学姐的热点火了，然后仔细看了下，其实是个学姐诬陷以为其貌不扬的男同学摸她屁股&lt;br&gt;&lt;img data-src=&quot;https://gitee.com/nicksxs/images/raw/master/uPic/ZovTIK.jpg&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-      <category term="吐槽" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%90%90%E6%A7%BD/"/>
-    
-      <category term="疫情" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%90%90%E6%A7%BD/%E7%96%AB%E6%83%85/"/>
-    
-      <category term="口罩" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%90%90%E6%A7%BD/%E7%96%AB%E6%83%85/%E5%8F%A3%E7%BD%A9/"/>
-    
-    
-      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-      <category term="吐槽" scheme="https://nicksxs.me/tags/%E5%90%90%E6%A7%BD/"/>
-    
-      <category term="疫情" scheme="https://nicksxs.me/tags/%E7%96%AB%E6%83%85/"/>
-    
-      <category term="公交车" scheme="https://nicksxs.me/tags/%E5%85%AC%E4%BA%A4%E8%BD%A6/"/>
-    
-      <category term="口罩" scheme="https://nicksxs.me/tags/%E5%8F%A3%E7%BD%A9/"/>
-    
-      <category term="杀人诛心" scheme="https://nicksxs.me/tags/%E6%9D%80%E4%BA%BA%E8%AF%9B%E5%BF%83/"/>
     
   </entry>
   
