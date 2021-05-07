@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,6 +32,7 @@
 <meta property="og:url" content="https://nicksxs.me/2019/12/07/JVM-G1-Part-1/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="对 Java 的 gc 实现比较感兴趣，原先一般都是看周志明的书，但其实并没有讲具体的 gc 源码，而是把整个思路和流程讲解了一下特别是 G1 的具体实现一般对 G1 的理解其实就是把原先整块的新生代老年代分成了以 region 为单位的小块内存，简而言之，就是原先对新生代老年代的收集会涉及到整个代的堆内存空间，而G1 把它变成了更细致的小块内存这带来了一个很明显的好处和一个很明显的坏处，好处是内">
+<meta property="og:locale">
 <meta property="article:published_time" content="2019-12-06T16:54:19.000Z">
 <meta property="article:modified_time" content="2019-12-19T16:01:42.000Z">
 <meta property="article:author" content="Nicksxs">
@@ -299,18 +300,595 @@
 
       
         <p>对 Java 的 gc 实现比较感兴趣，原先一般都是看周志明的书，但其实并没有讲具体的 gc 源码，而是把整个思路和流程讲解了一下<br>特别是 G1 的具体实现<br>一般对 G1 的理解其实就是把原先整块的新生代老年代分成了以 region 为单位的小块内存，简而言之，就是原先对新生代老年代的收集会涉及到整个代的堆内存空间，而G1 把它变成了更细致的小块内存<br>这带来了一个很明显的好处和一个很明显的坏处，好处是内存收集可以更灵活，耗时会变短，但整个收集的处理复杂度就变高了<br>目前看了一点点关于 G1 收集的预期时间相关的代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HeapWord* <span class="title">G1CollectedHeap::do_collection_pause</span><span class="params">(<span class="keyword">size_t</span> word_size,</span></span></span><br><span class="line"><span class="function"><span class="params">                                               uint gc_count_before,</span></span></span><br><span class="line"><span class="function"><span class="params">                                               <span class="keyword">bool</span>* succeeded,</span></span></span><br><span class="line"><span class="function"><span class="params">                                               GCCause::Cause gc_cause)</span> </span>&#123;</span><br><span class="line">  assert_heap_not_locked_and_not_at_safepoint();</span><br><span class="line">  <span class="function">VM_G1CollectForAllocation <span class="title">op</span><span class="params">(word_size,</span></span></span><br><span class="line"><span class="function"><span class="params">                               gc_count_before,</span></span></span><br><span class="line"><span class="function"><span class="params">                               gc_cause,</span></span></span><br><span class="line"><span class="function"><span class="params">                               <span class="literal">false</span>, <span class="comment">/* should_initiate_conc_mark */</span></span></span></span><br><span class="line"><span class="function"><span class="params">                               g1_policy()-&gt;max_pause_time_ms())</span></span>;</span><br><span class="line">  VMThread::execute(&amp;op);</span><br><span class="line"></span><br><span class="line">  HeapWord* result = op.result();</span><br><span class="line">  <span class="keyword">bool</span> ret_succeeded = op.prologue_succeeded() &amp;&amp; op.pause_succeeded();</span><br><span class="line">  assert(result == <span class="literal">NULL</span> || ret_succeeded,</span><br><span class="line">         <span class="string">"the result should be NULL if the VM did not succeed"</span>);</span><br><span class="line">  *succeeded = ret_succeeded;</span><br><span class="line"></span><br><span class="line">  assert_heap_not_locked();</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">HeapWord* G1CollectedHeap::do_collection_pause(size_t word_size,
+                                               uint gc_count_before,
+                                               bool* succeeded,
+                                               GCCause::Cause gc_cause) &#123;
+  assert_heap_not_locked_and_not_at_safepoint();
+  VM_G1CollectForAllocation op(word_size,
+                               gc_count_before,
+                               gc_cause,
+                               false, &#x2F;* should_initiate_conc_mark *&#x2F;
+                               g1_policy()-&gt;max_pause_time_ms());
+  VMThread::execute(&amp;op);
+
+  HeapWord* result &#x3D; op.result();
+  bool ret_succeeded &#x3D; op.prologue_succeeded() &amp;&amp; op.pause_succeeded();
+  assert(result &#x3D;&#x3D; NULL || ret_succeeded,
+         &quot;the result should be NULL if the VM did not succeed&quot;);
+  *succeeded &#x3D; ret_succeeded;
+
+  assert_heap_not_locked();
+  return result;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这里就是收集时需要停顿的，其中<code>VMThread::execute(&amp;op);</code>是具体执行的，真正执行的是<code>VM_G1CollectForAllocation::doit</code>方法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">VM_G1CollectForAllocation::doit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  G1CollectedHeap* g1h = G1CollectedHeap::heap();</span><br><span class="line">  assert(!_should_initiate_conc_mark || g1h-&gt;should_do_concurrent_full_gc(_gc_cause),</span><br><span class="line">      <span class="string">"only a GC locker, a System.gc(), stats update, whitebox, or a hum allocation induced GC should start a cycle"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (_word_size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// An allocation has been requested. So, try to do that first.</span></span><br><span class="line">    _result = g1h-&gt;attempt_allocation_at_safepoint(_word_size,</span><br><span class="line">                                                   <span class="literal">false</span> <span class="comment">/* expect_null_cur_alloc_region */</span>);</span><br><span class="line">    <span class="keyword">if</span> (_result != <span class="literal">NULL</span>) &#123;</span><br><span class="line">      <span class="comment">// If we can successfully allocate before we actually do the</span></span><br><span class="line">      <span class="comment">// pause then we will consider this pause successful.</span></span><br><span class="line">      _pause_succeeded = <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">GCCauseSetter <span class="title">x</span><span class="params">(g1h, _gc_cause)</span></span>;</span><br><span class="line">  <span class="keyword">if</span> (_should_initiate_conc_mark) &#123;</span><br><span class="line">    <span class="comment">// It's safer to read old_marking_cycles_completed() here, given</span></span><br><span class="line">    <span class="comment">// that noone else will be updating it concurrently. Since we'll</span></span><br><span class="line">    <span class="comment">// only need it if we're initiating a marking cycle, no point in</span></span><br><span class="line">    <span class="comment">// setting it earlier.</span></span><br><span class="line">    _old_marking_cycles_completed_before = g1h-&gt;old_marking_cycles_completed();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// At this point we are supposed to start a concurrent cycle. We</span></span><br><span class="line">    <span class="comment">// will do so if one is not already in progress.</span></span><br><span class="line">    <span class="keyword">bool</span> res = g1h-&gt;g1_policy()-&gt;force_initial_mark_if_outside_cycle(_gc_cause);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The above routine returns true if we were able to force the</span></span><br><span class="line">    <span class="comment">// next GC pause to be an initial mark; it returns false if a</span></span><br><span class="line">    <span class="comment">// marking cycle is already in progress.</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// If a marking cycle is already in progress just return and skip the</span></span><br><span class="line">    <span class="comment">// pause below - if the reason for requesting this initial mark pause</span></span><br><span class="line">    <span class="comment">// was due to a System.gc() then the requesting thread should block in</span></span><br><span class="line">    <span class="comment">// doit_epilogue() until the marking cycle is complete.</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// If this initial mark pause was requested as part of a humongous</span></span><br><span class="line">    <span class="comment">// allocation then we know that the marking cycle must just have</span></span><br><span class="line">    <span class="comment">// been started by another thread (possibly also allocating a humongous</span></span><br><span class="line">    <span class="comment">// object) as there was no active marking cycle when the requesting</span></span><br><span class="line">    <span class="comment">// thread checked before calling collect() in</span></span><br><span class="line">    <span class="comment">// attempt_allocation_humongous(). Retrying the GC, in this case,</span></span><br><span class="line">    <span class="comment">// will cause the requesting thread to spin inside collect() until the</span></span><br><span class="line">    <span class="comment">// just started marking cycle is complete - which may be a while. So</span></span><br><span class="line">    <span class="comment">// we do NOT retry the GC.</span></span><br><span class="line">    <span class="keyword">if</span> (!res) &#123;</span><br><span class="line">      assert(_word_size == <span class="number">0</span>, <span class="string">"Concurrent Full GC/Humongous Object IM shouldn't be allocating"</span>);</span><br><span class="line">      <span class="keyword">if</span> (_gc_cause != GCCause::_g1_humongous_allocation) &#123;</span><br><span class="line">        _should_retry_gc = <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Try a partial collection of some kind.</span></span><br><span class="line">  _pause_succeeded = g1h-&gt;do_collection_pause_at_safepoint(_target_pause_time_ms);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (_pause_succeeded) &#123;</span><br><span class="line">    <span class="keyword">if</span> (_word_size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">// An allocation had been requested. Do it, eventually trying a stronger</span></span><br><span class="line">      <span class="comment">// kind of GC.</span></span><br><span class="line">      _result = g1h-&gt;satisfy_failed_allocation(_word_size, &amp;_pause_succeeded);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">bool</span> should_upgrade_to_full = !g1h-&gt;should_do_concurrent_full_gc(_gc_cause) &amp;&amp;</span><br><span class="line">                                    !g1h-&gt;has_regions_left_for_allocation();</span><br><span class="line">      <span class="keyword">if</span> (should_upgrade_to_full) &#123;</span><br><span class="line">        <span class="comment">// There has been a request to perform a GC to free some space. We have no</span></span><br><span class="line">        <span class="comment">// information on how much memory has been asked for. In case there are</span></span><br><span class="line">        <span class="comment">// absolutely no regions left to allocate into, do a maximally compacting full GC.</span></span><br><span class="line">        log_info(gc, ergo)(<span class="string">"Attempting maximally compacting collection"</span>);</span><br><span class="line">        _pause_succeeded = g1h-&gt;do_full_collection(<span class="literal">false</span>, <span class="comment">/* explicit gc */</span></span><br><span class="line">                                                   <span class="literal">true</span>   <span class="comment">/* clear_all_soft_refs */</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    guarantee(_pause_succeeded, <span class="string">"Elevated collections during the safepoint must always succeed."</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    assert(_result == <span class="literal">NULL</span>, <span class="string">"invariant"</span>);</span><br><span class="line">    <span class="comment">// The only reason for the pause to not be successful is that, the GC locker is</span></span><br><span class="line">    <span class="comment">// active (or has become active since the prologue was executed). In this case</span></span><br><span class="line">    <span class="comment">// we should retry the pause after waiting for the GC locker to become inactive.</span></span><br><span class="line">    _should_retry_gc = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">void VM_G1CollectForAllocation::doit() &#123;
+  G1CollectedHeap* g1h &#x3D; G1CollectedHeap::heap();
+  assert(!_should_initiate_conc_mark || g1h-&gt;should_do_concurrent_full_gc(_gc_cause),
+      &quot;only a GC locker, a System.gc(), stats update, whitebox, or a hum allocation induced GC should start a cycle&quot;);
+
+  if (_word_size &gt; 0) &#123;
+    &#x2F;&#x2F; An allocation has been requested. So, try to do that first.
+    _result &#x3D; g1h-&gt;attempt_allocation_at_safepoint(_word_size,
+                                                   false &#x2F;* expect_null_cur_alloc_region *&#x2F;);
+    if (_result !&#x3D; NULL) &#123;
+      &#x2F;&#x2F; If we can successfully allocate before we actually do the
+      &#x2F;&#x2F; pause then we will consider this pause successful.
+      _pause_succeeded &#x3D; true;
+      return;
+    &#125;
+  &#125;
+
+  GCCauseSetter x(g1h, _gc_cause);
+  if (_should_initiate_conc_mark) &#123;
+    &#x2F;&#x2F; It&#39;s safer to read old_marking_cycles_completed() here, given
+    &#x2F;&#x2F; that noone else will be updating it concurrently. Since we&#39;ll
+    &#x2F;&#x2F; only need it if we&#39;re initiating a marking cycle, no point in
+    &#x2F;&#x2F; setting it earlier.
+    _old_marking_cycles_completed_before &#x3D; g1h-&gt;old_marking_cycles_completed();
+
+    &#x2F;&#x2F; At this point we are supposed to start a concurrent cycle. We
+    &#x2F;&#x2F; will do so if one is not already in progress.
+    bool res &#x3D; g1h-&gt;g1_policy()-&gt;force_initial_mark_if_outside_cycle(_gc_cause);
+
+    &#x2F;&#x2F; The above routine returns true if we were able to force the
+    &#x2F;&#x2F; next GC pause to be an initial mark; it returns false if a
+    &#x2F;&#x2F; marking cycle is already in progress.
+    &#x2F;&#x2F;
+    &#x2F;&#x2F; If a marking cycle is already in progress just return and skip the
+    &#x2F;&#x2F; pause below - if the reason for requesting this initial mark pause
+    &#x2F;&#x2F; was due to a System.gc() then the requesting thread should block in
+    &#x2F;&#x2F; doit_epilogue() until the marking cycle is complete.
+    &#x2F;&#x2F;
+    &#x2F;&#x2F; If this initial mark pause was requested as part of a humongous
+    &#x2F;&#x2F; allocation then we know that the marking cycle must just have
+    &#x2F;&#x2F; been started by another thread (possibly also allocating a humongous
+    &#x2F;&#x2F; object) as there was no active marking cycle when the requesting
+    &#x2F;&#x2F; thread checked before calling collect() in
+    &#x2F;&#x2F; attempt_allocation_humongous(). Retrying the GC, in this case,
+    &#x2F;&#x2F; will cause the requesting thread to spin inside collect() until the
+    &#x2F;&#x2F; just started marking cycle is complete - which may be a while. So
+    &#x2F;&#x2F; we do NOT retry the GC.
+    if (!res) &#123;
+      assert(_word_size &#x3D;&#x3D; 0, &quot;Concurrent Full GC&#x2F;Humongous Object IM shouldn&#39;t be allocating&quot;);
+      if (_gc_cause !&#x3D; GCCause::_g1_humongous_allocation) &#123;
+        _should_retry_gc &#x3D; true;
+      &#125;
+      return;
+    &#125;
+  &#125;
+
+  &#x2F;&#x2F; Try a partial collection of some kind.
+  _pause_succeeded &#x3D; g1h-&gt;do_collection_pause_at_safepoint(_target_pause_time_ms);
+
+  if (_pause_succeeded) &#123;
+    if (_word_size &gt; 0) &#123;
+      &#x2F;&#x2F; An allocation had been requested. Do it, eventually trying a stronger
+      &#x2F;&#x2F; kind of GC.
+      _result &#x3D; g1h-&gt;satisfy_failed_allocation(_word_size, &amp;_pause_succeeded);
+    &#125; else &#123;
+      bool should_upgrade_to_full &#x3D; !g1h-&gt;should_do_concurrent_full_gc(_gc_cause) &amp;&amp;
+                                    !g1h-&gt;has_regions_left_for_allocation();
+      if (should_upgrade_to_full) &#123;
+        &#x2F;&#x2F; There has been a request to perform a GC to free some space. We have no
+        &#x2F;&#x2F; information on how much memory has been asked for. In case there are
+        &#x2F;&#x2F; absolutely no regions left to allocate into, do a maximally compacting full GC.
+        log_info(gc, ergo)(&quot;Attempting maximally compacting collection&quot;);
+        _pause_succeeded &#x3D; g1h-&gt;do_full_collection(false, &#x2F;* explicit gc *&#x2F;
+                                                   true   &#x2F;* clear_all_soft_refs *&#x2F;);
+      &#125;
+    &#125;
+    guarantee(_pause_succeeded, &quot;Elevated collections during the safepoint must always succeed.&quot;);
+  &#125; else &#123;
+    assert(_result &#x3D;&#x3D; NULL, &quot;invariant&quot;);
+    &#x2F;&#x2F; The only reason for the pause to not be successful is that, the GC locker is
+    &#x2F;&#x2F; active (or has become active since the prologue was executed). In this case
+    &#x2F;&#x2F; we should retry the pause after waiting for the GC locker to become inactive.
+    _should_retry_gc &#x3D; true;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这里可以看到核心的是<code>G1CollectedHeap::do_collection_pause_at_safepoint</code>这个方法，它带上了目标暂停时间的值</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br></pre></td><td class="code"><pre><span class="line">G1CollectedHeap::do_collection_pause_at_safepoint(<span class="keyword">double</span> target_pause_time_ms) &#123;</span><br><span class="line">  assert_at_safepoint_on_vm_thread();</span><br><span class="line">  guarantee(!is_gc_active(), <span class="string">"collection is not reentrant"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (GCLocker::check_active_before_gc()) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  _gc_timer_stw-&gt;register_gc_start();</span><br><span class="line"></span><br><span class="line">  GCIdMark gc_id_mark;</span><br><span class="line">  _gc_tracer_stw-&gt;report_gc_start(gc_cause(), _gc_timer_stw-&gt;gc_start());</span><br><span class="line"></span><br><span class="line">  <span class="function">SvcGCMarker <span class="title">sgcm</span><span class="params">(SvcGCMarker::MINOR)</span></span>;</span><br><span class="line">  ResourceMark rm;</span><br><span class="line"></span><br><span class="line">  g1_policy()-&gt;note_gc_start();</span><br><span class="line"></span><br><span class="line">  wait_for_root_region_scanning();</span><br><span class="line"></span><br><span class="line">  print_heap_before_gc();</span><br><span class="line">  print_heap_regions();</span><br><span class="line">  trace_heap_before_gc(_gc_tracer_stw);</span><br><span class="line"></span><br><span class="line">  _verifier-&gt;verify_region_sets_optional();</span><br><span class="line">  _verifier-&gt;verify_dirty_young_regions();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// We should not be doing initial mark unless the conc mark thread is running</span></span><br><span class="line">  <span class="keyword">if</span> (!_cm_thread-&gt;should_terminate()) &#123;</span><br><span class="line">    <span class="comment">// This call will decide whether this pause is an initial-mark</span></span><br><span class="line">    <span class="comment">// pause. If it is, in_initial_mark_gc() will return true</span></span><br><span class="line">    <span class="comment">// for the duration of this pause.</span></span><br><span class="line">    g1_policy()-&gt;decide_on_conc_mark_initiation();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// We do not allow initial-mark to be piggy-backed on a mixed GC.</span></span><br><span class="line">  assert(!collector_state()-&gt;in_initial_mark_gc() ||</span><br><span class="line">          collector_state()-&gt;in_young_only_phase(), <span class="string">"sanity"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// We also do not allow mixed GCs during marking.</span></span><br><span class="line">  assert(!collector_state()-&gt;mark_or_rebuild_in_progress() || collector_state()-&gt;in_young_only_phase(), <span class="string">"sanity"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Record whether this pause is an initial mark. When the current</span></span><br><span class="line">  <span class="comment">// thread has completed its logging output and it's safe to signal</span></span><br><span class="line">  <span class="comment">// the CM thread, the flag's value in the policy has been reset.</span></span><br><span class="line">  <span class="keyword">bool</span> should_start_conc_mark = collector_state()-&gt;in_initial_mark_gc();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Inner scope for scope based logging, timers, and stats collection</span></span><br><span class="line">  &#123;</span><br><span class="line">    EvacuationInfo evacuation_info;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (collector_state()-&gt;in_initial_mark_gc()) &#123;</span><br><span class="line">      <span class="comment">// We are about to start a marking cycle, so we increment the</span></span><br><span class="line">      <span class="comment">// full collection counter.</span></span><br><span class="line">      increment_old_marking_cycles_started();</span><br><span class="line">      _cm-&gt;gc_tracer_cm()-&gt;set_gc_cause(gc_cause());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _gc_tracer_stw-&gt;report_yc_type(collector_state()-&gt;yc_type());</span><br><span class="line"></span><br><span class="line">    GCTraceCPUTime tcpu;</span><br><span class="line"></span><br><span class="line">    G1HeapVerifier::G1VerifyType verify_type;</span><br><span class="line">    <span class="function">FormatBuffer&lt;&gt; <span class="title">gc_string</span><span class="params">(<span class="string">"Pause Young "</span>)</span></span>;</span><br><span class="line">    <span class="keyword">if</span> (collector_state()-&gt;in_initial_mark_gc()) &#123;</span><br><span class="line">      gc_string.append(<span class="string">"(Concurrent Start)"</span>);</span><br><span class="line">      verify_type = G1HeapVerifier::G1VerifyConcurrentStart;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (collector_state()-&gt;in_young_only_phase()) &#123;</span><br><span class="line">      <span class="keyword">if</span> (collector_state()-&gt;in_young_gc_before_mixed()) &#123;</span><br><span class="line">        gc_string.append(<span class="string">"(Prepare Mixed)"</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        gc_string.append(<span class="string">"(Normal)"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      verify_type = G1HeapVerifier::G1VerifyYoungNormal;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      gc_string.append(<span class="string">"(Mixed)"</span>);</span><br><span class="line">      verify_type = G1HeapVerifier::G1VerifyMixed;</span><br><span class="line">    &#125;</span><br><span class="line">    GCTraceTime(Info, gc) tm(gc_string, <span class="literal">NULL</span>, gc_cause(), <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    uint active_workers = AdaptiveSizePolicy::calc_active_workers(workers()-&gt;total_workers(),</span><br><span class="line">                                                                  workers()-&gt;active_workers(),</span><br><span class="line">                                                                  Threads::number_of_non_daemon_threads());</span><br><span class="line">    active_workers = workers()-&gt;update_active_workers(active_workers);</span><br><span class="line">    log_info(gc,task)(<span class="string">"Using %u workers of %u for evacuation"</span>, active_workers, workers()-&gt;total_workers());</span><br><span class="line"></span><br><span class="line">    <span class="function">TraceCollectorStats <span class="title">tcs</span><span class="params">(g1mm()-&gt;incremental_collection_counters())</span></span>;</span><br><span class="line">    <span class="function">TraceMemoryManagerStats <span class="title">tms</span><span class="params">(&amp;_memory_manager, gc_cause(),</span></span></span><br><span class="line"><span class="function"><span class="params">                                collector_state()-&gt;yc_type() == Mixed <span class="comment">/* allMemoryPoolsAffected */</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">G1HeapTransition <span class="title">heap_transition</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    <span class="keyword">size_t</span> heap_used_bytes_before_gc = used();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Don't dynamically change the number of GC threads this early.  A value of</span></span><br><span class="line">    <span class="comment">// 0 is used to indicate serial work.  When parallel work is done,</span></span><br><span class="line">    <span class="comment">// it will be set.</span></span><br><span class="line"></span><br><span class="line">    &#123; <span class="comment">// Call to jvmpi::post_class_unload_events must occur outside of active GC</span></span><br><span class="line">      IsGCActiveMark x;</span><br><span class="line"></span><br><span class="line">      gc_prologue(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (VerifyRememberedSets) &#123;</span><br><span class="line">        log_info(gc, verify)(<span class="string">"[Verifying RemSets before GC]"</span>);</span><br><span class="line">        VerifyRegionRemSetClosure v_cl;</span><br><span class="line">        heap_region_iterate(&amp;v_cl);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      _verifier-&gt;verify_before_gc(verify_type);</span><br><span class="line"></span><br><span class="line">      _verifier-&gt;check_bitmaps(<span class="string">"GC Start"</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> COMPILER2_OR_JVMCI</span></span><br><span class="line">      DerivedPointerTable::<span class="built_in">clear</span>();</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// Please see comment in g1CollectedHeap.hpp and</span></span><br><span class="line">      <span class="comment">// G1CollectedHeap::ref_processing_init() to see how</span></span><br><span class="line">      <span class="comment">// reference processing currently works in G1.</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// Enable discovery in the STW reference processor</span></span><br><span class="line">      _ref_processor_stw-&gt;enable_discovery();</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// We want to temporarily turn off discovery by the</span></span><br><span class="line">        <span class="comment">// CM ref processor, if necessary, and turn it back on</span></span><br><span class="line">        <span class="comment">// on again later if we do. Using a scoped</span></span><br><span class="line">        <span class="comment">// NoRefDiscovery object will do this.</span></span><br><span class="line">        <span class="function">NoRefDiscovery <span class="title">no_cm_discovery</span><span class="params">(_ref_processor_cm)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Forget the current alloc region (we might even choose it to be part</span></span><br><span class="line">        <span class="comment">// of the collection set!).</span></span><br><span class="line">        _allocator-&gt;release_mutator_alloc_region();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// This timing is only used by the ergonomics to handle our pause target.</span></span><br><span class="line">        <span class="comment">// It is unclear why this should not include the full pause. We will</span></span><br><span class="line">        <span class="comment">// investigate this in CR 7178365.</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">// Preserving the old comment here if that helps the investigation:</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">// The elapsed time induced by the start time below deliberately elides</span></span><br><span class="line">        <span class="comment">// the possible verification above.</span></span><br><span class="line">        <span class="keyword">double</span> sample_start_time_sec = os::elapsedTime();</span><br><span class="line"></span><br><span class="line">        g1_policy()-&gt;record_collection_pause_start(sample_start_time_sec);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (collector_state()-&gt;in_initial_mark_gc()) &#123;</span><br><span class="line">          concurrent_mark()-&gt;pre_initial_mark();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        g1_policy()-&gt;finalize_collection_set(target_pause_time_ms, &amp;_survivor);</span><br><span class="line"></span><br><span class="line">        evacuation_info.set_collectionset_regions(collection_set()-&gt;region_length());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Make sure the remembered sets are up to date. This needs to be</span></span><br><span class="line">        <span class="comment">// done before register_humongous_regions_with_cset(), because the</span></span><br><span class="line">        <span class="comment">// remembered sets are used there to choose eager reclaim candidates.</span></span><br><span class="line">        <span class="comment">// If the remembered sets are not up to date we might miss some</span></span><br><span class="line">        <span class="comment">// entries that need to be handled.</span></span><br><span class="line">        g1_rem_set()-&gt;cleanupHRRS();</span><br><span class="line"></span><br><span class="line">        register_humongous_regions_with_cset();</span><br><span class="line"></span><br><span class="line">        assert(_verifier-&gt;check_cset_fast_test(), <span class="string">"Inconsistency in the InCSetState table."</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// We call this after finalize_cset() to</span></span><br><span class="line">        <span class="comment">// ensure that the CSet has been finalized.</span></span><br><span class="line">        _cm-&gt;verify_no_cset_oops();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (_hr_printer.is_active()) &#123;</span><br><span class="line">          <span class="function">G1PrintCollectionSetClosure <span class="title">cl</span><span class="params">(&amp;_hr_printer)</span></span>;</span><br><span class="line">          _collection_set.iterate(&amp;cl);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Initialize the GC alloc regions.</span></span><br><span class="line">        _allocator-&gt;init_gc_alloc_regions(evacuation_info);</span><br><span class="line"></span><br><span class="line">        <span class="function">G1ParScanThreadStateSet <span class="title">per_thread_states</span><span class="params">(<span class="keyword">this</span>, workers()-&gt;active_workers(), collection_set()-&gt;young_region_length())</span></span>;</span><br><span class="line">        pre_evacuate_collection_set();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Actually do the work...</span></span><br><span class="line">        evacuate_collection_set(&amp;per_thread_states);</span><br><span class="line"></span><br><span class="line">        post_evacuate_collection_set(evacuation_info, &amp;per_thread_states);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">size_t</span>* surviving_young_words = per_thread_states.surviving_young_words();</span><br><span class="line">        free_collection_set(&amp;_collection_set, evacuation_info, surviving_young_words);</span><br><span class="line"></span><br><span class="line">        eagerly_reclaim_humongous_regions();</span><br><span class="line"></span><br><span class="line">        record_obj_copy_mem_stats();</span><br><span class="line">        _survivor_evac_stats.adjust_desired_plab_sz();</span><br><span class="line">        _old_evac_stats.adjust_desired_plab_sz();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> start = os::elapsedTime();</span><br><span class="line">        start_new_collection_set();</span><br><span class="line">        g1_policy()-&gt;phase_times()-&gt;record_start_new_cset_time_ms((os::elapsedTime() - start) * <span class="number">1000.0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (evacuation_failed()) &#123;</span><br><span class="line">          set_used(recalculate_used());</span><br><span class="line">          <span class="keyword">if</span> (_archive_allocator != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            _archive_allocator-&gt;clear_used();</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">for</span> (uint i = <span class="number">0</span>; i &lt; ParallelGCThreads; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (_evacuation_failed_info_array[i].has_failed()) &#123;</span><br><span class="line">              _gc_tracer_stw-&gt;report_evacuation_failed(_evacuation_failed_info_array[i]);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">// The "used" of the the collection set have already been subtracted</span></span><br><span class="line">          <span class="comment">// when they were freed.  Add in the bytes evacuated.</span></span><br><span class="line">          increase_used(g1_policy()-&gt;bytes_copied_during_gc());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (collector_state()-&gt;in_initial_mark_gc()) &#123;</span><br><span class="line">          <span class="comment">// We have to do this before we notify the CM threads that</span></span><br><span class="line">          <span class="comment">// they can start working to make sure that all the</span></span><br><span class="line">          <span class="comment">// appropriate initialization is done on the CM object.</span></span><br><span class="line">          concurrent_mark()-&gt;post_initial_mark();</span><br><span class="line">          <span class="comment">// Note that we don't actually trigger the CM thread at</span></span><br><span class="line">          <span class="comment">// this point. We do that later when we're sure that</span></span><br><span class="line">          <span class="comment">// the current thread has completed its logging output.</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        allocate_dummy_regions();</span><br><span class="line"></span><br><span class="line">        _allocator-&gt;init_mutator_alloc_region();</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">size_t</span> expand_bytes = _heap_sizing_policy-&gt;expansion_amount();</span><br><span class="line">          <span class="keyword">if</span> (expand_bytes &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">size_t</span> bytes_before = capacity();</span><br><span class="line">            <span class="comment">// No need for an ergo logging here,</span></span><br><span class="line">            <span class="comment">// expansion_amount() does this when it returns a value &gt; 0.</span></span><br><span class="line">            <span class="keyword">double</span> expand_ms;</span><br><span class="line">            <span class="keyword">if</span> (!expand(expand_bytes, _workers, &amp;expand_ms)) &#123;</span><br><span class="line">              <span class="comment">// We failed to expand the heap. Cannot do anything about it.</span></span><br><span class="line">            &#125;</span><br><span class="line">            g1_policy()-&gt;phase_times()-&gt;record_expand_heap_time(expand_ms);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// We redo the verification but now wrt to the new CSet which</span></span><br><span class="line">        <span class="comment">// has just got initialized after the previous CSet was freed.</span></span><br><span class="line">        _cm-&gt;verify_no_cset_oops();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// This timing is only used by the ergonomics to handle our pause target.</span></span><br><span class="line">        <span class="comment">// It is unclear why this should not include the full pause. We will</span></span><br><span class="line">        <span class="comment">// investigate this in CR 7178365.</span></span><br><span class="line">        <span class="keyword">double</span> sample_end_time_sec = os::elapsedTime();</span><br><span class="line">        <span class="keyword">double</span> pause_time_ms = (sample_end_time_sec - sample_start_time_sec) * MILLIUNITS;</span><br><span class="line">        <span class="keyword">size_t</span> total_cards_scanned = g1_policy()-&gt;phase_times()-&gt;sum_thread_work_items(G1GCPhaseTimes::ScanRS, G1GCPhaseTimes::ScanRSScannedCards);</span><br><span class="line">        g1_policy()-&gt;record_collection_pause_end(pause_time_ms, total_cards_scanned, heap_used_bytes_before_gc);</span><br><span class="line"></span><br><span class="line">        evacuation_info.set_collectionset_used_before(collection_set()-&gt;bytes_used_before());</span><br><span class="line">        evacuation_info.set_bytes_copied(g1_policy()-&gt;bytes_copied_during_gc());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (VerifyRememberedSets) &#123;</span><br><span class="line">          log_info(gc, verify)(<span class="string">"[Verifying RemSets after GC]"</span>);</span><br><span class="line">          VerifyRegionRemSetClosure v_cl;</span><br><span class="line">          heap_region_iterate(&amp;v_cl);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        _verifier-&gt;verify_after_gc(verify_type);</span><br><span class="line">        _verifier-&gt;check_bitmaps(<span class="string">"GC End"</span>);</span><br><span class="line"></span><br><span class="line">        assert(!_ref_processor_stw-&gt;discovery_enabled(), <span class="string">"Postcondition"</span>);</span><br><span class="line">        _ref_processor_stw-&gt;verify_no_references_recorded();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// CM reference discovery will be re-enabled if necessary.</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> TRACESPINNING</span></span><br><span class="line">      ParallelTaskTerminator::print_termination_counts();</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">      gc_epilogue(<span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Print the remainder of the GC log output.</span></span><br><span class="line">    <span class="keyword">if</span> (evacuation_failed()) &#123;</span><br><span class="line">      log_info(gc)(<span class="string">"To-space exhausted"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    g1_policy()-&gt;print_phases();</span><br><span class="line">    heap_transition.<span class="built_in">print</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// It is not yet to safe to tell the concurrent mark to</span></span><br><span class="line">    <span class="comment">// start as we have some optional output below. We don't want the</span></span><br><span class="line">    <span class="comment">// output from the concurrent mark thread interfering with this</span></span><br><span class="line">    <span class="comment">// logging output either.</span></span><br><span class="line"></span><br><span class="line">    _hrm.verify_optional();</span><br><span class="line">    _verifier-&gt;verify_region_sets_optional();</span><br><span class="line"></span><br><span class="line">    TASKQUEUE_STATS_ONLY(print_taskqueue_stats());</span><br><span class="line">    TASKQUEUE_STATS_ONLY(reset_taskqueue_stats());</span><br><span class="line"></span><br><span class="line">    print_heap_after_gc();</span><br><span class="line">    print_heap_regions();</span><br><span class="line">    trace_heap_after_gc(_gc_tracer_stw);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// We must call G1MonitoringSupport::update_sizes() in the same scoping level</span></span><br><span class="line">    <span class="comment">// as an active TraceMemoryManagerStats object (i.e. before the destructor for the</span></span><br><span class="line">    <span class="comment">// TraceMemoryManagerStats is called) so that the G1 memory pools are updated</span></span><br><span class="line">    <span class="comment">// before any GC notifications are raised.</span></span><br><span class="line">    g1mm()-&gt;update_sizes();</span><br><span class="line"></span><br><span class="line">    _gc_tracer_stw-&gt;report_evacuation_info(&amp;evacuation_info);</span><br><span class="line">    _gc_tracer_stw-&gt;report_tenuring_threshold(_g1_policy-&gt;tenuring_threshold());</span><br><span class="line">    _gc_timer_stw-&gt;register_gc_end();</span><br><span class="line">    _gc_tracer_stw-&gt;report_gc_end(_gc_timer_stw-&gt;gc_end(), _gc_timer_stw-&gt;time_partitions());</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// It should now be safe to tell the concurrent mark thread to start</span></span><br><span class="line">  <span class="comment">// without its logging output interfering with the logging output</span></span><br><span class="line">  <span class="comment">// that came from the pause.</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (should_start_conc_mark) &#123;</span><br><span class="line">    <span class="comment">// CAUTION: after the doConcurrentMark() call below,</span></span><br><span class="line">    <span class="comment">// the concurrent marking thread(s) could be running</span></span><br><span class="line">    <span class="comment">// concurrently with us. Make sure that anything after</span></span><br><span class="line">    <span class="comment">// this point does not assume that we are the only GC thread</span></span><br><span class="line">    <span class="comment">// running. Note: of course, the actual marking work will</span></span><br><span class="line">    <span class="comment">// not start until the safepoint itself is released in</span></span><br><span class="line">    <span class="comment">// SuspendibleThreadSet::desynchronize().</span></span><br><span class="line">    do_concurrent_mark();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">G1CollectedHeap::do_collection_pause_at_safepoint(double target_pause_time_ms) &#123;
+  assert_at_safepoint_on_vm_thread();
+  guarantee(!is_gc_active(), &quot;collection is not reentrant&quot;);
+
+  if (GCLocker::check_active_before_gc()) &#123;
+    return false;
+  &#125;
+
+  _gc_timer_stw-&gt;register_gc_start();
+
+  GCIdMark gc_id_mark;
+  _gc_tracer_stw-&gt;report_gc_start(gc_cause(), _gc_timer_stw-&gt;gc_start());
+
+  SvcGCMarker sgcm(SvcGCMarker::MINOR);
+  ResourceMark rm;
+
+  g1_policy()-&gt;note_gc_start();
+
+  wait_for_root_region_scanning();
+
+  print_heap_before_gc();
+  print_heap_regions();
+  trace_heap_before_gc(_gc_tracer_stw);
+
+  _verifier-&gt;verify_region_sets_optional();
+  _verifier-&gt;verify_dirty_young_regions();
+
+  &#x2F;&#x2F; We should not be doing initial mark unless the conc mark thread is running
+  if (!_cm_thread-&gt;should_terminate()) &#123;
+    &#x2F;&#x2F; This call will decide whether this pause is an initial-mark
+    &#x2F;&#x2F; pause. If it is, in_initial_mark_gc() will return true
+    &#x2F;&#x2F; for the duration of this pause.
+    g1_policy()-&gt;decide_on_conc_mark_initiation();
+  &#125;
+
+  &#x2F;&#x2F; We do not allow initial-mark to be piggy-backed on a mixed GC.
+  assert(!collector_state()-&gt;in_initial_mark_gc() ||
+          collector_state()-&gt;in_young_only_phase(), &quot;sanity&quot;);
+
+  &#x2F;&#x2F; We also do not allow mixed GCs during marking.
+  assert(!collector_state()-&gt;mark_or_rebuild_in_progress() || collector_state()-&gt;in_young_only_phase(), &quot;sanity&quot;);
+
+  &#x2F;&#x2F; Record whether this pause is an initial mark. When the current
+  &#x2F;&#x2F; thread has completed its logging output and it&#39;s safe to signal
+  &#x2F;&#x2F; the CM thread, the flag&#39;s value in the policy has been reset.
+  bool should_start_conc_mark &#x3D; collector_state()-&gt;in_initial_mark_gc();
+
+  &#x2F;&#x2F; Inner scope for scope based logging, timers, and stats collection
+  &#123;
+    EvacuationInfo evacuation_info;
+
+    if (collector_state()-&gt;in_initial_mark_gc()) &#123;
+      &#x2F;&#x2F; We are about to start a marking cycle, so we increment the
+      &#x2F;&#x2F; full collection counter.
+      increment_old_marking_cycles_started();
+      _cm-&gt;gc_tracer_cm()-&gt;set_gc_cause(gc_cause());
+    &#125;
+
+    _gc_tracer_stw-&gt;report_yc_type(collector_state()-&gt;yc_type());
+
+    GCTraceCPUTime tcpu;
+
+    G1HeapVerifier::G1VerifyType verify_type;
+    FormatBuffer&lt;&gt; gc_string(&quot;Pause Young &quot;);
+    if (collector_state()-&gt;in_initial_mark_gc()) &#123;
+      gc_string.append(&quot;(Concurrent Start)&quot;);
+      verify_type &#x3D; G1HeapVerifier::G1VerifyConcurrentStart;
+    &#125; else if (collector_state()-&gt;in_young_only_phase()) &#123;
+      if (collector_state()-&gt;in_young_gc_before_mixed()) &#123;
+        gc_string.append(&quot;(Prepare Mixed)&quot;);
+      &#125; else &#123;
+        gc_string.append(&quot;(Normal)&quot;);
+      &#125;
+      verify_type &#x3D; G1HeapVerifier::G1VerifyYoungNormal;
+    &#125; else &#123;
+      gc_string.append(&quot;(Mixed)&quot;);
+      verify_type &#x3D; G1HeapVerifier::G1VerifyMixed;
+    &#125;
+    GCTraceTime(Info, gc) tm(gc_string, NULL, gc_cause(), true);
+
+    uint active_workers &#x3D; AdaptiveSizePolicy::calc_active_workers(workers()-&gt;total_workers(),
+                                                                  workers()-&gt;active_workers(),
+                                                                  Threads::number_of_non_daemon_threads());
+    active_workers &#x3D; workers()-&gt;update_active_workers(active_workers);
+    log_info(gc,task)(&quot;Using %u workers of %u for evacuation&quot;, active_workers, workers()-&gt;total_workers());
+
+    TraceCollectorStats tcs(g1mm()-&gt;incremental_collection_counters());
+    TraceMemoryManagerStats tms(&amp;_memory_manager, gc_cause(),
+                                collector_state()-&gt;yc_type() &#x3D;&#x3D; Mixed &#x2F;* allMemoryPoolsAffected *&#x2F;);
+
+    G1HeapTransition heap_transition(this);
+    size_t heap_used_bytes_before_gc &#x3D; used();
+
+    &#x2F;&#x2F; Don&#39;t dynamically change the number of GC threads this early.  A value of
+    &#x2F;&#x2F; 0 is used to indicate serial work.  When parallel work is done,
+    &#x2F;&#x2F; it will be set.
+
+    &#123; &#x2F;&#x2F; Call to jvmpi::post_class_unload_events must occur outside of active GC
+      IsGCActiveMark x;
+
+      gc_prologue(false);
+
+      if (VerifyRememberedSets) &#123;
+        log_info(gc, verify)(&quot;[Verifying RemSets before GC]&quot;);
+        VerifyRegionRemSetClosure v_cl;
+        heap_region_iterate(&amp;v_cl);
+      &#125;
+
+      _verifier-&gt;verify_before_gc(verify_type);
+
+      _verifier-&gt;check_bitmaps(&quot;GC Start&quot;);
+
+#if COMPILER2_OR_JVMCI
+      DerivedPointerTable::clear();
+#endif
+
+      &#x2F;&#x2F; Please see comment in g1CollectedHeap.hpp and
+      &#x2F;&#x2F; G1CollectedHeap::ref_processing_init() to see how
+      &#x2F;&#x2F; reference processing currently works in G1.
+
+      &#x2F;&#x2F; Enable discovery in the STW reference processor
+      _ref_processor_stw-&gt;enable_discovery();
+
+      &#123;
+        &#x2F;&#x2F; We want to temporarily turn off discovery by the
+        &#x2F;&#x2F; CM ref processor, if necessary, and turn it back on
+        &#x2F;&#x2F; on again later if we do. Using a scoped
+        &#x2F;&#x2F; NoRefDiscovery object will do this.
+        NoRefDiscovery no_cm_discovery(_ref_processor_cm);
+
+        &#x2F;&#x2F; Forget the current alloc region (we might even choose it to be part
+        &#x2F;&#x2F; of the collection set!).
+        _allocator-&gt;release_mutator_alloc_region();
+
+        &#x2F;&#x2F; This timing is only used by the ergonomics to handle our pause target.
+        &#x2F;&#x2F; It is unclear why this should not include the full pause. We will
+        &#x2F;&#x2F; investigate this in CR 7178365.
+        &#x2F;&#x2F;
+        &#x2F;&#x2F; Preserving the old comment here if that helps the investigation:
+        &#x2F;&#x2F;
+        &#x2F;&#x2F; The elapsed time induced by the start time below deliberately elides
+        &#x2F;&#x2F; the possible verification above.
+        double sample_start_time_sec &#x3D; os::elapsedTime();
+
+        g1_policy()-&gt;record_collection_pause_start(sample_start_time_sec);
+
+        if (collector_state()-&gt;in_initial_mark_gc()) &#123;
+          concurrent_mark()-&gt;pre_initial_mark();
+        &#125;
+
+        g1_policy()-&gt;finalize_collection_set(target_pause_time_ms, &amp;_survivor);
+
+        evacuation_info.set_collectionset_regions(collection_set()-&gt;region_length());
+
+        &#x2F;&#x2F; Make sure the remembered sets are up to date. This needs to be
+        &#x2F;&#x2F; done before register_humongous_regions_with_cset(), because the
+        &#x2F;&#x2F; remembered sets are used there to choose eager reclaim candidates.
+        &#x2F;&#x2F; If the remembered sets are not up to date we might miss some
+        &#x2F;&#x2F; entries that need to be handled.
+        g1_rem_set()-&gt;cleanupHRRS();
+
+        register_humongous_regions_with_cset();
+
+        assert(_verifier-&gt;check_cset_fast_test(), &quot;Inconsistency in the InCSetState table.&quot;);
+
+        &#x2F;&#x2F; We call this after finalize_cset() to
+        &#x2F;&#x2F; ensure that the CSet has been finalized.
+        _cm-&gt;verify_no_cset_oops();
+
+        if (_hr_printer.is_active()) &#123;
+          G1PrintCollectionSetClosure cl(&amp;_hr_printer);
+          _collection_set.iterate(&amp;cl);
+        &#125;
+
+        &#x2F;&#x2F; Initialize the GC alloc regions.
+        _allocator-&gt;init_gc_alloc_regions(evacuation_info);
+
+        G1ParScanThreadStateSet per_thread_states(this, workers()-&gt;active_workers(), collection_set()-&gt;young_region_length());
+        pre_evacuate_collection_set();
+
+        &#x2F;&#x2F; Actually do the work...
+        evacuate_collection_set(&amp;per_thread_states);
+
+        post_evacuate_collection_set(evacuation_info, &amp;per_thread_states);
+
+        const size_t* surviving_young_words &#x3D; per_thread_states.surviving_young_words();
+        free_collection_set(&amp;_collection_set, evacuation_info, surviving_young_words);
+
+        eagerly_reclaim_humongous_regions();
+
+        record_obj_copy_mem_stats();
+        _survivor_evac_stats.adjust_desired_plab_sz();
+        _old_evac_stats.adjust_desired_plab_sz();
+
+        double start &#x3D; os::elapsedTime();
+        start_new_collection_set();
+        g1_policy()-&gt;phase_times()-&gt;record_start_new_cset_time_ms((os::elapsedTime() - start) * 1000.0);
+
+        if (evacuation_failed()) &#123;
+          set_used(recalculate_used());
+          if (_archive_allocator !&#x3D; NULL) &#123;
+            _archive_allocator-&gt;clear_used();
+          &#125;
+          for (uint i &#x3D; 0; i &lt; ParallelGCThreads; i++) &#123;
+            if (_evacuation_failed_info_array[i].has_failed()) &#123;
+              _gc_tracer_stw-&gt;report_evacuation_failed(_evacuation_failed_info_array[i]);
+            &#125;
+          &#125;
+        &#125; else &#123;
+          &#x2F;&#x2F; The &quot;used&quot; of the the collection set have already been subtracted
+          &#x2F;&#x2F; when they were freed.  Add in the bytes evacuated.
+          increase_used(g1_policy()-&gt;bytes_copied_during_gc());
+        &#125;
+
+        if (collector_state()-&gt;in_initial_mark_gc()) &#123;
+          &#x2F;&#x2F; We have to do this before we notify the CM threads that
+          &#x2F;&#x2F; they can start working to make sure that all the
+          &#x2F;&#x2F; appropriate initialization is done on the CM object.
+          concurrent_mark()-&gt;post_initial_mark();
+          &#x2F;&#x2F; Note that we don&#39;t actually trigger the CM thread at
+          &#x2F;&#x2F; this point. We do that later when we&#39;re sure that
+          &#x2F;&#x2F; the current thread has completed its logging output.
+        &#125;
+
+        allocate_dummy_regions();
+
+        _allocator-&gt;init_mutator_alloc_region();
+
+        &#123;
+          size_t expand_bytes &#x3D; _heap_sizing_policy-&gt;expansion_amount();
+          if (expand_bytes &gt; 0) &#123;
+            size_t bytes_before &#x3D; capacity();
+            &#x2F;&#x2F; No need for an ergo logging here,
+            &#x2F;&#x2F; expansion_amount() does this when it returns a value &gt; 0.
+            double expand_ms;
+            if (!expand(expand_bytes, _workers, &amp;expand_ms)) &#123;
+              &#x2F;&#x2F; We failed to expand the heap. Cannot do anything about it.
+            &#125;
+            g1_policy()-&gt;phase_times()-&gt;record_expand_heap_time(expand_ms);
+          &#125;
+        &#125;
+
+        &#x2F;&#x2F; We redo the verification but now wrt to the new CSet which
+        &#x2F;&#x2F; has just got initialized after the previous CSet was freed.
+        _cm-&gt;verify_no_cset_oops();
+
+        &#x2F;&#x2F; This timing is only used by the ergonomics to handle our pause target.
+        &#x2F;&#x2F; It is unclear why this should not include the full pause. We will
+        &#x2F;&#x2F; investigate this in CR 7178365.
+        double sample_end_time_sec &#x3D; os::elapsedTime();
+        double pause_time_ms &#x3D; (sample_end_time_sec - sample_start_time_sec) * MILLIUNITS;
+        size_t total_cards_scanned &#x3D; g1_policy()-&gt;phase_times()-&gt;sum_thread_work_items(G1GCPhaseTimes::ScanRS, G1GCPhaseTimes::ScanRSScannedCards);
+        g1_policy()-&gt;record_collection_pause_end(pause_time_ms, total_cards_scanned, heap_used_bytes_before_gc);
+
+        evacuation_info.set_collectionset_used_before(collection_set()-&gt;bytes_used_before());
+        evacuation_info.set_bytes_copied(g1_policy()-&gt;bytes_copied_during_gc());
+
+        if (VerifyRememberedSets) &#123;
+          log_info(gc, verify)(&quot;[Verifying RemSets after GC]&quot;);
+          VerifyRegionRemSetClosure v_cl;
+          heap_region_iterate(&amp;v_cl);
+        &#125;
+
+        _verifier-&gt;verify_after_gc(verify_type);
+        _verifier-&gt;check_bitmaps(&quot;GC End&quot;);
+
+        assert(!_ref_processor_stw-&gt;discovery_enabled(), &quot;Postcondition&quot;);
+        _ref_processor_stw-&gt;verify_no_references_recorded();
+
+        &#x2F;&#x2F; CM reference discovery will be re-enabled if necessary.
+      &#125;
+
+#ifdef TRACESPINNING
+      ParallelTaskTerminator::print_termination_counts();
+#endif
+
+      gc_epilogue(false);
+    &#125;
+
+    &#x2F;&#x2F; Print the remainder of the GC log output.
+    if (evacuation_failed()) &#123;
+      log_info(gc)(&quot;To-space exhausted&quot;);
+    &#125;
+
+    g1_policy()-&gt;print_phases();
+    heap_transition.print();
+
+    &#x2F;&#x2F; It is not yet to safe to tell the concurrent mark to
+    &#x2F;&#x2F; start as we have some optional output below. We don&#39;t want the
+    &#x2F;&#x2F; output from the concurrent mark thread interfering with this
+    &#x2F;&#x2F; logging output either.
+
+    _hrm.verify_optional();
+    _verifier-&gt;verify_region_sets_optional();
+
+    TASKQUEUE_STATS_ONLY(print_taskqueue_stats());
+    TASKQUEUE_STATS_ONLY(reset_taskqueue_stats());
+
+    print_heap_after_gc();
+    print_heap_regions();
+    trace_heap_after_gc(_gc_tracer_stw);
+
+    &#x2F;&#x2F; We must call G1MonitoringSupport::update_sizes() in the same scoping level
+    &#x2F;&#x2F; as an active TraceMemoryManagerStats object (i.e. before the destructor for the
+    &#x2F;&#x2F; TraceMemoryManagerStats is called) so that the G1 memory pools are updated
+    &#x2F;&#x2F; before any GC notifications are raised.
+    g1mm()-&gt;update_sizes();
+
+    _gc_tracer_stw-&gt;report_evacuation_info(&amp;evacuation_info);
+    _gc_tracer_stw-&gt;report_tenuring_threshold(_g1_policy-&gt;tenuring_threshold());
+    _gc_timer_stw-&gt;register_gc_end();
+    _gc_tracer_stw-&gt;report_gc_end(_gc_timer_stw-&gt;gc_end(), _gc_timer_stw-&gt;time_partitions());
+  &#125;
+  &#x2F;&#x2F; It should now be safe to tell the concurrent mark thread to start
+  &#x2F;&#x2F; without its logging output interfering with the logging output
+  &#x2F;&#x2F; that came from the pause.
+
+  if (should_start_conc_mark) &#123;
+    &#x2F;&#x2F; CAUTION: after the doConcurrentMark() call below,
+    &#x2F;&#x2F; the concurrent marking thread(s) could be running
+    &#x2F;&#x2F; concurrently with us. Make sure that anything after
+    &#x2F;&#x2F; this point does not assume that we are the only GC thread
+    &#x2F;&#x2F; running. Note: of course, the actual marking work will
+    &#x2F;&#x2F; not start until the safepoint itself is released in
+    &#x2F;&#x2F; SuspendibleThreadSet::desynchronize().
+    do_concurrent_mark();
+  &#125;
+
+  return true;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>往下走就是这一步<code>G1Policy::finalize_collection_set</code>,去处理新生代和老年代</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">G1Policy::finalize_collection_set</span><span class="params">(<span class="keyword">double</span> target_pause_time_ms, G1SurvivorRegions* survivor)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">double</span> time_remaining_ms = _collection_set-&gt;finalize_young_part(target_pause_time_ms, survivor);</span><br><span class="line">  _collection_set-&gt;finalize_old_part(time_remaining_ms);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">void G1Policy::finalize_collection_set(double target_pause_time_ms, G1SurvivorRegions* survivor) &#123;
+  double time_remaining_ms &#x3D; _collection_set-&gt;finalize_young_part(target_pause_time_ms, survivor);
+  _collection_set-&gt;finalize_old_part(time_remaining_ms);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这里分别调用了两个方法，可以看到剩余时间是往下传的，来看一下具体的方法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">G1CollectionSet::finalize_young_part</span><span class="params">(<span class="keyword">double</span> target_pause_time_ms, G1SurvivorRegions* survivors)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">double</span> young_start_time_sec = os::elapsedTime();</span><br><span class="line"></span><br><span class="line">  finalize_incremental_building();</span><br><span class="line"></span><br><span class="line">  guarantee(target_pause_time_ms &gt; <span class="number">0.0</span>,</span><br><span class="line">            <span class="string">"target_pause_time_ms = %1.6lf should be positive"</span>, target_pause_time_ms);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">size_t</span> pending_cards = _policy-&gt;pending_cards();</span><br><span class="line">  <span class="keyword">double</span> base_time_ms = _policy-&gt;predict_base_elapsed_time_ms(pending_cards);</span><br><span class="line">  <span class="keyword">double</span> time_remaining_ms = MAX2(target_pause_time_ms - base_time_ms, <span class="number">0.0</span>);</span><br><span class="line"></span><br><span class="line">  log_trace(gc, ergo, cset)(<span class="string">"Start choosing CSet. pending cards: "</span> SIZE_FORMAT <span class="string">" predicted base time: %1.2fms remaining time: %1.2fms target pause time: %1.2fms"</span>,</span><br><span class="line">                            pending_cards, base_time_ms, time_remaining_ms, target_pause_time_ms);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// The young list is laid with the survivor regions from the previous</span></span><br><span class="line">  <span class="comment">// pause are appended to the RHS of the young list, i.e.</span></span><br><span class="line">  <span class="comment">//   [Newly Young Regions ++ Survivors from last pause].</span></span><br><span class="line"></span><br><span class="line">  uint survivor_region_length = survivors-&gt;length();</span><br><span class="line">  uint eden_region_length = _g1h-&gt;eden_regions_count();</span><br><span class="line">  init_region_lengths(eden_region_length, survivor_region_length);</span><br><span class="line"></span><br><span class="line">  verify_young_cset_indices();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Clear the fields that point to the survivor list - they are all young now.</span></span><br><span class="line">  survivors-&gt;convert_to_eden();</span><br><span class="line"></span><br><span class="line">  _bytes_used_before = _inc_bytes_used_before;</span><br><span class="line">  time_remaining_ms = MAX2(time_remaining_ms - _inc_predicted_elapsed_time_ms, <span class="number">0.0</span>);</span><br><span class="line"></span><br><span class="line">  log_trace(gc, ergo, cset)(<span class="string">"Add young regions to CSet. eden: %u regions, survivors: %u regions, predicted young region time: %1.2fms, target pause time: %1.2fms"</span>,</span><br><span class="line">                            eden_region_length, survivor_region_length, _inc_predicted_elapsed_time_ms, target_pause_time_ms);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// The number of recorded young regions is the incremental</span></span><br><span class="line">  <span class="comment">// collection set's current size</span></span><br><span class="line">  set_recorded_rs_lengths(_inc_recorded_rs_lengths);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">double</span> young_end_time_sec = os::elapsedTime();</span><br><span class="line">  phase_times()-&gt;record_young_cset_choice_time_ms((young_end_time_sec - young_start_time_sec) * <span class="number">1000.0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> time_remaining_ms;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">double G1CollectionSet::finalize_young_part(double target_pause_time_ms, G1SurvivorRegions* survivors) &#123;
+  double young_start_time_sec &#x3D; os::elapsedTime();
+
+  finalize_incremental_building();
+
+  guarantee(target_pause_time_ms &gt; 0.0,
+            &quot;target_pause_time_ms &#x3D; %1.6lf should be positive&quot;, target_pause_time_ms);
+
+  size_t pending_cards &#x3D; _policy-&gt;pending_cards();
+  double base_time_ms &#x3D; _policy-&gt;predict_base_elapsed_time_ms(pending_cards);
+  double time_remaining_ms &#x3D; MAX2(target_pause_time_ms - base_time_ms, 0.0);
+
+  log_trace(gc, ergo, cset)(&quot;Start choosing CSet. pending cards: &quot; SIZE_FORMAT &quot; predicted base time: %1.2fms remaining time: %1.2fms target pause time: %1.2fms&quot;,
+                            pending_cards, base_time_ms, time_remaining_ms, target_pause_time_ms);
+
+  &#x2F;&#x2F; The young list is laid with the survivor regions from the previous
+  &#x2F;&#x2F; pause are appended to the RHS of the young list, i.e.
+  &#x2F;&#x2F;   [Newly Young Regions ++ Survivors from last pause].
+
+  uint survivor_region_length &#x3D; survivors-&gt;length();
+  uint eden_region_length &#x3D; _g1h-&gt;eden_regions_count();
+  init_region_lengths(eden_region_length, survivor_region_length);
+
+  verify_young_cset_indices();
+
+  &#x2F;&#x2F; Clear the fields that point to the survivor list - they are all young now.
+  survivors-&gt;convert_to_eden();
+
+  _bytes_used_before &#x3D; _inc_bytes_used_before;
+  time_remaining_ms &#x3D; MAX2(time_remaining_ms - _inc_predicted_elapsed_time_ms, 0.0);
+
+  log_trace(gc, ergo, cset)(&quot;Add young regions to CSet. eden: %u regions, survivors: %u regions, predicted young region time: %1.2fms, target pause time: %1.2fms&quot;,
+                            eden_region_length, survivor_region_length, _inc_predicted_elapsed_time_ms, target_pause_time_ms);
+
+  &#x2F;&#x2F; The number of recorded young regions is the incremental
+  &#x2F;&#x2F; collection set&#39;s current size
+  set_recorded_rs_lengths(_inc_recorded_rs_lengths);
+
+  double young_end_time_sec &#x3D; os::elapsedTime();
+  phase_times()-&gt;record_young_cset_choice_time_ms((young_end_time_sec - young_start_time_sec) * 1000.0);
+
+  return time_remaining_ms;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>下面是老年代的部分</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">G1CollectionSet::finalize_old_part</span><span class="params">(<span class="keyword">double</span> time_remaining_ms)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">double</span> non_young_start_time_sec = os::elapsedTime();</span><br><span class="line">  <span class="keyword">double</span> predicted_old_time_ms = <span class="number">0.0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (collector_state()-&gt;in_mixed_phase()) &#123;</span><br><span class="line">    cset_chooser()-&gt;verify();</span><br><span class="line">    <span class="keyword">const</span> uint min_old_cset_length = _policy-&gt;calc_min_old_cset_length();</span><br><span class="line">    <span class="keyword">const</span> uint max_old_cset_length = _policy-&gt;calc_max_old_cset_length();</span><br><span class="line"></span><br><span class="line">    uint expensive_region_num = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">bool</span> check_time_remaining = _policy-&gt;adaptive_young_list_length();</span><br><span class="line"></span><br><span class="line">    HeapRegion* hr = cset_chooser()-&gt;<span class="built_in">peek</span>();</span><br><span class="line">    <span class="keyword">while</span> (hr != <span class="literal">NULL</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (old_region_length() &gt;= max_old_cset_length) &#123;</span><br><span class="line">        <span class="comment">// Added maximum number of old regions to the CSet.</span></span><br><span class="line">        log_debug(gc, ergo, cset)(<span class="string">"Finish adding old regions to CSet (old CSet region num reached max). old %u regions, max %u regions"</span>,</span><br><span class="line">                                  old_region_length(), max_old_cset_length);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Stop adding regions if the remaining reclaimable space is</span></span><br><span class="line">      <span class="comment">// not above G1HeapWastePercent.</span></span><br><span class="line">      <span class="keyword">size_t</span> reclaimable_bytes = cset_chooser()-&gt;remaining_reclaimable_bytes();</span><br><span class="line">      <span class="keyword">double</span> reclaimable_percent = _policy-&gt;reclaimable_bytes_percent(reclaimable_bytes);</span><br><span class="line">      <span class="keyword">double</span> threshold = (<span class="keyword">double</span>) G1HeapWastePercent;</span><br><span class="line">      <span class="keyword">if</span> (reclaimable_percent &lt;= threshold) &#123;</span><br><span class="line">        <span class="comment">// We've added enough old regions that the amount of uncollected</span></span><br><span class="line">        <span class="comment">// reclaimable space is at or below the waste threshold. Stop</span></span><br><span class="line">        <span class="comment">// adding old regions to the CSet.</span></span><br><span class="line">        log_debug(gc, ergo, cset)(<span class="string">"Finish adding old regions to CSet (reclaimable percentage not over threshold). "</span></span><br><span class="line">                                  <span class="string">"old %u regions, max %u regions, reclaimable: "</span> SIZE_FORMAT <span class="string">"B (%1.2f%%) threshold: "</span> UINTX_FORMAT <span class="string">"%%"</span>,</span><br><span class="line">                                  old_region_length(), max_old_cset_length, reclaimable_bytes, reclaimable_percent, G1HeapWastePercent);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">double</span> predicted_time_ms = predict_region_elapsed_time_ms(hr);</span><br><span class="line">      <span class="keyword">if</span> (check_time_remaining) &#123;</span><br><span class="line">        <span class="keyword">if</span> (predicted_time_ms &gt; time_remaining_ms) &#123;</span><br><span class="line">          <span class="comment">// Too expensive for the current CSet.</span></span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (old_region_length() &gt;= min_old_cset_length) &#123;</span><br><span class="line">            <span class="comment">// We have added the minimum number of old regions to the CSet,</span></span><br><span class="line">            <span class="comment">// we are done with this CSet.</span></span><br><span class="line">            log_debug(gc, ergo, cset)(<span class="string">"Finish adding old regions to CSet (predicted time is too high). "</span></span><br><span class="line">                                      <span class="string">"predicted time: %1.2fms, remaining time: %1.2fms old %u regions, min %u regions"</span>,</span><br><span class="line">                                      predicted_time_ms, time_remaining_ms, old_region_length(), min_old_cset_length);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="comment">// We'll add it anyway given that we haven't reached the</span></span><br><span class="line">          <span class="comment">// minimum number of old regions.</span></span><br><span class="line">          expensive_region_num += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (old_region_length() &gt;= min_old_cset_length) &#123;</span><br><span class="line">          <span class="comment">// In the non-auto-tuning case, we'll finish adding regions</span></span><br><span class="line">          <span class="comment">// to the CSet if we reach the minimum.</span></span><br><span class="line"></span><br><span class="line">          log_debug(gc, ergo, cset)(<span class="string">"Finish adding old regions to CSet (old CSet region num reached min). old %u regions, min %u regions"</span>,</span><br><span class="line">                                    old_region_length(), min_old_cset_length);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// We will add this region to the CSet.</span></span><br><span class="line">      time_remaining_ms = MAX2(time_remaining_ms - predicted_time_ms, <span class="number">0.0</span>);</span><br><span class="line">      predicted_old_time_ms += predicted_time_ms;</span><br><span class="line">      cset_chooser()-&gt;pop(); <span class="comment">// already have region via peek()</span></span><br><span class="line">      _g1h-&gt;old_set_remove(hr);</span><br><span class="line">      add_old_region(hr);</span><br><span class="line"></span><br><span class="line">      hr = cset_chooser()-&gt;<span class="built_in">peek</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (hr == <span class="literal">NULL</span>) &#123;</span><br><span class="line">      log_debug(gc, ergo, cset)(<span class="string">"Finish adding old regions to CSet (candidate old regions not available)"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (expensive_region_num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">// We print the information once here at the end, predicated on</span></span><br><span class="line">      <span class="comment">// whether we added any apparently expensive regions or not, to</span></span><br><span class="line">      <span class="comment">// avoid generating output per region.</span></span><br><span class="line">      log_debug(gc, ergo, cset)(<span class="string">"Added expensive regions to CSet (old CSet region num not reached min)."</span></span><br><span class="line">                                <span class="string">"old: %u regions, expensive: %u regions, min: %u regions, remaining time: %1.2fms"</span>,</span><br><span class="line">                                old_region_length(), expensive_region_num, min_old_cset_length, time_remaining_ms);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cset_chooser()-&gt;verify();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stop_incremental_building();</span><br><span class="line"></span><br><span class="line">  log_debug(gc, ergo, cset)(<span class="string">"Finish choosing CSet. old: %u regions, predicted old region time: %1.2fms, time remaining: %1.2f"</span>,</span><br><span class="line">                            old_region_length(), predicted_old_time_ms, time_remaining_ms);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">double</span> non_young_end_time_sec = os::elapsedTime();</span><br><span class="line">  phase_times()-&gt;record_non_young_cset_choice_time_ms((non_young_end_time_sec - non_young_start_time_sec) * <span class="number">1000.0</span>);</span><br><span class="line"></span><br><span class="line">  QuickSort::sort(_collection_set_regions, _collection_set_cur_length, compare_region_idx, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面第三行是个判断，当前是否是 mixed 回收阶段，如果不是的话其实是没有老年代什么事的，所以可以看到代码基本是从这个 if 判断<br><code>if (collector_state()-&gt;in_mixed_phase()) {</code>开始往下走的<br>先写到这，偏向于做笔记用，有错轻拍</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">void G1CollectionSet::finalize_old_part(double time_remaining_ms) &#123;
+  double non_young_start_time_sec &#x3D; os::elapsedTime();
+  double predicted_old_time_ms &#x3D; 0.0;
+
+  if (collector_state()-&gt;in_mixed_phase()) &#123;
+    cset_chooser()-&gt;verify();
+    const uint min_old_cset_length &#x3D; _policy-&gt;calc_min_old_cset_length();
+    const uint max_old_cset_length &#x3D; _policy-&gt;calc_max_old_cset_length();
+
+    uint expensive_region_num &#x3D; 0;
+    bool check_time_remaining &#x3D; _policy-&gt;adaptive_young_list_length();
+
+    HeapRegion* hr &#x3D; cset_chooser()-&gt;peek();
+    while (hr !&#x3D; NULL) &#123;
+      if (old_region_length() &gt;&#x3D; max_old_cset_length) &#123;
+        &#x2F;&#x2F; Added maximum number of old regions to the CSet.
+        log_debug(gc, ergo, cset)(&quot;Finish adding old regions to CSet (old CSet region num reached max). old %u regions, max %u regions&quot;,
+                                  old_region_length(), max_old_cset_length);
+        break;
+      &#125;
+
+      &#x2F;&#x2F; Stop adding regions if the remaining reclaimable space is
+      &#x2F;&#x2F; not above G1HeapWastePercent.
+      size_t reclaimable_bytes &#x3D; cset_chooser()-&gt;remaining_reclaimable_bytes();
+      double reclaimable_percent &#x3D; _policy-&gt;reclaimable_bytes_percent(reclaimable_bytes);
+      double threshold &#x3D; (double) G1HeapWastePercent;
+      if (reclaimable_percent &lt;&#x3D; threshold) &#123;
+        &#x2F;&#x2F; We&#39;ve added enough old regions that the amount of uncollected
+        &#x2F;&#x2F; reclaimable space is at or below the waste threshold. Stop
+        &#x2F;&#x2F; adding old regions to the CSet.
+        log_debug(gc, ergo, cset)(&quot;Finish adding old regions to CSet (reclaimable percentage not over threshold). &quot;
+                                  &quot;old %u regions, max %u regions, reclaimable: &quot; SIZE_FORMAT &quot;B (%1.2f%%) threshold: &quot; UINTX_FORMAT &quot;%%&quot;,
+                                  old_region_length(), max_old_cset_length, reclaimable_bytes, reclaimable_percent, G1HeapWastePercent);
+        break;
+      &#125;
+
+      double predicted_time_ms &#x3D; predict_region_elapsed_time_ms(hr);
+      if (check_time_remaining) &#123;
+        if (predicted_time_ms &gt; time_remaining_ms) &#123;
+          &#x2F;&#x2F; Too expensive for the current CSet.
+
+          if (old_region_length() &gt;&#x3D; min_old_cset_length) &#123;
+            &#x2F;&#x2F; We have added the minimum number of old regions to the CSet,
+            &#x2F;&#x2F; we are done with this CSet.
+            log_debug(gc, ergo, cset)(&quot;Finish adding old regions to CSet (predicted time is too high). &quot;
+                                      &quot;predicted time: %1.2fms, remaining time: %1.2fms old %u regions, min %u regions&quot;,
+                                      predicted_time_ms, time_remaining_ms, old_region_length(), min_old_cset_length);
+            break;
+          &#125;
+
+          &#x2F;&#x2F; We&#39;ll add it anyway given that we haven&#39;t reached the
+          &#x2F;&#x2F; minimum number of old regions.
+          expensive_region_num +&#x3D; 1;
+        &#125;
+      &#125; else &#123;
+        if (old_region_length() &gt;&#x3D; min_old_cset_length) &#123;
+          &#x2F;&#x2F; In the non-auto-tuning case, we&#39;ll finish adding regions
+          &#x2F;&#x2F; to the CSet if we reach the minimum.
+
+          log_debug(gc, ergo, cset)(&quot;Finish adding old regions to CSet (old CSet region num reached min). old %u regions, min %u regions&quot;,
+                                    old_region_length(), min_old_cset_length);
+          break;
+        &#125;
+      &#125;
+
+      &#x2F;&#x2F; We will add this region to the CSet.
+      time_remaining_ms &#x3D; MAX2(time_remaining_ms - predicted_time_ms, 0.0);
+      predicted_old_time_ms +&#x3D; predicted_time_ms;
+      cset_chooser()-&gt;pop(); &#x2F;&#x2F; already have region via peek()
+      _g1h-&gt;old_set_remove(hr);
+      add_old_region(hr);
+
+      hr &#x3D; cset_chooser()-&gt;peek();
+    &#125;
+    if (hr &#x3D;&#x3D; NULL) &#123;
+      log_debug(gc, ergo, cset)(&quot;Finish adding old regions to CSet (candidate old regions not available)&quot;);
+    &#125;
+
+    if (expensive_region_num &gt; 0) &#123;
+      &#x2F;&#x2F; We print the information once here at the end, predicated on
+      &#x2F;&#x2F; whether we added any apparently expensive regions or not, to
+      &#x2F;&#x2F; avoid generating output per region.
+      log_debug(gc, ergo, cset)(&quot;Added expensive regions to CSet (old CSet region num not reached min).&quot;
+                                &quot;old: %u regions, expensive: %u regions, min: %u regions, remaining time: %1.2fms&quot;,
+                                old_region_length(), expensive_region_num, min_old_cset_length, time_remaining_ms);
+    &#125;
+
+    cset_chooser()-&gt;verify();
+  &#125;
+
+  stop_incremental_building();
+
+  log_debug(gc, ergo, cset)(&quot;Finish choosing CSet. old: %u regions, predicted old region time: %1.2fms, time remaining: %1.2f&quot;,
+                            old_region_length(), predicted_old_time_ms, time_remaining_ms);
+
+  double non_young_end_time_sec &#x3D; os::elapsedTime();
+  phase_times()-&gt;record_non_young_cset_choice_time_ms((non_young_end_time_sec - non_young_start_time_sec) * 1000.0);
+
+  QuickSort::sort(_collection_set_regions, _collection_set_cur_length, compare_region_idx, true);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面第三行是个判断，当前是否是 mixed 回收阶段，如果不是的话其实是没有老年代什么事的，所以可以看到代码基本是从这个 if 判断<br><code>if (collector_state()-&gt;in_mixed_phase()) &#123;</code>开始往下走的<br>先写到这，偏向于做笔记用，有错轻拍</p>
 
     </div>
 
@@ -324,7 +902,7 @@
       <div class="popular-posts-title"><a href="/2020/02/09/G1收集器概述/" rel="bookmark">G1收集器概述</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/05/22/聊聊我刚学会的应用诊断方法/" rel="bookmark">聊聊我刚学会的应用诊断方法</a></div>
+      <div class="popular-posts-title"><a href="/2020/06/06/聊聊-Dubbo-的-SPI-续之自适应拓展/" rel="bookmark">聊聊 Dubbo 的 SPI 续之自适应拓展</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/11/01/Apollo-的-value-注解是怎么自动更新的/" rel="bookmark">Apollo 的 value 注解是怎么自动更新的</a></div>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,6 +32,7 @@
 <meta property="og:url" content="https://nicksxs.me/2020/03/08/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="因为最近想搭一个phabricator用来做看板和任务管理，一开始了解这个是Easy大大有在微博推荐过，后来苏洋也在群里和博客里说到了，看上去还不错的样子，因为主角是docker所以就不介绍太多，后面有机会写一下。 docker最开始是之前在某位大佬的博客看到的，看上去有点神奇，感觉是一种轻量级的虚拟机，但是能做的事情好像差不多，那时候是在Ubuntu系统的vps里起一个Ubuntu的docker">
+<meta property="og:locale">
 <meta property="og:image" content="https://i.loli.net/2020/03/08/IJP157hLqlgo4Ow.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/08/7dO2JWbf3wVLPsN.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/08/G3ltzyVLqheDRgo.png">
@@ -41,7 +42,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/08/RJAvlhEMD7VfbXz.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/08/L4YRni95lBzEmFh.png">
 <meta property="article:published_time" content="2020-03-08T15:25:40.000Z">
-<meta property="article:modified_time" content="2020-03-15T12:25:02.000Z">
+<meta property="article:modified_time" content="2020-03-08T15:25:40.000Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="namespace">
@@ -239,13 +240,6 @@
 
               <time title="Created: 2020-03-08 23:25:40" itemprop="dateCreated datePublished" datetime="2020-03-08T23:25:40+08:00">2020-03-08</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-15 20:25:02" itemprop="dateModified" datetime="2020-03-15T20:25:02+08:00">2020-03-15</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -304,41 +298,43 @@
 <p>之前写的 mysql 集群，一主二备，这种架构在很多小型应用里都是这么配置的，而且一般是直接在三台 vps 里启动三个 mysql 实例，但是如果换成 docker 会有什么好处呢，其实就是方便部署，比如其中一台备库挂了，我要加一台，或者说备库的 qps 太高了，需要再加一个，如果要在 vps 上搭建的话，首先要买一台机器，等初始化，然后在上面修改源，更新，装 mysql ，然后配置主从，可能还要处理防火墙等等，如果把这些打包成一个 docker 镜像，并且放在自己的 docker registry，那就直接run 一下就可以了；还有比如在公司要给一个新同学整一套开发测试环境，以 Java 开发为例，要装 git，maven，jdk，配置 maven settings 和各种 rc，整合在一个镜像里的话，就会很方便了；再比如微服务的水平扩展。</p>
 <p>但是为啥 docker 会有这种优势，听起来好像虚拟机也可以干这个事，但是虚拟机动辄上 G，而且需要 VMware，virtual box 等支持，不适合在Linux服务器环境使用，而且占用资源也会非常大。说得这么好，那么 docker 是啥呢</p>
 <p>docker 主要使用 Linux 中已经存在的两种技术的一个整合升级，一个是 namespace，一个是cgroups，相比于虚拟机需要完整虚拟出一个操作系统运行基础，docker 基于宿主机内核，通过 namespace 和 cgroups 分隔进程，理念就是提供一个隔离的最小化运行依赖，这样子相对于虚拟机就有了巨大的便利性，具体的 namespace 和 cgroups 就先不展开讲，可以参考耗子叔的文章</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>那么我们先安装下 docker，参考官方的教程，<a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">安装</a>，我的系统是 ubuntu 的，就贴了 ubuntu 的链接，用其他系统的可以找到对应的系统文档安装，安装完了的话看看 docker 的信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker info</span><br></pre></td></tr></table></figure>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>那么我们先安装下 docker，参考官方的教程，<a target="_blank" rel="noopener" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/">安装</a>，我的系统是 ubuntu 的，就贴了 ubuntu 的链接，用其他系统的可以找到对应的系统文档安装，安装完了的话看看 docker 的信息</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo docker info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>输出以下信息<br><img data-src="https://i.loli.net/2020/03/08/IJP157hLqlgo4Ow.png" alt=""></p>
+<p>输出以下信息<br><img data-src="https://i.loli.net/2020/03/08/IJP157hLqlgo4Ow.png"></p>
 <h2 id="简单运行"><a href="#简单运行" class="headerlink" title="简单运行"></a>简单运行</h2><p>然后再来运行个 hello world 呗，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo docker run hello-world<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>输出了这些<br><img data-src="https://i.loli.net/2020/03/08/7dO2JWbf3wVLPsN.png" alt=""></p>
+<p>输出了这些<br><img data-src="https://i.loli.net/2020/03/08/7dO2JWbf3wVLPsN.png"></p>
 <p>看看这个运行命令是怎么用的，一般都会看到这样子的，sudo docker run -it ubuntu bash<code>, 前面的 docker run 反正就是运行一个容器的意思，</code>-it<code>是啥呢，还有这个什么 ubuntu bash，来看看</code>docker run`的命令帮助信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-i, --interactive                    Keep STDIN open even if not attached</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-i, --interactive                    Keep STDIN open even if not attached<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>就是要有输入，我们运行的时候能输入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-t, --tty                            Allocate a pseudo-TTY</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-t, --tty                            Allocate a pseudo-TTY<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>要有个虚拟终端，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Usage:	docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br><span class="line"></span><br><span class="line">Run a command in a new container</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Usage:	docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Run a command in a new container<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p>上面说的-it 就是这里的 options，后面那个 ubuntu 就是 image 辣，image 是啥呢</p>
 <p><strong>Docker 把应用程序及其依赖，打包在 image 文件里面</strong>，可以把它理解成为类似于虚拟机的镜像或者运行一个进程的代码，跑起来了的叫docker 容器或者进程，比如我们将要运行的<code>docker run -it ubuntu bash</code>的ubuntu 就是个 ubuntu 容器的镜像，将这个镜像运行起来后，我们可以进入容器像使用 ubuntu 一样使用它，来看下我们的镜像，使用<code>sudo docker image ls</code>就能列出我们宿主机上的 docker 镜像了</p>
-<p><img data-src="https://i.loli.net/2020/03/08/G3ltzyVLqheDRgo.png" alt=""></p>
+<p><img data-src="https://i.loli.net/2020/03/08/G3ltzyVLqheDRgo.png"></p>
 <p>一个 ubuntu 镜像才 64MB，非常小巧，然后是后面的<code>bash</code>，我通过交互式启动了一个 ubuntu 容器，然后在这个启动的容器里运行了 bash 命令，这样就可以在容器里玩一下了</p>
-<h2 id="在容器里看下进程，"><a href="#在容器里看下进程，" class="headerlink" title="在容器里看下进程，"></a>在容器里看下进程，</h2><p><img data-src="https://i.loli.net/2020/03/08/2qQFPbxB9uEzcrJ.png" alt=""></p>
+<h2 id="在容器里看下进程，"><a href="#在容器里看下进程，" class="headerlink" title="在容器里看下进程，"></a>在容器里看下进程，</h2><p><img data-src="https://i.loli.net/2020/03/08/2qQFPbxB9uEzcrJ.png"></p>
 <p>只有刚才运行容器的 bash 进程和我刚执行的 ps，这里有个可以注意下的，bash 这个进程的 pid 是 1，其实这里就用到了 linux 中的PID Namespace，容器会隔离出一个 pid 的名字空间，这里面的进程跟外部的 pid 命名独立</p>
-<h2 id="查看宿主机上的容器"><a href="#查看宿主机上的容器" class="headerlink" title="查看宿主机上的容器"></a>查看宿主机上的容器</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a</span><br></pre></td></tr></table></figure>
+<h2 id="查看宿主机上的容器"><a href="#查看宿主机上的容器" class="headerlink" title="查看宿主机上的容器"></a>查看宿主机上的容器</h2><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo docker ps -a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img data-src="https://i.loli.net/2020/03/08/spGtzcDXKv3ORU7.png" alt=""></p>
+<p><img data-src="https://i.loli.net/2020/03/08/spGtzcDXKv3ORU7.png"></p>
 <h2 id="如何进入一个正在运行中的-docker-容器"><a href="#如何进入一个正在运行中的-docker-容器" class="headerlink" title="如何进入一个正在运行中的 docker 容器"></a>如何进入一个正在运行中的 docker 容器</h2><p>这个应该是比较常用的，因为比如是一个微服务容器，有时候就像看下运行状态，日志啥的</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it [containerID] bash</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo docker exec -it [containerID] bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img data-src="https://i.loli.net/2020/03/08/uswmh3Izp65kc9n.png" alt=""></p>
-<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker logs [containerID]</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2020/03/08/uswmh3Izp65kc9n.png"></p>
+<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo docker logs [containerID]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>我在运行容器的终端里胡乱输入点啥，然后通过上面的命令就可以看到啦</p>
-<p><img data-src="https://i.loli.net/2020/03/08/RJAvlhEMD7VfbXz.png" alt=""></p>
-<p><img data-src="https://i.loli.net/2020/03/08/L4YRni95lBzEmFh.png" alt=""></p>
+<p><img data-src="https://i.loli.net/2020/03/08/RJAvlhEMD7VfbXz.png"></p>
+<p><img data-src="https://i.loli.net/2020/03/08/L4YRni95lBzEmFh.png"></p>
 
     </div>
 
@@ -482,7 +478,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单运行"><span class="nav-number">2.</span> <span class="nav-text">简单运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像"><span class="nav-number">3.</span> <span class="nav-text">镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在容器里看下进程，"><span class="nav-number">4.</span> <span class="nav-text">在容器里看下进程，</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看宿主机上的容器"><span class="nav-number">5.</span> <span class="nav-text">查看宿主机上的容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何进入一个正在运行中的-docker-容器"><span class="nav-number">6.</span> <span class="nav-text">如何进入一个正在运行中的 docker 容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看日志"><span class="nav-number">7.</span> <span class="nav-text">查看日志</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%BF%90%E8%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">简单运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%9C%E5%83%8F"><span class="nav-number">3.</span> <span class="nav-text">镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%AE%B9%E5%99%A8%E9%87%8C%E7%9C%8B%E4%B8%8B%E8%BF%9B%E7%A8%8B%EF%BC%8C"><span class="nav-number">4.</span> <span class="nav-text">在容器里看下进程，</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="nav-number">5.</span> <span class="nav-text">查看宿主机上的容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9B%E5%85%A5%E4%B8%80%E4%B8%AA%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E4%B8%AD%E7%9A%84-docker-%E5%AE%B9%E5%99%A8"><span class="nav-number">6.</span> <span class="nav-text">如何进入一个正在运行中的 docker 容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="nav-number">7.</span> <span class="nav-text">查看日志</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

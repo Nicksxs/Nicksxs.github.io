@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,9 +32,10 @@
 <meta property="og:url" content="https://nicksxs.me/2020/06/13/%E8%81%8A%E8%81%8A%E4%B8%80%E6%AC%A1-brew-update-%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="熟悉我的人（谁熟悉你啊🙄）知道我以前写过 PHP，虽然现在在工作中没用到了，但是自己的一些小工具还是会用 PHP 来写，但是在 Mac 碰到了一个环境相关的问题，因为我也是个更新狂魔，用了 brew 之后因为 gfw 的原因，如果长时间不更新，有时候要装一个用它装一个软件的话，前置的更新耗时就会让人非常头大，所以我基本会隔天 update 一下，但是这样会带来一个很心烦的问题，就是像这样，因为我">
+<meta property="og:locale">
 <meta property="og:image" content="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/YzS7vN.png">
 <meta property="article:published_time" content="2020-06-13T14:28:56.000Z">
-<meta property="article:modified_time" content="2020-06-13T14:31:35.000Z">
+<meta property="article:modified_time" content="2020-06-13T14:28:56.000Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="Mac">
 <meta property="article:tag" content="PHP">
@@ -231,9 +232,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-06-13 22:28:56 / Modified: 22:31:35" itemprop="dateCreated datePublished" datetime="2020-06-13T22:28:56+08:00">2020-06-13</time>
+              <time title="Created: 2020-06-13 22:28:56" itemprop="dateCreated datePublished" datetime="2020-06-13T22:28:56+08:00">2020-06-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -297,27 +297,38 @@
 
       
         <p>熟悉我的人（谁熟悉你啊🙄）知道我以前写过 PHP，虽然现在在工作中没用到了，但是自己的一些小工具还是会用 PHP 来写，但是在 Mac 碰到了一个环境相关的问题，因为我也是个更新狂魔，用了 brew 之后因为 gfw 的原因，如果长时间不更新，有时候要装一个用它装一个软件的话，前置的更新耗时就会让人非常头大，所以我基本会隔天 update 一下，但是这样会带来一个很心烦的问题，就是像这样，因为我是要用一个固定版本的 PHP，如果一直升需要一直配扩展啥的也很麻烦，如果一直升级 PHP 到最新版可能会比较少碰到这个问题</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dyld: Library not loaded: /usr/local/opt/icu4c/lib/libicui18n.64.dylib</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">dyld: Library not loaded: &#x2F;usr&#x2F;local&#x2F;opt&#x2F;icu4c&#x2F;lib&#x2F;libicui18n.64.dylib<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这是什么鬼啊，然后我去这个目录下看了下，已经都是libicui18n.67.dylib了，而且它没有把原来的版本保留下来，首先这个是个叫 icu4c是啥玩意，谷歌了一下</p>
 <blockquote>
 <p>ICU4C是ICU在C/C++平台下的版本, ICU(International Component for Unicode)是基于”IBM公共许可证”的，与开源组织合作研究的, 用于支持软件国际化的开源项目。ICU4C提供了C/C++平台强大的国际化开发能力，软件开发者几乎可以使用ICU4C解决任何国际化的问题，根据各地的风俗和语言习惯，实现对数字、货币、时间、日期、和消息的格式化、解析，对字符串进行大小写转换、整理、搜索和排序等功能，必须一提的是，ICU4C提供了强大的BIDI算法，对阿拉伯语等BIDI语言提供了完善的支持。</p>
 </blockquote>
 <p>然后首先想到的解决方案就是能不能我使用<code>brew install icu4c@64</code>来重装下原来的版本，发现不行，并木有，之前的做法就只能是去网上把 64 的下载下来，然后放到这个目录，比较麻烦不智能，虽然没抱着希望在谷歌着，不过这次竟然给我找到了一个我认为非常 nice 的解决方案，因为是在 Stack Overflow 找到的，本着写给像我这样的小小白看的，那就稍微翻译一下<br>第一步，我们到 brew的目录下</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd $(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd $(brew --prefix)&#x2F;Homebrew&#x2F;Library&#x2F;Taps&#x2F;homebrew&#x2F;homebrew-core&#x2F;Formula<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这个可以理解为是 maven 的 pom 文件，不过有很多不同之处，使用ruby 写的，然后一个文件对应一个组件或者软件，那我们看下有个叫icu4c.rb的文件，<br>第二步看看它的提交历史</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --follow icu4c.rb</span><br></pre></td></tr></table></figure>
-<p>在 git log 的海洋中寻找，寻找它的(64版本)的身影<br><img data-src="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/YzS7vN.png" alt=""><br>第三步注意这三个红框，Stack Overflow 给出来的答案这一步是找到这个 commit id 直接切出一个新分支</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b icu4c-63 e7f0f10dc63b1dc1061d475f1a61d01b70ef2cb7</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git log --follow icu4c.rb<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在 git log 的海洋中寻找，寻找它的(64版本)的身影<br><img data-src="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/YzS7vN.png"><br>第三步注意这三个红框，Stack Overflow 给出来的答案这一步是找到这个 commit id 直接切出一个新分支</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git checkout -b icu4c-63 e7f0f10dc63b1dc1061d475f1a61d01b70ef2cb7<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>其实注意 commit id 旁边的红框，这个是有tag 的，可以直接</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout icu4c-64</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git checkout icu4c-64<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>PS: 因为我的问题是出在 64 的问题，Stack Overflow 回答的是 63 的，反正是一样的解决方法<br>第四部，切回去之后我们就可以用 brew 提供的基于文件的安装命令来重新装上 64 版本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew reinstall ./icu4c.rb</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">brew reinstall .&#x2F;icu4c.rb<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后就是第五步，切换版本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew switch icu4c 64.2</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">brew switch icu4c 64.2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>最后把分支切回来</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git checkout master<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>是不是感觉很厉害的解决方法，大佬还提供了一个更牛的，直接写个 zsh 方法</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> zsh</span></span><br><span class="line">function hiicu64() &#123;</span><br><span class="line">  local last_dir=$(pwd)</span><br><span class="line"></span><br><span class="line">  cd $(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula</span><br><span class="line">  git checkout icu4c-4</span><br><span class="line">  brew reinstall ./icu4c.rb</span><br><span class="line">  brew switch icu4c 64.2</span><br><span class="line">  git checkout master</span><br><span class="line"></span><br><span class="line">  cd $last_dir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zsh
+function hiicu64() &#123;
+  local last_dir&#x3D;$(pwd)
+
+  cd $(brew --prefix)&#x2F;Homebrew&#x2F;Library&#x2F;Taps&#x2F;homebrew&#x2F;homebrew-core&#x2F;Formula
+  git checkout icu4c-4
+  brew reinstall .&#x2F;icu4c.rb
+  brew switch icu4c 64.2
+  git checkout master
+
+  cd $last_dir
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>对应自己的版本改改版本号就可以了，非常好用。</p>
 
     </div>

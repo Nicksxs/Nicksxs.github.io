@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,15 +32,16 @@
 <meta property="og:url" content="https://nicksxs.me/2021/05/01/Leetcode-48-%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F-Rotate-Image-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="题目介绍You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise). You have to rotate the image in-place, which means you have to modify the input 2D matrix direct">
+<meta property="og:locale">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/p8lf4Y.png">
 <meta property="article:published_time" content="2021-05-01T15:28:26.000Z">
-<meta property="article:modified_time" content="2021-05-01T15:28:26.727Z">
+<meta property="article:modified_time" content="2021-05-01T15:28:26.000Z">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Java">
 <meta property="article:tag" content="leetcode">
-<meta property="article:tag" content="代码题解">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="题解">
 <meta property="article:tag" content="Rotate Image">
-<meta property="article:tag" content="leetcode 48">
+<meta property="article:tag" content="矩阵">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/p8lf4Y.png">
 
@@ -292,9 +293,45 @@
 
       
         <h3 id="题目介绍"><a href="#题目介绍" class="headerlink" title="题目介绍"></a>题目介绍</h3><p>You are given an n x n 2D <code>matrix</code> representing an image, rotate the image by 90 degrees (clockwise).</p>
-<p>You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. <strong>DO NOT</strong> allocate another 2D matrix and do the rotation.<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/p8lf4Y.png" alt=""><br>如图，这道题以前做过，其实一看有点蒙，好像规则很容易描述，但是代码很难写，因为要类似于贪吃蛇那样，后来想着应该会有一些特殊的技巧，比如翻转等</p>
+<p>You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. <strong>DO NOT</strong> allocate another 2D matrix and do the rotation.<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/p8lf4Y.png"><br>如图，这道题以前做过，其实一看有点蒙，好像规则很容易描述，但是代码很难写，因为要类似于贪吃蛇那样，后来想着应该会有一些特殊的技巧，比如翻转等</p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>直接上码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 这里真的傻了，长宽应该是一致的，所以取一次就够了</span></span><br><span class="line">        <span class="keyword">int</span> lengthX = matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span> lengthY = matrix.length;</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        System.out.println(lengthY - (lengthY % <span class="number">2</span>) / <span class="number">2</span>);</span><br><span class="line">        <span class="comment">// 这里除错了，应该是减掉余数再除 2</span></span><br><span class="line"><span class="comment">//        for (int i = 0; i &lt; lengthY - (lengthY % 2) / 2; i++) &#123;</span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 1 2 3             7 8 9</span></span><br><span class="line"><span class="comment">         * 4 5 6     =&gt;      4 5 6     先沿着 4 5 6 上下交换</span></span><br><span class="line"><span class="comment">         * 7 8 9             1 2 3</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (lengthY - (lengthY % <span class="number">2</span>)) / <span class="number">2</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; lengthX; j++) &#123;</span><br><span class="line">                temp = matrix[i][j];</span><br><span class="line">                matrix[i][j] = matrix[lengthY-i-<span class="number">1</span>][j];</span><br><span class="line">                matrix[lengthY-i-<span class="number">1</span>][j] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 7 8 9               7 4 1</span></span><br><span class="line"><span class="comment">         * 4 5 6     =&gt;        8 5 2   这里再沿着 7 5 3 这条对角线交换</span></span><br><span class="line"><span class="comment">         * 1 2 3               9 6 3</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lengthX; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i == j) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                temp = matrix[i][j];</span><br><span class="line">                matrix[i][j] = matrix[j][i];</span><br><span class="line">                matrix[j][i] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">rotate</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> matrix<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 这里真的傻了，长宽应该是一致的，所以取一次就够了</span>
+        <span class="token keyword">int</span> lengthX <span class="token operator">=</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> lengthY <span class="token operator">=</span> matrix<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> temp<span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>lengthY <span class="token operator">-</span> <span class="token punctuation">(</span>lengthY <span class="token operator">%</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 这里除错了，应该是减掉余数再除 2</span>
+<span class="token comment">//        for (int i = 0; i &lt; lengthY - (lengthY % 2) / 2; i++) &#123;</span>
+        <span class="token comment">/**
+         * 1 2 3             7 8 9
+         * 4 5 6     =>      4 5 6     先沿着 4 5 6 上下交换
+         * 7 8 9             1 2 3
+         */</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span>lengthY <span class="token operator">-</span> <span class="token punctuation">(</span>lengthY <span class="token operator">%</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> lengthX<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                temp <span class="token operator">=</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> matrix<span class="token punctuation">[</span>lengthY<span class="token operator">-</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                matrix<span class="token punctuation">[</span>lengthY<span class="token operator">-</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token comment">/**
+         * 7 8 9               7 4 1
+         * 4 5 6     =>        8 5 2   这里再沿着 7 5 3 这条对角线交换
+         * 1 2 3               9 6 3
+         */</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> lengthX<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> i<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> j<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+                temp <span class="token operator">=</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> matrix<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                matrix<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>还没到可以直接归纳题目类型的水平，主要是几年前做过，可能有那么点模糊的记忆，当然应该也有直接转的方法</p>
 
     </div>
@@ -306,19 +343,19 @@
   <div class="popular-posts-header">Related Posts</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/10/25/Leetcode-104-二叉树的最大深度-Maximum-Depth-of-Binary-Tree-题解分析/" rel="bookmark">Leetcode 104 二叉树的最大深度(Maximum Depth of Binary Tree) 题解分析</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/01/24/Leetcode-124-二叉树中的最大路径和-Binary-Tree-Maximum-Path-Sum-题解分析/" rel="bookmark">Leetcode 124 二叉树中的最大路径和(Binary Tree Maximum Path Sum) 题解分析</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2021/01/10/Leetcode-160-相交链表-intersection-of-two-linked-lists-题解分析/" rel="bookmark">Leetcode 160 相交链表(intersection-of-two-linked-lists) 题解分析</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/10/25/Leetcode-104-二叉树的最大深度-Maximum-Depth-of-Binary-Tree-题解分析/" rel="bookmark">Leetcode 104 二叉树的最大深度(Maximum Depth of Binary Tree) 题解分析</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/12/13/Leetcode-105-从前序与中序遍历序列构造二叉树-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal-题解分析/" rel="bookmark">Leetcode 105 从前序与中序遍历序列构造二叉树(Construct Binary Tree from Preorder and Inorder Traversal) 题解分析</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/10/11/Leetcode-2-Add-Two-Numbers-题解分析/" rel="bookmark">Leetcode 2 Add Two Numbers 题解分析</a></div>
+      <div class="popular-posts-title"><a href="/2021/01/24/Leetcode-124-二叉树中的最大路径和-Binary-Tree-Maximum-Path-Sum-题解分析/" rel="bookmark">Leetcode 124 二叉树中的最大路径和(Binary Tree Maximum Path Sum) 题解分析</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/12/06/Leetcode-155-最小栈-Min-Stack-题解分析/" rel="bookmark">Leetcode 155 最小栈(Min Stack) 题解分析</a></div>
     </li>
   </ul>
 
@@ -444,7 +481,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目介绍"><span class="nav-number">1.</span> <span class="nav-text">题目介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">题目介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

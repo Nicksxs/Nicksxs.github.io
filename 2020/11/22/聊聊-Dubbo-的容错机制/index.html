@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,13 +32,14 @@
 <meta property="og:url" content="https://nicksxs.me/2020/11/22/%E8%81%8A%E8%81%8A-Dubbo-%E7%9A%84%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="之前看了 dubbo 的一些代码，在学习过程中，主要关注那些比较“高级”的内容，SPI，自适应扩展等，却忘了一些作为一个 rpc 框架最核心需要的部分，比如如何通信，序列化，网络，容错机制等等，因为其实这个最核心的就是远程调用，自适应扩展其实就是让代码可扩展性，可读性，更优雅等，写的搓一点其实也问题不大，但是一个合适的通信协议，序列化方法，如何容错等却是真正保证是一个 rpc 框架最重要的要素。首">
+<meta property="og:locale">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/cluster.jpg">
 <meta property="article:published_time" content="2020-11-22T13:37:55.000Z">
-<meta property="article:modified_time" content="2020-11-22T13:37:55.756Z">
+<meta property="article:modified_time" content="2020-11-22T13:37:55.000Z">
 <meta property="article:author" content="Nicksxs">
+<meta property="article:tag" content="Java">
 <meta property="article:tag" content="Dubbo">
 <meta property="article:tag" content="RPC">
-<meta property="article:tag" content="Java">
 <meta property="article:tag" content="容错机制">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/cluster.jpg">
@@ -243,11 +244,11 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Dubbo/" itemprop="url" rel="index"><span itemprop="name">Dubbo</span></a>
+                  <a href="/categories/Dubbo-RPC/" itemprop="url" rel="index"><span itemprop="name">Dubbo - RPC</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Dubbo-RPC/" itemprop="url" rel="index"><span itemprop="name">Dubbo - RPC</span></a>
+                  <a href="/categories/Dubbo/" itemprop="url" rel="index"><span itemprop="name">Dubbo</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -305,11 +306,106 @@
 <h2 id="集群容错模式"><a href="#集群容错模式" class="headerlink" title="集群容错模式"></a>集群容错模式</h2><h3 id="Failover-Cluster"><a href="#Failover-Cluster" class="headerlink" title="Failover Cluster"></a>Failover Cluster</h3><p>失败自动切换，当出现失败，重试其它服务器 1。通常用于读操作，但重试会带来更长延迟。可通过 retries=”2” 来设置重试次数(不含第一次)。</p>
 <p>重试次数配置如下：</p>
 <p>&lt;dubbo:service retries=”2” /&gt;<br>这里重点看下 <code>Failover Cluster</code>集群模式的实现  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FailoverCluster</span> <span class="keyword">implements</span> <span class="title">Cluster</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String NAME = <span class="string">"failover"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">Invoker&lt;T&gt; <span class="title">join</span><span class="params">(Directory&lt;T&gt; directory)</span> <span class="keyword">throws</span> RpcException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> FailoverClusterInvoker&lt;T&gt;(directory);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FailoverCluster</span> <span class="token keyword">implements</span> <span class="token class-name">Cluster</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token class-name">String</span> NAME <span class="token operator">=</span> <span class="token string">"failover"</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token class-name">Invoker</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token function">join</span><span class="token punctuation">(</span><span class="token class-name">Directory</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> directory<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">RpcException</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">FailoverClusterInvoker</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>directory<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这个代码就非常简单，重点需要看<code>FailoverClusterInvoker</code>里的代码，<code>FailoverClusterInvoker</code>继承了<code>AbstractClusterInvoker</code>类，其中invoke 方法是在抽象类里实现的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">invoke</span><span class="params">(<span class="keyword">final</span> Invocation invocation)</span> <span class="keyword">throws</span> RpcException </span>&#123;</span><br><span class="line">    checkWhetherDestroyed();</span><br><span class="line">    <span class="comment">// binding attachments into invocation.</span></span><br><span class="line">    <span class="comment">// 绑定 attachments 到 invocation 中.</span></span><br><span class="line">    Map&lt;String, Object&gt; contextAttachments = RpcContext.getContext().getObjectAttachments();</span><br><span class="line">    <span class="keyword">if</span> (contextAttachments != <span class="keyword">null</span> &amp;&amp; contextAttachments.size() != <span class="number">0</span>) &#123;</span><br><span class="line">        ((RpcInvocation) invocation).addObjectAttachments(contextAttachments);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 列举 Invoker</span></span><br><span class="line">    List&lt;Invoker&lt;T&gt;&gt; invokers = list(invocation);</span><br><span class="line">    <span class="comment">// 加载 LoadBalance 负载均衡器</span></span><br><span class="line">    LoadBalance loadbalance = initLoadBalance(invokers, invocation);</span><br><span class="line">    RpcUtils.attachInvocationIdIfAsync(getUrl(), invocation);</span><br><span class="line">    <span class="comment">// 调用 实际的 doInvoke 进行后续操作</span></span><br><span class="line">    <span class="keyword">return</span> doInvoke(invocation, invokers, loadbalance);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这是个抽象方法，实际是由子类实现的</span></span><br><span class="line"> <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> Result <span class="title">doInvoke</span><span class="params">(Invocation invocation, List&lt;Invoker&lt;T&gt;&gt; invokers,</span></span></span><br><span class="line"><span class="function"><span class="params">                                       LoadBalance loadbalance)</span> <span class="keyword">throws</span> RpcException</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">@Override
+public Result invoke(final Invocation invocation) throws RpcException &#123;
+    checkWhetherDestroyed();
+    &#x2F;&#x2F; binding attachments into invocation.
+    &#x2F;&#x2F; 绑定 attachments 到 invocation 中.
+    Map&lt;String, Object&gt; contextAttachments &#x3D; RpcContext.getContext().getObjectAttachments();
+    if (contextAttachments !&#x3D; null &amp;&amp; contextAttachments.size() !&#x3D; 0) &#123;
+        ((RpcInvocation) invocation).addObjectAttachments(contextAttachments);
+    &#125;
+    &#x2F;&#x2F; 列举 Invoker
+    List&lt;Invoker&lt;T&gt;&gt; invokers &#x3D; list(invocation);
+    &#x2F;&#x2F; 加载 LoadBalance 负载均衡器
+    LoadBalance loadbalance &#x3D; initLoadBalance(invokers, invocation);
+    RpcUtils.attachInvocationIdIfAsync(getUrl(), invocation);
+    &#x2F;&#x2F; 调用 实际的 doInvoke 进行后续操作
+    return doInvoke(invocation, invokers, loadbalance);
+&#125;
+&#x2F;&#x2F; 这是个抽象方法，实际是由子类实现的
+ protected abstract Result doInvoke(Invocation invocation, List&lt;Invoker&lt;T&gt;&gt; invokers,
+                                       LoadBalance loadbalance) throws RpcException;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后重点就是<code>FailoverClusterInvoker</code>中的<code>doInvoke</code>方法了，其实它里面也就这么一个方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(&#123;<span class="string">"unchecked"</span>, <span class="string">"rawtypes"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">doInvoke</span><span class="params">(Invocation invocation, <span class="keyword">final</span> List&lt;Invoker&lt;T&gt;&gt; invokers, LoadBalance loadbalance)</span> <span class="keyword">throws</span> RpcException </span>&#123;</span><br><span class="line">        List&lt;Invoker&lt;T&gt;&gt; copyInvokers = invokers;</span><br><span class="line">        checkInvokers(copyInvokers, invocation);</span><br><span class="line">        String methodName = RpcUtils.getMethodName(invocation);</span><br><span class="line">        <span class="comment">// 获取重试次数，这里默认是 2 次，还有可以注意下后面的+1</span></span><br><span class="line">        <span class="keyword">int</span> len = getUrl().getMethodParameter(methodName, RETRIES_KEY, DEFAULT_RETRIES) + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (len &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            len = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// retry loop.</span></span><br><span class="line">        RpcException le = <span class="keyword">null</span>; <span class="comment">// last exception.</span></span><br><span class="line">        List&lt;Invoker&lt;T&gt;&gt; invoked = <span class="keyword">new</span> ArrayList&lt;Invoker&lt;T&gt;&gt;(copyInvokers.size()); <span class="comment">// invoked invokers.</span></span><br><span class="line">        Set&lt;String&gt; providers = <span class="keyword">new</span> HashSet&lt;String&gt;(len);</span><br><span class="line">        <span class="comment">// 循环调用，失败重试</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="comment">//Reselect before retry to avoid a change of candidate `invokers`.</span></span><br><span class="line">            <span class="comment">//<span class="doctag">NOTE:</span> if `invokers` changed, then `invoked` also lose accuracy.</span></span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                checkWhetherDestroyed();</span><br><span class="line">                <span class="comment">// 在进行重试前重新列举 Invoker，这样做的好处是，如果某个服务挂了，</span></span><br><span class="line">                <span class="comment">// 通过调用 list 可得到最新可用的 Invoker 列表</span></span><br><span class="line">                copyInvokers = list(invocation);</span><br><span class="line">                <span class="comment">// check again</span></span><br><span class="line">                <span class="comment">// 对 copyinvokers 进行判空检查</span></span><br><span class="line">                checkInvokers(copyInvokers, invocation);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 通过负载均衡来选择 invoker</span></span><br><span class="line">            Invoker&lt;T&gt; invoker = select(loadbalance, invocation, copyInvokers, invoked);</span><br><span class="line">            <span class="comment">// 将其添加到 invoker 到 invoked 列表中</span></span><br><span class="line">            invoked.add(invoker);</span><br><span class="line">            <span class="comment">// 设置上下文</span></span><br><span class="line">            RpcContext.getContext().setInvokers((List) invoked);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 正式调用</span></span><br><span class="line">                Result result = invoker.invoke(invocation);</span><br><span class="line">                <span class="keyword">if</span> (le != <span class="keyword">null</span> &amp;&amp; logger.isWarnEnabled()) &#123;</span><br><span class="line">                    logger.warn(<span class="string">"Although retry the method "</span> + methodName</span><br><span class="line">                            + <span class="string">" in the service "</span> + getInterface().getName()</span><br><span class="line">                            + <span class="string">" was successful by the provider "</span> + invoker.getUrl().getAddress()</span><br><span class="line">                            + <span class="string">", but there have been failed providers "</span> + providers</span><br><span class="line">                            + <span class="string">" ("</span> + providers.size() + <span class="string">"/"</span> + copyInvokers.size()</span><br><span class="line">                            + <span class="string">") from the registry "</span> + directory.getUrl().getAddress()</span><br><span class="line">                            + <span class="string">" on the consumer "</span> + NetUtils.getLocalHost()</span><br><span class="line">                            + <span class="string">" using the dubbo version "</span> + Version.getVersion() + <span class="string">". Last error is: "</span></span><br><span class="line">                            + le.getMessage(), le);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (RpcException e) &#123;</span><br><span class="line">                <span class="keyword">if</span> (e.isBiz()) &#123; <span class="comment">// biz exception.</span></span><br><span class="line">                    <span class="keyword">throw</span> e;</span><br><span class="line">                &#125;</span><br><span class="line">                le = e;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                le = <span class="keyword">new</span> RpcException(e.getMessage(), e);</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                providers.add(invoker.getUrl().getAddress());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RpcException(le.getCode(), <span class="string">"Failed to invoke the method "</span></span><br><span class="line">                + methodName + <span class="string">" in the service "</span> + getInterface().getName()</span><br><span class="line">                + <span class="string">". Tried "</span> + len + <span class="string">" times of the providers "</span> + providers</span><br><span class="line">                + <span class="string">" ("</span> + providers.size() + <span class="string">"/"</span> + copyInvokers.size()</span><br><span class="line">                + <span class="string">") from the registry "</span> + directory.getUrl().getAddress()</span><br><span class="line">                + <span class="string">" on the consumer "</span> + NetUtils.getLocalHost() + <span class="string">" using the dubbo version "</span></span><br><span class="line">                + Version.getVersion() + <span class="string">". Last error is: "</span></span><br><span class="line">                + le.getMessage(), le.getCause() != <span class="keyword">null</span> ? le.getCause() : le);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">@Override
+    @SuppressWarnings(&#123;&quot;unchecked&quot;, &quot;rawtypes&quot;&#125;)
+    public Result doInvoke(Invocation invocation, final List&lt;Invoker&lt;T&gt;&gt; invokers, LoadBalance loadbalance) throws RpcException &#123;
+        List&lt;Invoker&lt;T&gt;&gt; copyInvokers &#x3D; invokers;
+        checkInvokers(copyInvokers, invocation);
+        String methodName &#x3D; RpcUtils.getMethodName(invocation);
+        &#x2F;&#x2F; 获取重试次数，这里默认是 2 次，还有可以注意下后面的+1
+        int len &#x3D; getUrl().getMethodParameter(methodName, RETRIES_KEY, DEFAULT_RETRIES) + 1;
+        if (len &lt;&#x3D; 0) &#123;
+            len &#x3D; 1;
+        &#125;
+        &#x2F;&#x2F; retry loop.
+        RpcException le &#x3D; null; &#x2F;&#x2F; last exception.
+        List&lt;Invoker&lt;T&gt;&gt; invoked &#x3D; new ArrayList&lt;Invoker&lt;T&gt;&gt;(copyInvokers.size()); &#x2F;&#x2F; invoked invokers.
+        Set&lt;String&gt; providers &#x3D; new HashSet&lt;String&gt;(len);
+        &#x2F;&#x2F; 循环调用，失败重试
+        for (int i &#x3D; 0; i &lt; len; i++) &#123;
+            &#x2F;&#x2F;Reselect before retry to avoid a change of candidate &#96;invokers&#96;.
+            &#x2F;&#x2F;NOTE: if &#96;invokers&#96; changed, then &#96;invoked&#96; also lose accuracy.
+            if (i &gt; 0) &#123;
+                checkWhetherDestroyed();
+                &#x2F;&#x2F; 在进行重试前重新列举 Invoker，这样做的好处是，如果某个服务挂了，
+                &#x2F;&#x2F; 通过调用 list 可得到最新可用的 Invoker 列表
+                copyInvokers &#x3D; list(invocation);
+                &#x2F;&#x2F; check again
+                &#x2F;&#x2F; 对 copyinvokers 进行判空检查
+                checkInvokers(copyInvokers, invocation);
+            &#125;
+            &#x2F;&#x2F; 通过负载均衡来选择 invoker
+            Invoker&lt;T&gt; invoker &#x3D; select(loadbalance, invocation, copyInvokers, invoked);
+            &#x2F;&#x2F; 将其添加到 invoker 到 invoked 列表中
+            invoked.add(invoker);
+            &#x2F;&#x2F; 设置上下文
+            RpcContext.getContext().setInvokers((List) invoked);
+            try &#123;
+                &#x2F;&#x2F; 正式调用
+                Result result &#x3D; invoker.invoke(invocation);
+                if (le !&#x3D; null &amp;&amp; logger.isWarnEnabled()) &#123;
+                    logger.warn(&quot;Although retry the method &quot; + methodName
+                            + &quot; in the service &quot; + getInterface().getName()
+                            + &quot; was successful by the provider &quot; + invoker.getUrl().getAddress()
+                            + &quot;, but there have been failed providers &quot; + providers
+                            + &quot; (&quot; + providers.size() + &quot;&#x2F;&quot; + copyInvokers.size()
+                            + &quot;) from the registry &quot; + directory.getUrl().getAddress()
+                            + &quot; on the consumer &quot; + NetUtils.getLocalHost()
+                            + &quot; using the dubbo version &quot; + Version.getVersion() + &quot;. Last error is: &quot;
+                            + le.getMessage(), le);
+                &#125;
+                return result;
+            &#125; catch (RpcException e) &#123;
+                if (e.isBiz()) &#123; &#x2F;&#x2F; biz exception.
+                    throw e;
+                &#125;
+                le &#x3D; e;
+            &#125; catch (Throwable e) &#123;
+                le &#x3D; new RpcException(e.getMessage(), e);
+            &#125; finally &#123;
+                providers.add(invoker.getUrl().getAddress());
+            &#125;
+        &#125;
+        throw new RpcException(le.getCode(), &quot;Failed to invoke the method &quot;
+                + methodName + &quot; in the service &quot; + getInterface().getName()
+                + &quot;. Tried &quot; + len + &quot; times of the providers &quot; + providers
+                + &quot; (&quot; + providers.size() + &quot;&#x2F;&quot; + copyInvokers.size()
+                + &quot;) from the registry &quot; + directory.getUrl().getAddress()
+                + &quot; on the consumer &quot; + NetUtils.getLocalHost() + &quot; using the dubbo version &quot;
+                + Version.getVersion() + &quot;. Last error is: &quot;
+                + le.getMessage(), le.getCause() !&#x3D; null ? le.getCause() : le);
+    &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <h3 id="Failfast-Cluster"><a href="#Failfast-Cluster" class="headerlink" title="Failfast Cluster"></a>Failfast Cluster</h3><p>快速失败，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。</p>
@@ -467,7 +563,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#集群容错模式"><span class="nav-number">1.</span> <span class="nav-text">集群容错模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Failover-Cluster"><span class="nav-number">1.1.</span> <span class="nav-text">Failover Cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Failfast-Cluster"><span class="nav-number">1.2.</span> <span class="nav-text">Failfast Cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Failsafe-Cluster"><span class="nav-number">1.3.</span> <span class="nav-text">Failsafe Cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Failback-Cluster"><span class="nav-number">1.4.</span> <span class="nav-text">Failback Cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Forking-Cluster"><span class="nav-number">1.5.</span> <span class="nav-text">Forking Cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Broadcast-Cluster"><span class="nav-number">1.6.</span> <span class="nav-text">Broadcast Cluster</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E5%AE%B9%E9%94%99%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">集群容错模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Failover-Cluster"><span class="nav-number">1.1.</span> <span class="nav-text">Failover Cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Failfast-Cluster"><span class="nav-number">1.2.</span> <span class="nav-text">Failfast Cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Failsafe-Cluster"><span class="nav-number">1.3.</span> <span class="nav-text">Failsafe Cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Failback-Cluster"><span class="nav-number">1.4.</span> <span class="nav-text">Failback Cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Forking-Cluster"><span class="nav-number">1.5.</span> <span class="nav-text">Forking Cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Broadcast-Cluster"><span class="nav-number">1.6.</span> <span class="nav-text">Broadcast Cluster</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

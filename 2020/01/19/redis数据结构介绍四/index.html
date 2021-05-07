@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,16 +32,13 @@
 <meta property="og:url" content="https://nicksxs.me/2020/01/19/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%9B%9B/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="在 redis 中还有一类表型数据结构叫压缩表，ziplist，它的目的是替代链表，链表是个很容易理解的数据结构，双向链表有前后指针，有带头结点的有的不带，但是链表有个比较大的问题是相对于普通的数组，它的内存不连续，碎片化的存储，内存利用效率不高，而且指针寻址相对于直接使用偏移量的话，也有一定的效率劣势，当然这不是主要的原因，ziplist 设计的主要目的是让链表的内存使用更高效  The zip">
+<meta property="og:locale">
 <meta property="article:published_time" content="2020-01-18T16:00:22.000Z">
 <meta property="article:modified_time" content="2020-01-18T16:00:22.000Z">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Redis">
-<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="redis">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="源码">
-<meta property="article:tag" content="源码分析">
-<meta property="article:tag" content="压缩表">
-<meta property="article:tag" content="ziplist">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://nicksxs.me/2020/01/19/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%9B%9B/">
@@ -303,13 +300,40 @@
 <blockquote>
 <p>The ziplist is a specially encoded dually linked list that is designed to be very memory efficient.<br>这是摘自 redis 源码中ziplist.c 文件的注释，也说明了原因，它的大概结构是这样子</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;zlbytes&gt; &lt;zltail&gt; &lt;zllen&gt; &lt;entry&gt; &lt;entry&gt; ... &lt;entry&gt; &lt;zlend&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;zlbytes&gt; &lt;zltail&gt; &lt;zllen&gt; &lt;entry&gt; &lt;entry&gt; ... &lt;entry&gt; &lt;zlend&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>其中<br><code>&lt;zlbytes&gt;</code>表示 ziplist 占用的字节总数，类型是uint32_t，32 位的无符号整型，当然表示的字节数也包含自己本身占用的 4 个<br><code>&lt;zltail&gt;</code> 类型也是是uint32_t，表示ziplist表中最后一项（entry）在ziplist中的偏移字节数。<code>&lt;zltail&gt;</code>的存在，使得我们可以很方便地找到最后一项（不用遍历整个ziplist），从而可以在ziplist尾端快速地执行push或pop操作。<br><code>&lt;uint16_t zllen&gt;</code> 表示ziplist 中的数据项个数，因为是 16 位，所以当数量超过所能表示的最大的数量，它的 16 位全会置为 1，但是真实的数量需要遍历整个 ziplist 才能知道<br><code>&lt;entry&gt;</code>是具体的数据项，后面解释<br><code>&lt;zlend&gt;</code> ziplist 的最后一个字节，固定是255。<br>再看一下<code>&lt;entry&gt;</code>中的具体结构，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;prevlen&gt; &lt;encoding&gt; &lt;entry-data&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;prevlen&gt; &lt;encoding&gt; &lt;entry-data&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>首先这个<code>&lt;prevlen&gt;</code>有两种情况，一种是前面的元素的长度，如果是小于等于 253的时候就用一个uint8_t 来表示前一元素的长度，如果大于的话他将占用五个字节，第一个字节是 254，即表示这个字节已经表示不下了，需要后面的四个字节帮忙表示<br><code>&lt;encoding&gt;</code>这个就比较复杂，把源码的注释放下面先看下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">* |00pppppp| - 1 byte</span><br><span class="line">*      String value with length less than or equal to 63 bytes (6 bits).</span><br><span class="line">*      &quot;pppppp&quot; represents the unsigned 6 bit length.</span><br><span class="line">* |01pppppp|qqqqqqqq| - 2 bytes</span><br><span class="line">*      String value with length less than or equal to 16383 bytes (14 bits).</span><br><span class="line">*      IMPORTANT: The 14 bit number is stored in big endian.</span><br><span class="line">* |10000000|qqqqqqqq|rrrrrrrr|ssssssss|tttttttt| - 5 bytes</span><br><span class="line">*      String value with length greater than or equal to 16384 bytes.</span><br><span class="line">*      Only the 4 bytes following the first byte represents the length</span><br><span class="line">*      up to 32^2-1. The 6 lower bits of the first byte are not used and</span><br><span class="line">*      are set to zero.</span><br><span class="line">*      IMPORTANT: The 32 bit number is stored in big endian.</span><br><span class="line">* |11000000| - 3 bytes</span><br><span class="line">*      Integer encoded as int16_t (2 bytes).</span><br><span class="line">* |11010000| - 5 bytes</span><br><span class="line">*      Integer encoded as int32_t (4 bytes).</span><br><span class="line">* |11100000| - 9 bytes</span><br><span class="line">*      Integer encoded as int64_t (8 bytes).</span><br><span class="line">* |11110000| - 4 bytes</span><br><span class="line">*      Integer encoded as 24 bit signed (3 bytes).</span><br><span class="line">* |11111110| - 2 bytes</span><br><span class="line">*      Integer encoded as 8 bit signed (1 byte).</span><br><span class="line">* |1111xxxx| - (with xxxx between 0000 and 1101) immediate 4 bit integer.</span><br><span class="line">*      Unsigned integer from 0 to 12. The encoded value is actually from</span><br><span class="line">*      1 to 13 because 0000 and 1111 can not be used, so 1 should be</span><br><span class="line">*      subtracted from the encoded 4 bit value to obtain the right value.</span><br><span class="line">* |11111111| - End of ziplist special entry.</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">* |00pppppp| - 1 byte
+*      String value with length less than or equal to 63 bytes (6 bits).
+*      &quot;pppppp&quot; represents the unsigned 6 bit length.
+* |01pppppp|qqqqqqqq| - 2 bytes
+*      String value with length less than or equal to 16383 bytes (14 bits).
+*      IMPORTANT: The 14 bit number is stored in big endian.
+* |10000000|qqqqqqqq|rrrrrrrr|ssssssss|tttttttt| - 5 bytes
+*      String value with length greater than or equal to 16384 bytes.
+*      Only the 4 bytes following the first byte represents the length
+*      up to 32^2-1. The 6 lower bits of the first byte are not used and
+*      are set to zero.
+*      IMPORTANT: The 32 bit number is stored in big endian.
+* |11000000| - 3 bytes
+*      Integer encoded as int16_t (2 bytes).
+* |11010000| - 5 bytes
+*      Integer encoded as int32_t (4 bytes).
+* |11100000| - 9 bytes
+*      Integer encoded as int64_t (8 bytes).
+* |11110000| - 4 bytes
+*      Integer encoded as 24 bit signed (3 bytes).
+* |11111110| - 2 bytes
+*      Integer encoded as 8 bit signed (1 byte).
+* |1111xxxx| - (with xxxx between 0000 and 1101) immediate 4 bit integer.
+*      Unsigned integer from 0 to 12. The encoded value is actually from
+*      1 to 13 because 0000 and 1111 can not be used, so 1 should be
+*      subtracted from the encoded 4 bit value to obtain the right value.
+* |11111111| - End of ziplist special entry.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>首先如果 encoding 的前两位是 00 的话代表这个元素是个 6 位的字符串，即直接将数据保存在 encoding 中，不消耗额外的<code>&lt;entry-data&gt;</code>，如果前两位是 01 的话表示是个 14 位的字符串，如果是 10 的话表示encoding 块之后的四个字节是存放字符串类型的数据，encoding 的剩余 6 位置 0。<br>如果 encoding 的前两位是 11 的话表示这是个整型，具体的如果后两位是00的话，表示后面是个2字节的 int16_t 类型，如果是01的话，后面是个4字节的int32_t,如果是10的话后面是8字节的int64_t,如果是 11 的话后面是 3 字节的有符号整型，这些都要最后 4 位都是 0 的情况噢<br>剩下当是<code>11111110</code>时，则表示是一个1 字节的有符号数，如果是 <code>1111xxxx</code>，其中<code>xxxx</code>在0000 到 1101 表示实际的 1 到 13，为啥呢，因为 0000 前面已经用过了，而 1110 跟 1111 也都有用了。<br>看个具体的例子(上下有点对不齐，将就看)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[0f 00 00 00] [0c 00 00 00] [02 00] [00 f3] [02 f6] [ff]</span><br><span class="line">|**zlbytes***|  |***zltail***|  |*zllen*|  |entry1 entry2|  |zlend|</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">[0f 00 00 00] [0c 00 00 00] [02 00] [00 f3] [02 f6] [ff]
+|**zlbytes***|  |***zltail***|  |*zllen*|  |entry1 entry2|  |zlend|<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>第一部分代表整个 ziplist 有 15 个字节，zlbytes 自己占了 4 个 zltail 表示最后一个元素的偏移量，第 13 个字节起，zllen 表示有 2 个元素，第一个元素是<code>00f3</code>,00表示前一个元素长度是 0，本来前面就没元素(不过不知道这个能不能优化这一字节)，然后是 f3，换成二进制就是11110011,对照上面的注释，是落在|1111xxxx|这个类型里，注意这个其实是用 0001 到 1101 也就是 1到 13 来表示 0到 12，所以 f3 应该就是 2，第一个元素是 2，第二个元素呢，02 代表前一个元素也就是刚才说的这个，占用 2 字节，f6 展开也是刚才的类型，实际是 5，ff 表示 ziplist 的结尾，所以这个 ziplist 里面是两个元素，2 跟 5</p>
 
     </div>
@@ -321,6 +345,9 @@
   <div class="popular-posts-header">Related Posts</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/12/26/redis数据结构介绍/" rel="bookmark">redis数据结构介绍-第一部分 SDS，链表，字典</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/01/10/redis数据结构介绍三/" rel="bookmark">redis数据结构介绍三-第三部分 整数集合</a></div>
     </li>
     <li class="popular-posts-item">
@@ -328,9 +355,6 @@
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/01/20/redis数据结构介绍五/" rel="bookmark">redis数据结构介绍五-第五部分 对象</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2019/12/26/redis数据结构介绍/" rel="bookmark">redis数据结构介绍-第一部分 SDS，链表，字典</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/01/22/redis数据结构介绍六/" rel="bookmark">redis数据结构介绍六 快表</a></div>

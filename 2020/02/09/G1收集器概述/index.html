@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,14 +32,17 @@
 <meta property="og:url" content="https://nicksxs.me/2020/02/09/G1%E6%94%B6%E9%9B%86%E5%99%A8%E6%A6%82%E8%BF%B0/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="G1: The Garbage-First Collector, 垃圾回收优先的垃圾回收器，目标是用户多核 cpu 和大内存的机器，最大的特点就是可预测的停顿时间，官方给出的介绍是提供一个用户在大的堆内存情况下一个低延迟表现的解决方案，通常是 6GB 及以上的堆大小，有低于 0.5 秒稳定的可预测的停顿时间。 这里主要介绍这个比较新的垃圾回收器，在 G1 之前的垃圾回收器都是基于如下图的内存结构分">
+<meta property="og:locale">
 <meta property="og:image" content="https://i.loli.net/2020/02/09/jOVs2AlphzwyF5c.jpg">
 <meta property="og:image" content="https://i.loli.net/2020/02/09/Yr1tGiWp4mAZSzB.jpg">
 <meta property="article:published_time" content="2020-02-09T12:52:02.000Z">
-<meta property="article:modified_time" content="2020-02-09T12:56:16.000Z">
+<meta property="article:modified_time" content="2020-02-09T12:52:02.000Z">
 <meta property="article:author" content="Nicksxs">
+<meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
-<meta property="article:tag" content="GC">
+<meta property="article:tag" content="C++">
 <meta property="article:tag" content="G1">
+<meta property="article:tag" content="GC">
 <meta property="article:tag" content="Garbage-First Collector">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2020/02/09/jOVs2AlphzwyF5c.jpg">
@@ -231,9 +234,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-02-09 20:52:02 / Modified: 20:56:16" itemprop="dateCreated datePublished" datetime="2020-02-09T20:52:02+08:00">2020-02-09</time>
+              <time title="Created: 2020-02-09 20:52:02" itemprop="dateCreated datePublished" datetime="2020-02-09T20:52:02+08:00">2020-02-09</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -297,8 +299,62 @@
 
       
         <p>G1: The Garbage-First Collector, 垃圾回收优先的垃圾回收器，目标是用户多核 cpu 和大内存的机器，最大的特点就是可预测的停顿时间，官方给出的介绍是提供一个用户在大的堆内存情况下一个低延迟表现的解决方案，通常是 6GB 及以上的堆大小，有低于 0.5 秒稳定的可预测的停顿时间。</p>
-<p>这里主要介绍这个比较新的垃圾回收器，在 G1 之前的垃圾回收器都是基于如下图的内存结构分布，有新生代，老年代和永久代（jdk8 之前），然后G1 往前的那些垃圾回收器都有个分代，比如 serial，parallel 等，一般有个应用的组合，最初的 serial 和 serial old，因为新生代和老年代的收集方式不太一样，新生代主要是标记复制，所以有 eden 跟两个 survival区，老年代一般用标记整理方式，而 G1 对这个不太一样。<br><img data-src="https://i.loli.net/2020/02/09/jOVs2AlphzwyF5c.jpg" alt=""><br>看一下 G1 的内存分布<br><img data-src="https://i.loli.net/2020/02/09/Yr1tGiWp4mAZSzB.jpg" alt=""><br>可以看到这有很大的不同，G1 通过将内存分成大小相等的 region，每个region是存在于一个连续的虚拟内存范围，对于某个 region 来说其角色是类似于原来的收集器的Eden、Survivor、Old Generation，这个具体在代码层面</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// We encode the value of the heap region type so the generation can be</span></span><br><span class="line"> <span class="comment">// determined quickly. The tag is split into two parts:</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">//   major type (young, old, humongous, archive)           : top N-1 bits</span></span><br><span class="line"> <span class="comment">//   minor type (eden / survivor, starts / cont hum, etc.) : bottom 1 bit</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">// If there's need to increase the number of minor types in the</span></span><br><span class="line"> <span class="comment">// future, we'll have to increase the size of the latter and hence</span></span><br><span class="line"> <span class="comment">// decrease the size of the former.</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">// 00000 0 [ 0] Free</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">// 00001 0 [ 2] Young Mask</span></span><br><span class="line"> <span class="comment">// 00001 0 [ 2] Eden</span></span><br><span class="line"> <span class="comment">// 00001 1 [ 3] Survivor</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">// 00010 0 [ 4] Humongous Mask</span></span><br><span class="line"> <span class="comment">// 00100 0 [ 8] Pinned Mask</span></span><br><span class="line"> <span class="comment">// 00110 0 [12] Starts Humongous</span></span><br><span class="line"> <span class="comment">// 00110 1 [13] Continues Humongous</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">// 01000 0 [16] Old Mask</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">// 10000 0 [32] Archive Mask</span></span><br><span class="line"> <span class="comment">// 11100 0 [56] Open Archive</span></span><br><span class="line"> <span class="comment">// 11100 1 [57] Closed Archive</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</span><br><span class="line">   FreeTag               = <span class="number">0</span>,</span><br><span class="line"></span><br><span class="line">   YoungMask             = <span class="number">2</span>,</span><br><span class="line">   EdenTag               = YoungMask,</span><br><span class="line">   SurvTag               = YoungMask + <span class="number">1</span>,</span><br><span class="line"></span><br><span class="line">   HumongousMask         = <span class="number">4</span>,</span><br><span class="line">   PinnedMask            = <span class="number">8</span>,</span><br><span class="line">   StartsHumongousTag    = HumongousMask | PinnedMask,</span><br><span class="line">   ContinuesHumongousTag = HumongousMask | PinnedMask + <span class="number">1</span>,</span><br><span class="line"></span><br><span class="line">   OldMask               = <span class="number">16</span>,</span><br><span class="line">   OldTag                = OldMask,</span><br><span class="line"></span><br><span class="line">   <span class="comment">// Archive regions are regions with immutable content (i.e. not reclaimed, and</span></span><br><span class="line">   <span class="comment">// not allocated into during regular operation). They differ in the kind of references</span></span><br><span class="line">   <span class="comment">// allowed for the contained objects:</span></span><br><span class="line">   <span class="comment">// - Closed archive regions form a separate self-contained (closed) object graph</span></span><br><span class="line">   <span class="comment">// within the set of all of these regions. No references outside of closed</span></span><br><span class="line">   <span class="comment">// archive regions are allowed.</span></span><br><span class="line">   <span class="comment">// - Open archive regions have no restrictions on the references of their objects.</span></span><br><span class="line">   <span class="comment">// Objects within these regions are allowed to have references to objects</span></span><br><span class="line">   <span class="comment">// contained in any other kind of regions.</span></span><br><span class="line">   ArchiveMask           = <span class="number">32</span>,</span><br><span class="line">   OpenArchiveTag        = ArchiveMask | PinnedMask | OldMask,</span><br><span class="line">   ClosedArchiveTag      = ArchiveMask | PinnedMask | OldMask + <span class="number">1</span></span><br><span class="line"> &#125; Tag;</span><br></pre></td></tr></table></figure>
+<p>这里主要介绍这个比较新的垃圾回收器，在 G1 之前的垃圾回收器都是基于如下图的内存结构分布，有新生代，老年代和永久代（jdk8 之前），然后G1 往前的那些垃圾回收器都有个分代，比如 serial，parallel 等，一般有个应用的组合，最初的 serial 和 serial old，因为新生代和老年代的收集方式不太一样，新生代主要是标记复制，所以有 eden 跟两个 survival区，老年代一般用标记整理方式，而 G1 对这个不太一样。<br><img data-src="https://i.loli.net/2020/02/09/jOVs2AlphzwyF5c.jpg"><br>看一下 G1 的内存分布<br><img data-src="https://i.loli.net/2020/02/09/Yr1tGiWp4mAZSzB.jpg"><br>可以看到这有很大的不同，G1 通过将内存分成大小相等的 region，每个region是存在于一个连续的虚拟内存范围，对于某个 region 来说其角色是类似于原来的收集器的Eden、Survivor、Old Generation，这个具体在代码层面</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; We encode the value of the heap region type so the generation can be
+ &#x2F;&#x2F; determined quickly. The tag is split into two parts:
+ &#x2F;&#x2F;
+ &#x2F;&#x2F;   major type (young, old, humongous, archive)           : top N-1 bits
+ &#x2F;&#x2F;   minor type (eden &#x2F; survivor, starts &#x2F; cont hum, etc.) : bottom 1 bit
+ &#x2F;&#x2F;
+ &#x2F;&#x2F; If there&#39;s need to increase the number of minor types in the
+ &#x2F;&#x2F; future, we&#39;ll have to increase the size of the latter and hence
+ &#x2F;&#x2F; decrease the size of the former.
+ &#x2F;&#x2F;
+ &#x2F;&#x2F; 00000 0 [ 0] Free
+ &#x2F;&#x2F;
+ &#x2F;&#x2F; 00001 0 [ 2] Young Mask
+ &#x2F;&#x2F; 00001 0 [ 2] Eden
+ &#x2F;&#x2F; 00001 1 [ 3] Survivor
+ &#x2F;&#x2F;
+ &#x2F;&#x2F; 00010 0 [ 4] Humongous Mask
+ &#x2F;&#x2F; 00100 0 [ 8] Pinned Mask
+ &#x2F;&#x2F; 00110 0 [12] Starts Humongous
+ &#x2F;&#x2F; 00110 1 [13] Continues Humongous
+ &#x2F;&#x2F;
+ &#x2F;&#x2F; 01000 0 [16] Old Mask
+ &#x2F;&#x2F;
+ &#x2F;&#x2F; 10000 0 [32] Archive Mask
+ &#x2F;&#x2F; 11100 0 [56] Open Archive
+ &#x2F;&#x2F; 11100 1 [57] Closed Archive
+ &#x2F;&#x2F;
+ typedef enum &#123;
+   FreeTag               &#x3D; 0,
+
+   YoungMask             &#x3D; 2,
+   EdenTag               &#x3D; YoungMask,
+   SurvTag               &#x3D; YoungMask + 1,
+
+   HumongousMask         &#x3D; 4,
+   PinnedMask            &#x3D; 8,
+   StartsHumongousTag    &#x3D; HumongousMask | PinnedMask,
+   ContinuesHumongousTag &#x3D; HumongousMask | PinnedMask + 1,
+
+   OldMask               &#x3D; 16,
+   OldTag                &#x3D; OldMask,
+
+   &#x2F;&#x2F; Archive regions are regions with immutable content (i.e. not reclaimed, and
+   &#x2F;&#x2F; not allocated into during regular operation). They differ in the kind of references
+   &#x2F;&#x2F; allowed for the contained objects:
+   &#x2F;&#x2F; - Closed archive regions form a separate self-contained (closed) object graph
+   &#x2F;&#x2F; within the set of all of these regions. No references outside of closed
+   &#x2F;&#x2F; archive regions are allowed.
+   &#x2F;&#x2F; - Open archive regions have no restrictions on the references of their objects.
+   &#x2F;&#x2F; Objects within these regions are allowed to have references to objects
+   &#x2F;&#x2F; contained in any other kind of regions.
+   ArchiveMask           &#x3D; 32,
+   OpenArchiveTag        &#x3D; ArchiveMask | PinnedMask | OldMask,
+   ClosedArchiveTag      &#x3D; ArchiveMask | PinnedMask | OldMask + 1
+ &#125; Tag;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><code>hotspot/share/gc/g1/heapRegionType.hpp</code></p>
 <p>当执行垃圾收集时，G1以类似于CMS收集器的方式运行。 G1执行并发全局标记阶段，以确定整个堆中对象的存活性。标记阶段完成后，G1知道哪些region是基本空的。它首先收集这些region，通常会产生大量的可用空间。这就是为什么这种垃圾收集方法称为“垃圾优先”的原因。顾名思义，G1将其收集和压缩活动集中在可能充满可回收对象（即垃圾）的堆区域。 G1使用暂停预测模型来满足用户定义的暂停时间目标，并根据指定的暂停时间目标选择要收集的区域数。</p>
@@ -319,7 +375,7 @@
       <div class="popular-posts-title"><a href="/2019/12/07/JVM-G1-Part-1/" rel="bookmark">JVM源码分析之G1垃圾收集器分析一</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/04/04/聊聊-dubbo-的线程池/" rel="bookmark">聊聊 dubbo 的线程池</a></div>
+      <div class="popular-posts-title"><a href="/2020/11/22/聊聊-Dubbo-的容错机制/" rel="bookmark">聊聊 Dubbo 的容错机制</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/02/16/Maven实用小技巧/" rel="bookmark">Maven实用小技巧</a></div>
@@ -328,7 +384,7 @@
       <div class="popular-posts-title"><a href="/2020/09/06/mybatis-的-和-是有啥区别/" rel="bookmark">mybatis 的 $ 和 # 是有啥区别</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/06/06/聊聊-Dubbo-的-SPI-续之自适应拓展/" rel="bookmark">聊聊 Dubbo 的 SPI 续之自适应拓展</a></div>
+      <div class="popular-posts-title"><a href="/2020/10/03/mybatis-的缓存是怎么回事/" rel="bookmark">mybatis 的缓存是怎么回事</a></div>
     </li>
   </ul>
 

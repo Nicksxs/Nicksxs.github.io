@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -26,12 +26,13 @@
     var CONFIG = {"hostname":"nicksxs.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="这个问题也是面试中常被问到的，就抽空来了解下这个，跳过一大段前面初始化的逻辑，对于一条select * from t1 where id &#x3D; #{id}这样的 sql，在初始化扫描 mapper 的xml文件的时候会根据是否是 dynamic 来判断生成 DynamicSqlSource 还是 RawSqlSource，这里它是一条 RawSqlSource，在这里做了替换，将#{}替换成了?前面">
+  <meta name="description" content="这个问题也是面试中常被问到的，就抽空来了解下这个，跳过一大段前面初始化的逻辑，对于一条select * from t1 where id &#x3D; #&amp;#123;id&amp;#125;这样的 sql，在初始化扫描 mapper 的xml文件的时候会根据是否是 dynamic 来判断生成 DynamicSqlSource 还是 RawSqlSource，这里它是一条 RawSqlSource，在这里做了替换，将">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mybatis 的 $ 和 # 是有啥区别">
 <meta property="og:url" content="https://nicksxs.me/2020/09/06/mybatis-%E7%9A%84-%E5%92%8C-%E6%98%AF%E6%9C%89%E5%95%A5%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
-<meta property="og:description" content="这个问题也是面试中常被问到的，就抽空来了解下这个，跳过一大段前面初始化的逻辑，对于一条select * from t1 where id &#x3D; #{id}这样的 sql，在初始化扫描 mapper 的xml文件的时候会根据是否是 dynamic 来判断生成 DynamicSqlSource 还是 RawSqlSource，这里它是一条 RawSqlSource，在这里做了替换，将#{}替换成了?前面">
+<meta property="og:description" content="这个问题也是面试中常被问到的，就抽空来了解下这个，跳过一大段前面初始化的逻辑，对于一条select * from t1 where id &#x3D; #&amp;#123;id&amp;#125;这样的 sql，在初始化扫描 mapper 的xml文件的时候会根据是否是 dynamic 来判断生成 DynamicSqlSource 还是 RawSqlSource，这里它是一条 RawSqlSource，在这里做了替换，将">
+<meta property="og:locale">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/c84r0g.png">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/E0ODcp.png">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/dnZWP7.png">
@@ -42,17 +43,12 @@
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/fRHpNO.png">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/4tNU7f.png">
 <meta property="article:published_time" content="2020-09-06T15:14:50.000Z">
-<meta property="article:modified_time" content="2020-09-06T15:18:32.000Z">
+<meta property="article:modified_time" content="2020-09-06T15:14:50.000Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Mysql">
 <meta property="article:tag" content="Mybatis">
-<meta property="article:tag" content="Spring">
-<meta property="article:tag" content="Mybatis 的 $ 和 #">
-<meta property="article:tag" content="$">
-<meta property="article:tag" content="#">
-<meta property="article:tag" content="#{}">
-<meta property="article:tag" content="${}">
+<meta property="article:tag" content="Sql注入">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/c84r0g.png">
 
@@ -243,9 +239,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-09-06 23:14:50 / Modified: 23:18:32" itemprop="dateCreated datePublished" datetime="2020-09-06T23:14:50+08:00">2020-09-06</time>
+              <time title="Created: 2020-09-06 23:14:50" itemprop="dateCreated datePublished" datetime="2020-09-06T23:14:50+08:00">2020-09-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -316,11 +311,82 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>这个问题也是面试中常被问到的，就抽空来了解下这个，跳过一大段前面初始化的逻辑，<br>对于一条<code>select * from t1 where id = #{id}</code>这样的 sql，在初始化扫描 mapper 的xml文件的时候会根据是否是 dynamic 来判断生成 DynamicSqlSource 还是 RawSqlSource，这里它是一条 RawSqlSource，<br>在这里做了替换，将<code>#{}</code>替换成了<code>?</code><br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/c84r0g.png" alt=""><br>前面说的是否 dynamic 就是在这里进行判断<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/E0ODcp.png" alt=""></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// org.apache.ibatis.scripting.xmltags.XMLScriptBuilder#parseScriptNode</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> SqlSource <span class="title">parseScriptNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MixedSqlNode rootSqlNode = parseDynamicTags(context);</span><br><span class="line">    SqlSource sqlSource;</span><br><span class="line">    <span class="keyword">if</span> (isDynamic) &#123;</span><br><span class="line">      sqlSource = <span class="keyword">new</span> DynamicSqlSource(configuration, rootSqlNode);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      sqlSource = <span class="keyword">new</span> RawSqlSource(configuration, rootSqlNode, parameterType);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sqlSource;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">// org.apache.ibatis.scripting.xmltags.XMLScriptBuilder#parseDynamicTags</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> MixedSqlNode <span class="title">parseDynamicTags</span><span class="params">(XNode node)</span> </span>&#123;</span><br><span class="line">    List&lt;SqlNode&gt; contents = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    NodeList children = node.getNode().getChildNodes();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; children.getLength(); i++) &#123;</span><br><span class="line">      XNode child = node.newXNode(children.item(i));</span><br><span class="line">      <span class="keyword">if</span> (child.getNode().getNodeType() == Node.CDATA_SECTION_NODE || child.getNode().getNodeType() == Node.TEXT_NODE) &#123;</span><br><span class="line">        String data = child.getStringBody(<span class="string">""</span>);</span><br><span class="line">        TextSqlNode textSqlNode = <span class="keyword">new</span> TextSqlNode(data);</span><br><span class="line">        <span class="keyword">if</span> (textSqlNode.isDynamic()) &#123;</span><br><span class="line">          contents.add(textSqlNode);</span><br><span class="line">          isDynamic = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          contents.add(<span class="keyword">new</span> StaticTextSqlNode(data));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (child.getNode().getNodeType() == Node.ELEMENT_NODE) &#123; <span class="comment">// issue #628</span></span><br><span class="line">        String nodeName = child.getNode().getNodeName();</span><br><span class="line">        NodeHandler handler = nodeHandlerMap.get(nodeName);</span><br><span class="line">        <span class="keyword">if</span> (handler == <span class="keyword">null</span>) &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> BuilderException(<span class="string">"Unknown element &lt;"</span> + nodeName + <span class="string">"&gt; in SQL statement."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        handler.handleNode(child, contents);</span><br><span class="line">        isDynamic = <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MixedSqlNode(contents);</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">// org.apache.ibatis.scripting.xmltags.TextSqlNode#isDynamic</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isDynamic</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    DynamicCheckerTokenParser checker = <span class="keyword">new</span> DynamicCheckerTokenParser();</span><br><span class="line">    GenericTokenParser parser = createParser(checker);</span><br><span class="line">    parser.parse(text);</span><br><span class="line">    <span class="keyword">return</span> checker.isDynamic();</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> GenericTokenParser <span class="title">createParser</span><span class="params">(TokenHandler handler)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> GenericTokenParser(<span class="string">"$&#123;"</span>, <span class="string">"&#125;"</span>, handler);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>可以看到其中一个条件就是是否有<code>${}</code>这种占位符，假如说上面的 sql 换成 <code>${}</code>，那么可以看到它会在这里创建一个 dynamicSqlSource,</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// org.apache.ibatis.scripting.xmltags.DynamicSqlSource</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicSqlSource</span> <span class="keyword">implements</span> <span class="title">SqlSource</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Configuration configuration;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> SqlNode rootSqlNode;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">DynamicSqlSource</span><span class="params">(Configuration configuration, SqlNode rootSqlNode)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.configuration = configuration;</span><br><span class="line">    <span class="keyword">this</span>.rootSqlNode = rootSqlNode;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> BoundSql <span class="title">getBoundSql</span><span class="params">(Object parameterObject)</span> </span>&#123;</span><br><span class="line">    DynamicContext context = <span class="keyword">new</span> DynamicContext(configuration, parameterObject);</span><br><span class="line">    rootSqlNode.apply(context);</span><br><span class="line">    SqlSourceBuilder sqlSourceParser = <span class="keyword">new</span> SqlSourceBuilder(configuration);</span><br><span class="line">    Class&lt;?&gt; parameterType = parameterObject == null ? Object.class : parameterObject.getClass();</span><br><span class="line">    SqlSource sqlSource = sqlSourceParser.parse(context.getSql(), parameterType, context.getBindings());</span><br><span class="line">    BoundSql boundSql = sqlSource.getBoundSql(parameterObject);</span><br><span class="line">    context.getBindings().forEach(boundSql::setAdditionalParameter);</span><br><span class="line">    <span class="keyword">return</span> boundSql;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里眼尖的同学可能就可以看出来了，RawSqlSource 在初始化的时候已经经过了 parse，把<code>#{}</code>替换成了<code>?</code>占位符，但是 DynamicSqlSource 并没有<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/dnZWP7.png" alt="">再看这个图，我们发现在这的时候还没有进行替换<br>然后往里跟<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/YGVD0P.png" alt="">好像是这里了<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/BWHuUO.png" alt=""><br>这里 rootSqlNode.apply 其实是一个对原来 sql 的解析结果的一个循环调用，不同类型的标签会构成不同的 node，像这里就是一个 textSqlNode<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/eTiQm6.png" alt=""><br>可以发现到这我们的 sql 已经被替换了，而且是直接作为 string 类型替换的，所以可以明白了这个问题所在，就是注入，不过细心的同学发现其实这里是有个<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/Cc4JPw.png" alt=""><br>理论上还是可以做过滤的，不过好像现在没用起来。<br>我们前面可以发现对于<code>#{}</code>是在启动扫描 mapper的 xml 文件就替换成了 <code>?</code>,然后是在什么时候变成实际的值的呢<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/fRHpNO.png" alt=""><br>发现到这的时候还是没有替换，其实说白了也就是 prepareStatement 那一套，<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/4tNU7f.png" alt=""><br>在这里进行替换，会拿到 org.apache.ibatis.mapping.ParameterMapping，然后进行替换，因为会带着类型信息，所以不用担心注入咯</p>
+        <p>这个问题也是面试中常被问到的，就抽空来了解下这个，跳过一大段前面初始化的逻辑，<br>对于一条<code>select * from t1 where id = #&#123;id&#125;</code>这样的 sql，在初始化扫描 mapper 的xml文件的时候会根据是否是 dynamic 来判断生成 DynamicSqlSource 还是 RawSqlSource，这里它是一条 RawSqlSource，<br>在这里做了替换，将<code>#&#123;&#125;</code>替换成了<code>?</code><br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/c84r0g.png"><br>前面说的是否 dynamic 就是在这里进行判断<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/E0ODcp.png"></p>
+<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">&#x2F;&#x2F; org.apache.ibatis.scripting.xmltags.XMLScriptBuilder#parseScriptNode
+public SqlSource parseScriptNode() &#123;
+    MixedSqlNode rootSqlNode &#x3D; parseDynamicTags(context);
+    SqlSource sqlSource;
+    if (isDynamic) &#123;
+      sqlSource &#x3D; new DynamicSqlSource(configuration, rootSqlNode);
+    &#125; else &#123;
+      sqlSource &#x3D; new RawSqlSource(configuration, rootSqlNode, parameterType);
+    &#125;
+    return sqlSource;
+  &#125;
+&#x2F;&#x2F; org.apache.ibatis.scripting.xmltags.XMLScriptBuilder#parseDynamicTags
+protected MixedSqlNode parseDynamicTags(XNode node) &#123;
+    List&lt;SqlNode&gt; contents &#x3D; new ArrayList&lt;&gt;();
+    NodeList children &#x3D; node.getNode().getChildNodes();
+    for (int i &#x3D; 0; i &lt; children.getLength(); i++) &#123;
+      XNode child &#x3D; node.newXNode(children.item(i));
+      if (child.getNode().getNodeType() &#x3D;&#x3D; Node.CDATA_SECTION_NODE || child.getNode().getNodeType() &#x3D;&#x3D; Node.TEXT_NODE) &#123;
+        String data &#x3D; child.getStringBody(&quot;&quot;);
+        TextSqlNode textSqlNode &#x3D; new TextSqlNode(data);
+        if (textSqlNode.isDynamic()) &#123;
+          contents.add(textSqlNode);
+          isDynamic &#x3D; true;
+        &#125; else &#123;
+          contents.add(new StaticTextSqlNode(data));
+        &#125;
+      &#125; else if (child.getNode().getNodeType() &#x3D;&#x3D; Node.ELEMENT_NODE) &#123; &#x2F;&#x2F; issue #628
+        String nodeName &#x3D; child.getNode().getNodeName();
+        NodeHandler handler &#x3D; nodeHandlerMap.get(nodeName);
+        if (handler &#x3D;&#x3D; null) &#123;
+          throw new BuilderException(&quot;Unknown element &lt;&quot; + nodeName + &quot;&gt; in SQL statement.&quot;);
+        &#125;
+        handler.handleNode(child, contents);
+        isDynamic &#x3D; true;
+      &#125;
+    &#125;
+    return new MixedSqlNode(contents);
+  &#125;
+&#x2F;&#x2F; org.apache.ibatis.scripting.xmltags.TextSqlNode#isDynamic
+  public boolean isDynamic() &#123;
+    DynamicCheckerTokenParser checker &#x3D; new DynamicCheckerTokenParser();
+    GenericTokenParser parser &#x3D; createParser(checker);
+    parser.parse(text);
+    return checker.isDynamic();
+  &#125;
+    private GenericTokenParser createParser(TokenHandler handler) &#123;
+    return new GenericTokenParser(&quot;$&#123;&quot;, &quot;&#125;&quot;, handler);
+  &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到其中一个条件就是是否有<code>$&#123;&#125;</code>这种占位符，假如说上面的 sql 换成 <code>$&#123;&#125;</code>，那么可以看到它会在这里创建一个 dynamicSqlSource,</p>
+<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">&#x2F;&#x2F; org.apache.ibatis.scripting.xmltags.DynamicSqlSource
+public class DynamicSqlSource implements SqlSource &#123;
+
+  private final Configuration configuration;
+  private final SqlNode rootSqlNode;
+
+  public DynamicSqlSource(Configuration configuration, SqlNode rootSqlNode) &#123;
+    this.configuration &#x3D; configuration;
+    this.rootSqlNode &#x3D; rootSqlNode;
+  &#125;
+
+  @Override
+  public BoundSql getBoundSql(Object parameterObject) &#123;
+    DynamicContext context &#x3D; new DynamicContext(configuration, parameterObject);
+    rootSqlNode.apply(context);
+    SqlSourceBuilder sqlSourceParser &#x3D; new SqlSourceBuilder(configuration);
+    Class&lt;?&gt; parameterType &#x3D; parameterObject &#x3D;&#x3D; null ? Object.class : parameterObject.getClass();
+    SqlSource sqlSource &#x3D; sqlSourceParser.parse(context.getSql(), parameterType, context.getBindings());
+    BoundSql boundSql &#x3D; sqlSource.getBoundSql(parameterObject);
+    context.getBindings().forEach(boundSql::setAdditionalParameter);
+    return boundSql;
+  &#125;
+
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里眼尖的同学可能就可以看出来了，RawSqlSource 在初始化的时候已经经过了 parse，把<code>#&#123;&#125;</code>替换成了<code>?</code>占位符，但是 DynamicSqlSource 并没有<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/dnZWP7.png">再看这个图，我们发现在这的时候还没有进行替换<br>然后往里跟<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/YGVD0P.png">好像是这里了<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/BWHuUO.png"><br>这里 rootSqlNode.apply 其实是一个对原来 sql 的解析结果的一个循环调用，不同类型的标签会构成不同的 node，像这里就是一个 textSqlNode<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/eTiQm6.png"><br>可以发现到这我们的 sql 已经被替换了，而且是直接作为 string 类型替换的，所以可以明白了这个问题所在，就是注入，不过细心的同学发现其实这里是有个<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/Cc4JPw.png"><br>理论上还是可以做过滤的，不过好像现在没用起来。<br>我们前面可以发现对于<code>#&#123;&#125;</code>是在启动扫描 mapper的 xml 文件就替换成了 <code>?</code>,然后是在什么时候变成实际的值的呢<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/fRHpNO.png"><br>发现到这的时候还是没有替换，其实说白了也就是 prepareStatement 那一套，<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/4tNU7f.png"><br>在这里进行替换，会拿到 org.apache.ibatis.mapping.ParameterMapping，然后进行替换，因为会带着类型信息，所以不用担心注入咯</p>
 
     </div>
 
@@ -334,7 +400,7 @@
       <div class="popular-posts-title"><a href="/2020/10/03/mybatis-的缓存是怎么回事/" rel="bookmark">mybatis 的缓存是怎么回事</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/05/22/聊聊我刚学会的应用诊断方法/" rel="bookmark">聊聊我刚学会的应用诊断方法</a></div>
+      <div class="popular-posts-title"><a href="/2020/06/06/聊聊-Dubbo-的-SPI-续之自适应拓展/" rel="bookmark">聊聊 Dubbo 的 SPI 续之自适应拓展</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/02/09/G1收集器概述/" rel="bookmark">G1收集器概述</a></div>
@@ -343,7 +409,7 @@
       <div class="popular-posts-title"><a href="/2020/02/16/Maven实用小技巧/" rel="bookmark">Maven实用小技巧</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/06/06/聊聊-Dubbo-的-SPI-续之自适应拓展/" rel="bookmark">聊聊 Dubbo 的 SPI 续之自适应拓展</a></div>
+      <div class="popular-posts-title"><a href="/2020/11/01/Apollo-的-value-注解是怎么自动更新的/" rel="bookmark">Apollo 的 value 注解是怎么自动更新的</a></div>
     </li>
   </ul>
 

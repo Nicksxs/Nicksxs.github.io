@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,8 +32,9 @@
 <meta property="og:url" content="https://nicksxs.me/2015/01/14/Two-Sum/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="problemGiven an array of integers, find two numbers such that they add up to a specific target number. The function twoSum should return indices of the two numbers such that they add up to the target,">
+<meta property="og:locale">
 <meta property="article:published_time" content="2015-01-14T07:39:31.000Z">
-<meta property="article:modified_time" content="2020-01-12T13:08:27.000Z">
+<meta property="article:modified_time" content="2015-01-14T07:39:31.000Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="c++">
@@ -229,13 +230,6 @@
 
               <time title="Created: 2015-01-14 15:39:31" itemprop="dateCreated datePublished" datetime="2015-01-14T15:39:31+08:00">2015-01-14</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-12 21:08:27" itemprop="dateModified" datetime="2020-01-12T21:08:27+08:00">2020-01-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -287,10 +281,59 @@
       
         <h3 id="problem"><a href="#problem" class="headerlink" title="problem"></a>problem</h3><p>Given an array of integers, find two numbers such that they add up to a specific target number.</p>
 <p>The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>You may assume that each input would have exactly one solution.</p>
 <p><strong>Input</strong>: numbers={2, 7, 11, 15}, target=9<br><strong>Output</strong>: index1=1, index2=2</p>
-<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> num, pos;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Node a, Node b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.num &lt; b.num;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;numbers, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Start typing your C/C++ solution below</span></span><br><span class="line">        <span class="comment">// DO NOT write int main() function</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">        <span class="built_in">vector</span>&lt;Node&gt; <span class="built_in">array</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.<span class="built_in">size</span>(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            Node temp;</span><br><span class="line">            temp.num = numbers[i];</span><br><span class="line">            temp.pos = i;</span><br><span class="line">            <span class="built_in">array</span>.push_back(temp);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        sort(<span class="built_in">array</span>.<span class="built_in">begin</span>(), <span class="built_in">array</span>.<span class="built_in">end</span>(), cmp);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="built_in">array</span>.<span class="built_in">size</span>() - <span class="number">1</span>; i != j;)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> sum = <span class="built_in">array</span>[i].num + <span class="built_in">array</span>[j].num;</span><br><span class="line">            <span class="keyword">if</span> (sum == target)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">array</span>[i].pos &lt; <span class="built_in">array</span>[j].pos)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.push_back(<span class="built_in">array</span>[i].pos + <span class="number">1</span>);</span><br><span class="line">                    result.push_back(<span class="built_in">array</span>[j].pos + <span class="number">1</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    result.push_back(<span class="built_in">array</span>[j].pos + <span class="number">1</span>);</span><br><span class="line">                    result.push_back(<span class="built_in">array</span>[i].pos + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; target)</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &gt; target)</span><br><span class="line">            &#123;</span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">struct Node
+&#123;
+    int num, pos;
+&#125;;
+bool cmp(Node a, Node b)
+&#123;
+    return a.num &lt; b.num;
+&#125;
+class Solution &#123;
+public:
+    vector&lt;int&gt; twoSum(vector&lt;int&gt; &amp;numbers, int target) &#123;
+        &#x2F;&#x2F; Start typing your C&#x2F;C++ solution below
+        &#x2F;&#x2F; DO NOT write int main() function
+        vector&lt;int&gt; result;
+        vector&lt;Node&gt; array;
+        for (int i &#x3D; 0; i &lt; numbers.size(); i++)
+        &#123;
+            Node temp;
+            temp.num &#x3D; numbers[i];
+            temp.pos &#x3D; i;
+            array.push_back(temp);
+        &#125;
+
+        sort(array.begin(), array.end(), cmp);
+        for (int i &#x3D; 0, j &#x3D; array.size() - 1; i !&#x3D; j;)
+        &#123;
+            int sum &#x3D; array[i].num + array[j].num;
+            if (sum &#x3D;&#x3D; target)
+            &#123;
+                if (array[i].pos &lt; array[j].pos)
+                &#123;
+                    result.push_back(array[i].pos + 1);
+                    result.push_back(array[j].pos + 1);
+                &#125; else
+                &#123;
+                    result.push_back(array[j].pos + 1);
+                    result.push_back(array[i].pos + 1);
+                &#125;
+                break;
+            &#125; else if (sum &lt; target)
+            &#123;
+                i++;
+            &#125; else if (sum &gt; target)
+            &#123;
+                j--;
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>sort the array, then test from head and end, until catch the right answer</p>
 
@@ -309,10 +352,10 @@
       <div class="popular-posts-title"><a href="/2016/08/14/34-Search-for-a-Range/" rel="bookmark">34_Search_for_a_Range</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2015/04/14/Add-Two-Number/" rel="bookmark">add-two-number</a></div>
+      <div class="popular-posts-title"><a href="/2015/03/11/Number-Of-1-Bits/" rel="bookmark">Number of 1 Bits</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2015/03/11/Number-Of-1-Bits/" rel="bookmark">Number of 1 Bits</a></div>
+      <div class="popular-posts-title"><a href="/2015/04/14/Add-Two-Number/" rel="bookmark">add-two-number</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2015/01/04/Path-Sum/" rel="bookmark">Path Sum</a></div>

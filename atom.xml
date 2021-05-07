@@ -3,10 +3,10 @@
   <title>Nicksxs&#39;s Blog</title>
   <icon>https://nicksxs.me/icon.png</icon>
   <subtitle>What hurts more, the pain of hard work or the pain of regret?</subtitle>
-  <link href="/atom.xml" rel="self"/>
+  <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2021-05-01T15:28:26.727Z</updated>
+  <updated>2021-05-01T15:28:26.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -21,37 +21,35 @@
     <link href="https://nicksxs.me/2021/05/01/Leetcode-48-%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F-Rotate-Image-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2021/05/01/Leetcode-48-%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F-Rotate-Image-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2021-05-01T15:28:26.000Z</published>
-    <updated>2021-05-01T15:28:26.727Z</updated>
+    <updated>2021-05-01T15:28:26.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;You are given an n x n 2D &lt;code&gt;matrix&lt;/code&gt; representing an
+    <summary type="html">&lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;You are given an n x n 2D &lt;code&gt;matrix&lt;/code&gt; representing an</summary>
         
       
     
-    </summary>
     
     
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
+    <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
-      <category term="Rotate Image" scheme="https://nicksxs.me/categories/Java/leetcode/Rotate-Image/"/>
+    <category term="Rotate Image" scheme="https://nicksxs.me/categories/Java/leetcode/Rotate-Image/"/>
     
     
-      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
-      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
-      <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
-      <category term="Rotate Image" scheme="https://nicksxs.me/tags/Rotate-Image/"/>
+    <category term="Rotate Image" scheme="https://nicksxs.me/tags/Rotate-Image/"/>
     
-      <category term="矩阵" scheme="https://nicksxs.me/tags/%E7%9F%A9%E9%98%B5/"/>
+    <category term="矩阵" scheme="https://nicksxs.me/tags/%E7%9F%A9%E9%98%B5/"/>
     
   </entry>
   
@@ -60,33 +58,31 @@
     <link href="https://nicksxs.me/2021/04/18/rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>https://nicksxs.me/2021/04/18/rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
     <published>2021-04-18T14:04:01.000Z</published>
-    <updated>2021-04-18T14:06:53.609Z</updated>
+    <updated>2021-04-18T14:04:01.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;最近在看 《rust 权威指南》，还是难度比较大的，它里面的一些概念跟之前的用过的都有比较大的差别&lt;br&gt;比起有 gc 的虚拟机语言，跟像 C 和 C++这种主动释放内存的，rust
+    <summary type="html">&lt;p&gt;最近在看 《rust 权威指南》，还是难度比较大的，它里面的一些概念跟之前的用过的都有比较大的差别&lt;br&gt;比起有 gc 的虚拟机语言，跟像 C 和 C++这种主动释放内存的，rust</summary>
         
       
     
-    </summary>
     
     
-      <category term="语言" scheme="https://nicksxs.me/categories/%E8%AF%AD%E8%A8%80/"/>
+    <category term="语言" scheme="https://nicksxs.me/categories/%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="Rust" scheme="https://nicksxs.me/categories/Rust/"/>
+    <category term="Rust" scheme="https://nicksxs.me/categories/Rust/"/>
     
     
-      <category term="Rust" scheme="https://nicksxs.me/tags/Rust/"/>
+    <category term="Rust" scheme="https://nicksxs.me/tags/Rust/"/>
     
-      <category term="所有权" scheme="https://nicksxs.me/tags/%E6%89%80%E6%9C%89%E6%9D%83/"/>
+    <category term="所有权" scheme="https://nicksxs.me/tags/%E6%89%80%E6%9C%89%E6%9D%83/"/>
     
-      <category term="内存分布" scheme="https://nicksxs.me/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/"/>
+    <category term="内存分布" scheme="https://nicksxs.me/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/"/>
     
-      <category term="新语言" scheme="https://nicksxs.me/tags/%E6%96%B0%E8%AF%AD%E8%A8%80/"/>
+    <category term="新语言" scheme="https://nicksxs.me/tags/%E6%96%B0%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
@@ -95,37 +91,35 @@
     <link href="https://nicksxs.me/2021/04/18/rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%89%80%E6%9C%89%E6%9D%83%E4%BA%8C/"/>
     <id>https://nicksxs.me/2021/04/18/rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%89%80%E6%9C%89%E6%9D%83%E4%BA%8C/</id>
     <published>2021-04-18T14:03:10.000Z</published>
-    <updated>2021-04-25T12:22:00.083Z</updated>
+    <updated>2021-04-18T14:03:10.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;这里需要说道函数和返回值了&lt;br&gt;可以看书上的这个例子&lt;br&gt;&lt;img data-src=&quot;https://gitee.com/nicksxs/images/raw/master/uPic/fnlsui.png&quot;
+    <summary type="html">&lt;p&gt;这里需要说道函数和返回值了&lt;br&gt;可以看书上的这个例子&lt;br&gt;&lt;img</summary>
         
       
     
-    </summary>
     
     
-      <category term="语言" scheme="https://nicksxs.me/categories/%E8%AF%AD%E8%A8%80/"/>
+    <category term="语言" scheme="https://nicksxs.me/categories/%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="Rust" scheme="https://nicksxs.me/categories/Rust/"/>
+    <category term="Rust" scheme="https://nicksxs.me/categories/Rust/"/>
     
     
-      <category term="Rust" scheme="https://nicksxs.me/tags/Rust/"/>
+    <category term="Rust" scheme="https://nicksxs.me/tags/Rust/"/>
     
-      <category term="所有权" scheme="https://nicksxs.me/tags/%E6%89%80%E6%9C%89%E6%9D%83/"/>
+    <category term="所有权" scheme="https://nicksxs.me/tags/%E6%89%80%E6%9C%89%E6%9D%83/"/>
     
-      <category term="内存分布" scheme="https://nicksxs.me/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/"/>
+    <category term="内存分布" scheme="https://nicksxs.me/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/"/>
     
-      <category term="新语言" scheme="https://nicksxs.me/tags/%E6%96%B0%E8%AF%AD%E8%A8%80/"/>
+    <category term="新语言" scheme="https://nicksxs.me/tags/%E6%96%B0%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="可变引用" scheme="https://nicksxs.me/tags/%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/"/>
+    <category term="可变引用" scheme="https://nicksxs.me/tags/%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/"/>
     
-      <category term="不可变引用" scheme="https://nicksxs.me/tags/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/"/>
+    <category term="不可变引用" scheme="https://nicksxs.me/tags/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/"/>
     
   </entry>
   
@@ -134,49 +128,47 @@
     <link href="https://nicksxs.me/2021/04/11/%E8%81%8A%E8%81%8A%E5%8E%A6%E9%97%A8%E6%97%85%E6%B8%B8%E7%9A%84%E5%A5%BD%E4%B8%8E%E4%B8%8D%E5%A5%BD/"/>
     <id>https://nicksxs.me/2021/04/11/%E8%81%8A%E8%81%8A%E5%8E%A6%E9%97%A8%E6%97%85%E6%B8%B8%E7%9A%84%E5%A5%BD%E4%B8%8E%E4%B8%8D%E5%A5%BD/</id>
     <published>2021-04-11T15:38:07.000Z</published>
-    <updated>2021-04-11T15:38:07.755Z</updated>
+    <updated>2021-04-11T15:38:07.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;这几天去了趟厦门，原来几年前就想去了，本来都请好假了，后面因为一些事情没去成，这次刚好公司组织，就跟 LD
+    <summary type="html">&lt;p&gt;这几天去了趟厦门，原来几年前就想去了，本来都请好假了，后面因为一些事情没去成，这次刚好公司组织，就跟 LD</summary>
         
       
     
-    </summary>
     
     
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="旅游" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E6%97%85%E6%B8%B8/"/>
+    <category term="旅游" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E6%97%85%E6%B8%B8/"/>
     
     
-      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="杭州" scheme="https://nicksxs.me/tags/%E6%9D%AD%E5%B7%9E/"/>
+    <category term="杭州" scheme="https://nicksxs.me/tags/%E6%9D%AD%E5%B7%9E/"/>
     
-      <category term="旅游" scheme="https://nicksxs.me/tags/%E6%97%85%E6%B8%B8/"/>
+    <category term="旅游" scheme="https://nicksxs.me/tags/%E6%97%85%E6%B8%B8/"/>
     
-      <category term="厦门" scheme="https://nicksxs.me/tags/%E5%8E%A6%E9%97%A8/"/>
+    <category term="厦门" scheme="https://nicksxs.me/tags/%E5%8E%A6%E9%97%A8/"/>
     
-      <category term="中山路" scheme="https://nicksxs.me/tags/%E4%B8%AD%E5%B1%B1%E8%B7%AF/"/>
+    <category term="中山路" scheme="https://nicksxs.me/tags/%E4%B8%AD%E5%B1%B1%E8%B7%AF/"/>
     
-      <category term="局口街" scheme="https://nicksxs.me/tags/%E5%B1%80%E5%8F%A3%E8%A1%97/"/>
+    <category term="局口街" scheme="https://nicksxs.me/tags/%E5%B1%80%E5%8F%A3%E8%A1%97/"/>
     
-      <category term="鼓浪屿" scheme="https://nicksxs.me/tags/%E9%BC%93%E6%B5%AA%E5%B1%BF/"/>
+    <category term="鼓浪屿" scheme="https://nicksxs.me/tags/%E9%BC%93%E6%B5%AA%E5%B1%BF/"/>
     
-      <category term="曾厝垵" scheme="https://nicksxs.me/tags/%E6%9B%BE%E5%8E%9D%E5%9E%B5/"/>
+    <category term="曾厝垵" scheme="https://nicksxs.me/tags/%E6%9B%BE%E5%8E%9D%E5%9E%B5/"/>
     
-      <category term="植物园" scheme="https://nicksxs.me/tags/%E6%A4%8D%E7%89%A9%E5%9B%AD/"/>
+    <category term="植物园" scheme="https://nicksxs.me/tags/%E6%A4%8D%E7%89%A9%E5%9B%AD/"/>
     
-      <category term="马戏团" scheme="https://nicksxs.me/tags/%E9%A9%AC%E6%88%8F%E5%9B%A2/"/>
+    <category term="马戏团" scheme="https://nicksxs.me/tags/%E9%A9%AC%E6%88%8F%E5%9B%A2/"/>
     
-      <category term="沙茶面" scheme="https://nicksxs.me/tags/%E6%B2%99%E8%8C%B6%E9%9D%A2/"/>
+    <category term="沙茶面" scheme="https://nicksxs.me/tags/%E6%B2%99%E8%8C%B6%E9%9D%A2/"/>
     
-      <category term="海蛎煎" scheme="https://nicksxs.me/tags/%E6%B5%B7%E8%9B%8E%E7%85%8E/"/>
+    <category term="海蛎煎" scheme="https://nicksxs.me/tags/%E6%B5%B7%E8%9B%8E%E7%85%8E/"/>
     
   </entry>
   
@@ -185,47 +177,45 @@
     <link href="https://nicksxs.me/2021/04/04/%E8%81%8A%E8%81%8A-dubbo-%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     <id>https://nicksxs.me/2021/04/04/%E8%81%8A%E8%81%8A-dubbo-%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/</id>
     <published>2021-04-04T14:14:57.000Z</published>
-    <updated>2021-04-04T14:14:57.278Z</updated>
+    <updated>2021-04-04T14:14:57.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;之前没注意到这一块，只是比较模糊的印象 dubbo 自己基于 ThreadPoolExecutor 定义了几个线程池，但是没具体看过，主要是觉得就是为了避免使用 jdk
+    <summary type="html">&lt;p&gt;之前没注意到这一块，只是比较模糊的印象 dubbo 自己基于 ThreadPoolExecutor 定义了几个线程池，但是没具体看过，主要是觉得就是为了避免使用 jdk</summary>
         
       
     
-    </summary>
     
     
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="Dubbo - 线程池" scheme="https://nicksxs.me/categories/Dubbo-%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    <category term="Dubbo - 线程池" scheme="https://nicksxs.me/categories/Dubbo-%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     
-      <category term="Dubbo" scheme="https://nicksxs.me/categories/Dubbo/"/>
+    <category term="Dubbo" scheme="https://nicksxs.me/categories/Dubbo/"/>
     
-      <category term="线程池" scheme="https://nicksxs.me/categories/Dubbo/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    <category term="线程池" scheme="https://nicksxs.me/categories/Dubbo/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     
-      <category term="ThreadPool" scheme="https://nicksxs.me/categories/Dubbo/%E7%BA%BF%E7%A8%8B%E6%B1%A0/ThreadPool/"/>
+    <category term="ThreadPool" scheme="https://nicksxs.me/categories/Dubbo/%E7%BA%BF%E7%A8%8B%E6%B1%A0/ThreadPool/"/>
     
     
-      <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
-      <category term="Dubbo" scheme="https://nicksxs.me/tags/Dubbo/"/>
+    <category term="Dubbo" scheme="https://nicksxs.me/tags/Dubbo/"/>
     
-      <category term="ThreadPool" scheme="https://nicksxs.me/tags/ThreadPool/"/>
+    <category term="ThreadPool" scheme="https://nicksxs.me/tags/ThreadPool/"/>
     
-      <category term="线程池" scheme="https://nicksxs.me/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    <category term="线程池" scheme="https://nicksxs.me/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     
-      <category term="FixedThreadPool" scheme="https://nicksxs.me/tags/FixedThreadPool/"/>
+    <category term="FixedThreadPool" scheme="https://nicksxs.me/tags/FixedThreadPool/"/>
     
-      <category term="LimitedThreadPool" scheme="https://nicksxs.me/tags/LimitedThreadPool/"/>
+    <category term="LimitedThreadPool" scheme="https://nicksxs.me/tags/LimitedThreadPool/"/>
     
-      <category term="EagerThreadPool" scheme="https://nicksxs.me/tags/EagerThreadPool/"/>
+    <category term="EagerThreadPool" scheme="https://nicksxs.me/tags/EagerThreadPool/"/>
     
-      <category term="CachedThreadPool" scheme="https://nicksxs.me/tags/CachedThreadPool/"/>
+    <category term="CachedThreadPool" scheme="https://nicksxs.me/tags/CachedThreadPool/"/>
     
   </entry>
   
@@ -234,41 +224,39 @@
     <link href="https://nicksxs.me/2021/03/31/2020-%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
     <id>https://nicksxs.me/2021/03/31/2020-%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</id>
     <published>2021-03-31T15:37:28.000Z</published>
-    <updated>2021-04-01T12:13:24.747Z</updated>
+    <updated>2021-03-31T15:37:28.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;h2 id=&quot;拖更原因&quot;&gt;&lt;a href=&quot;#拖更原因&quot; class=&quot;headerlink&quot;
+    <summary type="html">&lt;h2 id=&quot;拖更原因&quot;&gt;&lt;a href=&quot;#拖更原因&quot; class=&quot;headerlink&quot;</summary>
         
       
     
-    </summary>
     
     
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="年终总结" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
+    <category term="年终总结" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
     
-      <category term="2020" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/2020/"/>
+    <category term="2020" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/2020/"/>
     
-      <category term="年终总结" scheme="https://nicksxs.me/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
+    <category term="年终总结" scheme="https://nicksxs.me/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
     
-      <category term="2020" scheme="https://nicksxs.me/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/2020/"/>
+    <category term="2020" scheme="https://nicksxs.me/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/2020/"/>
     
     
-      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="年终总结" scheme="https://nicksxs.me/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
+    <category term="年终总结" scheme="https://nicksxs.me/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
     
-      <category term="2020" scheme="https://nicksxs.me/tags/2020/"/>
+    <category term="2020" scheme="https://nicksxs.me/tags/2020/"/>
     
-      <category term="2021" scheme="https://nicksxs.me/tags/2021/"/>
+    <category term="2021" scheme="https://nicksxs.me/tags/2021/"/>
     
-      <category term="拖更" scheme="https://nicksxs.me/tags/%E6%8B%96%E6%9B%B4/"/>
+    <category term="拖更" scheme="https://nicksxs.me/tags/%E6%8B%96%E6%9B%B4/"/>
     
   </entry>
   
@@ -277,41 +265,39 @@
     <link href="https://nicksxs.me/2021/03/28/%E8%81%8A%E8%81%8A-Linux-%E4%B8%8B%E7%9A%84-top-%E5%91%BD%E4%BB%A4/"/>
     <id>https://nicksxs.me/2021/03/28/%E8%81%8A%E8%81%8A-Linux-%E4%B8%8B%E7%9A%84-top-%E5%91%BD%E4%BB%A4/</id>
     <published>2021-03-28T15:06:21.000Z</published>
-    <updated>2021-03-28T15:06:21.180Z</updated>
+    <updated>2021-03-28T15:06:21.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;top 命令在日常的 Linux
+    <summary type="html">&lt;p&gt;top 命令在日常的 Linux</summary>
         
       
     
-    </summary>
     
     
-      <category term="Linux" scheme="https://nicksxs.me/categories/Linux/"/>
+    <category term="Linux" scheme="https://nicksxs.me/categories/Linux/"/>
     
-      <category term="命令" scheme="https://nicksxs.me/categories/Linux/%E5%91%BD%E4%BB%A4/"/>
+    <category term="命令" scheme="https://nicksxs.me/categories/Linux/%E5%91%BD%E4%BB%A4/"/>
     
-      <category term="top" scheme="https://nicksxs.me/categories/Linux/%E5%91%BD%E4%BB%A4/top/"/>
+    <category term="top" scheme="https://nicksxs.me/categories/Linux/%E5%91%BD%E4%BB%A4/top/"/>
     
-      <category term="小技巧" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    <category term="小技巧" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
-      <category term="top" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/top/"/>
+    <category term="top" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/top/"/>
     
-      <category term="排序" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/top/%E6%8E%92%E5%BA%8F/"/>
+    <category term="排序" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/top/%E6%8E%92%E5%BA%8F/"/>
     
     
-      <category term="排序" scheme="https://nicksxs.me/tags/%E6%8E%92%E5%BA%8F/"/>
+    <category term="排序" scheme="https://nicksxs.me/tags/%E6%8E%92%E5%BA%8F/"/>
     
-      <category term="linux" scheme="https://nicksxs.me/tags/linux/"/>
+    <category term="linux" scheme="https://nicksxs.me/tags/linux/"/>
     
-      <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
-      <category term="top" scheme="https://nicksxs.me/tags/top/"/>
+    <category term="top" scheme="https://nicksxs.me/tags/top/"/>
     
   </entry>
   
@@ -320,45 +306,43 @@
     <link href="https://nicksxs.me/2021/03/21/%E5%85%B3%E4%BA%8E%E5%85%AC%E5%85%B1%E4%BA%A4%E9%80%9A%E5%86%8D%E5%90%90%E4%B8%AA%E6%A7%BD/"/>
     <id>https://nicksxs.me/2021/03/21/%E5%85%B3%E4%BA%8E%E5%85%AC%E5%85%B1%E4%BA%A4%E9%80%9A%E5%86%8D%E5%90%90%E4%B8%AA%E6%A7%BD/</id>
     <published>2021-03-21T15:23:40.000Z</published>
-    <updated>2021-03-21T15:23:40.505Z</updated>
+    <updated>2021-03-21T15:23:40.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;事情源于周末来回家发生的两件事情，先是回去的时候从高铁下车要坐公交，现在算是有个比较好的临时候车点了，但是可能由于疫情好转，晚上都不用检查健康码就可以进候车点，但是上公交的时候还是需要看健康码，一般情况下从高铁下来的，各个地方的人都有，而且也不太清楚这边上公交车需要查验健康
+    <summary type="html">&lt;p&gt;事情源于周末来回家发生的两件事情，先是回去的时候从高铁下车要坐公交，现在算是有个比较好的临时候车点了，但是可能由于疫情好转，晚上都不用检查健康码就可以进候车点，但是上公交的时候还是需要看健康码，一般情况下从高铁下来的，各个地方的人都有，而且也不太清楚这边上公交车需要查验健康</summary>
         
       
     
-    </summary>
     
     
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="公交" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%85%AC%E4%BA%A4/"/>
+    <category term="公交" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%85%AC%E4%BA%A4/"/>
     
     
-      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="开车" scheme="https://nicksxs.me/tags/%E5%BC%80%E8%BD%A6/"/>
+    <category term="开车" scheme="https://nicksxs.me/tags/%E5%BC%80%E8%BD%A6/"/>
     
-      <category term="加塞" scheme="https://nicksxs.me/tags/%E5%8A%A0%E5%A1%9E/"/>
+    <category term="加塞" scheme="https://nicksxs.me/tags/%E5%8A%A0%E5%A1%9E/"/>
     
-      <category term="糟心事" scheme="https://nicksxs.me/tags/%E7%B3%9F%E5%BF%83%E4%BA%8B/"/>
+    <category term="糟心事" scheme="https://nicksxs.me/tags/%E7%B3%9F%E5%BF%83%E4%BA%8B/"/>
     
-      <category term="规则" scheme="https://nicksxs.me/tags/%E8%A7%84%E5%88%99/"/>
+    <category term="规则" scheme="https://nicksxs.me/tags/%E8%A7%84%E5%88%99/"/>
     
-      <category term="公交" scheme="https://nicksxs.me/tags/%E5%85%AC%E4%BA%A4/"/>
+    <category term="公交" scheme="https://nicksxs.me/tags/%E5%85%AC%E4%BA%A4/"/>
     
-      <category term="路政规划" scheme="https://nicksxs.me/tags/%E8%B7%AF%E6%94%BF%E8%A7%84%E5%88%92/"/>
+    <category term="路政规划" scheme="https://nicksxs.me/tags/%E8%B7%AF%E6%94%BF%E8%A7%84%E5%88%92/"/>
     
-      <category term="基础设施" scheme="https://nicksxs.me/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/"/>
+    <category term="基础设施" scheme="https://nicksxs.me/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/"/>
     
-      <category term="杭州" scheme="https://nicksxs.me/tags/%E6%9D%AD%E5%B7%9E/"/>
+    <category term="杭州" scheme="https://nicksxs.me/tags/%E6%9D%AD%E5%B7%9E/"/>
     
-      <category term="健康码" scheme="https://nicksxs.me/tags/%E5%81%A5%E5%BA%B7%E7%A0%81/"/>
+    <category term="健康码" scheme="https://nicksxs.me/tags/%E5%81%A5%E5%BA%B7%E7%A0%81/"/>
     
   </entry>
   
@@ -367,39 +351,37 @@
     <link href="https://nicksxs.me/2021/03/14/Leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-Best-Time-to-Buy-and-Sell-Stock-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2021/03/14/Leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-Best-Time-to-Buy-and-Sell-Stock-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2021-03-14T14:34:30.000Z</published>
-    <updated>2021-03-14T14:34:30.343Z</updated>
+    <updated>2021-03-14T14:34:30.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;You are given an array &lt;code&gt;prices&lt;/code&gt; where
+    <summary type="html">&lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;You are given an array &lt;code&gt;prices&lt;/code&gt; where</summary>
         
       
     
-    </summary>
     
     
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
+    <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
     
-      <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
+    <category term="DP" scheme="https://nicksxs.me/categories/DP/"/>
     
-      <category term="DP" scheme="https://nicksxs.me/categories/DP/"/>
+    <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
     
-      <category term="DP" scheme="https://nicksxs.me/categories/leetcode/java/DP/"/>
+    <category term="DP" scheme="https://nicksxs.me/categories/leetcode/java/DP/"/>
     
     
-      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
-      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
-      <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
-      <category term="DP" scheme="https://nicksxs.me/tags/DP/"/>
+    <category term="DP" scheme="https://nicksxs.me/tags/DP/"/>
     
   </entry>
   
@@ -408,38 +390,36 @@
     <link href="https://nicksxs.me/2021/03/07/%E3%80%8A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95%E6%89%8B%E5%86%8C%E8%AF%BB%E4%B9%A6%E3%80%8B%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95/"/>
     <id>https://nicksxs.me/2021/03/07/%E3%80%8A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95%E6%89%8B%E5%86%8C%E8%AF%BB%E4%B9%A6%E3%80%8B%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95/</id>
     <published>2021-03-07T12:37:06.000Z</published>
-    <updated>2021-03-07T12:37:06.387Z</updated>
+    <updated>2021-03-07T12:37:06.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;最近看了下这本垃圾回收算法手册，看到了第三章的标记-整理回收算法，做个简单的读书笔记&lt;/p&gt;
-&lt;h3 id=&quot;双指针整理算法&quot;&gt;&lt;a href=&quot;#双指针整理算法&quot; class=&quot;headerlink&quot;
+    <summary type="html">&lt;p&gt;最近看了下这本垃圾回收算法手册，看到了第三章的标记-整理回收算法，做个简单的读书笔记&lt;/p&gt;
+&lt;h3 id=&quot;双指针整理算法&quot;&gt;&lt;a href=&quot;#双指针整理算法&quot; class=&quot;headerlink&quot;</summary>
         
       
     
-    </summary>
     
     
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="gc" scheme="https://nicksxs.me/categories/Java/gc/"/>
+    <category term="gc" scheme="https://nicksxs.me/categories/Java/gc/"/>
     
-      <category term="jvm" scheme="https://nicksxs.me/categories/Java/gc/jvm/"/>
+    <category term="jvm" scheme="https://nicksxs.me/categories/Java/gc/jvm/"/>
     
     
-      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
-      <category term="gc" scheme="https://nicksxs.me/tags/gc/"/>
+    <category term="gc" scheme="https://nicksxs.me/tags/gc/"/>
     
-      <category term="标记整理" scheme="https://nicksxs.me/tags/%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86/"/>
+    <category term="标记整理" scheme="https://nicksxs.me/tags/%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86/"/>
     
-      <category term="垃圾回收" scheme="https://nicksxs.me/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/"/>
+    <category term="垃圾回收" scheme="https://nicksxs.me/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/"/>
     
-      <category term="jvm" scheme="https://nicksxs.me/tags/jvm/"/>
+    <category term="jvm" scheme="https://nicksxs.me/tags/jvm/"/>
     
   </entry>
   
@@ -448,45 +428,43 @@
     <link href="https://nicksxs.me/2021/02/28/%E9%97%B2%E8%81%8A%E4%B8%8B%E4%B9%98%E5%85%AC%E4%BA%A4%E7%9A%84%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/"/>
     <id>https://nicksxs.me/2021/02/28/%E9%97%B2%E8%81%8A%E4%B8%8B%E4%B9%98%E5%85%AC%E4%BA%A4%E7%9A%84%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/</id>
     <published>2021-02-28T13:56:42.000Z</published>
-    <updated>2021-02-28T13:56:42.363Z</updated>
+    <updated>2021-02-28T13:56:42.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;新年开工开车来杭州，因为没有车位加限行今天来就没开车来了，从东站做公交回住的地方，这班神奇的车我之前也吐槽过了，有神奇的乘客和神奇的司机，因为基本上这班车是从我毕业就开始乘了，所以也算是比较熟悉了，以前总体感觉不太好的是乘坐时间太长了，不过这个也不能怪车，是我自己住得远（离
+    <summary type="html">&lt;p&gt;新年开工开车来杭州，因为没有车位加限行今天来就没开车来了，从东站做公交回住的地方，这班神奇的车我之前也吐槽过了，有神奇的乘客和神奇的司机，因为基本上这班车是从我毕业就开始乘了，所以也算是比较熟悉了，以前总体感觉不太好的是乘坐时间太长了，不过这个也不能怪车，是我自己住得远（离</summary>
         
       
     
-    </summary>
     
     
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="公交" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%85%AC%E4%BA%A4/"/>
+    <category term="公交" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%85%AC%E4%BA%A4/"/>
     
     
-      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="开车" scheme="https://nicksxs.me/tags/%E5%BC%80%E8%BD%A6/"/>
+    <category term="开车" scheme="https://nicksxs.me/tags/%E5%BC%80%E8%BD%A6/"/>
     
-      <category term="加塞" scheme="https://nicksxs.me/tags/%E5%8A%A0%E5%A1%9E/"/>
+    <category term="加塞" scheme="https://nicksxs.me/tags/%E5%8A%A0%E5%A1%9E/"/>
     
-      <category term="糟心事" scheme="https://nicksxs.me/tags/%E7%B3%9F%E5%BF%83%E4%BA%8B/"/>
+    <category term="糟心事" scheme="https://nicksxs.me/tags/%E7%B3%9F%E5%BF%83%E4%BA%8B/"/>
     
-      <category term="规则" scheme="https://nicksxs.me/tags/%E8%A7%84%E5%88%99/"/>
+    <category term="规则" scheme="https://nicksxs.me/tags/%E8%A7%84%E5%88%99/"/>
     
-      <category term="公交" scheme="https://nicksxs.me/tags/%E5%85%AC%E4%BA%A4/"/>
+    <category term="公交" scheme="https://nicksxs.me/tags/%E5%85%AC%E4%BA%A4/"/>
     
-      <category term="路政规划" scheme="https://nicksxs.me/tags/%E8%B7%AF%E6%94%BF%E8%A7%84%E5%88%92/"/>
+    <category term="路政规划" scheme="https://nicksxs.me/tags/%E8%B7%AF%E6%94%BF%E8%A7%84%E5%88%92/"/>
     
-      <category term="基础设施" scheme="https://nicksxs.me/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/"/>
+    <category term="基础设施" scheme="https://nicksxs.me/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/"/>
     
-      <category term="杭州" scheme="https://nicksxs.me/tags/%E6%9D%AD%E5%B7%9E/"/>
+    <category term="杭州" scheme="https://nicksxs.me/tags/%E6%9D%AD%E5%B7%9E/"/>
     
-      <category term="高速" scheme="https://nicksxs.me/tags/%E9%AB%98%E9%80%9F/"/>
+    <category term="高速" scheme="https://nicksxs.me/tags/%E9%AB%98%E9%80%9F/"/>
     
   </entry>
   
@@ -495,43 +473,41 @@
     <link href="https://nicksxs.me/2021/02/21/AQS-%E4%B9%8B-Condition-%E6%B5%85%E6%9E%90%E7%AC%94%E8%AE%B0/"/>
     <id>https://nicksxs.me/2021/02/21/AQS-%E4%B9%8B-Condition-%E6%B5%85%E6%9E%90%E7%AC%94%E8%AE%B0/</id>
     <published>2021-02-21T13:27:06.000Z</published>
-    <updated>2021-02-21T13:27:06.183Z</updated>
+    <updated>2021-02-21T13:27:06.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;Condition也是 AQS 中很重要的一块内容，可以先看段示例代码，这段代码应该来自于Doug Lea大大，可以在 javadoc 中的 &lt;a
+    <summary type="html">&lt;p&gt;Condition也是 AQS 中很重要的一块内容，可以先看段示例代码，这段代码应该来自于Doug Lea大大，可以在 javadoc 中的 &lt;a</summary>
         
       
     
-    </summary>
     
     
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="并发" scheme="https://nicksxs.me/categories/Java/%E5%B9%B6%E5%8F%91/"/>
+    <category term="并发" scheme="https://nicksxs.me/categories/Java/%E5%B9%B6%E5%8F%91/"/>
     
     
-      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
-      <category term="aqs" scheme="https://nicksxs.me/tags/aqs/"/>
+    <category term="aqs" scheme="https://nicksxs.me/tags/aqs/"/>
     
-      <category term="并发" scheme="https://nicksxs.me/tags/%E5%B9%B6%E5%8F%91/"/>
+    <category term="并发" scheme="https://nicksxs.me/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="j.u.c" scheme="https://nicksxs.me/tags/j-u-c/"/>
+    <category term="j.u.c" scheme="https://nicksxs.me/tags/j-u-c/"/>
     
-      <category term="condition" scheme="https://nicksxs.me/tags/condition/"/>
+    <category term="condition" scheme="https://nicksxs.me/tags/condition/"/>
     
-      <category term="await" scheme="https://nicksxs.me/tags/await/"/>
+    <category term="await" scheme="https://nicksxs.me/tags/await/"/>
     
-      <category term="signal" scheme="https://nicksxs.me/tags/signal/"/>
+    <category term="signal" scheme="https://nicksxs.me/tags/signal/"/>
     
-      <category term="lock" scheme="https://nicksxs.me/tags/lock/"/>
+    <category term="lock" scheme="https://nicksxs.me/tags/lock/"/>
     
-      <category term="unlock" scheme="https://nicksxs.me/tags/unlock/"/>
+    <category term="unlock" scheme="https://nicksxs.me/tags/unlock/"/>
     
   </entry>
   
@@ -540,34 +516,32 @@
     <link href="https://nicksxs.me/2021/02/14/AQS%E7%AF%87%E4%B8%80/"/>
     <id>https://nicksxs.me/2021/02/14/AQS%E7%AF%87%E4%B8%80/</id>
     <published>2021-02-14T14:51:54.000Z</published>
-    <updated>2021-02-28T12:02:18.297Z</updated>
+    <updated>2021-02-14T14:51:54.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;很多东西都是时看时新，而且时间长了也会忘，所以再来复习下，也会有一些新的角度看法这次来聊下AQS的内容，主要是这几个点，&lt;/p&gt;
-&lt;h2 id=&quot;第一个线程&quot;&gt;&lt;a href=&quot;#第一个线程&quot; class=&quot;headerlink&quot;
+    <summary type="html">&lt;p&gt;很多东西都是时看时新，而且时间长了也会忘，所以再来复习下，也会有一些新的角度看法这次来聊下AQS的内容，主要是这几个点，&lt;/p&gt;
+&lt;h2 id=&quot;第一个线程&quot;&gt;&lt;a href=&quot;#第一个线程&quot; class=&quot;headerlink&quot;</summary>
         
       
     
-    </summary>
     
     
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="并发" scheme="https://nicksxs.me/categories/Java/%E5%B9%B6%E5%8F%91/"/>
+    <category term="并发" scheme="https://nicksxs.me/categories/Java/%E5%B9%B6%E5%8F%91/"/>
     
     
-      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
-      <category term="aqs" scheme="https://nicksxs.me/tags/aqs/"/>
+    <category term="aqs" scheme="https://nicksxs.me/tags/aqs/"/>
     
-      <category term="并发" scheme="https://nicksxs.me/tags/%E5%B9%B6%E5%8F%91/"/>
+    <category term="并发" scheme="https://nicksxs.me/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="j.u.c" scheme="https://nicksxs.me/tags/j-u-c/"/>
+    <category term="j.u.c" scheme="https://nicksxs.me/tags/j-u-c/"/>
     
   </entry>
   
@@ -576,39 +550,37 @@
     <link href="https://nicksxs.me/2021/02/07/%E5%85%B3%E4%BA%8E%E8%AF%BB%E4%B9%A6%E6%89%93%E5%8D%A1%E4%B8%8E%E5%88%86%E4%BA%AB/"/>
     <id>https://nicksxs.me/2021/02/07/%E5%85%B3%E4%BA%8E%E8%AF%BB%E4%B9%A6%E6%89%93%E5%8D%A1%E4%B8%8E%E5%88%86%E4%BA%AB/</id>
     <published>2021-02-07T15:13:39.000Z</published>
-    <updated>2021-02-07T15:13:39.017Z</updated>
+    <updated>2021-02-07T15:13:39.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;最近群里大佬发起了一个读书打卡活动，需要每天读一会书，在群里打卡分享感悟，争取一个月能读完一本书，说实话一天十分钟的读书时间倒是问题不大，不过每天都要打卡，而且一个月要读完一本书，其实难度还是有点大的，不过也想试试看。&lt;br&gt;之前某某老大给自己立了个
+    <summary type="html">&lt;p&gt;最近群里大佬发起了一个读书打卡活动，需要每天读一会书，在群里打卡分享感悟，争取一个月能读完一本书，说实话一天十分钟的读书时间倒是问题不大，不过每天都要打卡，而且一个月要读完一本书，其实难度还是有点大的，不过也想试试看。&lt;br&gt;之前某某老大给自己立了个</summary>
         
       
     
-    </summary>
     
     
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
     
-      <category term="白岩松" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E7%99%BD%E5%B2%A9%E6%9D%BE/"/>
+    <category term="白岩松" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E7%99%BD%E5%B2%A9%E6%9D%BE/"/>
     
-      <category term="幸福了吗" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E7%99%BD%E5%B2%A9%E6%9D%BE/%E5%B9%B8%E7%A6%8F%E4%BA%86%E5%90%97/"/>
+    <category term="幸福了吗" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E7%99%BD%E5%B2%A9%E6%9D%BE/%E5%B9%B8%E7%A6%8F%E4%BA%86%E5%90%97/"/>
     
     
-      <category term="读后感" scheme="https://nicksxs.me/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    <category term="读后感" scheme="https://nicksxs.me/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
     
-      <category term="读书" scheme="https://nicksxs.me/tags/%E8%AF%BB%E4%B9%A6/"/>
+    <category term="读书" scheme="https://nicksxs.me/tags/%E8%AF%BB%E4%B9%A6/"/>
     
-      <category term="打卡" scheme="https://nicksxs.me/tags/%E6%89%93%E5%8D%A1/"/>
+    <category term="打卡" scheme="https://nicksxs.me/tags/%E6%89%93%E5%8D%A1/"/>
     
-      <category term="幸福了吗" scheme="https://nicksxs.me/tags/%E5%B9%B8%E7%A6%8F%E4%BA%86%E5%90%97/"/>
+    <category term="幸福了吗" scheme="https://nicksxs.me/tags/%E5%B9%B8%E7%A6%8F%E4%BA%86%E5%90%97/"/>
     
-      <category term="足球" scheme="https://nicksxs.me/tags/%E8%B6%B3%E7%90%83/"/>
+    <category term="足球" scheme="https://nicksxs.me/tags/%E8%B6%B3%E7%90%83/"/>
     
   </entry>
   
@@ -617,50 +589,48 @@
     <link href="https://nicksxs.me/2021/01/31/%E8%81%8A%E8%81%8A-redis-%E7%BC%93%E5%AD%98%E7%9A%84%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/"/>
     <id>https://nicksxs.me/2021/01/31/%E8%81%8A%E8%81%8A-redis-%E7%BC%93%E5%AD%98%E7%9A%84%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/</id>
     <published>2021-01-31T15:02:44.000Z</published>
-    <updated>2021-01-31T15:02:44.242Z</updated>
+    <updated>2021-01-31T15:02:44.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;前面写过一系列的 redis 源码分析的，但是实际上很多的问题还是需要结合实际的使用，然后其实就避不开缓存使用的三个著名问题，穿透，击穿和雪崩，这三个概念也是有着千丝万缕的关系，&lt;/p&gt;
-&lt;h3 id=&quot;缓存穿透&quot;&gt;&lt;a href=&quot;#缓存穿透&quot;
+    <summary type="html">&lt;p&gt;前面写过一系列的 redis 源码分析的，但是实际上很多的问题还是需要结合实际的使用，然后其实就避不开缓存使用的三个著名问题，穿透，击穿和雪崩，这三个概念也是有着千丝万缕的关系，&lt;/p&gt;
+&lt;h3 id=&quot;缓存穿透&quot;&gt;&lt;a href=&quot;#缓存穿透&quot;</summary>
         
       
     
-    </summary>
     
     
-      <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
+    <category term="Redis" scheme="https://nicksxs.me/categories/Redis/"/>
     
-      <category term="应用" scheme="https://nicksxs.me/categories/Redis/%E5%BA%94%E7%94%A8/"/>
+    <category term="应用" scheme="https://nicksxs.me/categories/Redis/%E5%BA%94%E7%94%A8/"/>
     
-      <category term="缓存" scheme="https://nicksxs.me/categories/Redis/%E7%BC%93%E5%AD%98/"/>
+    <category term="缓存" scheme="https://nicksxs.me/categories/Redis/%E7%BC%93%E5%AD%98/"/>
     
-      <category term="缓存" scheme="https://nicksxs.me/categories/%E7%BC%93%E5%AD%98/"/>
+    <category term="缓存" scheme="https://nicksxs.me/categories/%E7%BC%93%E5%AD%98/"/>
     
-      <category term="穿透" scheme="https://nicksxs.me/categories/%E7%BC%93%E5%AD%98/%E7%A9%BF%E9%80%8F/"/>
+    <category term="穿透" scheme="https://nicksxs.me/categories/%E7%BC%93%E5%AD%98/%E7%A9%BF%E9%80%8F/"/>
     
-      <category term="击穿" scheme="https://nicksxs.me/categories/%E7%BC%93%E5%AD%98/%E7%A9%BF%E9%80%8F/%E5%87%BB%E7%A9%BF/"/>
+    <category term="击穿" scheme="https://nicksxs.me/categories/%E7%BC%93%E5%AD%98/%E7%A9%BF%E9%80%8F/%E5%87%BB%E7%A9%BF/"/>
     
-      <category term="雪崩" scheme="https://nicksxs.me/categories/%E7%BC%93%E5%AD%98/%E7%A9%BF%E9%80%8F/%E5%87%BB%E7%A9%BF/%E9%9B%AA%E5%B4%A9/"/>
+    <category term="雪崩" scheme="https://nicksxs.me/categories/%E7%BC%93%E5%AD%98/%E7%A9%BF%E9%80%8F/%E5%87%BB%E7%A9%BF/%E9%9B%AA%E5%B4%A9/"/>
     
     
-      <category term="Redis" scheme="https://nicksxs.me/tags/Redis/"/>
+    <category term="Redis" scheme="https://nicksxs.me/tags/Redis/"/>
     
-      <category term="缓存穿透" scheme="https://nicksxs.me/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/"/>
+    <category term="缓存穿透" scheme="https://nicksxs.me/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/"/>
     
-      <category term="缓存击穿" scheme="https://nicksxs.me/tags/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/"/>
+    <category term="缓存击穿" scheme="https://nicksxs.me/tags/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/"/>
     
-      <category term="缓存雪崩" scheme="https://nicksxs.me/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/"/>
+    <category term="缓存雪崩" scheme="https://nicksxs.me/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/"/>
     
-      <category term="布隆过滤器" scheme="https://nicksxs.me/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/"/>
+    <category term="布隆过滤器" scheme="https://nicksxs.me/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/"/>
     
-      <category term="bloom filter" scheme="https://nicksxs.me/tags/bloom-filter/"/>
+    <category term="bloom filter" scheme="https://nicksxs.me/tags/bloom-filter/"/>
     
-      <category term="互斥锁" scheme="https://nicksxs.me/tags/%E4%BA%92%E6%96%A5%E9%94%81/"/>
+    <category term="互斥锁" scheme="https://nicksxs.me/tags/%E4%BA%92%E6%96%A5%E9%94%81/"/>
     
   </entry>
   
@@ -669,41 +639,39 @@
     <link href="https://nicksxs.me/2021/01/24/Leetcode-124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C-Binary-Tree-Maximum-Path-Sum-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2021/01/24/Leetcode-124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C-Binary-Tree-Maximum-Path-Sum-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2021-01-24T14:45:03.000Z</published>
-    <updated>2021-01-24T14:45:03.748Z</updated>
+    <updated>2021-01-24T14:45:03.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;A &lt;strong&gt;path&lt;/strong&gt; in a binary tree is a sequence of
+    <summary type="html">&lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;A &lt;strong&gt;path&lt;/strong&gt; in a binary tree is a sequence of</summary>
         
       
     
-    </summary>
     
     
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
+    <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
     
-      <category term="Binary Tree" scheme="https://nicksxs.me/categories/Binary-Tree/"/>
+    <category term="Binary Tree" scheme="https://nicksxs.me/categories/Binary-Tree/"/>
     
-      <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
+    <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
     
-      <category term="Binary Tree" scheme="https://nicksxs.me/categories/leetcode/java/Binary-Tree/"/>
+    <category term="Binary Tree" scheme="https://nicksxs.me/categories/leetcode/java/Binary-Tree/"/>
     
     
-      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
-      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
-      <category term="Binary Tree" scheme="https://nicksxs.me/tags/Binary-Tree/"/>
+    <category term="Binary Tree" scheme="https://nicksxs.me/tags/Binary-Tree/"/>
     
-      <category term="二叉树" scheme="https://nicksxs.me/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <category term="二叉树" scheme="https://nicksxs.me/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     
-      <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
   </entry>
   
@@ -712,35 +680,33 @@
     <link href="https://nicksxs.me/2021/01/17/%E8%81%8A%E8%81%8A%E9%82%A3%E4%BA%9B%E5%8A%A0%E5%A1%9E%E7%8B%97/"/>
     <id>https://nicksxs.me/2021/01/17/%E8%81%8A%E8%81%8A%E9%82%A3%E4%BA%9B%E5%8A%A0%E5%A1%9E%E7%8B%97/</id>
     <published>2021-01-17T15:29:09.000Z</published>
-    <updated>2021-01-17T15:29:09.250Z</updated>
+    <updated>2021-01-17T15:29:09.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;今天真的是被气得不轻，情况是碰到一个有 70
+    <summary type="html">&lt;p&gt;今天真的是被气得不轻，情况是碰到一个有 70</summary>
         
       
     
-    </summary>
     
     
-      <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="开车" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%BC%80%E8%BD%A6/"/>
+    <category term="开车" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%BC%80%E8%BD%A6/"/>
     
     
-      <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="开车" scheme="https://nicksxs.me/tags/%E5%BC%80%E8%BD%A6/"/>
+    <category term="开车" scheme="https://nicksxs.me/tags/%E5%BC%80%E8%BD%A6/"/>
     
-      <category term="加塞" scheme="https://nicksxs.me/tags/%E5%8A%A0%E5%A1%9E/"/>
+    <category term="加塞" scheme="https://nicksxs.me/tags/%E5%8A%A0%E5%A1%9E/"/>
     
-      <category term="糟心事" scheme="https://nicksxs.me/tags/%E7%B3%9F%E5%BF%83%E4%BA%8B/"/>
+    <category term="糟心事" scheme="https://nicksxs.me/tags/%E7%B3%9F%E5%BF%83%E4%BA%8B/"/>
     
-      <category term="规则" scheme="https://nicksxs.me/tags/%E8%A7%84%E5%88%99/"/>
+    <category term="规则" scheme="https://nicksxs.me/tags/%E8%A7%84%E5%88%99/"/>
     
   </entry>
   
@@ -749,39 +715,37 @@
     <link href="https://nicksxs.me/2021/01/10/Leetcode-160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8-intersection-of-two-linked-lists-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2021/01/10/Leetcode-160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8-intersection-of-two-linked-lists-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2021-01-10T13:09:28.000Z</published>
-    <updated>2021-01-22T12:22:13.202Z</updated>
+    <updated>2021-01-10T13:09:28.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;h2 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot;
+    <summary type="html">&lt;h2 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot;</summary>
         
       
     
-    </summary>
     
     
-      <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-      <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
+    <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
     
-      <category term="Linked List" scheme="https://nicksxs.me/categories/Linked-List/"/>
+    <category term="Linked List" scheme="https://nicksxs.me/categories/Linked-List/"/>
     
-      <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
+    <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
     
-      <category term="Linked List" scheme="https://nicksxs.me/categories/leetcode/java/Linked-List/"/>
+    <category term="Linked List" scheme="https://nicksxs.me/categories/leetcode/java/Linked-List/"/>
     
     
-      <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
-      <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
-      <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
-      <category term="Linked List" scheme="https://nicksxs.me/tags/Linked-List/"/>
+    <category term="Linked List" scheme="https://nicksxs.me/tags/Linked-List/"/>
     
   </entry>
   
@@ -790,20 +754,18 @@
     <link href="https://nicksxs.me/2021/01/03/%E8%81%8A%E8%81%8A-Java-%E7%9A%84-equals-%E5%92%8C-hashCode-%E6%96%B9%E6%B3%95/"/>
     <id>https://nicksxs.me/2021/01/03/%E8%81%8A%E8%81%8A-Java-%E7%9A%84-equals-%E5%92%8C-hashCode-%E6%96%B9%E6%B3%95/</id>
     <published>2021-01-03T14:26:35.000Z</published>
-    <updated>2021-01-03T14:26:35.828Z</updated>
+    <updated>2021-01-03T14:26:35.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;Java 中的这个话题也是比较常遇到的，关于这块原先也是比较忽略的，但是仔细想想又有点遗忘了就在这里记一下&lt;br&gt;简单看下代码&lt;br&gt;&lt;code&gt;java.lang.Object#equals&lt;/code&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight
+    <summary type="html">&lt;p&gt;Java 中的这个话题也是比较常遇到的，关于这块原先也是比较忽略的，但是仔细想想又有点遗忘了就在这里记一下&lt;br&gt;简单看下代码&lt;br&gt;&lt;code&gt;java.lang.Object#equals&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&quot;line-numbers</summary>
         
       
     
-    </summary>
     
     
     
@@ -814,40 +776,38 @@
     <link href="https://nicksxs.me/2020/12/27/%E8%81%8A%E8%81%8A-mysql-%E7%B4%A2%E5%BC%95%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82/"/>
     <id>https://nicksxs.me/2020/12/27/%E8%81%8A%E8%81%8A-mysql-%E7%B4%A2%E5%BC%95%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82/</id>
     <published>2020-12-27T15:49:05.000Z</published>
-    <updated>2020-12-27T16:16:08.313Z</updated>
+    <updated>2020-12-27T15:49:05.000Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;p&gt;前几天同事问了我个 mysql 索引的问题，虽然大概知道，但是还是想来实践下，就是 is null，is not null 这类查询是否能用索引，可能之前有些网上的文章说都是不能用索引，但是其实不是，我们来看个小试验&lt;/p&gt;
-&lt;figure
+    <summary type="html">&lt;p&gt;前几天同事问了我个 mysql 索引的问题，虽然大概知道，但是还是想来实践下，就是 is null，is not null 这类查询是否能用索引，可能之前有些网上的文章说都是不能用索引，但是其实不是，我们来看个小试验&lt;/p&gt;
+&lt;pre</summary>
         
       
     
-    </summary>
     
     
-      <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
+    <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
     
-      <category term="C" scheme="https://nicksxs.me/categories/C/"/>
+    <category term="C" scheme="https://nicksxs.me/categories/C/"/>
     
-      <category term="索引" scheme="https://nicksxs.me/categories/Mysql/%E7%B4%A2%E5%BC%95/"/>
+    <category term="索引" scheme="https://nicksxs.me/categories/Mysql/%E7%B4%A2%E5%BC%95/"/>
     
-      <category term="Mysql" scheme="https://nicksxs.me/categories/C/Mysql/"/>
+    <category term="Mysql" scheme="https://nicksxs.me/categories/C/Mysql/"/>
     
     
-      <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
+    <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
     
-      <category term="索引" scheme="https://nicksxs.me/tags/%E7%B4%A2%E5%BC%95/"/>
+    <category term="索引" scheme="https://nicksxs.me/tags/%E7%B4%A2%E5%BC%95/"/>
     
-      <category term="is null" scheme="https://nicksxs.me/tags/is-null/"/>
+    <category term="is null" scheme="https://nicksxs.me/tags/is-null/"/>
     
-      <category term="is not null" scheme="https://nicksxs.me/tags/is-not-null/"/>
+    <category term="is not null" scheme="https://nicksxs.me/tags/is-not-null/"/>
     
-      <category term="procedure" scheme="https://nicksxs.me/tags/procedure/"/>
+    <category term="procedure" scheme="https://nicksxs.me/tags/procedure/"/>
     
   </entry>
   

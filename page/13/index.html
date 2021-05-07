@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,12 +32,9 @@
 <meta property="og:url" content="https://nicksxs.me/page/13/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="learn from zero,技术博客，Nicksxs，史学森">
+<meta property="og:locale">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Nicksxs">
-<meta property="article:tag" content="史学森">
-<meta property="article:tag" content="米方方">
-<meta property="article:tag" content="米方方的男朋友">
-<meta property="article:tag" content="森哥">
+<meta property="article:tag" content="Nicksxs,史学森,米方方,米方方的男朋友,森哥">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://nicksxs.me/page/13/">
@@ -230,13 +227,6 @@
 
               <time title="Created: 2020-03-15 22:33:55" itemprop="dateCreated datePublished" datetime="2020-03-15T22:33:55+08:00">2020-03-15</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-16 22:16:28" itemprop="dateModified" datetime="2020-03-16T22:16:28+08:00">2020-03-16</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -284,17 +274,31 @@
 
       
           <h2 id="限制下-docker-的-cpu-使用率"><a href="#限制下-docker-的-cpu-使用率" class="headerlink" title="限制下 docker 的 cpu 使用率"></a>限制下 docker 的 cpu 使用率</h2><p>这里我们开始玩一点有意思的，我们在容器里装下 vim 和 gcc，然后写这样一段 c 代码</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(;;) i++;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">#include &lt;stdio.h&gt;
+int main(void)
+&#123;
+    int i &#x3D; 0;
+    for(;;) i++;
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>就是一个最简单的死循环，然后在容器里跑起来</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gcc 1.c </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./a.out</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ gcc 1.c 
+$ .&#x2F;a.out<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>然后我们来看下系统资源占用（CPU）<br><img data-src="https://i.loli.net/2020/03/09/Xs562iawhHyMxeO.png" alt="Xs562iawhHyMxeO"><br>上图是在容器里的，可以看到 cpu 已经 100%了<br>然后看看容器外面的<br><img data-src="https://i.loli.net/2020/03/09/ecqH8XJ4k7rKhzu.png" alt="ecqH8XJ4k7rKhzu"><br>可以看到一个核的 cpu 也被占满了，因为是个双核的机器，并且代码是单线程的<br>然后呢我们要做点啥<br>因为已经在这个 ubuntu 容器中装了 vim 和 gcc，考虑到国内的网络，所以我们先把这个容器 commit 一下，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -a "nick" -m "my ubuntu" f63c5607df06 my_ubuntu:v1</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker commit -a &quot;nick&quot; -m &quot;my ubuntu&quot; f63c5607df06 my_ubuntu:v1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后再运行起来</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --cpus=0.1 my_ubuntu:v1 bash</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2020/03/15/x2oGCPQr9Mm8ZYj.png" alt=""><br>我们的代码跟可执行文件都还在，要的就是这个效果，然后再运行一下<br><img data-src="https://i.loli.net/2020/03/10/3EgzYxpqlwobNRj.png" alt=""><br>结果是这个样子的，有点神奇是不，关键就在于 run 的时候的<code>--cpus=0.1</code>这个参数，它其实就是基于我前一篇说的 cgroup 技术，能将进程之间的cpu，内存等资源进行隔离</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker run -it --cpus&#x3D;0.1 my_ubuntu:v1 bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img data-src="https://i.loli.net/2020/03/15/x2oGCPQr9Mm8ZYj.png"><br>我们的代码跟可执行文件都还在，要的就是这个效果，然后再运行一下<br><img data-src="https://i.loli.net/2020/03/10/3EgzYxpqlwobNRj.png"><br>结果是这个样子的，有点神奇是不，关键就在于 run 的时候的<code>--cpus=0.1</code>这个参数，它其实就是基于我前一篇说的 cgroup 技术，能将进程之间的cpu，内存等资源进行隔离</p>
 <h2 id="开始第一个-Dockerfile"><a href="#开始第一个-Dockerfile" class="headerlink" title="开始第一个 Dockerfile"></a>开始第一个 Dockerfile</h2><p>上一面为了复用那个我装了 vim 跟 gcc 的容器，我把它提交到了本地，使用了<code>docker commit</code>命令，有点类似于 git 的 commit，但是这个不是个很好的操作方式，需要手动介入，这里更推荐使用 Dockerfile 来构建镜像</p>
-<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">From</span> ubuntu:latest</span><br><span class="line"><span class="keyword">MAINTAINER</span> Nicksxs <span class="string">"nicksxs@hotmail.com"</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash">  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get clean</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt install -y nginx</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'Hi, i am in container'</span> \</span></span><br><span class="line"><span class="bash">    &gt; /usr/share/nginx/html/index.html</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
-<p>先解释下这是在干嘛，首先是这个<code>From ubuntu:latest</code>基于的 ubuntu 的最新版本的镜像，然后第二行是维护人的信息，第三四行么作为墙内人你懂的，把 ubuntu 的源换成阿里云的，不然就有的等了，然后就是装下 nginx，往默认的 nginx 的入口 html 文件里输入一行欢迎语，然后暴露 80 端口<br>然后我们使用<code>sudo docker build -t=&quot;nicksxs/static_web&quot; .</code>命令来基于这个 Dockerfile 构建我们自己的镜像，过程中是这样的<br><img data-src="https://i.loli.net/2020/03/15/aiIMrhy9WHetDSl.png" alt=""><br><img data-src="https://i.loli.net/2020/03/11/RC6yjImFZps4HWl.png" alt=""><br>可以看到图中，我的 Dockerfile 是 7 行，里面就执行了 7 步，并且每一步都有一个类似于容器 id 的层 id 出来，这里就是一个比较重要的东西，docker 在构建的时候其实是有这个层的概念，Dockerfile 里的每一行都会往上加一层，这里有还注意下命令后面的<code>.</code>，代表当前目录下会自行去寻找 Dockerfile 进行构建，构建完了之后我们再看下我们的本地镜像<br><img data-src="https://i.loli.net/2020/03/11/op5c7UGTbhjwPOI.png" alt=""><br>我们自己的镜像出现啦<br>然后有个问题，如果这个构建中途报了错咋办呢，来试试看，我们把 nginx 改成随便的一个错误名，nginxx(不知道会不会运气好真的有这玩意)，再来 build 一把<br><img data-src="https://i.loli.net/2020/03/14/ALWIobjchnu1Rvi.png" alt=""><br>找不到 nginxx 包，是不是这个镜像就完全不能用呢，当然也不是，因为前面说到了，docker 是基于层去构建的，可以看到前面的 4 个 step 都没报错，那我们基于最后的成功步骤创建下容器看看<br>也就是<code>sudo docker run -t -i bd26f991b6c8 /bin/bash</code><br>答案是可以的，只是没装成功 nginx<br><img data-src="https://i.loli.net/2020/03/14/grcMNVxTabDPipu.png" alt=""><br>还有一点注意到没，前面的几个 step 都有一句 <code>Using cache</code>，说明 docker 在构建镜像的时候是有缓存的，这也更能说明 docker 是基于层去构建镜像，同样的底包，同样的步骤，这些层是可以被复用的，这就是 docker 的构建缓存，当然我们也可以在 build 的时候加上<code>--no-cache</code>去把构建缓存禁用掉。</p>
+<pre class="line-numbers language-Docker" data-language="Docker"><code class="language-Docker">From ubuntu:latest
+MAINTAINER Nicksxs &quot;nicksxs@hotmail.com&quot;
+RUN  sed -i s@&#x2F;archive.ubuntu.com&#x2F;@&#x2F;mirrors.aliyun.com&#x2F;@g &#x2F;etc&#x2F;apt&#x2F;sources.list
+RUN apt-get clean
+RUN apt-get update &amp;&amp; apt install -y nginx
+RUN echo &#39;Hi, i am in container&#39; \
+    &gt; &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html
+EXPOSE 80<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>先解释下这是在干嘛，首先是这个<code>From ubuntu:latest</code>基于的 ubuntu 的最新版本的镜像，然后第二行是维护人的信息，第三四行么作为墙内人你懂的，把 ubuntu 的源换成阿里云的，不然就有的等了，然后就是装下 nginx，往默认的 nginx 的入口 html 文件里输入一行欢迎语，然后暴露 80 端口<br>然后我们使用<code>sudo docker build -t=&quot;nicksxs/static_web&quot; .</code>命令来基于这个 Dockerfile 构建我们自己的镜像，过程中是这样的<br><img data-src="https://i.loli.net/2020/03/15/aiIMrhy9WHetDSl.png"><br><img data-src="https://i.loli.net/2020/03/11/RC6yjImFZps4HWl.png"><br>可以看到图中，我的 Dockerfile 是 7 行，里面就执行了 7 步，并且每一步都有一个类似于容器 id 的层 id 出来，这里就是一个比较重要的东西，docker 在构建的时候其实是有这个层的概念，Dockerfile 里的每一行都会往上加一层，这里有还注意下命令后面的<code>.</code>，代表当前目录下会自行去寻找 Dockerfile 进行构建，构建完了之后我们再看下我们的本地镜像<br><img data-src="https://i.loli.net/2020/03/11/op5c7UGTbhjwPOI.png"><br>我们自己的镜像出现啦<br>然后有个问题，如果这个构建中途报了错咋办呢，来试试看，我们把 nginx 改成随便的一个错误名，nginxx(不知道会不会运气好真的有这玩意)，再来 build 一把<br><img data-src="https://i.loli.net/2020/03/14/ALWIobjchnu1Rvi.png"><br>找不到 nginxx 包，是不是这个镜像就完全不能用呢，当然也不是，因为前面说到了，docker 是基于层去构建的，可以看到前面的 4 个 step 都没报错，那我们基于最后的成功步骤创建下容器看看<br>也就是<code>sudo docker run -t -i bd26f991b6c8 /bin/bash</code><br>答案是可以的，只是没装成功 nginx<br><img data-src="https://i.loli.net/2020/03/14/grcMNVxTabDPipu.png"><br>还有一点注意到没，前面的几个 step 都有一句 <code>Using cache</code>，说明 docker 在构建镜像的时候是有缓存的，这也更能说明 docker 是基于层去构建镜像，同样的底包，同样的步骤，这些层是可以被复用的，这就是 docker 的构建缓存，当然我们也可以在 build 的时候加上<code>--no-cache</code>去把构建缓存禁用掉。</p>
 
       
     </div>
@@ -342,13 +346,6 @@
 
               <time title="Created: 2020-03-08 23:25:40" itemprop="dateCreated datePublished" datetime="2020-03-08T23:25:40+08:00">2020-03-08</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-15 20:25:02" itemprop="dateModified" datetime="2020-03-15T20:25:02+08:00">2020-03-15</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -400,41 +397,43 @@
 <p>之前写的 mysql 集群，一主二备，这种架构在很多小型应用里都是这么配置的，而且一般是直接在三台 vps 里启动三个 mysql 实例，但是如果换成 docker 会有什么好处呢，其实就是方便部署，比如其中一台备库挂了，我要加一台，或者说备库的 qps 太高了，需要再加一个，如果要在 vps 上搭建的话，首先要买一台机器，等初始化，然后在上面修改源，更新，装 mysql ，然后配置主从，可能还要处理防火墙等等，如果把这些打包成一个 docker 镜像，并且放在自己的 docker registry，那就直接run 一下就可以了；还有比如在公司要给一个新同学整一套开发测试环境，以 Java 开发为例，要装 git，maven，jdk，配置 maven settings 和各种 rc，整合在一个镜像里的话，就会很方便了；再比如微服务的水平扩展。</p>
 <p>但是为啥 docker 会有这种优势，听起来好像虚拟机也可以干这个事，但是虚拟机动辄上 G，而且需要 VMware，virtual box 等支持，不适合在Linux服务器环境使用，而且占用资源也会非常大。说得这么好，那么 docker 是啥呢</p>
 <p>docker 主要使用 Linux 中已经存在的两种技术的一个整合升级，一个是 namespace，一个是cgroups，相比于虚拟机需要完整虚拟出一个操作系统运行基础，docker 基于宿主机内核，通过 namespace 和 cgroups 分隔进程，理念就是提供一个隔离的最小化运行依赖，这样子相对于虚拟机就有了巨大的便利性，具体的 namespace 和 cgroups 就先不展开讲，可以参考耗子叔的文章</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>那么我们先安装下 docker，参考官方的教程，<a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">安装</a>，我的系统是 ubuntu 的，就贴了 ubuntu 的链接，用其他系统的可以找到对应的系统文档安装，安装完了的话看看 docker 的信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker info</span><br></pre></td></tr></table></figure>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>那么我们先安装下 docker，参考官方的教程，<a target="_blank" rel="noopener" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/">安装</a>，我的系统是 ubuntu 的，就贴了 ubuntu 的链接，用其他系统的可以找到对应的系统文档安装，安装完了的话看看 docker 的信息</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo docker info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>输出以下信息<br><img data-src="https://i.loli.net/2020/03/08/IJP157hLqlgo4Ow.png" alt=""></p>
+<p>输出以下信息<br><img data-src="https://i.loli.net/2020/03/08/IJP157hLqlgo4Ow.png"></p>
 <h2 id="简单运行"><a href="#简单运行" class="headerlink" title="简单运行"></a>简单运行</h2><p>然后再来运行个 hello world 呗，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo docker run hello-world<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>输出了这些<br><img data-src="https://i.loli.net/2020/03/08/7dO2JWbf3wVLPsN.png" alt=""></p>
+<p>输出了这些<br><img data-src="https://i.loli.net/2020/03/08/7dO2JWbf3wVLPsN.png"></p>
 <p>看看这个运行命令是怎么用的，一般都会看到这样子的，sudo docker run -it ubuntu bash<code>, 前面的 docker run 反正就是运行一个容器的意思，</code>-it<code>是啥呢，还有这个什么 ubuntu bash，来看看</code>docker run`的命令帮助信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-i, --interactive                    Keep STDIN open even if not attached</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-i, --interactive                    Keep STDIN open even if not attached<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>就是要有输入，我们运行的时候能输入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-t, --tty                            Allocate a pseudo-TTY</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-t, --tty                            Allocate a pseudo-TTY<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>要有个虚拟终端，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Usage:	docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br><span class="line"></span><br><span class="line">Run a command in a new container</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Usage:	docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Run a command in a new container<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p>上面说的-it 就是这里的 options，后面那个 ubuntu 就是 image 辣，image 是啥呢</p>
 <p><strong>Docker 把应用程序及其依赖，打包在 image 文件里面</strong>，可以把它理解成为类似于虚拟机的镜像或者运行一个进程的代码，跑起来了的叫docker 容器或者进程，比如我们将要运行的<code>docker run -it ubuntu bash</code>的ubuntu 就是个 ubuntu 容器的镜像，将这个镜像运行起来后，我们可以进入容器像使用 ubuntu 一样使用它，来看下我们的镜像，使用<code>sudo docker image ls</code>就能列出我们宿主机上的 docker 镜像了</p>
-<p><img data-src="https://i.loli.net/2020/03/08/G3ltzyVLqheDRgo.png" alt=""></p>
+<p><img data-src="https://i.loli.net/2020/03/08/G3ltzyVLqheDRgo.png"></p>
 <p>一个 ubuntu 镜像才 64MB，非常小巧，然后是后面的<code>bash</code>，我通过交互式启动了一个 ubuntu 容器，然后在这个启动的容器里运行了 bash 命令，这样就可以在容器里玩一下了</p>
-<h2 id="在容器里看下进程，"><a href="#在容器里看下进程，" class="headerlink" title="在容器里看下进程，"></a>在容器里看下进程，</h2><p><img data-src="https://i.loli.net/2020/03/08/2qQFPbxB9uEzcrJ.png" alt=""></p>
+<h2 id="在容器里看下进程，"><a href="#在容器里看下进程，" class="headerlink" title="在容器里看下进程，"></a>在容器里看下进程，</h2><p><img data-src="https://i.loli.net/2020/03/08/2qQFPbxB9uEzcrJ.png"></p>
 <p>只有刚才运行容器的 bash 进程和我刚执行的 ps，这里有个可以注意下的，bash 这个进程的 pid 是 1，其实这里就用到了 linux 中的PID Namespace，容器会隔离出一个 pid 的名字空间，这里面的进程跟外部的 pid 命名独立</p>
-<h2 id="查看宿主机上的容器"><a href="#查看宿主机上的容器" class="headerlink" title="查看宿主机上的容器"></a>查看宿主机上的容器</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a</span><br></pre></td></tr></table></figure>
+<h2 id="查看宿主机上的容器"><a href="#查看宿主机上的容器" class="headerlink" title="查看宿主机上的容器"></a>查看宿主机上的容器</h2><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo docker ps -a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img data-src="https://i.loli.net/2020/03/08/spGtzcDXKv3ORU7.png" alt=""></p>
+<p><img data-src="https://i.loli.net/2020/03/08/spGtzcDXKv3ORU7.png"></p>
 <h2 id="如何进入一个正在运行中的-docker-容器"><a href="#如何进入一个正在运行中的-docker-容器" class="headerlink" title="如何进入一个正在运行中的 docker 容器"></a>如何进入一个正在运行中的 docker 容器</h2><p>这个应该是比较常用的，因为比如是一个微服务容器，有时候就像看下运行状态，日志啥的</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it [containerID] bash</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo docker exec -it [containerID] bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img data-src="https://i.loli.net/2020/03/08/uswmh3Izp65kc9n.png" alt=""></p>
-<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker logs [containerID]</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2020/03/08/uswmh3Izp65kc9n.png"></p>
+<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo docker logs [containerID]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>我在运行容器的终端里胡乱输入点啥，然后通过上面的命令就可以看到啦</p>
-<p><img data-src="https://i.loli.net/2020/03/08/RJAvlhEMD7VfbXz.png" alt=""></p>
-<p><img data-src="https://i.loli.net/2020/03/08/L4YRni95lBzEmFh.png" alt=""></p>
+<p><img data-src="https://i.loli.net/2020/03/08/RJAvlhEMD7VfbXz.png"></p>
+<p><img data-src="https://i.loli.net/2020/03/08/L4YRni95lBzEmFh.png"></p>
 
       
     </div>
@@ -479,9 +478,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-03-01 22:56:02 / Modified: 22:57:29" itemprop="dateCreated datePublished" datetime="2020-03-01T22:56:02+08:00">2020-03-01</time>
+              <time title="Created: 2020-03-01 22:56:02" itemprop="dateCreated datePublished" datetime="2020-03-01T22:56:02+08:00">2020-03-01</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -586,13 +584,6 @@
 
               <time title="Created: 2020-02-22 12:25:25" itemprop="dateCreated datePublished" datetime="2020-02-22T12:25:25+08:00">2020-02-22</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-23 17:42:22" itemprop="dateModified" datetime="2020-02-23T17:42:22+08:00">2020-02-23</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -635,23 +626,88 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>众所周知，我是个前端彩笔，但是也想做点自己可以用的工具页面，所以就让朋友推荐了蚂蚁出品的 ant design，说基本可以直接 ctrl-c ctrl-v，实测对我这种来说还是有点难的，不过也能写点，但是现在碰到的问题是怎么部署到自己的服务器上去<br>用 ant design 写的是个单页应用，实际来说就是一个 html 加 css 跟 js，最初的时候是直接 build 完就 scp 上去，也考虑过 rsync 之类的，但是都感觉不够自动化，正好自己还没这方面的经验就想折腾下，因为我自己搭的仓库应用是 gogs，搜了一下主要是跟 drones 配合做 ci/cd，研究了一下发现其实这个事情没必要这么搞(PS：drone 也不好用)，整个 hook 就可以了, 但是实际上呢，这东西也不是那么简单<br>首先是需要在服务器上装 <a href="https://github.com/adnanh/webhook" target="_blank" rel="noopener">webhook</a>，这个我一开始用 snap 安装，但是出现问题，run 的时候会出现后面参数带的 hooks.json 文件找不到，然后索性就直接 github 上下最新版，放 /usr/local/bin 了，webhook 的原理呢其实也比较简单，就是起一个 http 服务，通过 post 请求调用，解析下参数，如果跟配置的参数一致，就调用对应的命令或者脚本。</p>
+          <p>众所周知，我是个前端彩笔，但是也想做点自己可以用的工具页面，所以就让朋友推荐了蚂蚁出品的 ant design，说基本可以直接 ctrl-c ctrl-v，实测对我这种来说还是有点难的，不过也能写点，但是现在碰到的问题是怎么部署到自己的服务器上去<br>用 ant design 写的是个单页应用，实际来说就是一个 html 加 css 跟 js，最初的时候是直接 build 完就 scp 上去，也考虑过 rsync 之类的，但是都感觉不够自动化，正好自己还没这方面的经验就想折腾下，因为我自己搭的仓库应用是 gogs，搜了一下主要是跟 drones 配合做 ci/cd，研究了一下发现其实这个事情没必要这么搞(PS：drone 也不好用)，整个 hook 就可以了, 但是实际上呢，这东西也不是那么简单<br>首先是需要在服务器上装 <a target="_blank" rel="noopener" href="https://github.com/adnanh/webhook">webhook</a>，这个我一开始用 snap 安装，但是出现问题，run 的时候会出现后面参数带的 hooks.json 文件找不到，然后索性就直接 github 上下最新版，放 /usr/local/bin 了，webhook 的原理呢其实也比较简单，就是起一个 http 服务，通过 post 请求调用，解析下参数，如果跟配置的参数一致，就调用对应的命令或者脚本。</p>
 <h2 id="配置-hooks-json"><a href="#配置-hooks-json" class="headerlink" title="配置 hooks.json"></a>配置 hooks.json</h2><p>webhook 的配置，需要的两个文件，一个是 hooks.json，这个是 webhook 服务的配置文件，像这样</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">"id"</span>: <span class="string">"redeploy-app"</span>,</span><br><span class="line">    <span class="attr">"execute-command"</span>: <span class="string">"/opt/scripts/redeploy.sh"</span>,</span><br><span class="line">    <span class="attr">"command-working-directory"</span>: <span class="string">"/opt/scripts"</span>,</span><br><span class="line">    <span class="attr">"pass-arguments-to-command"</span>:</span><br><span class="line">    [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"source"</span>: <span class="string">"payload"</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"head_commit.message"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"source"</span>: <span class="string">"payload"</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"pusher.name"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"source"</span>: <span class="string">"payload"</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"head_commit.id"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"trigger-rule"</span>:</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"and"</span>:</span><br><span class="line">      [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"match"</span>:</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"payload-hash-sha1"</span>,</span><br><span class="line">            <span class="attr">"secret"</span>: <span class="string">"your-github-secret"</span>,</span><br><span class="line">            <span class="attr">"parameter"</span>:</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="attr">"source"</span>: <span class="string">"header"</span>,</span><br><span class="line">              <span class="attr">"name"</span>: <span class="string">"X-Hub-Signature"</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"match"</span>:</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"value"</span>,</span><br><span class="line">            <span class="attr">"value"</span>: <span class="string">"refs/heads/master"</span>,</span><br><span class="line">            <span class="attr">"parameter"</span>:</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="attr">"source"</span>: <span class="string">"payload"</span>,</span><br><span class="line">              <span class="attr">"name"</span>: <span class="string">"ref"</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"redeploy-app"</span><span class="token punctuation">,</span>
+    <span class="token property">"execute-command"</span><span class="token operator">:</span> <span class="token string">"/opt/scripts/redeploy.sh"</span><span class="token punctuation">,</span>
+    <span class="token property">"command-working-directory"</span><span class="token operator">:</span> <span class="token string">"/opt/scripts"</span><span class="token punctuation">,</span>
+    <span class="token property">"pass-arguments-to-command"</span><span class="token operator">:</span>
+    <span class="token punctuation">[</span>
+      <span class="token punctuation">&#123;</span>
+        <span class="token property">"source"</span><span class="token operator">:</span> <span class="token string">"payload"</span><span class="token punctuation">,</span>
+        <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"head_commit.message"</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#123;</span>
+        <span class="token property">"source"</span><span class="token operator">:</span> <span class="token string">"payload"</span><span class="token punctuation">,</span>
+        <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"pusher.name"</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#123;</span>
+        <span class="token property">"source"</span><span class="token operator">:</span> <span class="token string">"payload"</span><span class="token punctuation">,</span>
+        <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"head_commit.id"</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"trigger-rule"</span><span class="token operator">:</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token property">"and"</span><span class="token operator">:</span>
+      <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span>
+          <span class="token property">"match"</span><span class="token operator">:</span>
+          <span class="token punctuation">&#123;</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"payload-hash-sha1"</span><span class="token punctuation">,</span>
+            <span class="token property">"secret"</span><span class="token operator">:</span> <span class="token string">"your-github-secret"</span><span class="token punctuation">,</span>
+            <span class="token property">"parameter"</span><span class="token operator">:</span>
+            <span class="token punctuation">&#123;</span>
+              <span class="token property">"source"</span><span class="token operator">:</span> <span class="token string">"header"</span><span class="token punctuation">,</span>
+              <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"X-Hub-Signature"</span>
+            <span class="token punctuation">&#125;</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span>
+          <span class="token property">"match"</span><span class="token operator">:</span>
+          <span class="token punctuation">&#123;</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"value"</span><span class="token punctuation">,</span>
+            <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"refs/heads/master"</span><span class="token punctuation">,</span>
+            <span class="token property">"parameter"</span><span class="token operator">:</span>
+            <span class="token punctuation">&#123;</span>
+              <span class="token property">"source"</span><span class="token operator">:</span> <span class="token string">"payload"</span><span class="token punctuation">,</span>
+              <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"ref"</span>
+            <span class="token punctuation">&#125;</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这是个跟 github搭配的示例，首先 id 表示的是这个对应 hook 的识别 id，也可以看到这个 hooks.json 的结构是这样的一个数组，然后就是要执行的命令和命令执行的参数，值得注意的是这个<code>trigger-rule</code>,就是请求进来了回去匹配里面的，比如前一个是一个加密的，放在请求头里，第二个 match 表示请求里的 ref 是个 master 分支，就可以区分分支进行不同操作，但是前面的加密配合 gogs 使用的时候有个问题(PS: webhook 的文档是真的烂)，gogs 设置 webhook 的加密是用的</p>
 <blockquote>
 <p>密钥文本将被用于计算推送内容的 SHA256 HMAC 哈希值，并设置为 <code>X-Gogs-Signature</code> 请求头的值。</p>
 </blockquote>
-<p>这种加密方式，所以 webhook 的这个示例的加密方式不行，但这货的文档里居然没有说明支持哪些加密，神TM，后来还是翻 <a href="https://github.com/adnanh/webhook/issues/289" target="_blank" rel="noopener">issue</a> 翻到了, 需要使用这个<code>payload-hash-sha256</code></p>
+<p>这种加密方式，所以 webhook 的这个示例的加密方式不行，但这货的文档里居然没有说明支持哪些加密，神TM，后来还是翻 <a target="_blank" rel="noopener" href="https://github.com/adnanh/webhook/issues/289">issue</a> 翻到了, 需要使用这个<code>payload-hash-sha256</code></p>
 <h2 id="执行脚本-redeploy-sh"><a href="#执行脚本-redeploy-sh" class="headerlink" title="执行脚本 redeploy.sh"></a>执行脚本 redeploy.sh</h2><p>脚本类似于这样</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash -e</span></span><br><span class="line"></span><br><span class="line">function cleanup &#123;</span><br><span class="line">      echo "Error occoured"</span><br><span class="line">&#125;</span><br><span class="line">trap cleanup ERR</span><br><span class="line"></span><br><span class="line">commit_message=$1 # head_commit.message</span><br><span class="line">pusher_name=$2 # pusher.name</span><br><span class="line">commit_id=$3 # head_commit.id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cd ~/do-react-example-app/</span><br><span class="line">git pull origin master</span><br><span class="line">yarn &amp;&amp; yarn build</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#!&#x2F;bin&#x2F;bash -e
+
+function cleanup &#123;
+      echo &quot;Error occoured&quot;
+&#125;
+trap cleanup ERR
+
+commit_message&#x3D;$1 # head_commit.message
+pusher_name&#x3D;$2 # pusher.name
+commit_id&#x3D;$3 # head_commit.id
+
+
+cd ~&#x2F;do-react-example-app&#x2F;
+git pull origin master
+yarn &amp;&amp; yarn build<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>就是简单的拉代码，然后构建下，真实使用时可能不是这样，因为页面会部署在 nginx 的作用目录，还需要 rsync 过去，这部分可能还涉及到两个问题第一个是使用 rsync 还是其他的 cp，不过这个无所谓；第二个是目录权限的问题，以我的系统ubuntu 为例，默认用户是 ubuntu，nginx 部署的目录是 www，所以需要切换用户等操作，一开始是想用在shell 文件中直接写了密码，但是不知道咋传，查了下是类似于这样 <code>echo &quot;passwd&quot; | sudo -S cmd</code>，通过管道命令往后传，然后就是这个<code>-S</code>, 参数的解释是<code>-S, --stdin                 read password from standard input</code>,但是这样么也不是太安全的赶脚，又看了下还有两种方法，</p>
 <ul>
 <li><p>就是给root 设置一个不需要密码的命令类似于这样，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myusername ALL = (ALL) ALL</span><br><span class="line">myusername ALL = (root) NOPASSWD: /path/to/my/program</span><br></pre></td></tr></table></figure>
-</li>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">myusername ALL &#x3D; (ALL) ALL
+myusername ALL &#x3D; (root) NOPASSWD: &#x2F;path&#x2F;to&#x2F;my&#x2F;program<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 <li><p>另一种就是把默认用户跟 root 设置成同一个 group 的</p>
 </li>
 </ul>
@@ -700,9 +756,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-02-16 10:39:42 / Modified: 14:36:56" itemprop="dateCreated datePublished" datetime="2020-02-16T10:39:42+08:00">2020-02-16</time>
+              <time title="Created: 2020-02-16 10:39:42" itemprop="dateCreated datePublished" datetime="2020-02-16T10:39:42+08:00">2020-02-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -764,15 +819,55 @@
 <li><code>mvn deploy</code><br>  将打出来的 jar 包上传到远程仓库里</li>
 </ul>
 <h3 id="与-composer-对比"><a href="#与-composer-对比" class="headerlink" title="与 composer 对比"></a>与 composer 对比</h3><p>因为我也是个 PHP 程序员，所以对比一下两种语言，很容易想到在 PHP 的 composer 跟 Java 的 maven 是比较类似的作用，有一点两者是非常相似的，就是原仓库都是因为某些原因连接拉取都会很慢，所以像 composer 会有一些国内源，前阵子阿里也出了一个，类似的 maven 一般也会使用阿里的镜像仓库，通过在 setting.xml 文件中的设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirrors&gt;</span><br><span class="line">    &lt;mirror&gt;</span><br><span class="line">        &lt;id&gt;aliyun&lt;&#x2F;id&gt;</span><br><span class="line">        &lt;name&gt;aliyun maven&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;url&gt;http:&#x2F;&#x2F;maven.aliyun.com&#x2F;nexus&#x2F;content&#x2F;groups&#x2F;public&#x2F;&lt;&#x2F;url&gt;</span><br><span class="line">        &lt;mirrorOf&gt;central&lt;&#x2F;mirrorOf&gt;</span><br><span class="line">    &lt;&#x2F;mirror&gt; </span><br><span class="line">&lt;&#x2F;mirrors&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;mirrors&gt;
+    &lt;mirror&gt;
+        &lt;id&gt;aliyun&lt;&#x2F;id&gt;
+        &lt;name&gt;aliyun maven&lt;&#x2F;name&gt;
+        &lt;url&gt;http:&#x2F;&#x2F;maven.aliyun.com&#x2F;nexus&#x2F;content&#x2F;groups&#x2F;public&#x2F;&lt;&#x2F;url&gt;
+        &lt;mirrorOf&gt;central&lt;&#x2F;mirrorOf&gt;
+    &lt;&#x2F;mirror&gt; 
+&lt;&#x2F;mirrors&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这算是个尴尬的共同点，然后因为 PHP 是解释型脚本语言，所以 php 打出来的 composer 包其实就是个 php 代码包，使用SPL Autoload等方式加载代码包，maven 包则是经过编译的 class 包，还有一点是 composer 也可以直接使用 github 地址作为包代码的拉取源，这点也是比较大的区别，maven使用 pom 文件管理依赖</p>
 <h3 id="maven-的个人小技巧"><a href="#maven-的个人小技巧" class="headerlink" title="maven 的个人小技巧"></a>maven 的个人小技巧</h3><ul>
 <li>maven 拉取依赖时，同时将 snapshot 也更新了，就是 <code>mvn compile</code>加个<code>-U</code>参数，如果还不行就需要将本地仓库的 snapshot 删掉，<br>这个命令的 help 命令解释是 -U,–update-snapshots Forces a check for missing releases and updated snapshots on<br>remote repositories，这个在日常使用中还是很经常使用的</li>
-<li>maven 出现依赖冲突的时候的解决方法<br>首先是依赖分析，使用<code>mvn dependency:tree</code>分析下依赖关系，如果要找具体某个包的依赖引用关系可以使用<code>mvn dependency:tree -Dverbose -Dincludes=org.springframework:spring-webmvc</code>命令进行分析，如果发现有冲突的依赖关系，本身 maven 中依赖引用有相对的顺序，大致来说是引用路径短的优先，pom 文件中定义的顺序优先，如果要把冲突的包排除掉可以在 pom 中用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;exclusions&gt;</span><br><span class="line">  &lt;exclusion&gt;</span><br><span class="line">      &lt;groupId&gt;ch.qos.logback&lt;&#x2F;groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;logback-classic&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;&#x2F;exclusion&gt;</span><br><span class="line">&lt;&#x2F;exclusions&gt;</span><br></pre></td></tr></table></figure>
+<li>maven 出现依赖冲突的时候的解决方法<br>首先是依赖分析，使用<code>mvn dependency:tree</code>分析下依赖关系，如果要找具体某个包的依赖引用关系可以使用<code>mvn dependency:tree -Dverbose -Dincludes=org.springframework:spring-webmvc</code>命令进行分析，如果发现有冲突的依赖关系，本身 maven 中依赖引用有相对的顺序，大致来说是引用路径短的优先，pom 文件中定义的顺序优先，如果要把冲突的包排除掉可以在 pom 中用<pre class="line-numbers language-none"><code class="language-none">&lt;exclusions&gt;
+  &lt;exclusion&gt;
+      &lt;groupId&gt;ch.qos.logback&lt;&#x2F;groupId&gt;
+      &lt;artifactId&gt;logback-classic&lt;&#x2F;artifactId&gt;
+  &lt;&#x2F;exclusion&gt;
+&lt;&#x2F;exclusions&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 将冲突的包排除掉</li>
-<li>maven 依赖的 jdk 版本管理<br>前面介绍的<code>mvn -v</code>可以查看 maven 的安装信息<br>比如<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)</span><br><span class="line">Maven home: &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;maven&#x2F;3.6.3_1&#x2F;libexec</span><br><span class="line">Java version: 1.8.0_201, vendor: Oracle Corporation, runtime: &#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_201.jdk&#x2F;Contents&#x2F;Home&#x2F;jre</span><br><span class="line">Default locale: zh_CN, platform encoding: UTF-8</span><br><span class="line">OS name: &quot;mac os x&quot;, version: &quot;10.14.6&quot;, arch: &quot;x86_64&quot;, family: &quot;mac&quot;</span><br></pre></td></tr></table></figure>
-这里可以看到用了 mac 自带的 jdk1.8，结合我之前碰到的一个问题，因为使用 homebrew 升级了 gradle，而 gradle 又依赖了 jdk13，因为这个 mvn 的 Java version 也变成 jdk13 了，然后 mvn 编译的时候出现了 <code>java.lang.ExceptionInInitializerError: com.sun.tools.javac.code.TypeTags</code>这个问题，所以需要把这个版本给改回来，但是咋改呢，网上搜来的一大堆都是在 pom 文件里的<br>source和 target 版本<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">&lt;plugin&gt;</span><br><span class="line">	&lt;groupId&gt;org.apache.maven.plugins&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;maven-compiler-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;configuration&gt;</span><br><span class="line">		&lt;source&gt;1.8&lt;&#x2F;source&gt;</span><br><span class="line">		&lt;target&gt;1.8&lt;&#x2F;target&gt;</span><br><span class="line">		&lt;encoding&gt;UTF-8&lt;&#x2F;encoding&gt;</span><br><span class="line">	&lt;&#x2F;configuration&gt;</span><br><span class="line">&lt;&#x2F;plugin&gt;</span><br><span class="line">  &lt;&#x2F;plugins&gt;</span><br><span class="line">&lt;build&gt;</span><br></pre></td></tr></table></figure>
-或者修改 maven 的 setting.xml中的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;profiles&gt;</span><br><span class="line">      &lt;profile&gt;</span><br><span class="line">          &lt;id&gt;ngmm-nexus&lt;&#x2F;id&gt;</span><br><span class="line">        &lt;activation&gt;</span><br><span class="line">          &lt;jdk&gt;1.8&lt;&#x2F;jdk&gt;</span><br><span class="line">        &lt;&#x2F;activation&gt;</span><br><span class="line">        &lt;properties&gt;</span><br><span class="line">          &lt;maven.compiler.source&gt;1.8&lt;&#x2F;maven.compiler.source&gt;</span><br><span class="line">          &lt;maven.compiler.target&gt;1.8&lt;&#x2F;maven.compiler.target&gt;</span><br><span class="line">          &lt;maven.compiler.compilerVersion&gt;1.8&lt;&#x2F;maven.compiler.compilerVersion&gt;</span><br><span class="line">      &lt;&#x2F;properties&gt;</span><br><span class="line">      &lt;&#x2F;profile&gt;</span><br><span class="line">&lt;&#x2F;profiles&gt;</span><br></pre></td></tr></table></figure>
+<li>maven 依赖的 jdk 版本管理<br>前面介绍的<code>mvn -v</code>可以查看 maven 的安装信息<br>比如<pre class="line-numbers language-none"><code class="language-none">Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)
+Maven home: &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;maven&#x2F;3.6.3_1&#x2F;libexec
+Java version: 1.8.0_201, vendor: Oracle Corporation, runtime: &#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_201.jdk&#x2F;Contents&#x2F;Home&#x2F;jre
+Default locale: zh_CN, platform encoding: UTF-8
+OS name: &quot;mac os x&quot;, version: &quot;10.14.6&quot;, arch: &quot;x86_64&quot;, family: &quot;mac&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+这里可以看到用了 mac 自带的 jdk1.8，结合我之前碰到的一个问题，因为使用 homebrew 升级了 gradle，而 gradle 又依赖了 jdk13，因为这个 mvn 的 Java version 也变成 jdk13 了，然后 mvn 编译的时候出现了 <code>java.lang.ExceptionInInitializerError: com.sun.tools.javac.code.TypeTags</code>这个问题，所以需要把这个版本给改回来，但是咋改呢，网上搜来的一大堆都是在 pom 文件里的<br>source和 target 版本<pre class="line-numbers language-none"><code class="language-none">&lt;build&gt;
+  &lt;plugins&gt;
+&lt;plugin&gt;
+	&lt;groupId&gt;org.apache.maven.plugins&lt;&#x2F;groupId&gt;
+	&lt;artifactId&gt;maven-compiler-plugin&lt;&#x2F;artifactId&gt;
+	&lt;configuration&gt;
+		&lt;source&gt;1.8&lt;&#x2F;source&gt;
+		&lt;target&gt;1.8&lt;&#x2F;target&gt;
+		&lt;encoding&gt;UTF-8&lt;&#x2F;encoding&gt;
+	&lt;&#x2F;configuration&gt;
+&lt;&#x2F;plugin&gt;
+  &lt;&#x2F;plugins&gt;
+&lt;build&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+或者修改 maven 的 setting.xml中的<pre class="line-numbers language-none"><code class="language-none">&lt;profiles&gt;
+      &lt;profile&gt;
+          &lt;id&gt;ngmm-nexus&lt;&#x2F;id&gt;
+        &lt;activation&gt;
+          &lt;jdk&gt;1.8&lt;&#x2F;jdk&gt;
+        &lt;&#x2F;activation&gt;
+        &lt;properties&gt;
+          &lt;maven.compiler.source&gt;1.8&lt;&#x2F;maven.compiler.source&gt;
+          &lt;maven.compiler.target&gt;1.8&lt;&#x2F;maven.compiler.target&gt;
+          &lt;maven.compiler.compilerVersion&gt;1.8&lt;&#x2F;maven.compiler.compilerVersion&gt;
+      &lt;&#x2F;properties&gt;
+      &lt;&#x2F;profile&gt;
+&lt;&#x2F;profiles&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 但是这些都没啥用啊，真正有办法的是建个 <code>.mavenrc</code>，这个顾名思义就是 maven 的资源文件，类似于 <code>.bashrc</code>和<code>.zshrc</code>，在里面添加 MAVEN_HOME 和 JAVA_HOME,然后执行 <code>source .mavenrc</code>就 OK 啦</li>
 </ul>
 

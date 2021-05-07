@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,15 +32,14 @@
 <meta property="og:url" content="https://nicksxs.me/2020/10/11/Leetcode-2-Add-Two-Numbers-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="又 roll 到了一个以前做过的题，不过现在用 Java 也来写一下，是 easy 级别的，所以就简单说下 简要介绍You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nod">
+<meta property="og:locale">
 <meta property="article:published_time" content="2020-10-11T15:22:45.000Z">
-<meta property="article:modified_time" content="2020-10-11T15:23:51.000Z">
+<meta property="article:modified_time" content="2020-10-11T15:22:45.000Z">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Java">
 <meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="题解">
 <meta property="article:tag" content="linked list">
-<meta property="article:tag" content="代码题解">
-<meta property="article:tag" content="Add Two Numbers">
-<meta property="article:tag" content="leetcode 002">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://nicksxs.me/2020/10/11/Leetcode-2-Add-Two-Numbers-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/">
@@ -230,9 +229,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-10-11 23:22:45 / Modified: 23:23:51" itemprop="dateCreated datePublished" datetime="2020-10-11T23:22:45+08:00">2020-10-11</time>
+              <time title="Created: 2020-10-11 23:22:45" itemprop="dateCreated datePublished" datetime="2020-10-11T23:22:45+08:00">2020-10-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,11 +246,11 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                  <a href="/categories/linked-list/" itemprop="url" rel="index"><span itemprop="name">linked list</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linked-list/" itemprop="url" rel="index"><span itemprop="name">linked list</span></a>
+                  <a href="/categories/leetcode/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -302,13 +300,45 @@
         <p>又 roll 到了一个以前做过的题，不过现在用 Java 也来写一下，是 easy 级别的，所以就简单说下</p>
 <h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.</p>
 <p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.<br>就是给了两个链表，用来表示两个非负的整数，在链表中倒序放着，每个节点包含一位的数字，把他们加起来以后也按照原来的链表结构输出</p>
-<h2 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h2><h4 id="example-1"><a href="#example-1" class="headerlink" title="example 1"></a>example 1</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: l1 &#x3D; [2,4,3], l2 &#x3D; [5,6,4]</span><br><span class="line">Output: [7,0,8]</span><br><span class="line">Explanation: 342 + 465 &#x3D; 807.</span><br></pre></td></tr></table></figure>
+<h2 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h2><h4 id="example-1"><a href="#example-1" class="headerlink" title="example 1"></a>example 1</h4><pre class="line-numbers language-none"><code class="language-none">Input: l1 &#x3D; [2,4,3], l2 &#x3D; [5,6,4]
+Output: [7,0,8]
+Explanation: 342 + 465 &#x3D; 807.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="example-2"><a href="#example-2" class="headerlink" title="example 2"></a>example 2</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: l1 &#x3D; [0], l2 &#x3D; [0]</span><br><span class="line">Output: [0]</span><br></pre></td></tr></table></figure>
+<h4 id="example-2"><a href="#example-2" class="headerlink" title="example 2"></a>example 2</h4><pre class="line-numbers language-none"><code class="language-none">Input: l1 &#x3D; [0], l2 &#x3D; [0]
+Output: [0]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h4 id="example-3"><a href="#example-3" class="headerlink" title="example 3"></a>example 3</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: l1 &#x3D; [9,9,9,9,9,9,9], l2 &#x3D; [9,9,9,9]</span><br><span class="line">Output: [8,9,9,9,0,0,0,1]</span><br></pre></td></tr></table></figure>
+<h4 id="example-3"><a href="#example-3" class="headerlink" title="example 3"></a>example 3</h4><pre class="line-numbers language-none"><code class="language-none">Input: l1 &#x3D; [9,9,9,9,9,9,9], l2 &#x3D; [9,9,9,9]
+Output: [8,9,9,9,0,0,0,1]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">        ListNode root = <span class="keyword">new</span> ListNode();</span><br><span class="line">        <span class="keyword">if</span> (l1 == <span class="keyword">null</span> &amp;&amp; l2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode tail = root;</span><br><span class="line">        <span class="keyword">int</span> entered = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 这个条件加了 entered，就是还有进位的数</span></span><br><span class="line">        <span class="keyword">while</span> (l1 != <span class="keyword">null</span> || l2 != <span class="keyword">null</span> || entered != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> temp = entered;</span><br><span class="line">            <span class="keyword">if</span> (l1 != <span class="keyword">null</span>) &#123;</span><br><span class="line">                temp += l1.val;</span><br><span class="line">                l1 = l1.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (l2 != <span class="keyword">null</span>) &#123;</span><br><span class="line">                temp += l2.val;</span><br><span class="line">                l2 = l2.next;</span><br><span class="line">            &#125;</span><br><span class="line">            entered = (temp - temp % <span class="number">10</span>) / <span class="number">10</span>;</span><br><span class="line">            tail.val = temp % <span class="number">10</span>;</span><br><span class="line">            <span class="comment">// 循环内部的控制是为了排除最后的空节点</span></span><br><span class="line">            <span class="keyword">if</span> (l1 != <span class="keyword">null</span> || l2 != <span class="keyword">null</span> || entered != <span class="number">0</span>) &#123;</span><br><span class="line">                tail.next = <span class="keyword">new</span> ListNode();</span><br><span class="line">                tail = tail.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        tail = null;</span></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">ListNode</span> <span class="token function">addTwoNumbers</span><span class="token punctuation">(</span><span class="token class-name">ListNode</span> l1<span class="token punctuation">,</span> <span class="token class-name">ListNode</span> l2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">ListNode</span> root <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>l1 <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> l2 <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> root<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token class-name">ListNode</span> tail <span class="token operator">=</span> root<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> entered <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token comment">// 这个条件加了 entered，就是还有进位的数</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>l1 <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">||</span> l2 <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">||</span> entered <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">int</span> temp <span class="token operator">=</span> entered<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>l1 <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                temp <span class="token operator">+=</span> l1<span class="token punctuation">.</span>val<span class="token punctuation">;</span>
+                l1 <span class="token operator">=</span> l1<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>l2 <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                temp <span class="token operator">+=</span> l2<span class="token punctuation">.</span>val<span class="token punctuation">;</span>
+                l2 <span class="token operator">=</span> l2<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            entered <span class="token operator">=</span> <span class="token punctuation">(</span>temp <span class="token operator">-</span> temp <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">;</span>
+            tail<span class="token punctuation">.</span>val <span class="token operator">=</span> temp <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span>
+            <span class="token comment">// 循环内部的控制是为了排除最后的空节点</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>l1 <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">||</span> l2 <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">||</span> entered <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                tail<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                tail <span class="token operator">=</span> tail<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+<span class="token comment">//        tail = null;</span>
+        <span class="token keyword">return</span> root<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这里唯二需要注意的就是两个点，一个是循环条件需要包含进位值还存在的情况，还有一个是最后一个节点，如果是空的了，就不要在 new 一个出来了，写的比较挫</p>
 
     </div>
@@ -320,19 +350,19 @@
   <div class="popular-posts-header">Related Posts</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/10/25/Leetcode-104-二叉树的最大深度-Maximum-Depth-of-Binary-Tree-题解分析/" rel="bookmark">Leetcode 104 二叉树的最大深度(Maximum Depth of Binary Tree) 题解分析</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/01/24/Leetcode-124-二叉树中的最大路径和-Binary-Tree-Maximum-Path-Sum-题解分析/" rel="bookmark">Leetcode 124 二叉树中的最大路径和(Binary Tree Maximum Path Sum) 题解分析</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2021/01/10/Leetcode-160-相交链表-intersection-of-two-linked-lists-题解分析/" rel="bookmark">Leetcode 160 相交链表(intersection-of-two-linked-lists) 题解分析</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/10/25/Leetcode-104-二叉树的最大深度-Maximum-Depth-of-Binary-Tree-题解分析/" rel="bookmark">Leetcode 104 二叉树的最大深度(Maximum Depth of Binary Tree) 题解分析</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/12/13/Leetcode-105-从前序与中序遍历序列构造二叉树-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal-题解分析/" rel="bookmark">Leetcode 105 从前序与中序遍历序列构造二叉树(Construct Binary Tree from Preorder and Inorder Traversal) 题解分析</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/05/01/Leetcode-48-旋转图像-Rotate-Image-题解分析/" rel="bookmark">Leetcode 48 旋转图像(Rotate Image) 题解分析</a></div>
+      <div class="popular-posts-title"><a href="/2021/01/24/Leetcode-124-二叉树中的最大路径和-Binary-Tree-Maximum-Path-Sum-题解分析/" rel="bookmark">Leetcode 124 二叉树中的最大路径和(Binary Tree Maximum Path Sum) 题解分析</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/12/06/Leetcode-155-最小栈-Min-Stack-题解分析/" rel="bookmark">Leetcode 155 最小栈(Min Stack) 题解分析</a></div>
     </li>
   </ul>
 
@@ -460,7 +490,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简要介绍"><span class="nav-number">1.</span> <span class="nav-text">简要介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样例"><span class="nav-number">2.</span> <span class="nav-text">样例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#example-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">example 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#example-2"><span class="nav-number">2.0.2.</span> <span class="nav-text">example 2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#example-3"><span class="nav-number">2.0.3.</span> <span class="nav-text">example 3</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">3.</span> <span class="nav-text">题解</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">简要介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">样例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#example-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">example 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#example-2"><span class="nav-number">2.0.2.</span> <span class="nav-text">example 2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#example-3"><span class="nav-number">2.0.3.</span> <span class="nav-text">example 3</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">题解</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

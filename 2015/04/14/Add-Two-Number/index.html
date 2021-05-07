@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,8 +32,9 @@
 <meta property="og:url" content="https://nicksxs.me/2015/04/14/Add-Two-Number/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="problemYou are given two linked lists representing two non-negative numbers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as">
+<meta property="og:locale">
 <meta property="article:published_time" content="2015-04-14T09:40:10.000Z">
-<meta property="article:modified_time" content="2020-01-12T13:08:27.000Z">
+<meta property="article:modified_time" content="2015-04-14T09:40:10.000Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="c++">
@@ -229,13 +230,6 @@
 
               <time title="Created: 2015-04-14 17:40:10" itemprop="dateCreated datePublished" datetime="2015-04-14T17:40:10+08:00">2015-04-14</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-12 21:08:27" itemprop="dateModified" datetime="2020-01-12T21:08:27+08:00">2020-01-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -287,12 +281,95 @@
       
         <h3 id="problem"><a href="#problem" class="headerlink" title="problem"></a>problem</h3><p>You are given two linked lists representing two non-negative numbers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
 <p><strong>Input</strong>:<code>(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</code><br><strong>Output</strong>: <code>7 -&gt; 0 -&gt; 8</code></p>
-<p><strong>分析（不用英文装逼了）</strong><br>这个代码是抄来的，<a href="https://github.com/haoel/leetcode" target="_blank" rel="noopener">链接</a>原作是这位大大。</p>
-<a id="more"></a>
+<p><strong>分析（不用英文装逼了）</strong><br>这个代码是抄来的，<a target="_blank" rel="noopener" href="https://github.com/haoel/leetcode">链接</a>原作是这位大大。</p>
+<span id="more"></span>
 <p>一开始没看懂题，后来发现是要进位的，自己写的时候想把长短不同时长的串接到结果<br>串的后面，试了下因为进位会有些问题比较难搞定，这样的话就是在其中一个为空的<br>时候还是会循环操作，在链表太大的时候可能会有问题，就这样（逃<br>原来是有个小错误没发现，改进后的代码也AC了，棒棒哒！</p>
-<h3 id="正确代码"><a href="#正确代码" class="headerlink" title="正确代码"></a>正确代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">addTwoNumbers</span><span class="params">(ListNode *l1, ListNode *l2)</span> </span>&#123;</span><br><span class="line">        <span class="function">ListNode <span class="title">dummy</span><span class="params">(<span class="number">0</span>)</span></span>;</span><br><span class="line">        ListNode* p = &amp;dummy;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> cn = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(l1 || l2)&#123;</span><br><span class="line">            <span class="keyword">int</span> val = cn + (l1 ? l1-&gt;val : <span class="number">0</span>) + (l2 ? l2-&gt;val : <span class="number">0</span>);</span><br><span class="line">            cn = val / <span class="number">10</span>;</span><br><span class="line">            val = val % <span class="number">10</span>;</span><br><span class="line">            p-&gt;next = <span class="keyword">new</span> ListNode(val);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(l1)&#123;</span><br><span class="line">                l1 = l1-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(l2)&#123;</span><br><span class="line">                l2 = l2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(cn != <span class="number">0</span>)&#123;</span><br><span class="line">            p-&gt;next = <span class="keyword">new</span> ListNode(cn);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummy.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="正确代码"><a href="#正确代码" class="headerlink" title="正确代码"></a>正确代码</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) &#123;&#125;
+ * &#125;;
+ *&#x2F;
+class Solution &#123;
+public:
+    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) &#123;
+        ListNode dummy(0);
+        ListNode* p &#x3D; &amp;dummy;
 
-<h3 id="失败的代码"><a href="#失败的代码" class="headerlink" title="失败的代码"></a>失败的代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">addTwoNumbers</span><span class="params">(ListNode *l1, ListNode *l2)</span> </span>&#123;</span><br><span class="line">        <span class="function">ListNode <span class="title">dummy</span><span class="params">(<span class="number">0</span>)</span></span>;</span><br><span class="line">        ListNode* p = &amp;dummy;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> cn = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(l1 || l2)&#123;</span><br><span class="line">            <span class="keyword">int</span> val = cn + (l1 ? l1-&gt;val : <span class="number">0</span>) + (l2 ? l2-&gt;val : <span class="number">0</span>);</span><br><span class="line">            cn = val / <span class="number">10</span>;</span><br><span class="line">            val = val % <span class="number">10</span>;</span><br><span class="line">            p-&gt;next = <span class="keyword">new</span> ListNode(val);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(!l1 &amp;&amp; cn == <span class="number">0</span>)&#123;</span><br><span class="line">                flag = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!l2 &amp;&amp; cn == <span class="number">0</span>)&#123;</span><br><span class="line">                flag = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(l1)&#123;</span><br><span class="line">                l1 = l1-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(l2)&#123;</span><br><span class="line">                l2 = l2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!l1 &amp;&amp; cn == <span class="number">0</span> &amp;&amp; flag == <span class="number">1</span>)&#123;</span><br><span class="line">            p-&gt;next = l2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!l2 &amp;&amp; cn == <span class="number">0</span> &amp;&amp; flag == <span class="number">1</span>)&#123;</span><br><span class="line">            p-&gt;next = l1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(cn != <span class="number">0</span>)&#123;</span><br><span class="line">            p-&gt;next = <span class="keyword">new</span> ListNode(cn);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummy.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        int cn &#x3D; 0;
+        while(l1 || l2)&#123;
+            int val &#x3D; cn + (l1 ? l1-&gt;val : 0) + (l2 ? l2-&gt;val : 0);
+            cn &#x3D; val &#x2F; 10;
+            val &#x3D; val % 10;
+            p-&gt;next &#x3D; new ListNode(val);
+            p &#x3D; p-&gt;next;
+            if(l1)&#123;
+                l1 &#x3D; l1-&gt;next;
+            &#125;
+            if(l2)&#123;
+                l2 &#x3D; l2-&gt;next;
+            &#125;
+        &#125;
+        if(cn !&#x3D; 0)&#123;
+            p-&gt;next &#x3D; new ListNode(cn);
+            p &#x3D; p-&gt;next;
+        &#125;
+        return dummy.next;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="失败的代码"><a href="#失败的代码" class="headerlink" title="失败的代码"></a>失败的代码</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) &#123;&#125;
+ * &#125;;
+ *&#x2F;
+class Solution &#123;
+public:
+    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) &#123;
+        ListNode dummy(0);
+        ListNode* p &#x3D; &amp;dummy;
+
+        int cn &#x3D; 0;
+        int flag &#x3D; 0;
+        while(l1 || l2)&#123;
+            int val &#x3D; cn + (l1 ? l1-&gt;val : 0) + (l2 ? l2-&gt;val : 0);
+            cn &#x3D; val &#x2F; 10;
+            val &#x3D; val % 10;
+            p-&gt;next &#x3D; new ListNode(val);
+            p &#x3D; p-&gt;next;
+            if(!l1 &amp;&amp; cn &#x3D;&#x3D; 0)&#123;
+                flag &#x3D; 1;
+                break;
+            &#125;
+            if(!l2 &amp;&amp; cn &#x3D;&#x3D; 0)&#123;
+                flag &#x3D; 1;
+                break;
+            &#125;
+            if(l1)&#123;
+                l1 &#x3D; l1-&gt;next;
+            &#125;
+            if(l2)&#123;
+                l2 &#x3D; l2-&gt;next;
+            &#125;
+        &#125;
+        if(!l1 &amp;&amp; cn &#x3D;&#x3D; 0 &amp;&amp; flag &#x3D;&#x3D; 1)&#123;
+            p-&gt;next &#x3D; l2-&gt;next;
+        &#125;
+        if(!l2 &amp;&amp; cn &#x3D;&#x3D; 0 &amp;&amp; flag &#x3D;&#x3D; 1)&#123;
+            p-&gt;next &#x3D; l1-&gt;next;
+        &#125;
+        if(cn !&#x3D; 0)&#123;
+            p-&gt;next &#x3D; new ListNode(cn);
+            p &#x3D; p-&gt;next;
+        &#125;
+        return dummy.next;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
     </div>
 
@@ -303,7 +380,7 @@
   <div class="popular-posts-header">Related Posts</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2015/03/11/Number-Of-1-Bits/" rel="bookmark">Number of 1 Bits</a></div>
+      <div class="popular-posts-title"><a href="/2015/01/04/Path-Sum/" rel="bookmark">Path Sum</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2016/08/14/34-Search-for-a-Range/" rel="bookmark">34_Search_for_a_Range</a></div>
@@ -441,7 +518,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#problem"><span class="nav-number">1.</span> <span class="nav-text">problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正确代码"><span class="nav-number">2.</span> <span class="nav-text">正确代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#失败的代码"><span class="nav-number">3.</span> <span class="nav-text">失败的代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#problem"><span class="nav-number">1.</span> <span class="nav-text">problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">正确代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%B1%E8%B4%A5%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">失败的代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

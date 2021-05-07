@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,8 +32,9 @@
 <meta property="og:url" content="https://nicksxs.me/2019/06/18/openresty/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="目前公司要对一些新的产品功能做灰度测试，因为在后端业务代码层面添加判断比较麻烦，所以想在nginx上做点手脚，就想到了openresty前后也踩了不少坑，这边先写一点 首先是日志error_log logs&#x2F;error.log debug;需要nginx开启日志的debug才能看到日志 使用 lua_code_cache off即可, 另外注意只有使用 content_by_lua_file 才会">
+<meta property="og:locale">
 <meta property="article:published_time" content="2019-06-18T11:03:05.000Z">
-<meta property="article:modified_time" content="2020-01-12T13:08:27.000Z">
+<meta property="article:modified_time" content="2019-06-18T11:03:05.000Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="openresty">
 <meta property="article:tag" content="nginx">
@@ -229,13 +230,6 @@
 
               <time title="Created: 2019-06-18 19:03:05" itemprop="dateCreated datePublished" datetime="2019-06-18T19:03:05+08:00">2019-06-18</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-12 21:08:27" itemprop="dateModified" datetime="2020-01-12T21:08:27+08:00">2020-01-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -288,13 +282,20 @@
         <p>目前公司要对一些新的产品功能做灰度测试，因为在后端业务代码层面添加判断比较麻烦，所以想在nginx上做点手脚，就想到了openresty<br>前后也踩了不少坑，这边先写一点</p>
 <p>首先是日志<br><code>error_log logs/error.log debug;</code><br>需要nginx开启日志的debug才能看到日志</p>
 <p>使用 <code>lua_code_cache off</code>即可, 另外注意只有使用 <code>content_by_lua_file</code> 才会生效</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">  lua_code_cache off;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ~* /(\d+-.*)/api/orgunits/load_all(.*) &#123;</span><br><span class="line">   default_type <span class="string">'application/json;charset=utf-8'</span>;</span><br><span class="line">   content_by_lua_file /data/projects/xxx/current/lua/controller/load_data.lua;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token function">http</span> <span class="token punctuation">&#123;</span>
+  lua_code_cache off<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+location <span class="token operator">~</span><span class="token operator">*</span> <span class="token operator">/</span><span class="token punctuation">(</span>\d<span class="token operator">+</span><span class="token operator">-</span><span class="token punctuation">.</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">/</span>api<span class="token operator">/</span>orgunits<span class="token operator">/</span><span class="token function">load_all</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   default_type <span class="token string">'application/json;charset=utf-8'</span><span class="token punctuation">;</span>
+   content_by_lua_file <span class="token operator">/</span>data<span class="token operator">/</span>projects<span class="token operator">/</span>xxx<span class="token operator">/</span>current<span class="token operator">/</span>lua<span class="token operator">/</span>controller<span class="token operator">/</span>load_data<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>使用lua给nginx请求response头添加内容可以用这个</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngx.header[<span class="string">'response'</span>] = <span class="string">'header'</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">ngx<span class="token punctuation">.</span>header<span class="token punctuation">[</span><span class="token string">'response'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'header'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
-<p><a href="http://cyukang.com/2017/05/22/try-on-openresty.html" target="_blank" rel="noopener">使用总结</a></p>
+<p><a target="_blank" rel="noopener" href="http://cyukang.com/2017/05/22/try-on-openresty.html">使用总结</a></p>
 <p>后续：</p>
 <ol>
 <li>一开始在本地环境的时候使用content_by_lua_file只关注了头，后来发到测试环境发现请求内容都没代理转发到后端服务上<br>网上查了下发现content_by_lua_file是将请求的所有内容包括response都用这里面的lua脚本生成了，content这个词就表示是请求内容<br>后来改成了access_by_lua_file就正常了，只是要去获取请求内容和修改响应头，并不是要完整的接管请求</li>
@@ -303,18 +304,33 @@
 <li><p>后来又碰到了一个坑是nginx有个client_body_buffer_size的配置参数，nginx在32位和64位系统里有8K和16K两个默认值，当请求内容大于这两个值的时候，会把请求内容放到临时文件里，这个时候openresty里的ngx.req.get_post_args()就会报“failed to get post args: requesty body in temp file not supported”这个错误，将client_body_buffer_size这个参数配置调大一点就好了</p>
 </li>
 <li><p>还有就是lua的异常捕获，网上看一般是用pcall和xpcall来进行保护调用，因为问题主要出在cjson的decode，这里有两个解决方案，一个就是将cjson.decode使用pcall封装，</p>
- <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> decode = <span class="built_in">require</span>(<span class="string">"cjson"</span>).decode</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">json_decode</span><span class="params">( str )</span></span></span><br><span class="line">    <span class="keyword">local</span> ok, t = <span class="built_in">pcall</span>(decode, str)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> ok <span class="keyword">then</span></span><br><span class="line">      <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> t</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+ <pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> decode <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"cjson"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>decode
+
+<span class="token keyword">function</span> <span class="token function">json_decode</span><span class="token punctuation">(</span> str <span class="token punctuation">)</span>
+    <span class="token keyword">local</span> ok<span class="token punctuation">,</span> t <span class="token operator">=</span> <span class="token function">pcall</span><span class="token punctuation">(</span>decode<span class="token punctuation">,</span> str<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> ok <span class="token keyword">then</span>
+      <span class="token keyword">return</span> <span class="token keyword">nil</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">return</span> t
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p> 这个是使用了pcall，称为保护调用，会在内部错误后返回两个参数，第一个是false，第二个是错误信息<br> 还有一种是使用cjson.safe包</p>
- <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> json = <span class="built_in">require</span>(<span class="string">"cjson.safe"</span>)</span><br><span class="line"><span class="keyword">local</span> str = <span class="string">[[ &#123;"key:"value"&#125; ]]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> t = json.decode(str)</span><br><span class="line"><span class="keyword">if</span> t <span class="keyword">then</span></span><br><span class="line">    ngx.say(<span class="string">" --&gt; "</span>, <span class="built_in">type</span>(t))</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+ <pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">local</span> json <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"cjson.safe"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> str <span class="token operator">=</span> <span class="token string">[[ &#123;"key:"value"&#125; ]]</span>
+
+<span class="token keyword">local</span> t <span class="token operator">=</span> json<span class="token punctuation">.</span><span class="token function">decode</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span>
+<span class="token keyword">if</span> t <span class="token keyword">then</span>
+    ngx<span class="token punctuation">.</span><span class="token function">say</span><span class="token punctuation">(</span><span class="token string">" --> "</span><span class="token punctuation">,</span> <span class="token function">type</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p> cjson.safe包会在解析失败的时候返回nil</p>
 </li>
 <li><p>还有一个是redis链接时如果host使用的是域名的话会提示“failed to connect: no resolver defined to resolve “redis.xxxxxx.com””，这里需要使用nginx的resolver指令，<br><code>resolver 8.8.8.8 valid=3600s;</code></p>
 </li>
 <li><p>还有一点补充下<br>就是业务在使用redis的时候使用了db的特性，所以在lua访问redis的时候也需要执行db，这里lua的redis库也支持了这个特性，可以使用instance:select(config:get(‘db’))来切换db</p>
 </li>
-<li><p>性能优化tips<br><a href="https://juejin.im/entry/5b0e8fcef265da09210072a3#openresty" target="_blank" rel="noopener">建议是尽量少使用阶段钩子，例如content_by_lua_file，*_by_lua</a></p>
+<li><p>性能优化tips<br><a target="_blank" rel="noopener" href="https://juejin.im/entry/5b0e8fcef265da09210072a3#openresty">建议是尽量少使用阶段钩子，例如content_by_lua_file，*_by_lua</a></p>
 </li>
-<li><p>发现一个不错的openresty站点<br><a href="http://orhub.org/" target="_blank" rel="noopener">地址</a></p>
+<li><p>发现一个不错的openresty站点<br><a target="_blank" rel="noopener" href="http://orhub.org/">地址</a></p>
 </li>
 </ol>
 

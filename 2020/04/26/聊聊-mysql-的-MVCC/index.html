@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,16 +32,14 @@
 <meta property="og:url" content="https://nicksxs.me/2020/04/26/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="很久以前，有位面试官问到，你知道 mysql 的事务隔离级别吗，“额 O__O …，不太清楚”，完了之后我就去网上找相关的文章，找到了这篇MySQL 四种事务隔离级的说明, 文章写得特别好，看了这个就懂了各个事务隔离级别都是啥，不过看了这个之后多思考一下的话还是会发现问题，这么神奇的事务隔离级别是怎么实现的呢 其中 innodb 的事务隔离用到了标题里说到的 mvcc，Multiversion c">
+<meta property="og:locale">
 <meta property="article:published_time" content="2020-04-26T14:14:01.000Z">
-<meta property="article:modified_time" content="2020-05-02T11:46:21.000Z">
+<meta property="article:modified_time" content="2020-04-26T14:14:01.000Z">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Mysql">
-<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="mysql">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="源码">
-<meta property="article:tag" content="源码分析">
-<meta property="article:tag" content="事务隔离级别">
-<meta property="article:tag" content="MVCC">
+<meta property="article:tag" content="mvcc">
 <meta property="article:tag" content="read view">
 <meta name="twitter:card" content="summary">
 
@@ -235,13 +233,6 @@
 
               <time title="Created: 2020-04-26 22:14:01" itemprop="dateCreated datePublished" datetime="2020-04-26T22:14:01+08:00">2020-04-26</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-02 19:46:21" itemprop="dateModified" datetime="2020-05-02T19:46:21+08:00">2020-05-02</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -307,10 +298,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>很久以前，有位面试官问到，你知道 mysql 的事务隔离级别吗，“额 O__O …，不太清楚”，完了之后我就去网上找相关的文章，找到了这篇<a href="https://www.cnblogs.com/zhoujinyi/p/3437475.html" target="_blank" rel="noopener">MySQL 四种事务隔离级的说明</a>, 文章写得特别好，看了这个就懂了各个事务隔离级别都是啥，不过看了这个之后多思考一下的话还是会发现问题，这么神奇的事务隔离级别是怎么实现的呢</p>
-<p>其中 innodb 的事务隔离用到了标题里说到的 mvcc，<a href="https://en.wikipedia.org/wiki/Multiversion_concurrency_control" target="_blank" rel="noopener"><strong>Multiversion concurrency control</strong></a>, 直译过来就是多版本并发控制，先不讲这个究竟是个啥，考虑下如果纯猜测，这个事务隔离级别应该会是怎么样实现呢，愚钝的我想了下，可以在事务开始的时候拷贝一个表，这个可以支持 RR 级别，RC 级别就不支持了，而且要是个非常大的表，想想就不可行</p>
-<p>腆着脸说虽然这个不可行，但是思路是对的，具体实行起来需要做一系列（肥肠多）的改动，首先根据我的理解，其实这个拷贝一个表是变成拷贝一条记录，但是如果有多个事务，那就得拷贝多次，这个问题其实可以借助版本管理系统来解释，在用版本管理系统，git 之类的之前，很原始的可能是开发完一个功能后，就打个压缩包用时间等信息命名，然后如果后面要找回这个就直接用这个压缩包的就行了，后来有了 svn，git 中心式和分布式的版本管理系统，它的一个特点是粒度可以控制到文件和代码行级别，对应的我们的 mysql 事务是不是也可以从一开始预想的表级别细化到行的级别，可能之前很多人都了解过，数据库的一行记录除了我们用户自定义的字段，还有一些额外的字段，去源码<a href="https://github.com/mysql/mysql-server/blob/8.0/storage/innobase/include/data0type.h#L170" target="_blank" rel="noopener">data0type.h</a>里捞一下</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Precise data types for system columns and the length of those columns;</span></span><br><span class="line"><span class="comment"><span class="doctag">NOTE:</span> the values must run from 0 up in the order given! All codes must</span></span><br><span class="line"><span class="comment">be less than 256 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DATA_ROW_ID 0     <span class="comment">/* row id: a 48-bit integer */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DATA_ROW_ID_LEN 6 <span class="comment">/* stored length for row id */</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Transaction id: 6 bytes */</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">size_t</span> DATA_TRX_ID = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Transaction ID type size in bytes. */</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">size_t</span> DATA_TRX_ID_LEN = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Rollback data pointer: 7 bytes */</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">size_t</span> DATA_ROLL_PTR = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Rollback data pointer type size in bytes. */</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">size_t</span> DATA_ROLL_PTR_LEN = <span class="number">7</span>;</span><br></pre></td></tr></table></figure>
+        <p>很久以前，有位面试官问到，你知道 mysql 的事务隔离级别吗，“额 O__O …，不太清楚”，完了之后我就去网上找相关的文章，找到了这篇<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhoujinyi/p/3437475.html">MySQL 四种事务隔离级的说明</a>, 文章写得特别好，看了这个就懂了各个事务隔离级别都是啥，不过看了这个之后多思考一下的话还是会发现问题，这么神奇的事务隔离级别是怎么实现的呢</p>
+<p>其中 innodb 的事务隔离用到了标题里说到的 mvcc，<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Multiversion_concurrency_control"><strong>Multiversion concurrency control</strong></a>, 直译过来就是多版本并发控制，先不讲这个究竟是个啥，考虑下如果纯猜测，这个事务隔离级别应该会是怎么样实现呢，愚钝的我想了下，可以在事务开始的时候拷贝一个表，这个可以支持 RR 级别，RC 级别就不支持了，而且要是个非常大的表，想想就不可行</p>
+<p>腆着脸说虽然这个不可行，但是思路是对的，具体实行起来需要做一系列（肥肠多）的改动，首先根据我的理解，其实这个拷贝一个表是变成拷贝一条记录，但是如果有多个事务，那就得拷贝多次，这个问题其实可以借助版本管理系统来解释，在用版本管理系统，git 之类的之前，很原始的可能是开发完一个功能后，就打个压缩包用时间等信息命名，然后如果后面要找回这个就直接用这个压缩包的就行了，后来有了 svn，git 中心式和分布式的版本管理系统，它的一个特点是粒度可以控制到文件和代码行级别，对应的我们的 mysql 事务是不是也可以从一开始预想的表级别细化到行的级别，可能之前很多人都了解过，数据库的一行记录除了我们用户自定义的字段，还有一些额外的字段，去源码<a target="_blank" rel="noopener" href="https://github.com/mysql/mysql-server/blob/8.0/storage/innobase/include/data0type.h#L170">data0type.h</a>里捞一下</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/* Precise data types for system columns and the length of those columns;
+NOTE: the values must run from 0 up in the order given! All codes must
+be less than 256 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">DATA_ROW_ID</span> <span class="token expression"><span class="token number">0</span>     </span><span class="token comment">/* row id: a 48-bit integer */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">DATA_ROW_ID_LEN</span> <span class="token expression"><span class="token number">6</span> </span><span class="token comment">/* stored length for row id */</span></span>
+
+<span class="token comment">/** Transaction id: 6 bytes */</span>
+constexpr <span class="token class-name">size_t</span> DATA_TRX_ID <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+<span class="token comment">/** Transaction ID type size in bytes. */</span>
+constexpr <span class="token class-name">size_t</span> DATA_TRX_ID_LEN <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
+
+<span class="token comment">/** Rollback data pointer: 7 bytes */</span>
+constexpr <span class="token class-name">size_t</span> DATA_ROLL_PTR <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+<span class="token comment">/** Rollback data pointer type size in bytes. */</span>
+constexpr <span class="token class-name">size_t</span> DATA_ROLL_PTR_LEN <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>一个是 <code>DATA_ROW_ID</code>，这个是在数据没指定主键的时候会生成一个隐藏的，如果用户有指定主键就是主键了</p>
 <p>一个是 <code>DATA_TRX_ID</code>，这个表示这条记录的事务 ID</p>
@@ -325,7 +332,31 @@
 <li>当记录的事务 <code>id</code> 小于最小活跃事务 id，说明是可见的，</li>
 <li>如果记录的事务 <code>id</code> 等于当前事务 id，说明是自己的更改，可见</li>
 <li>如果记录的事务 <code>id</code> 大于最大的活跃事务 <code>id</code>, 不可见</li>
-<li>如果记录的事务 <code>id</code> 介于 <code>m_low_limit_id</code> 和 <code>m_up_limit_id</code> 之间，则要判断它是否在 <code>m_ids</code> 中，如果在，不可见，如果不在，表示已提交，可见<br>具体的<a href="https://github.com/mysql/mysql-server/blob/8.0/storage/innobase/include/read0types.h#L160" target="_blank" rel="noopener">代码</a>捞一下看看<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Check whether the changes by id are visible.</span></span><br><span class="line"><span class="comment">  @param[in]	id	transaction id to check against the view</span></span><br><span class="line"><span class="comment">  @param[in]	name	table name</span></span><br><span class="line"><span class="comment">  @return whether the view sees the modifications of id. */</span></span><br><span class="line">  <span class="function"><span class="keyword">bool</span> <span class="title">changes_visible</span><span class="params">(<span class="keyword">trx_id_t</span> id, <span class="keyword">const</span> <span class="keyword">table_name_t</span> &amp;name)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">      <span class="title">MY_ATTRIBUTE</span><span class="params">((warn_unused_result))</span> </span>&#123;</span><br><span class="line">    ut_ad(id &gt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (id &lt; m_up_limit_id || id == m_creator_trx_id) &#123;</span><br><span class="line">      <span class="keyword">return</span> (<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    check_trx_id_sanity(id, name);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (id &gt;= m_low_limit_id) &#123;</span><br><span class="line">      <span class="keyword">return</span> (<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (m_ids.empty()) &#123;</span><br><span class="line">      <span class="keyword">return</span> (<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">ids_t</span>::value_type *p = m_ids.data();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (!<span class="built_in">std</span>::binary_search(p, p + m_ids.<span class="built_in">size</span>(), id));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<li>如果记录的事务 <code>id</code> 介于 <code>m_low_limit_id</code> 和 <code>m_up_limit_id</code> 之间，则要判断它是否在 <code>m_ids</code> 中，如果在，不可见，如果不在，表示已提交，可见<br>具体的<a target="_blank" rel="noopener" href="https://github.com/mysql/mysql-server/blob/8.0/storage/innobase/include/read0types.h#L160">代码</a>捞一下看看<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;** Check whether the changes by id are visible.
+  @param[in]	id	transaction id to check against the view
+  @param[in]	name	table name
+  @return whether the view sees the modifications of id. *&#x2F;
+  bool changes_visible(trx_id_t id, const table_name_t &amp;name) const
+      MY_ATTRIBUTE((warn_unused_result)) &#123;
+    ut_ad(id &gt; 0);
+
+    if (id &lt; m_up_limit_id || id &#x3D;&#x3D; m_creator_trx_id) &#123;
+      return (true);
+    &#125;
+
+    check_trx_id_sanity(id, name);
+
+    if (id &gt;&#x3D; m_low_limit_id) &#123;
+      return (false);
+
+    &#125; else if (m_ids.empty()) &#123;
+      return (true);
+    &#125;
+
+    const ids_t::value_type *p &#x3D; m_ids.data();
+
+    return (!std::binary_search(p, p + m_ids.size(), id));
+  &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 剩下来一点是啥呢，就是 <code>Read Committed</code> 和 <code>Repeated Read</code> 也不一样，那前面说的 <code>read view</code> 都能支持吗，又是怎么支持呢，假如这个 <code>read view</code> 是在事务一开始就创建，那好像能支持的只是 RR 事务隔离级别，其实呢，这是通过创建 <code>read view</code>的时机，对于 RR 级别，就是在事务的第一个 <code>select</code> 语句是创建，对于 RC 级别，是在每个 <code>select</code> 语句执行前都是创建一次，那样就可以保证能读到所有已提交的数据</li>
 </ol>
 
@@ -344,13 +375,13 @@
       <div class="popular-posts-title"><a href="/2020/05/02/聊聊-mysql-的-MVCC-续篇/" rel="bookmark">聊聊 mysql 的 MVCC 续篇</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/01/20/redis数据结构介绍五/" rel="bookmark">redis数据结构介绍五-第五部分 对象</a></div>
+      <div class="popular-posts-title"><a href="/2020/01/04/redis数据结构介绍二/" rel="bookmark">redis数据结构介绍二-第二部分 跳表</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/04/12/redis系列介绍七/" rel="bookmark">redis系列介绍七-过期策略</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/01/10/redis数据结构介绍三/" rel="bookmark">redis数据结构介绍三-第三部分 整数集合</a></div>
+      <div class="popular-posts-title"><a href="/2019/12/26/redis数据结构介绍/" rel="bookmark">redis数据结构介绍-第一部分 SDS，链表，字典</a></div>
     </li>
   </ul>
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,8 +32,9 @@
 <meta property="og:url" content="https://nicksxs.me/2015/01/16/pcre-intro-and-a-simple-package/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="Pcre Perl Compatible Regular Expressions (PCRE) is a regular expression C library inspired by the regular expression capabilities in the Perl programming language, written by Philip Hazel, starting in">
+<meta property="og:locale">
 <meta property="article:published_time" content="2015-01-16T06:30:20.000Z">
-<meta property="article:modified_time" content="2020-01-12T13:08:26.000Z">
+<meta property="article:modified_time" content="2015-01-16T06:30:20.000Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="mfc">
@@ -229,13 +230,6 @@
 
               <time title="Created: 2015-01-16 14:30:20" itemprop="dateCreated datePublished" datetime="2015-01-16T14:30:20+08:00">2015-01-16</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-12 21:08:26" itemprop="dateModified" datetime="2020-01-12T21:08:26+08:00">2020-01-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -285,25 +279,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Pcre"><a href="#Pcre" class="headerlink" title="Pcre"></a><a href="http://www.pcre.org/" target="_blank" rel="noopener">Pcre</a></h3><blockquote>
+        <h3 id="Pcre"><a href="#Pcre" class="headerlink" title="Pcre"></a><a target="_blank" rel="noopener" href="http://www.pcre.org/">Pcre</a></h3><blockquote>
 <p>Perl Compatible Regular Expressions (PCRE) is a regular<br> expression C library inspired by the regular expression<br> capabilities in the Perl programming language, written<br> by Philip Hazel, starting in summer 1997.</p>
 </blockquote>
-<p>因为最近工作内容的一部分需要做字符串的识别处理，所以就顺便用上了之前在PHP中用过的正则，在C/C++中本身不包含正则库，这里使用的pcre，对MFC开发，在<a href="http://www.psyon.org/projects/pcre-win32/index.php" target="_blank" rel="noopener">这里</a>提供了静态链接库，在引入lib跟.h文件后即可使用。</p>
-<a id="more"></a>
+<p>因为最近工作内容的一部分需要做字符串的识别处理，所以就顺便用上了之前在PHP中用过的正则，在C/C++中本身不包含正则库，这里使用的pcre，对MFC开发，在<a target="_blank" rel="noopener" href="http://www.psyon.org/projects/pcre-win32/index.php">这里</a>提供了静态链接库，在引入lib跟.h文件后即可使用。</p>
+<span id="more"></span>
 
-<h3 id="Regular-Expression-Syntax"><a href="#Regular-Expression-Syntax" class="headerlink" title="Regular Expression Syntax"></a>Regular Expression Syntax</h3><p>然后是一些<a href="http://www.pcre.org/original/doc/html/pcresyntax.html" target="_blank" rel="noopener">正则语法</a>，官方的语法文档比较科学严谨，特别是对类似于贪婪匹配等细节的说明，当然一般的使用可以在网上找到很多匹配语法，例如<a href="http://www.regextester.com/pregsyntax.html" target="_blank" rel="noopener">这个</a>。</p>
+<h3 id="Regular-Expression-Syntax"><a href="#Regular-Expression-Syntax" class="headerlink" title="Regular Expression Syntax"></a>Regular Expression Syntax</h3><p>然后是一些<a target="_blank" rel="noopener" href="http://www.pcre.org/original/doc/html/pcresyntax.html">正则语法</a>，官方的语法文档比较科学严谨，特别是对类似于贪婪匹配等细节的说明，当然一般的使用可以在网上找到很多匹配语法，例如<a target="_blank" rel="noopener" href="http://www.regextester.com/pregsyntax.html">这个</a>。</p>
 <h3 id="PCRE函数介绍"><a href="#PCRE函数介绍" class="headerlink" title="PCRE函数介绍"></a>PCRE函数介绍</h3><blockquote>
 <p>pcre_compile<br>原型：</p>
 </blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pcre.h&gt;</span></span></span><br><span class="line"><span class="function">pcre *<span class="title">pcre_compile</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pattern, <span class="keyword">int</span> options, <span class="keyword">const</span> <span class="keyword">char</span> **errptr, <span class="keyword">int</span> *erroffset, <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *tableptr)</span></span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include &lt;pcre.h&gt;
+pcre *pcre_compile(const char *pattern, int options, const char **errptr, int *erroffset, const unsigned char *tableptr);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>功能：将一个正则表达式编译成一个内部表示，在匹配多个字符串时，可以加速匹配。其同pcre_compile2功能一样只是缺少一个参数errorcodeptr。<br>参数：<br><code>pattern</code>   正则表达式<br><code>options</code>     为0，或者其他参数选项<br><code>errptr</code>       出错消息<br><code>erroffset</code>  出错位置<br><code>tableptr</code>   指向一个字符数组的指针，可以设置为空NULL</p>
 <blockquote>
 <p>pcre_exec<br>原型：</p>
 </blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pcre.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pcre_exec</span><span class="params">(<span class="keyword">const</span> pcre *code, <span class="keyword">const</span> pcre_extra *extra, <span class="keyword">const</span> <span class="keyword">char</span> *subject, <span class="keyword">int</span> length, <span class="keyword">int</span> startoffset, <span class="keyword">int</span> options, <span class="keyword">int</span> *ovector, <span class="keyword">int</span> ovecsize)</span></span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include &lt;pcre.h&gt;
+int pcre_exec(const pcre *code, const pcre_extra *extra, const char *subject, int length, int startoffset, int options, int *ovector, int ovecsize)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>功能：使用编译好的模式进行匹配，采用与Perl相似的算法，返回匹配串的偏移位置。<br>参数：<br><code>code</code>         编译好的模式<br><code>extra</code>        指向一个pcre_extra结构体，可以为NULL<br><code>subject</code>      需要匹配的字符串<br><code>length</code>       匹配的字符串长度（Byte）<br><code>startoffset</code>  匹配的开始位置<br><code>options</code>      选项位<br><code>ovector</code>      指向一个结果的整型数组<br><code>ovecsize</code>     数组大小。</p>
-<p>这里是两个最常用的函数的简单说明，pcre的静态库提供了一系列的函数以供使用，可以参考这个<a href="http://blog.csdn.net/sulliy/article/details/6247155" target="_blank" rel="noopener">博客</a>说明，另外对于以上函数的具体参数详细说明可以参考官网<a href="http://www.pcre.org/original/doc/html/" target="_blank" rel="noopener">此处</a></p>
-<h3 id="一个丑陋的封装"><a href="#一个丑陋的封装" class="headerlink" title="一个丑陋的封装"></a>一个丑陋的封装</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">COcxDemoDlg::pcre_exec_all</span><span class="params">(<span class="keyword">const</span> pcre * re, PCRE_SPTR src, <span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; &amp;vc)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> rc;</span><br><span class="line">	<span class="keyword">int</span> ovector[<span class="number">30</span>];</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pr;</span><br><span class="line">	rc = pcre_exec(re, <span class="literal">NULL</span>, src, <span class="built_in">strlen</span>(src), i, <span class="number">0</span>, ovector, <span class="number">30</span>);</span><br><span class="line">	<span class="keyword">for</span> (; rc &gt; <span class="number">0</span>;)</span><br><span class="line">	&#123;</span><br><span class="line">		i = ovector[<span class="number">1</span>];</span><br><span class="line">		pr.first = ovector[<span class="number">2</span>];</span><br><span class="line">		pr.second = ovector[<span class="number">3</span>];</span><br><span class="line">		vc.push_back(pr);</span><br><span class="line">		rc = pcre_exec(re, <span class="literal">NULL</span>, src, <span class="built_in">strlen</span>(src), i, <span class="number">0</span>, ovector, <span class="number">30</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里是两个最常用的函数的简单说明，pcre的静态库提供了一系列的函数以供使用，可以参考这个<a target="_blank" rel="noopener" href="http://blog.csdn.net/sulliy/article/details/6247155">博客</a>说明，另外对于以上函数的具体参数详细说明可以参考官网<a target="_blank" rel="noopener" href="http://www.pcre.org/original/doc/html/">此处</a></p>
+<h3 id="一个丑陋的封装"><a href="#一个丑陋的封装" class="headerlink" title="一个丑陋的封装"></a>一个丑陋的封装</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">void COcxDemoDlg::pcre_exec_all(const pcre * re, PCRE_SPTR src, vector&lt;pair&lt;int, int&gt;&gt; &amp;vc)
+&#123;
+	int rc;
+	int ovector[30];
+	int i &#x3D; 0;
+	pair&lt;int, int&gt; pr;
+	rc &#x3D; pcre_exec(re, NULL, src, strlen(src), i, 0, ovector, 30);
+	for (; rc &gt; 0;)
+	&#123;
+		i &#x3D; ovector[1];
+		pr.first &#x3D; ovector[2];
+		pr.second &#x3D; ovector[3];
+		vc.push_back(pr);
+		rc &#x3D; pcre_exec(re, NULL, src, strlen(src), i, 0, ovector, 30);
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>vector中是全文匹配后的索引对，只是简单地用下。</p>
 
     </div>
@@ -453,7 +464,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pcre"><span class="nav-number">1.</span> <span class="nav-text">Pcre</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Regular-Expression-Syntax"><span class="nav-number">2.</span> <span class="nav-text">Regular Expression Syntax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCRE函数介绍"><span class="nav-number">3.</span> <span class="nav-text">PCRE函数介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个丑陋的封装"><span class="nav-number">4.</span> <span class="nav-text">一个丑陋的封装</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pcre"><span class="nav-number">1.</span> <span class="nav-text">Pcre</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Regular-Expression-Syntax"><span class="nav-number">2.</span> <span class="nav-text">Regular Expression Syntax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCRE%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">PCRE函数介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E4%B8%91%E9%99%8B%E7%9A%84%E5%B0%81%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">一个丑陋的封装</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

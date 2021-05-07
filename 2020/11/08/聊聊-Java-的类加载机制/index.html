@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,17 +32,11 @@
 <meta property="og:url" content="https://nicksxs.me/2020/11/08/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="一说到这个主题，想到的应该是双亲委派模型，不过讲的包括但不限于这个，主要内容是参考深入理解 Java 虚拟机书中的介绍，一个类型的生命周期包含了七个阶段，加载，验证，准备，解析，初始化，使用，卸载。  加载   通过一个类的全限定名来获取定义此类的二进制字节流 将这个字节流代表的静态存储结构转化为方法区的运行时数据结构 在内存中生成了一个代表这个类的 java.lang.Class 对象，作为方法">
+<meta property="og:locale">
 <meta property="article:published_time" content="2020-11-08T14:53:19.000Z">
-<meta property="article:modified_time" content="2020-11-08T14:55:23.000Z">
+<meta property="article:modified_time" content="2020-11-08T14:53:19.000Z">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="类加载">
-<meta property="article:tag" content="加载">
-<meta property="article:tag" content="验证">
-<meta property="article:tag" content="准备">
-<meta property="article:tag" content="解析">
-<meta property="article:tag" content="初始化">
-<meta property="article:tag" content="链接">
+<meta property="article:tag" content="Nicksxs,史学森,米方方,米方方的男朋友,森哥">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://nicksxs.me/2020/11/08/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
@@ -232,9 +226,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-11-08 22:53:19 / Modified: 22:55:23" itemprop="dateCreated datePublished" datetime="2020-11-08T22:53:19+08:00">2020-11-08</time>
+              <time title="Created: 2020-11-08 22:53:19" itemprop="dateCreated datePublished" datetime="2020-11-08T22:53:19+08:00">2020-11-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -313,7 +306,7 @@
 <li><h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>解析阶段是 Java 虚拟机将常量池内的符号引用替换为直接引用的过程</p>
 </li>
 </ul>
-<p>以上<a href="##链接">验证</a>、<a href="##准备">准备</a>、<a href="##解析">解析</a> 三个阶段又合称为链接阶段，链接阶段要做的是将加载到JVM中的二进制字节流的类数据信息合并到JVM的运行时状态中。</p>
+<p>以上<a href="##%E9%93%BE%E6%8E%A5">验证</a>、<a href="##%E5%87%86%E5%A4%87">准备</a>、<a href="##%E8%A7%A3%E6%9E%90">解析</a> 三个阶段又合称为链接阶段，链接阶段要做的是将加载到JVM中的二进制字节流的类数据信息合并到JVM的运行时状态中。</p>
 <ul>
 <li><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2>类的初始化阶段是类加载过程的最后一个步骤，也是除了自定义类加载器之外将主动权交给了应用程序，其实就是执行类构造器<clinit>()方法的过程，<clinit>()并不是我们在 Java 代码中直接编写的方法，它是 Javac编译器的自动生成物，<clinit>()方法是由编译器自动收集类中的所有类变量的复制动作和静态句块(static{}块)中的语句合并产生的，编译器收集的顺序是由语句在原文件中出现的顺序决定的，静态语句块中只能访问定义在静态语句块之前的变量，定义在它之后的变量，在前面的静态语句块可以复制，但是不能访问，同时还要保证父类的执行先于子类，然后保证多线程下的并发问题</li>
 </ul>
@@ -444,7 +437,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#加载"><span class="nav-number">1.</span> <span class="nav-text">加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证"><span class="nav-number">2.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">3.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析"><span class="nav-number">4.</span> <span class="nav-text">解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化"><span class="nav-number">5.</span> <span class="nav-text">初始化</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-number">2.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">3.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">5.</span> <span class="nav-text">初始化</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

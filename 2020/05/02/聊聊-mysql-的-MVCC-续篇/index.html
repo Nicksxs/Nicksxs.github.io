@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -26,28 +26,24 @@
     var CONFIG = {"hostname":"nicksxs.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="上一篇聊了mysql 的 innodb 引擎基于 read view 实现的 mvcc 和事务隔离级别，可能有些细心的小伙伴会发现一些问题，第一个是在 RC 级别下的事务提交后的可见性，这里涉及到了三个参数，m_low_limit_id，m_up_limit_id，m_ids，之前看到知乎的一篇写的非常不错的文章，但是就在这一点上似乎有点疑惑，这里基于源码和注释来解释下这个问题 123456789">
+  <meta name="description" content="上一篇聊了mysql 的 innodb 引擎基于 read view 实现的 mvcc 和事务隔离级别，可能有些细心的小伙伴会发现一些问题，第一个是在 RC 级别下的事务提交后的可见性，这里涉及到了三个参数，m_low_limit_id，m_up_limit_id，m_ids，之前看到知乎的一篇写的非常不错的文章，但是就在这一点上似乎有点疑惑，这里基于源码和注释来解释下这个问题 &#x2F;**">
 <meta property="og:type" content="article">
 <meta property="og:title" content="聊聊 mysql 的 MVCC 续篇">
 <meta property="og:url" content="https://nicksxs.me/2020/05/02/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%AF%87/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
-<meta property="og:description" content="上一篇聊了mysql 的 innodb 引擎基于 read view 实现的 mvcc 和事务隔离级别，可能有些细心的小伙伴会发现一些问题，第一个是在 RC 级别下的事务提交后的可见性，这里涉及到了三个参数，m_low_limit_id，m_up_limit_id，m_ids，之前看到知乎的一篇写的非常不错的文章，但是就在这一点上似乎有点疑惑，这里基于源码和注释来解释下这个问题 123456789">
+<meta property="og:description" content="上一篇聊了mysql 的 innodb 引擎基于 read view 实现的 mvcc 和事务隔离级别，可能有些细心的小伙伴会发现一些问题，第一个是在 RC 级别下的事务提交后的可见性，这里涉及到了三个参数，m_low_limit_id，m_up_limit_id，m_ids，之前看到知乎的一篇写的非常不错的文章，但是就在这一点上似乎有点疑惑，这里基于源码和注释来解释下这个问题 &#x2F;**">
+<meta property="og:locale">
 <meta property="article:published_time" content="2020-05-02T06:46:35.000Z">
-<meta property="article:modified_time" content="2020-05-03T14:26:29.000Z">
+<meta property="article:modified_time" content="2020-05-02T06:46:35.000Z">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Mysql">
-<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="mysql">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="源码">
-<meta property="article:tag" content="源码分析">
-<meta property="article:tag" content="事务隔离级别">
-<meta property="article:tag" content="MVCC">
+<meta property="article:tag" content="mvcc">
 <meta property="article:tag" content="read view">
 <meta property="article:tag" content="gap lock">
 <meta property="article:tag" content="next-key lock">
 <meta property="article:tag" content="幻读">
-<meta property="article:tag" content="间隙锁">
-<meta property="article:tag" content="行锁">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://nicksxs.me/2020/05/02/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%AF%87/">
@@ -240,13 +236,6 @@
 
               <time title="Created: 2020-05-02 14:46:35" itemprop="dateCreated datePublished" datetime="2020-05-02T14:46:35+08:00">2020-05-02</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-03 22:26:29" itemprop="dateModified" datetime="2020-05-03T22:26:29+08:00">2020-05-03</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -313,7 +302,17 @@
 
       
         <p>上一篇聊了mysql 的 innodb 引擎基于 read view 实现的 mvcc 和事务隔离级别，可能有些细心的小伙伴会发现一些问题，第一个是在 RC 级别下的事务提交后的可见性，这里涉及到了三个参数，m_low_limit_id，m_up_limit_id，m_ids，之前看到知乎的一篇写的非常不错的文章，但是就在这一点上似乎有点疑惑，这里基于源码和注释来解释下这个问题</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Opens a read view where exactly the transactions serialized before this</span></span><br><span class="line"><span class="comment">point in time are seen in the view.</span></span><br><span class="line"><span class="comment">@param id		Creator transaction id */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReadView::prepare</span><span class="params">(<span class="keyword">trx_id_t</span> id)</span> </span>&#123;</span><br><span class="line">  ut_ad(mutex_own(&amp;trx_sys-&gt;mutex));</span><br><span class="line"></span><br><span class="line">  m_creator_trx_id = id;</span><br><span class="line"></span><br><span class="line">  m_low_limit_no = m_low_limit_id = m_up_limit_id = trx_sys-&gt;max_trx_id;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
+Opens a read view where exactly the transactions serialized before this
+point in time are seen in the view.
+@param id		Creator transaction id *&#x2F;
+
+void ReadView::prepare(trx_id_t id) &#123;
+  ut_ad(mutex_own(&amp;trx_sys-&gt;mutex));
+
+  m_creator_trx_id &#x3D; id;
+
+  m_low_limit_no &#x3D; m_low_limit_id &#x3D; m_up_limit_id &#x3D; trx_sys-&gt;max_trx_id;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>m_low_limit_id赋的值是trx_sys-&gt;max_trx_id，代表的是当前系统最小的未分配的事务 id，所以呢，举个例子，当前有三个活跃事务，事务 id 分别是 100，200，300，而 m_up_limit_id = 100, m_low_limit_id = 301，当事务 id 是 200 的提交之后，它的更新就是可以被 100 和 300 看到，而不是说 m_ids 里没了 200，并且 200 比 100 大就应该不可见了</p>
 <h2 id="幻读"><a href="#幻读" class="headerlink" title="幻读"></a>幻读</h2><p>还有一个问题是幻读的问题，这貌似也是个高频面试题，啥意思呢，或者说跟它最常拿来比较的脏读，脏读是指读到了别的事务未提交的数据，因为未提交，严格意义上来讲，不一定是会被最后落到库里，可能会回滚，也就是在 read uncommitted 级别下会出现的问题，但是幻读不太一样，幻读是指两次查询的结果数量不一样，比如我查了第一次是 <code>select * from table1 where id &lt; 10 for update</code>,查出来了一条结果 id 是 5，然后再查一下发现出来了一条 id 是 5，一条 id 是 7，那是不是有点尴尬了，其实呢这个点我觉得脏读跟幻读也比较是从原理层面来命名，如果第一次接触的同学发觉有点不理解也比较正常，因为从逻辑上讲总之都是数据不符合预期，但是基于源码层面其实是不同的情况，幻读是在原先的 read view 无法完全解决的，怎么解决呢，简单的来说就是锁咯，我们知道innodb 是基于 record lock 行锁的，但是貌似没有办法解决这种问题，那么 innodb 就引入了 gap lock 间隙锁，比如上面说的情况下，id 小于 10 的情况下，是都应该锁住的，gap lock 其实是基于索引结构来锁的，因为索引树除了树形结构之外，还有一个next record 的指针，gap lock 也是基于这个来锁的<br>看一下 mysql 的文档</p>
 <blockquote>
@@ -336,13 +335,13 @@
       <div class="popular-posts-title"><a href="/2020/04/26/聊聊-mysql-的-MVCC/" rel="bookmark">聊聊 mysql 的 MVCC</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/01/20/redis数据结构介绍五/" rel="bookmark">redis数据结构介绍五-第五部分 对象</a></div>
+      <div class="popular-posts-title"><a href="/2020/01/04/redis数据结构介绍二/" rel="bookmark">redis数据结构介绍二-第二部分 跳表</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/04/12/redis系列介绍七/" rel="bookmark">redis系列介绍七-过期策略</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/01/10/redis数据结构介绍三/" rel="bookmark">redis数据结构介绍三-第三部分 整数集合</a></div>
+      <div class="popular-posts-title"><a href="/2019/12/26/redis数据结构介绍/" rel="bookmark">redis数据结构介绍-第一部分 SDS，链表，字典</a></div>
     </li>
   </ul>
 
@@ -474,7 +473,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#幻读"><span class="nav-number">1.</span> <span class="nav-text">幻读</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BB%E8%AF%BB"><span class="nav-number">1.</span> <span class="nav-text">幻读</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

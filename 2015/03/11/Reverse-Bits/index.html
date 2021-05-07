@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,8 +32,9 @@
 <meta property="og:url" content="https://nicksxs.me/2015/03/11/Reverse-Bits/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="Reverse Bits Reverse bits of a given 32 bits unsigned integer.For example, given input 43261596 (represented in binary as 00000010100101000001111010011100), return 964176192 (represented in binary as">
+<meta property="og:locale">
 <meta property="article:published_time" content="2015-03-11T09:35:20.000Z">
-<meta property="article:modified_time" content="2020-01-12T13:08:27.000Z">
+<meta property="article:modified_time" content="2015-03-11T09:35:20.000Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="c++">
@@ -229,13 +230,6 @@
 
               <time title="Created: 2015-03-11 17:35:20" itemprop="dateCreated datePublished" datetime="2015-03-11T17:35:20+08:00">2015-03-11</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-12 21:08:27" itemprop="dateModified" datetime="2020-01-12T21:08:27+08:00">2020-01-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -285,11 +279,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Reverse-Bits"><a href="#Reverse-Bits" class="headerlink" title="Reverse Bits "></a><a href="https://leetcode.com/problems/reverse-bits/" target="_blank" rel="noopener">Reverse Bits </a></h3><h4 id="Reverse-bits-of-a-given-32-bits-unsigned-integer"><a href="#Reverse-bits-of-a-given-32-bits-unsigned-integer" class="headerlink" title="Reverse bits of a given 32 bits unsigned integer."></a>Reverse bits of a given 32 bits unsigned integer.</h4><p>For example, given input 43261596 (represented in binary as 00000010100101000001111010011100), return 964176192 (represented in binary as 00111001011110000010100101000000).</p>
-<a id="more"></a>
+        <h3 id="Reverse-Bits"><a href="#Reverse-Bits" class="headerlink" title="Reverse Bits "></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/reverse-bits/">Reverse Bits </a></h3><h4 id="Reverse-bits-of-a-given-32-bits-unsigned-integer"><a href="#Reverse-bits-of-a-given-32-bits-unsigned-integer" class="headerlink" title="Reverse bits of a given 32 bits unsigned integer."></a>Reverse bits of a given 32 bits unsigned integer.</h4><p>For example, given input 43261596 (represented in binary as 00000010100101000001111010011100), return 964176192 (represented in binary as 00111001011110000010100101000000).</p>
+<span id="more"></span>
 <p>Follow up:<br>If this function is called many times, how would you optimize it?</p>
 <hr>
-<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">uint32_t</span> <span class="title">reverseBits</span><span class="params">(<span class="keyword">uint32_t</span> n)</span> </span>&#123;</span><br><span class="line">        n = ((n &gt;&gt; <span class="number">1</span>) &amp; <span class="number">0x55555555</span>) | ((n &amp; <span class="number">0x55555555</span>) &lt;&lt; <span class="number">1</span>);</span><br><span class="line">        n = ((n &gt;&gt; <span class="number">2</span>) &amp; <span class="number">0x33333333</span>) | ((n &amp; <span class="number">0x33333333</span>) &lt;&lt; <span class="number">2</span>);</span><br><span class="line">        n = ((n &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x0f0f0f0f</span>) | ((n &amp; <span class="number">0x0f0f0f0f</span>) &lt;&lt; <span class="number">4</span>);</span><br><span class="line">        n = ((n &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0x00ff00ff</span>) | ((n &amp; <span class="number">0x00ff00ff</span>) &lt;&lt; <span class="number">8</span>);</span><br><span class="line">        n = ((n &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0x0000ffff</span>) | ((n &amp; <span class="number">0x0000ffff</span>) &lt;&lt; <span class="number">16</span>);</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    uint32_t reverseBits(uint32_t n) &#123;
+        n &#x3D; ((n &gt;&gt; 1) &amp; 0x55555555) | ((n &amp; 0x55555555) &lt;&lt; 1);
+        n &#x3D; ((n &gt;&gt; 2) &amp; 0x33333333) | ((n &amp; 0x33333333) &lt;&lt; 2);
+        n &#x3D; ((n &gt;&gt; 4) &amp; 0x0f0f0f0f) | ((n &amp; 0x0f0f0f0f) &lt;&lt; 4);
+        n &#x3D; ((n &gt;&gt; 8) &amp; 0x00ff00ff) | ((n &amp; 0x00ff00ff) &lt;&lt; 8);
+        n &#x3D; ((n &gt;&gt; 16) &amp; 0x0000ffff) | ((n &amp; 0x0000ffff) &lt;&lt; 16);
+        return n;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
     </div>
 
@@ -306,10 +310,10 @@
       <div class="popular-posts-title"><a href="/2016/08/14/34-Search-for-a-Range/" rel="bookmark">34_Search_for_a_Range</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2015/04/14/Add-Two-Number/" rel="bookmark">add-two-number</a></div>
+      <div class="popular-posts-title"><a href="/2015/03/11/Number-Of-1-Bits/" rel="bookmark">Number of 1 Bits</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2015/03/11/Number-Of-1-Bits/" rel="bookmark">Number of 1 Bits</a></div>
+      <div class="popular-posts-title"><a href="/2015/04/14/Add-Two-Number/" rel="bookmark">add-two-number</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2015/01/04/Path-Sum/" rel="bookmark">Path Sum</a></div>

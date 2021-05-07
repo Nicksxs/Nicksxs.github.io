@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -26,19 +26,20 @@
     var CONFIG = {"hostname":"nicksxs.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="又做了个题，看记录是以前用 C++写过的，现在捋一捋思路，用 Java 再写了一下，思路还是比较清晰的，但是边界细节处理得比较差 简要介绍Given a string s, find the length of the longest substring without repeating characters. 样例Example 1:123Input: s &#x3D; &quot;abcab">
+  <meta name="description" content="又做了个题，看记录是以前用 C++写过的，现在捋一捋思路，用 Java 再写了一下，思路还是比较清晰的，但是边界细节处理得比较差 简要介绍Given a string s, find the length of the longest substring without repeating characters. 样例Example 1:Input: s &#x3D; &quot;abcabcbb">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Leetcode 3 Longest Substring Without Repeating Characters 题解分析">
 <meta property="og:url" content="https://nicksxs.me/2020/09/20/Leetcode-3-Longest-Substring-Without-Repeating-Characters-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
-<meta property="og:description" content="又做了个题，看记录是以前用 C++写过的，现在捋一捋思路，用 Java 再写了一下，思路还是比较清晰的，但是边界细节处理得比较差 简要介绍Given a string s, find the length of the longest substring without repeating characters. 样例Example 1:123Input: s &#x3D; &quot;abcab">
+<meta property="og:description" content="又做了个题，看记录是以前用 C++写过的，现在捋一捋思路，用 Java 再写了一下，思路还是比较清晰的，但是边界细节处理得比较差 简要介绍Given a string s, find the length of the longest substring without repeating characters. 样例Example 1:Input: s &#x3D; &quot;abcabcbb">
+<meta property="og:locale">
 <meta property="article:published_time" content="2020-09-20T13:40:23.000Z">
-<meta property="article:modified_time" content="2020-09-20T13:45:17.000Z">
+<meta property="article:modified_time" content="2020-09-20T13:40:23.000Z">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Java">
 <meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="题解">
 <meta property="article:tag" content="string">
-<meta property="article:tag" content="代码题解">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://nicksxs.me/2020/09/20/Leetcode-3-Longest-Substring-Without-Repeating-Characters-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/">
@@ -228,9 +229,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-09-20 21:40:23 / Modified: 21:45:17" itemprop="dateCreated datePublished" datetime="2020-09-20T21:40:23+08:00">2020-09-20</time>
+              <time title="Created: 2020-09-20 21:40:23" itemprop="dateCreated datePublished" datetime="2020-09-20T21:40:23+08:00">2020-09-20</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,11 +246,11 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                  <a href="/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2-online/" itemprop="url" rel="index"><span itemprop="name">字符串 - online</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2-online/" itemprop="url" rel="index"><span itemprop="name">字符串 - online</span></a>
+                  <a href="/categories/leetcode/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -299,14 +299,54 @@
       
         <p>又做了个题，看记录是以前用 C++写过的，现在捋一捋思路，用 Java 再写了一下，思路还是比较清晰的，但是边界细节处理得比较差</p>
 <h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>Given a string <code>s</code>, find the length of the <strong>longest substring</strong> without repeating characters.</p>
-<h2 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h2><h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1:"></a>Example 1:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;abcabcbb&quot;</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: The answer is &quot;abc&quot;, with the length of 3.</span><br></pre></td></tr></table></figure>
+<h2 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h2><h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1:"></a>Example 1:</h4><pre class="line-numbers language-none"><code class="language-none">Input: s &#x3D; &quot;abcabcbb&quot;
+Output: 3
+Explanation: The answer is &quot;abc&quot;, with the length of 3.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2:"></a>Example 2:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;bbbbb&quot;</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: The answer is &quot;b&quot;, with the length of 1.</span><br></pre></td></tr></table></figure>
-<h4 id="Example-3"><a href="#Example-3" class="headerlink" title="Example 3:"></a>Example 3:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;pwwkew&quot;</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: The answer is &quot;wke&quot;, with the length of 3.</span><br><span class="line">Notice that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.</span><br></pre></td></tr></table></figure>
-<h4 id="Example-4"><a href="#Example-4" class="headerlink" title="Example 4:"></a>Example 4:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;&quot;</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
+<h4 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2:"></a>Example 2:</h4><pre class="line-numbers language-none"><code class="language-none">Input: s &#x3D; &quot;bbbbb&quot;
+Output: 1
+Explanation: The answer is &quot;b&quot;, with the length of 1.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="Example-3"><a href="#Example-3" class="headerlink" title="Example 3:"></a>Example 3:</h4><pre class="line-numbers language-none"><code class="language-none">Input: s &#x3D; &quot;pwwkew&quot;
+Output: 3
+Explanation: The answer is &quot;wke&quot;, with the length of 3.
+Notice that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Example-4"><a href="#Example-4" class="headerlink" title="Example 4:"></a>Example 4:</h4><pre class="line-numbers language-none"><code class="language-none">Input: s &#x3D; &quot;&quot;
+Output: 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>就是一个最长不重复的字符串长度，因为也是中等难度的题，不太需要特别复杂的思考，最基本的就是O(N*N)两重循环，不过显然不太好，万一超时间，还有一种就是线性复杂度的了，这个就是需要搞定一个思路，比如字符串时 <code>a</code>bcdefg<code>a</code>qwrty，比如遍历到第二个<code>a</code>的时候其实不用再从头去遍历了，只要把前面那个<code>a</code>给排除掉，继续往下算就好了</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Map&lt;String, Integer&gt; counter = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = s.length();</span><br><span class="line">        <span class="comment">// 当前的长度</span></span><br><span class="line">        <span class="keyword">int</span> subStringLength = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 最长的长度</span></span><br><span class="line">        <span class="keyword">int</span> maxSubStringLength = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 考虑到重复的位置已经被跳过的情况，即已经在当前长度的字符串范围之前的重复字符不需要回溯</span></span><br><span class="line">        <span class="keyword">int</span> lastDuplicatePos = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">            <span class="comment">// 使用 map 存储字符和上一次出现的位置，如果存在并且大于上一次重复位置</span></span><br><span class="line">            <span class="keyword">if</span> (counter.get(String.valueOf(s.charAt(i))) != <span class="keyword">null</span> &amp;&amp; counter.get(String.valueOf(s.charAt(i))) &gt; lastDuplicatePos) &#123;</span><br><span class="line">                <span class="comment">// 记录重复位置</span></span><br><span class="line">                lastDuplicatePos = counter.get(String.valueOf(s.charAt(i)));</span><br><span class="line">                <span class="comment">// 重置不重复子串的长度，减去重复起点</span></span><br><span class="line">                subStringLength = i - counter.get(String.valueOf(s.charAt(i))) - <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// 替换当前位置</span></span><br><span class="line">                counter.replace(String.valueOf(s.charAt(i)), i);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 如果不存在就直接 put</span></span><br><span class="line">                counter.put(String.valueOf(s.charAt(i)), i);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 长度累加</span></span><br><span class="line">            subStringLength++;</span><br><span class="line">            <span class="keyword">if</span> (subStringLength &gt; maxSubStringLength) &#123;</span><br><span class="line">                <span class="comment">// 简单替换</span></span><br><span class="line">                maxSubStringLength = subStringLength;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxSubStringLength;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">class Solution &#123;
+    Map&lt;String, Integer&gt; counter &#x3D; new HashMap&lt;&gt;();
+    public int lengthOfLongestSubstring(String s) &#123;
+        int length &#x3D; s.length();
+        &#x2F;&#x2F; 当前的长度
+        int subStringLength &#x3D; 0;
+        &#x2F;&#x2F; 最长的长度
+        int maxSubStringLength &#x3D; 0;
+        &#x2F;&#x2F; 考虑到重复的位置已经被跳过的情况，即已经在当前长度的字符串范围之前的重复字符不需要回溯
+        int lastDuplicatePos &#x3D; -1;
+        for (int i &#x3D; 0; i &lt; length; i++) &#123;
+            &#x2F;&#x2F; 使用 map 存储字符和上一次出现的位置，如果存在并且大于上一次重复位置
+            if (counter.get(String.valueOf(s.charAt(i))) !&#x3D; null &amp;&amp; counter.get(String.valueOf(s.charAt(i))) &gt; lastDuplicatePos) &#123;
+                &#x2F;&#x2F; 记录重复位置
+                lastDuplicatePos &#x3D; counter.get(String.valueOf(s.charAt(i)));
+                &#x2F;&#x2F; 重置不重复子串的长度，减去重复起点
+                subStringLength &#x3D; i - counter.get(String.valueOf(s.charAt(i))) - 1;
+                &#x2F;&#x2F; 替换当前位置
+                counter.replace(String.valueOf(s.charAt(i)), i);
+            &#125; else &#123;
+                &#x2F;&#x2F; 如果不存在就直接 put
+                counter.put(String.valueOf(s.charAt(i)), i);
+            &#125;
+            &#x2F;&#x2F; 长度累加
+            subStringLength++;
+            if (subStringLength &gt; maxSubStringLength) &#123;
+                &#x2F;&#x2F; 简单替换
+                maxSubStringLength &#x3D; subStringLength;
+            &#125;
+        &#125;
+        return maxSubStringLength;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>注释应该写的比较清楚了。</p>
 
     </div>
@@ -318,19 +358,19 @@
   <div class="popular-posts-header">Related Posts</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/10/25/Leetcode-104-二叉树的最大深度-Maximum-Depth-of-Binary-Tree-题解分析/" rel="bookmark">Leetcode 104 二叉树的最大深度(Maximum Depth of Binary Tree) 题解分析</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/01/24/Leetcode-124-二叉树中的最大路径和-Binary-Tree-Maximum-Path-Sum-题解分析/" rel="bookmark">Leetcode 124 二叉树中的最大路径和(Binary Tree Maximum Path Sum) 题解分析</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2021/01/10/Leetcode-160-相交链表-intersection-of-two-linked-lists-题解分析/" rel="bookmark">Leetcode 160 相交链表(intersection-of-two-linked-lists) 题解分析</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/10/25/Leetcode-104-二叉树的最大深度-Maximum-Depth-of-Binary-Tree-题解分析/" rel="bookmark">Leetcode 104 二叉树的最大深度(Maximum Depth of Binary Tree) 题解分析</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/12/13/Leetcode-105-从前序与中序遍历序列构造二叉树-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal-题解分析/" rel="bookmark">Leetcode 105 从前序与中序遍历序列构造二叉树(Construct Binary Tree from Preorder and Inorder Traversal) 题解分析</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/10/11/Leetcode-2-Add-Two-Numbers-题解分析/" rel="bookmark">Leetcode 2 Add Two Numbers 题解分析</a></div>
+      <div class="popular-posts-title"><a href="/2021/01/24/Leetcode-124-二叉树中的最大路径和-Binary-Tree-Maximum-Path-Sum-题解分析/" rel="bookmark">Leetcode 124 二叉树中的最大路径和(Binary Tree Maximum Path Sum) 题解分析</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/12/06/Leetcode-155-最小栈-Min-Stack-题解分析/" rel="bookmark">Leetcode 155 最小栈(Min Stack) 题解分析</a></div>
     </li>
   </ul>
 
@@ -458,7 +498,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简要介绍"><span class="nav-number">1.</span> <span class="nav-text">简要介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样例"><span class="nav-number">2.</span> <span class="nav-text">样例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">Example 1:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-2"><span class="nav-number">2.0.2.</span> <span class="nav-text">Example 2:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-3"><span class="nav-number">2.0.3.</span> <span class="nav-text">Example 3:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-4"><span class="nav-number">2.0.4.</span> <span class="nav-text">Example 4:</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">简要介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">样例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">Example 1:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-2"><span class="nav-number">2.0.2.</span> <span class="nav-text">Example 2:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-3"><span class="nav-number">2.0.3.</span> <span class="nav-text">Example 3:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-4"><span class="nav-number">2.0.4.</span> <span class="nav-text">Example 4:</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

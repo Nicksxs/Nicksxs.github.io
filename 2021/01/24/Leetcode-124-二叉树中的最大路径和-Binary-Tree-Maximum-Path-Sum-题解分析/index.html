@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,17 +32,17 @@
 <meta property="og:url" content="https://nicksxs.me/2021/01/24/Leetcode-124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C-Binary-Tree-Maximum-Path-Sum-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="题目介绍A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. Note that the pat">
+<meta property="og:locale">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/SfxIEy.png">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/iipgv0.png">
 <meta property="article:published_time" content="2021-01-24T14:45:03.000Z">
-<meta property="article:modified_time" content="2021-01-24T14:45:03.748Z">
+<meta property="article:modified_time" content="2021-01-24T14:45:03.000Z">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Java">
 <meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="java">
 <meta property="article:tag" content="Binary Tree">
-<meta property="article:tag" content="代码题解">
-<meta property="article:tag" content="Binary Tree Maximum Path Sum">
-<meta property="article:tag" content="leetcode 124">
+<meta property="article:tag" content="二叉树">
+<meta property="article:tag" content="题解">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/SfxIEy.png">
 
@@ -307,11 +307,34 @@
 <p><strong>路径</strong> 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。该路径 <strong>至少包含一个</strong> 节点，且不一定经过根节点。</p>
 <p><strong>路径和</strong> 是路径中各节点值的总和。</p>
 <p>给你一个二叉树的根节点 <code>root</code> ，返回其 <strong>最大路径和</strong></p>
-<h3 id="简要分析"><a href="#简要分析" class="headerlink" title="简要分析"></a>简要分析</h3><p>其实这个题目会被误解成比较简单，左子树最大的，或者右子树最大的，或者两边加一下，仔细想想都不对，其实有可能是产生于左子树中，或者右子树中，这两个都是指跟左子树根还有右子树根没关系的，这么说感觉不太容易理解，画个图<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/SfxIEy.png" alt=""><br>可以看到图里，其实最长路径和是左边这个子树组成的，跟根节点还有右子树完全没关系，然后再想一种情况，如果是整棵树就是图中的左子树，那么这个最长路径和就是左子树加右子树加根节点了，所以不是我一开始想得那么简单，在代码实现中也需要一些技巧</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ansNew = Integer.MIN_VALUE;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        maxSumNew(root);</span><br><span class="line">        <span class="keyword">return</span> ansNew;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSumNew</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 这里是个简单的递归，就是去递归左右子树，但是这里其实有个概念，当这样处理时，其实相当于把子树的内部的最大路径和已经算出来了</span></span><br><span class="line">    <span class="keyword">int</span> left = maxSumNew(root.left);</span><br><span class="line">    <span class="keyword">int</span> right = maxSumNew(root.right);</span><br><span class="line">    <span class="comment">// 这里前面我有点没想明白，但是看到 ansNew 的比较，其实相当于，返回的是三种情况里的最大值，一个是左子树+根，一个是右子树+根，一个是单独根节点，</span></span><br><span class="line">    <span class="comment">// 这样这个递归的返回才会有意义，不然像原来的方法，它可能是跳着的，但是这种情况其实是借助于 ansNew 这个全局的最大值，因为原来我觉得要比较的是</span></span><br><span class="line">    <span class="comment">// left, right, left + root , right + root, root, left + right + root 这些的最大值，这里是分成了两个阶段，left 跟 right 的最大值已经在上面的</span></span><br><span class="line">    <span class="comment">// 调用过程中赋值给 ansNew 了    </span></span><br><span class="line">    <span class="keyword">int</span> currentSum = Math.max(Math.max(root.val + left , root.val + right), root.val);</span><br><span class="line">    <span class="comment">// 这边返回的是 currentSum，然后再用它跟 left + right + root 进行对比，然后再去更新 ans</span></span><br><span class="line">    <span class="comment">// PS: 有个小点也是这边的破局点，就是这个 ansNew</span></span><br><span class="line">    <span class="keyword">int</span> res = Math.max(left + right + root.val, currentSum);</span><br><span class="line">    ans = Math.max(res, ans);</span><br><span class="line">    <span class="keyword">return</span> currentSum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="简要分析"><a href="#简要分析" class="headerlink" title="简要分析"></a>简要分析</h3><p>其实这个题目会被误解成比较简单，左子树最大的，或者右子树最大的，或者两边加一下，仔细想想都不对，其实有可能是产生于左子树中，或者右子树中，这两个都是指跟左子树根还有右子树根没关系的，这么说感觉不太容易理解，画个图<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/SfxIEy.png"><br>可以看到图里，其实最长路径和是左边这个子树组成的，跟根节点还有右子树完全没关系，然后再想一种情况，如果是整棵树就是图中的左子树，那么这个最长路径和就是左子树加右子树加根节点了，所以不是我一开始想得那么简单，在代码实现中也需要一些技巧</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">int</span> ansNew <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span>MIN_VALUE<span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">maxPathSum</span><span class="token punctuation">(</span><span class="token class-name">TreeNode</span> root<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">maxSumNew</span><span class="token punctuation">(</span>root<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> ansNew<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">maxSumNew</span><span class="token punctuation">(</span><span class="token class-name">TreeNode</span> root<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// 这里是个简单的递归，就是去递归左右子树，但是这里其实有个概念，当这样处理时，其实相当于把子树的内部的最大路径和已经算出来了</span>
+    <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token function">maxSumNew</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> right <span class="token operator">=</span> <span class="token function">maxSumNew</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 这里前面我有点没想明白，但是看到 ansNew 的比较，其实相当于，返回的是三种情况里的最大值，一个是左子树+根，一个是右子树+根，一个是单独根节点，</span>
+    <span class="token comment">// 这样这个递归的返回才会有意义，不然像原来的方法，它可能是跳着的，但是这种情况其实是借助于 ansNew 这个全局的最大值，因为原来我觉得要比较的是</span>
+    <span class="token comment">// left, right, left + root , right + root, root, left + right + root 这些的最大值，这里是分成了两个阶段，left 跟 right 的最大值已经在上面的</span>
+    <span class="token comment">// 调用过程中赋值给 ansNew 了    </span>
+    <span class="token keyword">int</span> currentSum <span class="token operator">=</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>val <span class="token operator">+</span> left <span class="token punctuation">,</span> root<span class="token punctuation">.</span>val <span class="token operator">+</span> right<span class="token punctuation">)</span><span class="token punctuation">,</span> root<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 这边返回的是 currentSum，然后再用它跟 left + right + root 进行对比，然后再去更新 ans</span>
+    <span class="token comment">// PS: 有个小点也是这边的破局点，就是这个 ansNew</span>
+    <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>left <span class="token operator">+</span> right <span class="token operator">+</span> root<span class="token punctuation">.</span>val<span class="token punctuation">,</span> currentSum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ans <span class="token operator">=</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> ans<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> currentSum<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这里非常重要的就是 ansNew 是最后的一个结果，而对于 maxSumNew 这个函数的返回值其实是需要包含了一个连续结果，因为要返回继续去算路径和，所以返回的是 currentSum，最终结果是 ansNew</p>
-<h3 id="结果图"><a href="#结果图" class="headerlink" title="结果图"></a>结果图</h3><p>难得有个 100%，贴个图哈哈<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/iipgv0.png" alt=""></p>
+<h3 id="结果图"><a href="#结果图" class="headerlink" title="结果图"></a>结果图</h3><p>难得有个 100%，贴个图哈哈<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/iipgv0.png"></p>
 
     </div>
 
@@ -331,10 +354,10 @@
       <div class="popular-posts-title"><a href="/2021/01/10/Leetcode-160-相交链表-intersection-of-two-linked-lists-题解分析/" rel="bookmark">Leetcode 160 相交链表(intersection-of-two-linked-lists) 题解分析</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/10/11/Leetcode-2-Add-Two-Numbers-题解分析/" rel="bookmark">Leetcode 2 Add Two Numbers 题解分析</a></div>
+      <div class="popular-posts-title"><a href="/2020/12/06/Leetcode-155-最小栈-Min-Stack-题解分析/" rel="bookmark">Leetcode 155 最小栈(Min Stack) 题解分析</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/05/01/Leetcode-48-旋转图像-Rotate-Image-题解分析/" rel="bookmark">Leetcode 48 旋转图像(Rotate Image) 题解分析</a></div>
+      <div class="popular-posts-title"><a href="/2021/03/14/Leetcode-121-买卖股票的最佳时机-Best-Time-to-Buy-and-Sell-Stock-题解分析/" rel="bookmark">Leetcode 121 买卖股票的最佳时机(Best Time to Buy and Sell Stock) 题解分析</a></div>
     </li>
   </ul>
 
@@ -463,7 +486,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目介绍"><span class="nav-number">1.</span> <span class="nav-text">题目介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简要分析"><span class="nav-number">2.</span> <span class="nav-text">简要分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果图"><span class="nav-number">4.</span> <span class="nav-text">结果图</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">题目介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E8%A6%81%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">简要分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">结果图</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

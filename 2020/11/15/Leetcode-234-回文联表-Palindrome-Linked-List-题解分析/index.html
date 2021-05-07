@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,15 +32,14 @@
 <meta property="og:url" content="https://nicksxs.me/2020/11/15/Leetcode-234-%E5%9B%9E%E6%96%87%E8%81%94%E8%A1%A8-Palindrome-Linked-List-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="题目介绍Given a singly linked list, determine if it is a palindrome.给定一个单向链表，判断是否是回文链表 例一 Example 1:Input: 1-&gt;2Output: false 例二 Example 2:Input: 1-&gt;2-&gt;2-&gt;1Output: true 挑战下自己Follow up:Could you">
+<meta property="og:locale">
 <meta property="article:published_time" content="2020-11-15T15:47:20.000Z">
-<meta property="article:modified_time" content="2020-12-13T12:59:06.873Z">
+<meta property="article:modified_time" content="2020-11-15T15:47:20.000Z">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Java">
 <meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="题解">
 <meta property="article:tag" content="Linked List">
-<meta property="article:tag" content="代码题解">
-<meta property="article:tag" content="Palindrome Linked List">
-<meta property="article:tag" content="leetcode 234">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://nicksxs.me/2020/11/15/Leetcode-234-%E5%9B%9E%E6%96%87%E8%81%94%E8%A1%A8-Palindrome-Linked-List-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/">
@@ -233,13 +232,6 @@
 
               <time title="Created: 2020-11-15 23:47:20" itemprop="dateCreated datePublished" datetime="2020-11-15T23:47:20+08:00">2020-11-15</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-13 20:59:06" itemprop="dateModified" datetime="2020-12-13T20:59:06+08:00">2020-12-13</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -310,7 +302,40 @@
 <h3 id="例二-Example-2"><a href="#例二-Example-2" class="headerlink" title="例二 Example 2:"></a>例二 Example 2:</h3><p>Input: 1-&gt;2-&gt;2-&gt;1<br>Output: true</p>
 <h3 id="挑战下自己"><a href="#挑战下自己" class="headerlink" title="挑战下自己"></a>挑战下自己</h3><p>Follow up:<br>Could you do it in O(n) time and O(1) space?</p>
 <h2 id="简要分析"><a href="#简要分析" class="headerlink" title="简要分析"></a>简要分析</h2><p>首先这是个单向链表，如果是双向的就可以一个从头到尾，一个从尾到头，显然那样就没啥意思了，然后想过要不找到中点，然后用一个栈，把前一半塞进栈里，但是这种其实也比较麻烦，比如长度是奇偶数，然后如何找到中点，这倒是可以借助于双指针，还是比较麻烦，再想一想，回文链表，就跟最开始的一样，链表只有单向的，我用个栈不就可以逆向了么，先把链表整个塞进栈里，然后在一个个 pop 出来跟链表从头开始比较，全对上了就是回文了</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPalindrome</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode tail = head;</span><br><span class="line">        LinkedList&lt;Integer&gt; stack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="comment">// 这里就是一个循环，将所有元素依次压入栈</span></span><br><span class="line">        <span class="keyword">while</span> (tail != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(tail.val);</span><br><span class="line">            tail = tail.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 在逐个 pop 出来，其实这个出来的顺序就等于链表从尾到头遍历，同时跟链表从头到尾遍历进行逐对对比</span></span><br><span class="line">        <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (stack.peekFirst() == head.val) &#123;</span><br><span class="line">                stack.pollFirst();</span><br><span class="line">                head = head.next;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * Definition for singly-linked list.
+ * public class ListNode &#123;
+ *     int val;
+ *     ListNode next;
+ *     ListNode() &#123;&#125;
+ *     ListNode(int val) &#123; this.val = val; &#125;
+ *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;
+ * &#125;
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span><span class="token class-name">ListNode</span> head<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token class-name">ListNode</span> tail <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        <span class="token class-name">LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 这里就是一个循环，将所有元素依次压入栈</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>tail <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tail<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            tail <span class="token operator">=</span> tail<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 在逐个 pop 出来，其实这个出来的顺序就等于链表从尾到头遍历，同时跟链表从头到尾遍历进行逐对对比</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>stack<span class="token punctuation">.</span><span class="token function">peekFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> head<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                stack<span class="token punctuation">.</span><span class="token function">pollFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                head <span class="token operator">=</span> head<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
     </div>
 
     
@@ -326,13 +351,13 @@
       <div class="popular-posts-title"><a href="/2020/10/25/Leetcode-104-二叉树的最大深度-Maximum-Depth-of-Binary-Tree-题解分析/" rel="bookmark">Leetcode 104 二叉树的最大深度(Maximum Depth of Binary Tree) 题解分析</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/01/24/Leetcode-124-二叉树中的最大路径和-Binary-Tree-Maximum-Path-Sum-题解分析/" rel="bookmark">Leetcode 124 二叉树中的最大路径和(Binary Tree Maximum Path Sum) 题解分析</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/12/13/Leetcode-105-从前序与中序遍历序列构造二叉树-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal-题解分析/" rel="bookmark">Leetcode 105 从前序与中序遍历序列构造二叉树(Construct Binary Tree from Preorder and Inorder Traversal) 题解分析</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/10/11/Leetcode-2-Add-Two-Numbers-题解分析/" rel="bookmark">Leetcode 2 Add Two Numbers 题解分析</a></div>
+      <div class="popular-posts-title"><a href="/2021/01/24/Leetcode-124-二叉树中的最大路径和-Binary-Tree-Maximum-Path-Sum-题解分析/" rel="bookmark">Leetcode 124 二叉树中的最大路径和(Binary Tree Maximum Path Sum) 题解分析</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/12/06/Leetcode-155-最小栈-Min-Stack-题解分析/" rel="bookmark">Leetcode 155 最小栈(Min Stack) 题解分析</a></div>
     </li>
   </ul>
 
@@ -460,7 +485,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目介绍"><span class="nav-number">1.</span> <span class="nav-text">题目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例一-Example-1"><span class="nav-number">1.1.</span> <span class="nav-text">例一 Example 1:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例二-Example-2"><span class="nav-number">1.2.</span> <span class="nav-text">例二 Example 2:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#挑战下自己"><span class="nav-number">1.3.</span> <span class="nav-text">挑战下自己</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简要分析"><span class="nav-number">2.</span> <span class="nav-text">简要分析</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">题目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E4%B8%80-Example-1"><span class="nav-number">1.1.</span> <span class="nav-text">例一 Example 1:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E4%BA%8C-Example-2"><span class="nav-number">1.2.</span> <span class="nav-text">例二 Example 2:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E4%B8%8B%E8%87%AA%E5%B7%B1"><span class="nav-number">1.3.</span> <span class="nav-text">挑战下自己</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E8%A6%81%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">简要分析</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

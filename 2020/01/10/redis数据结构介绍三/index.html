@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -26,23 +26,20 @@
     var CONFIG = {"hostname":"nicksxs.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="redis中对于 set 其实有两种处理，对于元素均为整型，并且元素数目较少时，使用 intset 作为底层数据结构，否则使用 dict 作为底层数据结构，先看一下代码先 1234567891011121314typedef struct intset &amp;#123;    &#x2F;&#x2F; 编码方式    uint32_t encoding;    &#x2F;&#x2F; 集合包含的元素数量    uint32_t lengt">
+  <meta name="description" content="redis中对于 set 其实有两种处理，对于元素均为整型，并且元素数目较少时，使用 intset 作为底层数据结构，否则使用 dict 作为底层数据结构，先看一下代码先 typedef struct intset &amp;#123;     &#x2F;&#x2F; 编码方式     uint32_t encoding;     &#x2F;&#x2F; 集合包含的元素数量     uint32_t">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis数据结构介绍三-第三部分 整数集合">
 <meta property="og:url" content="https://nicksxs.me/2020/01/10/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%B8%89/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
-<meta property="og:description" content="redis中对于 set 其实有两种处理，对于元素均为整型，并且元素数目较少时，使用 intset 作为底层数据结构，否则使用 dict 作为底层数据结构，先看一下代码先 1234567891011121314typedef struct intset &amp;#123;    &#x2F;&#x2F; 编码方式    uint32_t encoding;    &#x2F;&#x2F; 集合包含的元素数量    uint32_t lengt">
+<meta property="og:description" content="redis中对于 set 其实有两种处理，对于元素均为整型，并且元素数目较少时，使用 intset 作为底层数据结构，否则使用 dict 作为底层数据结构，先看一下代码先 typedef struct intset &amp;#123;     &#x2F;&#x2F; 编码方式     uint32_t encoding;     &#x2F;&#x2F; 集合包含的元素数量     uint32_t">
+<meta property="og:locale">
 <meta property="og:image" content="https://i.loli.net/2020/01/10/qIc6HgP7wfCLipN.png">
 <meta property="article:published_time" content="2020-01-09T16:54:04.000Z">
-<meta property="article:modified_time" content="2020-01-12T13:08:27.000Z">
+<meta property="article:modified_time" content="2020-01-09T16:54:04.000Z">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Redis">
-<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="redis">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="源码">
-<meta property="article:tag" content="源码分析">
-<meta property="article:tag" content="集合">
-<meta property="article:tag" content="intset">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2020/01/10/qIc6HgP7wfCLipN.png">
 
@@ -236,13 +233,6 @@
 
               <time title="Created: 2020-01-10 00:54:04" itemprop="dateCreated datePublished" datetime="2020-01-10T00:54:04+08:00">2020-01-10</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-12 21:08:27" itemprop="dateModified" datetime="2020-01-12T21:08:27+08:00">2020-01-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -309,13 +299,29 @@
 
       
         <p>redis中对于 set 其实有两种处理，对于元素均为整型，并且元素数目较少时，使用 intset 作为底层数据结构，否则使用 dict 作为底层数据结构，先看一下代码先</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">intset</span> &#123;</span></span><br><span class="line">    <span class="comment">// 编码方式</span></span><br><span class="line">    <span class="keyword">uint32_t</span> encoding;</span><br><span class="line">    <span class="comment">// 集合包含的元素数量</span></span><br><span class="line">    <span class="keyword">uint32_t</span> length;</span><br><span class="line">    <span class="comment">// 保存元素的数组</span></span><br><span class="line">    <span class="keyword">int8_t</span> contents[];</span><br><span class="line">&#125; intset;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Note that these encodings are ordered, so:</span></span><br><span class="line"><span class="comment"> * INTSET_ENC_INT16 &lt; INTSET_ENC_INT32 &lt; INTSET_ENC_INT64. */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INTSET_ENC_INT16 (sizeof(int16_t))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INTSET_ENC_INT32 (sizeof(int32_t))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INTSET_ENC_INT64 (sizeof(int64_t))</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">typedef struct intset &#123;
+    &#x2F;&#x2F; 编码方式
+    uint32_t encoding;
+    &#x2F;&#x2F; 集合包含的元素数量
+    uint32_t length;
+    &#x2F;&#x2F; 保存元素的数组
+    int8_t contents[];
+&#125; intset;
+
+&#x2F;* Note that these encodings are ordered, so:
+ * INTSET_ENC_INT16 &lt; INTSET_ENC_INT32 &lt; INTSET_ENC_INT64. *&#x2F;
+#define INTSET_ENC_INT16 (sizeof(int16_t))
+#define INTSET_ENC_INT32 (sizeof(int32_t))
+#define INTSET_ENC_INT64 (sizeof(int64_t))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>一眼看，为啥整型还需要编码，然后 int8_t 怎么能存下大整形呢，带着这些疑问，我们一步步分析下去，这里的编码其实指的是这个整型集合里存的究竟是多大的整型，16 位，还是 32 位，还是 64 位，结构体下面的宏定义就是表示了 encoding 的可能取值，INTSET_ENC_INT16 表示每个元素用2个字节存储，INTSET_ENC_INT32 表示每个元素用4个字节存储，INTSET_ENC_INT64 表示每个元素用8个字节存储。因此，intset中存储的整数最多只能占用64bit。length 就是正常的表示集合中元素的数量。最奇怪的应该就是这个 contents 了，是个 int8_t 的数组，那放毛线数据啊，最小的都有 16 位，这里我在看代码和《redis 设计与实现》的时候也有点懵逼，后来查了下发现这是个比较取巧的用法，这里我用自己的理解表述一下，先看看 8，16，32，64 的关系，一眼看就知道都是 2 的 N 次，并且呈两倍关系，而且 8 位刚好一个字节，所以呢其实这里的contents 不是个常规意义上的 int8_t 类型的数组，而是个柔性数组。看下 wiki 的定义</p>
 <blockquote>
-<p>Flexible array members<a href="https://en.wikipedia.org/wiki/Flexible_array_member#cite_note-1" target="_blank" rel="noopener">1</a> were introduced in the <a href="https://en.wikipedia.org/wiki/C99" target="_blank" rel="noopener">C99</a> standard of the <a href="https://en.wikipedia.org/wiki/C_(programming_language)" target="_blank" rel="noopener">C programming language</a> (in particular, in section §6.7.2.1, item 16, page 103).<a href="https://en.wikipedia.org/wiki/Flexible_array_member#cite_note-2" target="_blank" rel="noopener">2</a> It is a member of a struct, which is an array without a given dimension. It must be the last member of such a struct and it must be accompanied by at least one other member, as in the following example:</p>
+<p>Flexible array members<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Flexible_array_member#cite_note-1">1</a> were introduced in the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/C99">C99</a> standard of the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/C_(programming_language)">C programming language</a> (in particular, in section §6.7.2.1, item 16, page 103).<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Flexible_array_member#cite_note-2">2</a> It is a member of a struct, which is an array without a given dimension. It must be the last member of such a struct and it must be accompanied by at least one other member, as in the following example:</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">vectord</span> &#123;</span></span><br><span class="line">    <span class="keyword">size_t</span> len;</span><br><span class="line">    <span class="keyword">double</span> arr[]; <span class="comment">// the flexible array member must be last</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>在初始化这个 intset 的时候，这个contents数组是不占用空间的，后面的反正用到了申请，那么这里就有一个问题，给出了三种可能的 encoding 值，他们能随便换吗，显然不行，首先在 intset 中数据的存放是有序的，这个有部分原因是方便二分查找，然后存放数据其实随着数据的大小不同会有一个升级的过程，看下图<br><img data-src="https://i.loli.net/2020/01/10/qIc6HgP7wfCLipN.png" alt=""><br>新创建的intset只有一个header，总共8个字节。其中encoding = 2, length = 0, 类型都是uint32_t，各占 4 字节，添加15, 5两个元素之后，因为它们是比较小的整数，都能使用2个字节表示，所以encoding不变，值还是2，也就是默认的 <code>INTSET_ENC_INT16</code>，当添加32768的时候，它不再能用2个字节来表示了（2个字节能表达的数据范围是-215~215-1，而32768等于215，超出范围了），因此encoding必须升级到INTSET_ENC_INT32（值为4），即用4个字节表示一个元素。在添加每个元素的过程中，intset始终保持从小到大有序。与ziplist类似，intset也是按小端（little endian）模式存储的（参见维基百科词条<a href="https://en.wikipedia.org/wiki/Endianness" target="_blank" rel="noopener">Endianness</a>）。比如，在上图中intset添加完所有数据之后，表示encoding字段的4个字节应该解释成0x00000004，而第4个数据应该解释成0x00008000 = 32768</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">struct vectord &#123;
+    size_t len;
+    double arr[]; &#x2F;&#x2F; the flexible array member must be last
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在初始化这个 intset 的时候，这个contents数组是不占用空间的，后面的反正用到了申请，那么这里就有一个问题，给出了三种可能的 encoding 值，他们能随便换吗，显然不行，首先在 intset 中数据的存放是有序的，这个有部分原因是方便二分查找，然后存放数据其实随着数据的大小不同会有一个升级的过程，看下图<br><img data-src="https://i.loli.net/2020/01/10/qIc6HgP7wfCLipN.png"><br>新创建的intset只有一个header，总共8个字节。其中encoding = 2, length = 0, 类型都是uint32_t，各占 4 字节，添加15, 5两个元素之后，因为它们是比较小的整数，都能使用2个字节表示，所以encoding不变，值还是2，也就是默认的 <code>INTSET_ENC_INT16</code>，当添加32768的时候，它不再能用2个字节来表示了（2个字节能表达的数据范围是-215~215-1，而32768等于215，超出范围了），因此encoding必须升级到INTSET_ENC_INT32（值为4），即用4个字节表示一个元素。在添加每个元素的过程中，intset始终保持从小到大有序。与ziplist类似，intset也是按小端（little endian）模式存储的（参见维基百科词条<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Endianness">Endianness</a>）。比如，在上图中intset添加完所有数据之后，表示encoding字段的4个字节应该解释成0x00000004，而第4个数据应该解释成0x00008000 = 32768</p>
 
     </div>
 
@@ -326,19 +332,19 @@
   <div class="popular-posts-header">Related Posts</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/12/26/redis数据结构介绍/" rel="bookmark">redis数据结构介绍-第一部分 SDS，链表，字典</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/01/04/redis数据结构介绍二/" rel="bookmark">redis数据结构介绍二-第二部分 跳表</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/01/20/redis数据结构介绍五/" rel="bookmark">redis数据结构介绍五-第五部分 对象</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/01/19/redis数据结构介绍四/" rel="bookmark">redis数据结构介绍四-第四部分 压缩表</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2019/12/26/redis数据结构介绍/" rel="bookmark">redis数据结构介绍-第一部分 SDS，链表，字典</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/01/22/redis数据结构介绍六/" rel="bookmark">redis数据结构介绍六 快表</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/01/19/redis数据结构介绍四/" rel="bookmark">redis数据结构介绍四-第四部分 压缩表</a></div>
     </li>
   </ul>
 

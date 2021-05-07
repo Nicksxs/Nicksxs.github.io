@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -26,12 +26,13 @@
     var CONFIG = {"hostname":"nicksxs.me","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="这里需要说道函数和返回值了可以看书上的这个例子对于这种情况，当进入函数内部时，会把传入的变量的所有权转移进函数内部，如果最后还是要返回该变量，但是如果此时还要返回别的计算结果，就可能需要笨拙地使用元组 引用此时我们就可以用引用来解决这个问题 123456789fn main() &amp;#123;    let s1 &#x3D; String::from(&quot;hello&quot;);    let len &#x3D; calcu">
+  <meta name="description" content="这里需要说道函数和返回值了可以看书上的这个例子对于这种情况，当进入函数内部时，会把传入的变量的所有权转移进函数内部，如果最后还是要返回该变量，但是如果此时还要返回别的计算结果，就可能需要笨拙地使用元组 引用此时我们就可以用引用来解决这个问题 fn main() &amp;#123;     let s1 &#x3D; String::from(&quot;hello&quot;);     let len &#x3D; calculate_le">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rust学习笔记-所有权二">
 <meta property="og:url" content="https://nicksxs.me/2021/04/18/rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%89%80%E6%9C%89%E6%9D%83%E4%BA%8C/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
-<meta property="og:description" content="这里需要说道函数和返回值了可以看书上的这个例子对于这种情况，当进入函数内部时，会把传入的变量的所有权转移进函数内部，如果最后还是要返回该变量，但是如果此时还要返回别的计算结果，就可能需要笨拙地使用元组 引用此时我们就可以用引用来解决这个问题 123456789fn main() &amp;#123;    let s1 &#x3D; String::from(&quot;hello&quot;);    let len &#x3D; calcu">
+<meta property="og:description" content="这里需要说道函数和返回值了可以看书上的这个例子对于这种情况，当进入函数内部时，会把传入的变量的所有权转移进函数内部，如果最后还是要返回该变量，但是如果此时还要返回别的计算结果，就可能需要笨拙地使用元组 引用此时我们就可以用引用来解决这个问题 fn main() &amp;#123;     let s1 &#x3D; String::from(&quot;hello&quot;);     let len &#x3D; calculate_le">
+<meta property="og:locale">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/fnlsui.png">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/6vBWwi.png">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/nniiIt.png">
@@ -39,13 +40,12 @@
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/k3jjNn.png">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/JtrXSW.png">
 <meta property="article:published_time" content="2021-04-18T14:03:10.000Z">
-<meta property="article:modified_time" content="2021-04-25T12:22:00.083Z">
+<meta property="article:modified_time" content="2021-04-18T14:03:10.000Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="Rust">
 <meta property="article:tag" content="所有权">
 <meta property="article:tag" content="内存分布">
 <meta property="article:tag" content="新语言">
-<meta property="article:tag" content="引用">
 <meta property="article:tag" content="可变引用">
 <meta property="article:tag" content="不可变引用">
 <meta name="twitter:card" content="summary">
@@ -241,13 +241,6 @@
 
               <time title="Created: 2021-04-18 22:03:10" itemprop="dateCreated datePublished" datetime="2021-04-18T22:03:10+08:00">2021-04-18</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-25 20:22:00" itemprop="dateModified" datetime="2021-04-25T20:22:00+08:00">2021-04-25</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -301,24 +294,68 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>这里需要说道函数和返回值了<br>可以看书上的这个例子<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/fnlsui.png" alt=""><br>对于这种情况，当进入函数内部时，会把传入的变量的所有权转移进函数内部，如果最后还是要返回该变量，但是如果此时还要返回别的计算结果，就可能需要笨拙地使用元组<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/6vBWwi.png" alt=""></p>
+        <p>这里需要说道函数和返回值了<br>可以看书上的这个例子<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/fnlsui.png"><br>对于这种情况，当进入函数内部时，会把传入的变量的所有权转移进函数内部，如果最后还是要返回该变量，但是如果此时还要返回别的计算结果，就可能需要笨拙地使用元组<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/6vBWwi.png"></p>
 <h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>此时我们就可以用引用来解决这个问题</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> s1 = <span class="built_in">String</span>::from(<span class="string">"hello"</span>);</span><br><span class="line">    <span class="keyword">let</span> len = calculate_length(&amp;s1);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"The length of '&#123;&#125;' is &#123;&#125;"</span>, s1, len);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">calculate_length</span></span>(s: &amp;<span class="built_in">String</span>) -&gt; <span class="built_in">usize</span> &#123;</span><br><span class="line">    s.len()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里的&amp;符号就是引用的语义，它们允许你在不获得所有权的前提下使用值<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/nniiIt.png" alt=""><br>由于引用不持有值的所有权，所以当引用离开当前作用域时，它指向的值也不会被丢弃</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> s1 <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> len <span class="token operator">=</span> <span class="token function">calculate_length</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"The length of '&#123;&#125;' is &#123;&#125;"</span><span class="token punctuation">,</span> s1<span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">calculate_length</span><span class="token punctuation">(</span>s<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">usize</span> <span class="token punctuation">&#123;</span>
+    s<span class="token punctuation">.</span><span class="token function">len</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里的&amp;符号就是引用的语义，它们允许你在不获得所有权的前提下使用值<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/nniiIt.png"><br>由于引用不持有值的所有权，所以当引用离开当前作用域时，它指向的值也不会被丢弃</p>
 <h3 id="可变引用"><a href="#可变引用" class="headerlink" title="可变引用"></a>可变引用</h3><p>而当我们尝试对引用的字符串进行修改时</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> s1 = <span class="built_in">String</span>::from(<span class="string">"hello"</span>);</span><br><span class="line">    change(&amp;s1);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">change</span></span>(s: &amp;<span class="built_in">String</span>) &#123;</span><br><span class="line">    s.push_str(<span class="string">", world"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>就会有以下报错，<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/LVWURi.png" alt=""><br>其实也很容易发现，毕竟没有 mut 指出这是可变引用，同时需要将 s1 改成 mut 可变的</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> s1 = <span class="built_in">String</span>::from(<span class="string">"hello"</span>);</span><br><span class="line">    change(&amp;<span class="keyword">mut</span> s1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">change</span></span>(s: &amp;<span class="keyword">mut</span> <span class="built_in">String</span>) &#123;</span><br><span class="line">    s.push_str(<span class="string">", world"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> s1 <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">change</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">change</span><span class="token punctuation">(</span>s<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    s<span class="token punctuation">.</span><span class="token function">push_str</span><span class="token punctuation">(</span><span class="token string">", world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>就会有以下报错，<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/LVWURi.png"><br>其实也很容易发现，毕竟没有 mut 指出这是可变引用，同时需要将 s1 改成 mut 可变的</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> s1 <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">change</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> s1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+
+<span class="token keyword">fn</span> <span class="token function-definition function">change</span><span class="token punctuation">(</span>s<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    s<span class="token punctuation">.</span><span class="token function">push_str</span><span class="token punctuation">(</span><span class="token string">", world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>再看一个例子</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> s1 = <span class="built_in">String</span>::from(<span class="string">"hello"</span>);</span><br><span class="line">    <span class="keyword">let</span> r1 = &amp;<span class="keyword">mut</span> s1;</span><br><span class="line">    <span class="keyword">let</span> r2 = &amp;<span class="keyword">mut</span> s1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> s1 <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> r1 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> s1<span class="token punctuation">;</span>
+    <span class="token keyword">let</span> r2 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> s1<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这个例子在书里是会报错的，因为同时存在一个以上的可变引用，但是在我运行的版本里前面这段没有报错，只有当我真的要去更改的时候</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> s1 = <span class="built_in">String</span>::from(<span class="string">"hello"</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> r1 = &amp;<span class="keyword">mut</span> s1;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> r2 = &amp;<span class="keyword">mut</span> s1;</span><br><span class="line">    change(&amp;<span class="keyword">mut</span> r1);</span><br><span class="line">    change(&amp;<span class="keyword">mut</span> r2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">change</span></span>(s: &amp;<span class="keyword">mut</span> <span class="built_in">String</span>) &#123;</span><br><span class="line">    s.push_str(<span class="string">", world"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/k3jjNn.png" alt=""><br>这里可能就是具体版本在实现上的一个差异，我用的 rustc 是 1.44.0 版本<br>其实上面的主要是由 rust 想要避免这类多重可变更导致的异常问题，总结下就是三个点</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> s1 <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> r1 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> s1<span class="token punctuation">;</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> r2 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> s1<span class="token punctuation">;</span>
+    <span class="token function">change</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> r1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">change</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> r2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+
+<span class="token keyword">fn</span> <span class="token function-definition function">change</span><span class="token punctuation">(</span>s<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    s<span class="token punctuation">.</span><span class="token function">push_str</span><span class="token punctuation">(</span><span class="token string">", world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/k3jjNn.png"><br>这里可能就是具体版本在实现上的一个差异，我用的 rustc 是 1.44.0 版本<br>其实上面的主要是由 rust 想要避免这类多重可变更导致的异常问题，总结下就是三个点</p>
 <ul>
 <li>两个或两个以上的指针同时同时访问同一空间</li>
 <li>其中至少有一个指针会想空间中写入数据</li>
-<li>没有同步数据访问的机制<br>并且我们不能在拥有不可变引用的情况下创建可变引用<h3 id="悬垂引用"><a href="#悬垂引用" class="headerlink" title="悬垂引用"></a>悬垂引用</h3>还有一点需要注意的就是悬垂引用<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> reference_to_nothing = dangle();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">dangle</span></span>() -&gt; &amp;<span class="built_in">String</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> s = <span class="built_in">String</span>::from(<span class="string">"hello"</span>);</span><br><span class="line">    &amp;s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-这里可以看到其实在 dangle函数返回后，这里的 s 理论上就离开了作用域，但是由于返回了 s 的引用，在 main 函数中就会拿着这个引用，就会出现如下错误<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/JtrXSW.png" alt=""><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3>最后总结下</li>
+<li>没有同步数据访问的机制<br>并且我们不能在拥有不可变引用的情况下创建可变引用<h3 id="悬垂引用"><a href="#悬垂引用" class="headerlink" title="悬垂引用"></a>悬垂引用</h3>还有一点需要注意的就是悬垂引用<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> reference_to_nothing <span class="token operator">=</span> <span class="token function">dangle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">dangle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token operator">&amp;</span><span class="token class-name">String</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> s <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>s
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+这里可以看到其实在 dangle函数返回后，这里的 s 理论上就离开了作用域，但是由于返回了 s 的引用，在 main 函数中就会拿着这个引用，就会出现如下错误<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/JtrXSW.png"><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3>最后总结下</li>
 <li>在任何一个段给定的时间里，你要么只能拥有一个可变引用，要么只能拥有任意数量的不可变引用。</li>
 <li>引用总是有效的。</li>
 </ul>
@@ -462,7 +499,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#引用"><span class="nav-number">1.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可变引用"><span class="nav-number">2.</span> <span class="nav-text">可变引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#悬垂引用"><span class="nav-number">3.</span> <span class="nav-text">悬垂引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">可变引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%82%AC%E5%9E%82%E5%BC%95%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">悬垂引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

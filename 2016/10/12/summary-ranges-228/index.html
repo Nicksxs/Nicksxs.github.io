@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,8 +32,9 @@
 <meta property="og:url" content="https://nicksxs.me/2016/10/12/summary-ranges-228/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="problemGiven a sorted integer array without duplicates, return the summary of its ranges. For example, given [0,1,2,4,5,7], return [&quot;0-&gt;2&quot;,&quot;4-&gt;5&quot;,&quot;7&quot;]. 题解每一个区间的起点nu">
+<meta property="og:locale">
 <meta property="article:published_time" content="2016-10-12T15:25:17.000Z">
-<meta property="article:modified_time" content="2020-01-12T13:08:26.000Z">
+<meta property="article:modified_time" content="2016-10-12T15:25:17.000Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="c++">
@@ -229,13 +230,6 @@
 
               <time title="Created: 2016-10-12 23:25:17" itemprop="dateCreated datePublished" datetime="2016-10-12T23:25:17+08:00">2016-10-12</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-12 21:08:26" itemprop="dateModified" datetime="2020-01-12T21:08:26+08:00">2020-01-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -287,8 +281,22 @@
       
         <h4 id="problem"><a href="#problem" class="headerlink" title="problem"></a>problem</h4><p>Given a sorted integer array without duplicates, return the summary of its ranges.</p>
 <p>For example, given <code>[0,1,2,4,5,7]</code>, return <code>[&quot;0-&gt;2&quot;,&quot;4-&gt;5&quot;,&quot;7&quot;]</code>.</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>每一个区间的起点<code>nums[i]</code>加上<code>j</code>是否等于<code>nums[i+j]</code><br><a href="http://www.cnblogs.com/grandyang/p/4603555.html" target="_blank" rel="noopener">参考</a></p>
-<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">summaryRanges</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">1</span>, n;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">        n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">while</span>(i &lt; n)&#123;</span><br><span class="line">            j = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j &lt; n &amp;&amp; nums[i+j] - nums[i] == j) j++;</span><br><span class="line">            res.push_back(j &lt;= <span class="number">1</span> ? to_string(nums[i]) : to_string(nums[i]) + <span class="string">"-&gt;"</span> + to_string(nums[i + j - <span class="number">1</span>]));</span><br><span class="line">            i += j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>每一个区间的起点<code>nums[i]</code>加上<code>j</code>是否等于<code>nums[i+j]</code><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/grandyang/p/4603555.html">参考</a></p>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    vector&lt;string&gt; summaryRanges(vector&lt;int&gt;&amp; nums) &#123;
+        int i &#x3D; 0, j &#x3D; 1, n;
+        vector&lt;string&gt; res;
+        n &#x3D; nums.size();
+        while(i &lt; n)&#123;
+            j &#x3D; 1;
+            while(j &lt; n &amp;&amp; nums[i+j] - nums[i] &#x3D;&#x3D; j) j++;
+            res.push_back(j &lt;&#x3D; 1 ? to_string(nums[i]) : to_string(nums[i]) + &quot;-&gt;&quot; + to_string(nums[i + j - 1]));
+            i +&#x3D; j;
+        &#125;
+        return res;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
     </div>
 
     
@@ -304,10 +312,10 @@
       <div class="popular-posts-title"><a href="/2016/08/14/34-Search-for-a-Range/" rel="bookmark">34_Search_for_a_Range</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2015/04/14/Add-Two-Number/" rel="bookmark">add-two-number</a></div>
+      <div class="popular-posts-title"><a href="/2015/03/11/Number-Of-1-Bits/" rel="bookmark">Number of 1 Bits</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2015/03/11/Number-Of-1-Bits/" rel="bookmark">Number of 1 Bits</a></div>
+      <div class="popular-posts-title"><a href="/2015/04/14/Add-Two-Number/" rel="bookmark">add-two-number</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2015/01/04/Path-Sum/" rel="bookmark">Path Sum</a></div>
@@ -436,7 +444,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#problem"><span class="nav-number">1.</span> <span class="nav-text">problem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题解"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Code"><span class="nav-number">3.</span> <span class="nav-text">Code</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#problem"><span class="nav-number">1.</span> <span class="nav-text">problem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Code"><span class="nav-number">3.</span> <span class="nav-text">Code</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

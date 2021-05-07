@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,8 +32,9 @@
 <meta property="og:url" content="https://nicksxs.me/2021/01/31/%E8%81%8A%E8%81%8A-redis-%E7%BC%93%E5%AD%98%E7%9A%84%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="前面写过一系列的 redis 源码分析的，但是实际上很多的问题还是需要结合实际的使用，然后其实就避不开缓存使用的三个著名问题，穿透，击穿和雪崩，这三个概念也是有着千丝万缕的关系， 缓存穿透缓存穿透是指当数据库中本身就不存在这个数据的时候，使用一般的缓存策略时访问不到缓存后就访问数据库，但是因为数据库也没数据，所以如果不做任何策略优化的话，这类数据就每次都会访问一次数据库，对数据库压力也会比较大。">
+<meta property="og:locale">
 <meta property="article:published_time" content="2021-01-31T15:02:44.000Z">
-<meta property="article:modified_time" content="2021-01-31T15:02:44.242Z">
+<meta property="article:modified_time" content="2021-01-31T15:02:44.000Z">
 <meta property="article:author" content="Nicksxs">
 <meta property="article:tag" content="Redis">
 <meta property="article:tag" content="缓存穿透">
@@ -456,7 +457,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存穿透"><span class="nav-number">1.</span> <span class="nav-text">缓存穿透</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存击穿"><span class="nav-number">2.</span> <span class="nav-text">缓存击穿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存雪崩"><span class="nav-number">3.</span> <span class="nav-text">缓存雪崩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决缓存穿透"><span class="nav-number">4.</span> <span class="nav-text">解决缓存穿透</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决缓存击穿"><span class="nav-number">5.</span> <span class="nav-text">解决缓存击穿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决缓存雪崩"><span class="nav-number">6.</span> <span class="nav-text">解决缓存雪崩</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="nav-number">1.</span> <span class="nav-text">缓存穿透</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF"><span class="nav-number">2.</span> <span class="nav-text">缓存击穿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-number">3.</span> <span class="nav-text">缓存雪崩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="nav-number">4.</span> <span class="nav-text">解决缓存穿透</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF"><span class="nav-number">5.</span> <span class="nav-text">解决缓存击穿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-number">6.</span> <span class="nav-text">解决缓存雪崩</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

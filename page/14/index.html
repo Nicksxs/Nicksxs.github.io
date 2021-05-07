@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,12 +32,9 @@
 <meta property="og:url" content="https://nicksxs.me/page/14/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="learn from zero,技术博客，Nicksxs，史学森">
+<meta property="og:locale">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Nicksxs">
-<meta property="article:tag" content="史学森">
-<meta property="article:tag" content="米方方">
-<meta property="article:tag" content="米方方的男朋友">
-<meta property="article:tag" content="森哥">
+<meta property="article:tag" content="Nicksxs,史学森,米方方,米方方的男朋友,森哥">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://nicksxs.me/page/14/">
@@ -227,9 +224,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-02-09 20:52:02 / Modified: 20:56:16" itemprop="dateCreated datePublished" datetime="2020-02-09T20:52:02+08:00">2020-02-09</time>
+              <time title="Created: 2020-02-09 20:52:02" itemprop="dateCreated datePublished" datetime="2020-02-09T20:52:02+08:00">2020-02-09</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -286,8 +282,62 @@
 
       
           <p>G1: The Garbage-First Collector, 垃圾回收优先的垃圾回收器，目标是用户多核 cpu 和大内存的机器，最大的特点就是可预测的停顿时间，官方给出的介绍是提供一个用户在大的堆内存情况下一个低延迟表现的解决方案，通常是 6GB 及以上的堆大小，有低于 0.5 秒稳定的可预测的停顿时间。</p>
-<p>这里主要介绍这个比较新的垃圾回收器，在 G1 之前的垃圾回收器都是基于如下图的内存结构分布，有新生代，老年代和永久代（jdk8 之前），然后G1 往前的那些垃圾回收器都有个分代，比如 serial，parallel 等，一般有个应用的组合，最初的 serial 和 serial old，因为新生代和老年代的收集方式不太一样，新生代主要是标记复制，所以有 eden 跟两个 survival区，老年代一般用标记整理方式，而 G1 对这个不太一样。<br><img data-src="https://i.loli.net/2020/02/09/jOVs2AlphzwyF5c.jpg" alt=""><br>看一下 G1 的内存分布<br><img data-src="https://i.loli.net/2020/02/09/Yr1tGiWp4mAZSzB.jpg" alt=""><br>可以看到这有很大的不同，G1 通过将内存分成大小相等的 region，每个region是存在于一个连续的虚拟内存范围，对于某个 region 来说其角色是类似于原来的收集器的Eden、Survivor、Old Generation，这个具体在代码层面</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// We encode the value of the heap region type so the generation can be</span></span><br><span class="line"> <span class="comment">// determined quickly. The tag is split into two parts:</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">//   major type (young, old, humongous, archive)           : top N-1 bits</span></span><br><span class="line"> <span class="comment">//   minor type (eden / survivor, starts / cont hum, etc.) : bottom 1 bit</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">// If there's need to increase the number of minor types in the</span></span><br><span class="line"> <span class="comment">// future, we'll have to increase the size of the latter and hence</span></span><br><span class="line"> <span class="comment">// decrease the size of the former.</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">// 00000 0 [ 0] Free</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">// 00001 0 [ 2] Young Mask</span></span><br><span class="line"> <span class="comment">// 00001 0 [ 2] Eden</span></span><br><span class="line"> <span class="comment">// 00001 1 [ 3] Survivor</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">// 00010 0 [ 4] Humongous Mask</span></span><br><span class="line"> <span class="comment">// 00100 0 [ 8] Pinned Mask</span></span><br><span class="line"> <span class="comment">// 00110 0 [12] Starts Humongous</span></span><br><span class="line"> <span class="comment">// 00110 1 [13] Continues Humongous</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">// 01000 0 [16] Old Mask</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="comment">// 10000 0 [32] Archive Mask</span></span><br><span class="line"> <span class="comment">// 11100 0 [56] Open Archive</span></span><br><span class="line"> <span class="comment">// 11100 1 [57] Closed Archive</span></span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> <span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</span><br><span class="line">   FreeTag               = <span class="number">0</span>,</span><br><span class="line"></span><br><span class="line">   YoungMask             = <span class="number">2</span>,</span><br><span class="line">   EdenTag               = YoungMask,</span><br><span class="line">   SurvTag               = YoungMask + <span class="number">1</span>,</span><br><span class="line"></span><br><span class="line">   HumongousMask         = <span class="number">4</span>,</span><br><span class="line">   PinnedMask            = <span class="number">8</span>,</span><br><span class="line">   StartsHumongousTag    = HumongousMask | PinnedMask,</span><br><span class="line">   ContinuesHumongousTag = HumongousMask | PinnedMask + <span class="number">1</span>,</span><br><span class="line"></span><br><span class="line">   OldMask               = <span class="number">16</span>,</span><br><span class="line">   OldTag                = OldMask,</span><br><span class="line"></span><br><span class="line">   <span class="comment">// Archive regions are regions with immutable content (i.e. not reclaimed, and</span></span><br><span class="line">   <span class="comment">// not allocated into during regular operation). They differ in the kind of references</span></span><br><span class="line">   <span class="comment">// allowed for the contained objects:</span></span><br><span class="line">   <span class="comment">// - Closed archive regions form a separate self-contained (closed) object graph</span></span><br><span class="line">   <span class="comment">// within the set of all of these regions. No references outside of closed</span></span><br><span class="line">   <span class="comment">// archive regions are allowed.</span></span><br><span class="line">   <span class="comment">// - Open archive regions have no restrictions on the references of their objects.</span></span><br><span class="line">   <span class="comment">// Objects within these regions are allowed to have references to objects</span></span><br><span class="line">   <span class="comment">// contained in any other kind of regions.</span></span><br><span class="line">   ArchiveMask           = <span class="number">32</span>,</span><br><span class="line">   OpenArchiveTag        = ArchiveMask | PinnedMask | OldMask,</span><br><span class="line">   ClosedArchiveTag      = ArchiveMask | PinnedMask | OldMask + <span class="number">1</span></span><br><span class="line"> &#125; Tag;</span><br></pre></td></tr></table></figure>
+<p>这里主要介绍这个比较新的垃圾回收器，在 G1 之前的垃圾回收器都是基于如下图的内存结构分布，有新生代，老年代和永久代（jdk8 之前），然后G1 往前的那些垃圾回收器都有个分代，比如 serial，parallel 等，一般有个应用的组合，最初的 serial 和 serial old，因为新生代和老年代的收集方式不太一样，新生代主要是标记复制，所以有 eden 跟两个 survival区，老年代一般用标记整理方式，而 G1 对这个不太一样。<br><img data-src="https://i.loli.net/2020/02/09/jOVs2AlphzwyF5c.jpg"><br>看一下 G1 的内存分布<br><img data-src="https://i.loli.net/2020/02/09/Yr1tGiWp4mAZSzB.jpg"><br>可以看到这有很大的不同，G1 通过将内存分成大小相等的 region，每个region是存在于一个连续的虚拟内存范围，对于某个 region 来说其角色是类似于原来的收集器的Eden、Survivor、Old Generation，这个具体在代码层面</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; We encode the value of the heap region type so the generation can be
+ &#x2F;&#x2F; determined quickly. The tag is split into two parts:
+ &#x2F;&#x2F;
+ &#x2F;&#x2F;   major type (young, old, humongous, archive)           : top N-1 bits
+ &#x2F;&#x2F;   minor type (eden &#x2F; survivor, starts &#x2F; cont hum, etc.) : bottom 1 bit
+ &#x2F;&#x2F;
+ &#x2F;&#x2F; If there&#39;s need to increase the number of minor types in the
+ &#x2F;&#x2F; future, we&#39;ll have to increase the size of the latter and hence
+ &#x2F;&#x2F; decrease the size of the former.
+ &#x2F;&#x2F;
+ &#x2F;&#x2F; 00000 0 [ 0] Free
+ &#x2F;&#x2F;
+ &#x2F;&#x2F; 00001 0 [ 2] Young Mask
+ &#x2F;&#x2F; 00001 0 [ 2] Eden
+ &#x2F;&#x2F; 00001 1 [ 3] Survivor
+ &#x2F;&#x2F;
+ &#x2F;&#x2F; 00010 0 [ 4] Humongous Mask
+ &#x2F;&#x2F; 00100 0 [ 8] Pinned Mask
+ &#x2F;&#x2F; 00110 0 [12] Starts Humongous
+ &#x2F;&#x2F; 00110 1 [13] Continues Humongous
+ &#x2F;&#x2F;
+ &#x2F;&#x2F; 01000 0 [16] Old Mask
+ &#x2F;&#x2F;
+ &#x2F;&#x2F; 10000 0 [32] Archive Mask
+ &#x2F;&#x2F; 11100 0 [56] Open Archive
+ &#x2F;&#x2F; 11100 1 [57] Closed Archive
+ &#x2F;&#x2F;
+ typedef enum &#123;
+   FreeTag               &#x3D; 0,
+
+   YoungMask             &#x3D; 2,
+   EdenTag               &#x3D; YoungMask,
+   SurvTag               &#x3D; YoungMask + 1,
+
+   HumongousMask         &#x3D; 4,
+   PinnedMask            &#x3D; 8,
+   StartsHumongousTag    &#x3D; HumongousMask | PinnedMask,
+   ContinuesHumongousTag &#x3D; HumongousMask | PinnedMask + 1,
+
+   OldMask               &#x3D; 16,
+   OldTag                &#x3D; OldMask,
+
+   &#x2F;&#x2F; Archive regions are regions with immutable content (i.e. not reclaimed, and
+   &#x2F;&#x2F; not allocated into during regular operation). They differ in the kind of references
+   &#x2F;&#x2F; allowed for the contained objects:
+   &#x2F;&#x2F; - Closed archive regions form a separate self-contained (closed) object graph
+   &#x2F;&#x2F; within the set of all of these regions. No references outside of closed
+   &#x2F;&#x2F; archive regions are allowed.
+   &#x2F;&#x2F; - Open archive regions have no restrictions on the references of their objects.
+   &#x2F;&#x2F; Objects within these regions are allowed to have references to objects
+   &#x2F;&#x2F; contained in any other kind of regions.
+   ArchiveMask           &#x3D; 32,
+   OpenArchiveTag        &#x3D; ArchiveMask | PinnedMask | OldMask,
+   ClosedArchiveTag      &#x3D; ArchiveMask | PinnedMask | OldMask + 1
+ &#125; Tag;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><code>hotspot/share/gc/g1/heapRegionType.hpp</code></p>
 <p>当执行垃圾收集时，G1以类似于CMS收集器的方式运行。 G1执行并发全局标记阶段，以确定整个堆中对象的存活性。标记阶段完成后，G1知道哪些region是基本空的。它首先收集这些region，通常会产生大量的可用空间。这就是为什么这种垃圾收集方法称为“垃圾优先”的原因。顾名思义，G1将其收集和压缩活动集中在可能充满可回收对象（即垃圾）的堆区域。 G1使用暂停预测模型来满足用户定义的暂停时间目标，并根据指定的暂停时间目标选择要收集的区域数。</p>
@@ -339,9 +389,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-02-01 22:23:53 / Modified: 22:41:22" itemprop="dateCreated datePublished" datetime="2020-02-01T22:23:53+08:00">2020-02-01</time>
+              <time title="Created: 2020-02-01 22:23:53" itemprop="dateCreated datePublished" datetime="2020-02-01T22:23:53+08:00">2020-02-01</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -454,13 +503,6 @@
 
               <time title="Created: 2020-01-22 21:51:30" itemprop="dateCreated datePublished" datetime="2020-01-22T21:51:30+08:00">2020-01-22</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-26 21:39:57" itemprop="dateModified" datetime="2020-01-26T21:39:57+08:00">2020-01-26</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -520,10 +562,80 @@
 
       
           <p>这应该是 redis 系列的最后一篇了，讲下快表，其实最前面讲的链表在早先的 redis 版本中也作为 list 的数据结构使用过，但是单纯的链表的缺陷之前也说了，插入便利，但是空间利用率低，并且不能进行二分查找等，检索效率低，ziplist 压缩表的产生也是同理，希望获得更好的性能，包括存储空间和访问性能等，原来我也不懂这个快表要怎么快，然后明白了一个道理，其实并没有什么银弹，只是大牛们会在适合的时候使用最适合的数据结构来实现性能的最大化，这里面有一招就是不同数据结构的组合调整，比如 Java 中的 HashMap，在链表节点数大于 8 时会转变成红黑树，以此提高访问效率，不费话了，回到快表，quicklist，这个数据结构主要使用在 list 类型中，如果我说其实这个 quicklist 就是个链表，可能大家不太会相信，但是事实上的确可以认为 quicklist 是个双向链表，看下代码</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* quicklistNode is a 32 byte struct describing a ziplist for a quicklist.</span></span><br><span class="line"><span class="comment"> * We use bit fields keep the quicklistNode at 32 bytes.</span></span><br><span class="line"><span class="comment"> * count: 16 bits, max 65536 (max zl bytes is 65k, so max count actually &lt; 32k).</span></span><br><span class="line"><span class="comment"> * encoding: 2 bits, RAW=1, LZF=2.</span></span><br><span class="line"><span class="comment"> * container: 2 bits, NONE=1, ZIPLIST=2.</span></span><br><span class="line"><span class="comment"> * recompress: 1 bit, bool, true if node is temporarry decompressed for usage.</span></span><br><span class="line"><span class="comment"> * attempted_compress: 1 bit, boolean, used for verifying during testing.</span></span><br><span class="line"><span class="comment"> * extra: 10 bits, free for future use; pads out the remainder of 32 bits */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">quicklistNode</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">quicklistNode</span> *<span class="title">prev</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">quicklistNode</span> *<span class="title">next</span>;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *zl;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> sz;             <span class="comment">/* ziplist size in bytes */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> count : <span class="number">16</span>;     <span class="comment">/* count of items in ziplist */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> encoding : <span class="number">2</span>;   <span class="comment">/* RAW==1 or LZF==2 */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> container : <span class="number">2</span>;  <span class="comment">/* NONE==1 or ZIPLIST==2 */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> recompress : <span class="number">1</span>; <span class="comment">/* was this node previous compressed? */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> attempted_compress : <span class="number">1</span>; <span class="comment">/* node can't compress; too small */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> extra : <span class="number">10</span>; <span class="comment">/* more bits to steal for future usage */</span></span><br><span class="line">&#125; quicklistNode;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* quicklistLZF is a 4+N byte struct holding 'sz' followed by 'compressed'.</span></span><br><span class="line"><span class="comment"> * 'sz' is byte length of 'compressed' field.</span></span><br><span class="line"><span class="comment"> * 'compressed' is LZF data with total (compressed) length 'sz'</span></span><br><span class="line"><span class="comment"> * <span class="doctag">NOTE:</span> uncompressed length is stored in quicklistNode-&gt;sz.</span></span><br><span class="line"><span class="comment"> * When quicklistNode-&gt;zl is compressed, node-&gt;zl points to a quicklistLZF */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">quicklistLZF</span> &#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> sz; <span class="comment">/* LZF size in bytes*/</span></span><br><span class="line">    <span class="keyword">char</span> compressed[];</span><br><span class="line">&#125; quicklistLZF;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* quicklist is a 40 byte struct (on 64-bit systems) describing a quicklist.</span></span><br><span class="line"><span class="comment"> * 'count' is the number of total entries.</span></span><br><span class="line"><span class="comment"> * 'len' is the number of quicklist nodes.</span></span><br><span class="line"><span class="comment"> * 'compress' is: -1 if compression disabled, otherwise it's the number</span></span><br><span class="line"><span class="comment"> *                of quicklistNodes to leave uncompressed at ends of quicklist.</span></span><br><span class="line"><span class="comment"> * 'fill' is the user-requested (or default) fill factor. */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">quicklist</span> &#123;</span></span><br><span class="line">    quicklistNode *head;</span><br><span class="line">    quicklistNode *tail;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> count;        <span class="comment">/* total count of all entries in all ziplists */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> len;          <span class="comment">/* number of quicklistNodes */</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">fill</span> : <span class="number">16</span>;              <span class="comment">/* fill factor for individual nodes */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> compress : <span class="number">16</span>; <span class="comment">/* depth of end nodes not to compress;0=off */</span></span><br><span class="line">&#125; quicklist;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;* quicklistNode is a 32 byte struct describing a ziplist for a quicklist.
+ * We use bit fields keep the quicklistNode at 32 bytes.
+ * count: 16 bits, max 65536 (max zl bytes is 65k, so max count actually &lt; 32k).
+ * encoding: 2 bits, RAW&#x3D;1, LZF&#x3D;2.
+ * container: 2 bits, NONE&#x3D;1, ZIPLIST&#x3D;2.
+ * recompress: 1 bit, bool, true if node is temporarry decompressed for usage.
+ * attempted_compress: 1 bit, boolean, used for verifying during testing.
+ * extra: 10 bits, free for future use; pads out the remainder of 32 bits *&#x2F;
+typedef struct quicklistNode &#123;
+    struct quicklistNode *prev;
+    struct quicklistNode *next;
+    unsigned char *zl;
+    unsigned int sz;             &#x2F;* ziplist size in bytes *&#x2F;
+    unsigned int count : 16;     &#x2F;* count of items in ziplist *&#x2F;
+    unsigned int encoding : 2;   &#x2F;* RAW&#x3D;&#x3D;1 or LZF&#x3D;&#x3D;2 *&#x2F;
+    unsigned int container : 2;  &#x2F;* NONE&#x3D;&#x3D;1 or ZIPLIST&#x3D;&#x3D;2 *&#x2F;
+    unsigned int recompress : 1; &#x2F;* was this node previous compressed? *&#x2F;
+    unsigned int attempted_compress : 1; &#x2F;* node can&#39;t compress; too small *&#x2F;
+    unsigned int extra : 10; &#x2F;* more bits to steal for future usage *&#x2F;
+&#125; quicklistNode;
+
+&#x2F;* quicklistLZF is a 4+N byte struct holding &#39;sz&#39; followed by &#39;compressed&#39;.
+ * &#39;sz&#39; is byte length of &#39;compressed&#39; field.
+ * &#39;compressed&#39; is LZF data with total (compressed) length &#39;sz&#39;
+ * NOTE: uncompressed length is stored in quicklistNode-&gt;sz.
+ * When quicklistNode-&gt;zl is compressed, node-&gt;zl points to a quicklistLZF *&#x2F;
+typedef struct quicklistLZF &#123;
+    unsigned int sz; &#x2F;* LZF size in bytes*&#x2F;
+    char compressed[];
+&#125; quicklistLZF;
+
+&#x2F;* quicklist is a 40 byte struct (on 64-bit systems) describing a quicklist.
+ * &#39;count&#39; is the number of total entries.
+ * &#39;len&#39; is the number of quicklist nodes.
+ * &#39;compress&#39; is: -1 if compression disabled, otherwise it&#39;s the number
+ *                of quicklistNodes to leave uncompressed at ends of quicklist.
+ * &#39;fill&#39; is the user-requested (or default) fill factor. *&#x2F;
+typedef struct quicklist &#123;
+    quicklistNode *head;
+    quicklistNode *tail;
+    unsigned long count;        &#x2F;* total count of all entries in all ziplists *&#x2F;
+    unsigned long len;          &#x2F;* number of quicklistNodes *&#x2F;
+    int fill : 16;              &#x2F;* fill factor for individual nodes *&#x2F;
+    unsigned int compress : 16; &#x2F;* depth of end nodes not to compress;0&#x3D;off *&#x2F;
+&#125; quicklist;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>粗略看下，quicklist 里有 head，tail, quicklistNode里有 prev，next 指针，是不是有链表的基本轮廓了，那么为啥这玩意要称为快表呢，快在哪，关键就在这个<code>unsigned char *zl;</code>zl 是不是前面又看到过，就是 ziplist ，这是什么鬼，链表里用压缩表，这不套娃么，先别急，回顾下前面说的 ziplist，ziplist 有哪些特点，内存利用率高，可以从表头快速定位到尾节点，节点可以从后往前找，但是有个缺点，就是从中间插入的效率比较低，需要整体往后移，这个其实是普通数组的优化版，但还是有数组的一些劣势，所以要真的快，是不是可以将链表跟数组真的结合起来。</p>
 <h2 id="ziplist"><a href="#ziplist" class="headerlink" title="ziplist"></a>ziplist</h2><p>这里有两个 redis 的配置参数，<code>list-max-ziplist-size</code> 和 <code>list-compress-depth</code>，先来说第一个，既然快表是将链表跟压缩表数组结合起来使用，那么具体怎么用呢，比如我有一个 10 个元素的 list，那具体怎么放，每个 quicklistNode 里放多大的 ziplist，假如每个快表节点的 ziplist 只放一个元素，那么其实这就退化成了一个链表，如果 10 个元素放在一个 quicklistNode 的 ziplist 里，那就退化成了一个 ziplist，所以有了这个 <code>list-max-ziplist-size</code>,而且它还比较牛，能取正负值，当是正值时，对应的就是每个 quicklistNode 的 ziplist 中的元素个数，比如配置了 <code>list-max-ziplist-size = 5</code>，那么我刚才的 10 个元素的 list 就是一个两个 quicklistNode 组成的快表，每个 quicklistNode 中的 ziplist 包含了五个元素，当 <code>list-max-ziplist-size</code>取负值的时候，它限制了 ziplist 的字节数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">size_t offset &#x3D; (-fill) - 1;</span><br><span class="line">if (offset &lt; (sizeof(optimization_level) &#x2F; sizeof(*optimization_level))) &#123;</span><br><span class="line">    if (sz &lt;&#x3D; optimization_level[offset]) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* Optimization levels for size-based filling *&#x2F;</span><br><span class="line">static const size_t optimization_level[] &#x3D; &#123;4096, 8192, 16384, 32768, 65536&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;* Create a new quicklist.</span><br><span class="line"> * Free with quicklistRelease(). *&#x2F;</span><br><span class="line">quicklist *quicklistCreate(void) &#123;</span><br><span class="line">    struct quicklist *quicklist;</span><br><span class="line"></span><br><span class="line">    quicklist &#x3D; zmalloc(sizeof(*quicklist));</span><br><span class="line">    quicklist-&gt;head &#x3D; quicklist-&gt;tail &#x3D; NULL;</span><br><span class="line">    quicklist-&gt;len &#x3D; 0;</span><br><span class="line">    quicklist-&gt;count &#x3D; 0;</span><br><span class="line">    quicklist-&gt;compress &#x3D; 0;</span><br><span class="line">    quicklist-&gt;fill &#x3D; -2;</span><br><span class="line">    return quicklist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">size_t offset &#x3D; (-fill) - 1;
+if (offset &lt; (sizeof(optimization_level) &#x2F; sizeof(*optimization_level))) &#123;
+    if (sz &lt;&#x3D; optimization_level[offset]) &#123;
+        return 1;
+    &#125; else &#123;
+        return 0;
+    &#125;
+&#125; else &#123;
+    return 0;
+&#125;
+
+&#x2F;* Optimization levels for size-based filling *&#x2F;
+static const size_t optimization_level[] &#x3D; &#123;4096, 8192, 16384, 32768, 65536&#125;;
+
+&#x2F;* Create a new quicklist.
+ * Free with quicklistRelease(). *&#x2F;
+quicklist *quicklistCreate(void) &#123;
+    struct quicklist *quicklist;
+
+    quicklist &#x3D; zmalloc(sizeof(*quicklist));
+    quicklist-&gt;head &#x3D; quicklist-&gt;tail &#x3D; NULL;
+    quicklist-&gt;len &#x3D; 0;
+    quicklist-&gt;count &#x3D; 0;
+    quicklist-&gt;compress &#x3D; 0;
+    quicklist-&gt;fill &#x3D; -2;
+    return quicklist;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这个 fill 就是传进来的 <code>list-max-ziplist-size</code>, 具体对应的就是</p>
 <ul>
 <li>-5: 每个quicklist节点上的ziplist大小不能超过64 Kb。（注：1kb =&gt; 1024 bytes）</li>
@@ -533,15 +645,121 @@
 <li>-1: 每个quicklist节点上的ziplist大小不能超过4 Kb。</li>
 </ul>
 <h2 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h2><p><code>list-compress-depth</code>这个参数呢是用来配置压缩的，等等压缩是为啥，不是里面已经是压缩表了么，大牛们就是为了性能殚精竭虑，这里考虑到的是一个场景，一般状况下，list 都是两端的访问频率比较高，那么是不是可以对中间的数据进行压缩，那么这个参数就是用来表示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* depth of end nodes not to compress;0&#x3D;off *&#x2F;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;* depth of end nodes not to compress;0&#x3D;off *&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <ul>
 <li>0，代表不压缩，默认值</li>
 <li>1，两端各一个节点不压缩</li>
 <li>2，两端各两个节点不压缩</li>
-<li>… 依次类推<br>压缩后的 ziplist 就会变成 quicklistLZF，然后替换 zl 指针，这里使用的是 <a href="http://oldhome.schmorp.de/marc/liblzf.html" target="_blank" rel="noopener">LZF</a> 压缩算法，压缩后的 quicklistLZF 中的 compressed 也是个柔性数组，压缩后的 ziplist 整个就放进这个柔性数组</li>
+<li>… 依次类推<br>压缩后的 ziplist 就会变成 quicklistLZF，然后替换 zl 指针，这里使用的是 <a target="_blank" rel="noopener" href="http://oldhome.schmorp.de/marc/liblzf.html">LZF</a> 压缩算法，压缩后的 quicklistLZF 中的 compressed 也是个柔性数组，压缩后的 ziplist 整个就放进这个柔性数组</li>
 </ul>
 <h2 id="插入过程"><a href="#插入过程" class="headerlink" title="插入过程"></a>插入过程</h2><p>简单说下插入元素的过程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* Wrapper to allow argument-based switching between HEAD&#x2F;TAIL pop *&#x2F;</span><br><span class="line">void quicklistPush(quicklist *quicklist, void *value, const size_t sz,</span><br><span class="line">                   int where) &#123;</span><br><span class="line">    if (where &#x3D;&#x3D; QUICKLIST_HEAD) &#123;</span><br><span class="line">        quicklistPushHead(quicklist, value, sz);</span><br><span class="line">    &#125; else if (where &#x3D;&#x3D; QUICKLIST_TAIL) &#123;</span><br><span class="line">        quicklistPushTail(quicklist, value, sz);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* Add new entry to head node of quicklist.</span><br><span class="line"> *</span><br><span class="line"> * Returns 0 if used existing head.</span><br><span class="line"> * Returns 1 if new head created. *&#x2F;</span><br><span class="line">int quicklistPushHead(quicklist *quicklist, void *value, size_t sz) &#123;</span><br><span class="line">    quicklistNode *orig_head &#x3D; quicklist-&gt;head;</span><br><span class="line">    if (likely(</span><br><span class="line">            _quicklistNodeAllowInsert(quicklist-&gt;head, quicklist-&gt;fill, sz))) &#123;</span><br><span class="line">        quicklist-&gt;head-&gt;zl &#x3D;</span><br><span class="line">            ziplistPush(quicklist-&gt;head-&gt;zl, value, sz, ZIPLIST_HEAD);</span><br><span class="line">        quicklistNodeUpdateSz(quicklist-&gt;head);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        quicklistNode *node &#x3D; quicklistCreateNode();</span><br><span class="line">        node-&gt;zl &#x3D; ziplistPush(ziplistNew(), value, sz, ZIPLIST_HEAD);</span><br><span class="line"></span><br><span class="line">        quicklistNodeUpdateSz(node);</span><br><span class="line">        _quicklistInsertNodeBefore(quicklist, quicklist-&gt;head, node);</span><br><span class="line">    &#125;</span><br><span class="line">    quicklist-&gt;count++;</span><br><span class="line">    quicklist-&gt;head-&gt;count++;</span><br><span class="line">    return (orig_head !&#x3D; quicklist-&gt;head);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* Add new entry to tail node of quicklist.</span><br><span class="line"> *</span><br><span class="line"> * Returns 0 if used existing tail.</span><br><span class="line"> * Returns 1 if new tail created. *&#x2F;</span><br><span class="line">int quicklistPushTail(quicklist *quicklist, void *value, size_t sz) &#123;</span><br><span class="line">    quicklistNode *orig_tail &#x3D; quicklist-&gt;tail;</span><br><span class="line">    if (likely(</span><br><span class="line">            _quicklistNodeAllowInsert(quicklist-&gt;tail, quicklist-&gt;fill, sz))) &#123;</span><br><span class="line">        quicklist-&gt;tail-&gt;zl &#x3D;</span><br><span class="line">            ziplistPush(quicklist-&gt;tail-&gt;zl, value, sz, ZIPLIST_TAIL);</span><br><span class="line">        quicklistNodeUpdateSz(quicklist-&gt;tail);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        quicklistNode *node &#x3D; quicklistCreateNode();</span><br><span class="line">        node-&gt;zl &#x3D; ziplistPush(ziplistNew(), value, sz, ZIPLIST_TAIL);</span><br><span class="line"></span><br><span class="line">        quicklistNodeUpdateSz(node);</span><br><span class="line">        _quicklistInsertNodeAfter(quicklist, quicklist-&gt;tail, node);</span><br><span class="line">    &#125;</span><br><span class="line">    quicklist-&gt;count++;</span><br><span class="line">    quicklist-&gt;tail-&gt;count++;</span><br><span class="line">    return (orig_tail !&#x3D; quicklist-&gt;tail);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* Wrappers for node inserting around existing node. *&#x2F;</span><br><span class="line">REDIS_STATIC void _quicklistInsertNodeBefore(quicklist *quicklist,</span><br><span class="line">                                             quicklistNode *old_node,</span><br><span class="line">                                             quicklistNode *new_node) &#123;</span><br><span class="line">    __quicklistInsertNode(quicklist, old_node, new_node, 0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">REDIS_STATIC void _quicklistInsertNodeAfter(quicklist *quicklist,</span><br><span class="line">                                            quicklistNode *old_node,</span><br><span class="line">                                            quicklistNode *new_node) &#123;</span><br><span class="line">    __quicklistInsertNode(quicklist, old_node, new_node, 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* Insert &#39;new_node&#39; after &#39;old_node&#39; if &#39;after&#39; is 1.</span><br><span class="line"> * Insert &#39;new_node&#39; before &#39;old_node&#39; if &#39;after&#39; is 0.</span><br><span class="line"> * Note: &#39;new_node&#39; is *always* uncompressed, so if we assign it to</span><br><span class="line"> *       head or tail, we do not need to uncompress it. *&#x2F;</span><br><span class="line">REDIS_STATIC void __quicklistInsertNode(quicklist *quicklist,</span><br><span class="line">                                        quicklistNode *old_node,</span><br><span class="line">                                        quicklistNode *new_node, int after) &#123;</span><br><span class="line">    if (after) &#123;</span><br><span class="line">        new_node-&gt;prev &#x3D; old_node;</span><br><span class="line">        if (old_node) &#123;</span><br><span class="line">            new_node-&gt;next &#x3D; old_node-&gt;next;</span><br><span class="line">            if (old_node-&gt;next)</span><br><span class="line">                old_node-&gt;next-&gt;prev &#x3D; new_node;</span><br><span class="line">            old_node-&gt;next &#x3D; new_node;</span><br><span class="line">        &#125;</span><br><span class="line">        if (quicklist-&gt;tail &#x3D;&#x3D; old_node)</span><br><span class="line">            quicklist-&gt;tail &#x3D; new_node;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        new_node-&gt;next &#x3D; old_node;</span><br><span class="line">        if (old_node) &#123;</span><br><span class="line">            new_node-&gt;prev &#x3D; old_node-&gt;prev;</span><br><span class="line">            if (old_node-&gt;prev)</span><br><span class="line">                old_node-&gt;prev-&gt;next &#x3D; new_node;</span><br><span class="line">            old_node-&gt;prev &#x3D; new_node;</span><br><span class="line">        &#125;</span><br><span class="line">        if (quicklist-&gt;head &#x3D;&#x3D; old_node)</span><br><span class="line">            quicklist-&gt;head &#x3D; new_node;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;* If this insert creates the only element so far, initialize head&#x2F;tail. *&#x2F;</span><br><span class="line">    if (quicklist-&gt;len &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        quicklist-&gt;head &#x3D; quicklist-&gt;tail &#x3D; new_node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (old_node)</span><br><span class="line">        quicklistCompress(quicklist, old_node);</span><br><span class="line"></span><br><span class="line">    quicklist-&gt;len++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;* Wrapper to allow argument-based switching between HEAD&#x2F;TAIL pop *&#x2F;
+void quicklistPush(quicklist *quicklist, void *value, const size_t sz,
+                   int where) &#123;
+    if (where &#x3D;&#x3D; QUICKLIST_HEAD) &#123;
+        quicklistPushHead(quicklist, value, sz);
+    &#125; else if (where &#x3D;&#x3D; QUICKLIST_TAIL) &#123;
+        quicklistPushTail(quicklist, value, sz);
+    &#125;
+&#125;
+
+&#x2F;* Add new entry to head node of quicklist.
+ *
+ * Returns 0 if used existing head.
+ * Returns 1 if new head created. *&#x2F;
+int quicklistPushHead(quicklist *quicklist, void *value, size_t sz) &#123;
+    quicklistNode *orig_head &#x3D; quicklist-&gt;head;
+    if (likely(
+            _quicklistNodeAllowInsert(quicklist-&gt;head, quicklist-&gt;fill, sz))) &#123;
+        quicklist-&gt;head-&gt;zl &#x3D;
+            ziplistPush(quicklist-&gt;head-&gt;zl, value, sz, ZIPLIST_HEAD);
+        quicklistNodeUpdateSz(quicklist-&gt;head);
+    &#125; else &#123;
+        quicklistNode *node &#x3D; quicklistCreateNode();
+        node-&gt;zl &#x3D; ziplistPush(ziplistNew(), value, sz, ZIPLIST_HEAD);
+
+        quicklistNodeUpdateSz(node);
+        _quicklistInsertNodeBefore(quicklist, quicklist-&gt;head, node);
+    &#125;
+    quicklist-&gt;count++;
+    quicklist-&gt;head-&gt;count++;
+    return (orig_head !&#x3D; quicklist-&gt;head);
+&#125;
+
+&#x2F;* Add new entry to tail node of quicklist.
+ *
+ * Returns 0 if used existing tail.
+ * Returns 1 if new tail created. *&#x2F;
+int quicklistPushTail(quicklist *quicklist, void *value, size_t sz) &#123;
+    quicklistNode *orig_tail &#x3D; quicklist-&gt;tail;
+    if (likely(
+            _quicklistNodeAllowInsert(quicklist-&gt;tail, quicklist-&gt;fill, sz))) &#123;
+        quicklist-&gt;tail-&gt;zl &#x3D;
+            ziplistPush(quicklist-&gt;tail-&gt;zl, value, sz, ZIPLIST_TAIL);
+        quicklistNodeUpdateSz(quicklist-&gt;tail);
+    &#125; else &#123;
+        quicklistNode *node &#x3D; quicklistCreateNode();
+        node-&gt;zl &#x3D; ziplistPush(ziplistNew(), value, sz, ZIPLIST_TAIL);
+
+        quicklistNodeUpdateSz(node);
+        _quicklistInsertNodeAfter(quicklist, quicklist-&gt;tail, node);
+    &#125;
+    quicklist-&gt;count++;
+    quicklist-&gt;tail-&gt;count++;
+    return (orig_tail !&#x3D; quicklist-&gt;tail);
+&#125;
+
+&#x2F;* Wrappers for node inserting around existing node. *&#x2F;
+REDIS_STATIC void _quicklistInsertNodeBefore(quicklist *quicklist,
+                                             quicklistNode *old_node,
+                                             quicklistNode *new_node) &#123;
+    __quicklistInsertNode(quicklist, old_node, new_node, 0);
+&#125;
+
+REDIS_STATIC void _quicklistInsertNodeAfter(quicklist *quicklist,
+                                            quicklistNode *old_node,
+                                            quicklistNode *new_node) &#123;
+    __quicklistInsertNode(quicklist, old_node, new_node, 1);
+&#125;
+
+&#x2F;* Insert &#39;new_node&#39; after &#39;old_node&#39; if &#39;after&#39; is 1.
+ * Insert &#39;new_node&#39; before &#39;old_node&#39; if &#39;after&#39; is 0.
+ * Note: &#39;new_node&#39; is *always* uncompressed, so if we assign it to
+ *       head or tail, we do not need to uncompress it. *&#x2F;
+REDIS_STATIC void __quicklistInsertNode(quicklist *quicklist,
+                                        quicklistNode *old_node,
+                                        quicklistNode *new_node, int after) &#123;
+    if (after) &#123;
+        new_node-&gt;prev &#x3D; old_node;
+        if (old_node) &#123;
+            new_node-&gt;next &#x3D; old_node-&gt;next;
+            if (old_node-&gt;next)
+                old_node-&gt;next-&gt;prev &#x3D; new_node;
+            old_node-&gt;next &#x3D; new_node;
+        &#125;
+        if (quicklist-&gt;tail &#x3D;&#x3D; old_node)
+            quicklist-&gt;tail &#x3D; new_node;
+    &#125; else &#123;
+        new_node-&gt;next &#x3D; old_node;
+        if (old_node) &#123;
+            new_node-&gt;prev &#x3D; old_node-&gt;prev;
+            if (old_node-&gt;prev)
+                old_node-&gt;prev-&gt;next &#x3D; new_node;
+            old_node-&gt;prev &#x3D; new_node;
+        &#125;
+        if (quicklist-&gt;head &#x3D;&#x3D; old_node)
+            quicklist-&gt;head &#x3D; new_node;
+    &#125;
+    &#x2F;* If this insert creates the only element so far, initialize head&#x2F;tail. *&#x2F;
+    if (quicklist-&gt;len &#x3D;&#x3D; 0) &#123;
+        quicklist-&gt;head &#x3D; quicklist-&gt;tail &#x3D; new_node;
+    &#125;
+
+    if (old_node)
+        quicklistCompress(quicklist, old_node);
+
+    quicklist-&gt;len++;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>前面第一步先根据插入的是头还是尾选择不同的 push 函数，quicklistPushHead 或者 quicklistPushTail，举例分析下从头插入的 quicklistPushHead，先判断当前的 quicklistNode 节点还能不能允许再往 ziplist 里添加元素，如果可以就添加，如果不允许就新建一个 quicklistNode，然后调用 _quicklistInsertNodeBefore 将节点插进去，具体插入quicklist节点的操作类似链表的插入。</p>
 
       
@@ -649,7 +867,42 @@
 
       
           <p>前面说了这么些数据结构，其实大家对于 redis 最初的印象应该就是个 key-value 的缓存，类似于 memcache，redis 其实也是个 key-value，key 还是一样的字符串，或者说就是用 redis 自己的动态字符串实现，但是 value 其实就是前面说的那些数据结构，差不多快说完了，还有个 quicklist 后面还有一篇，这里先介绍下 redis 对于这些不同类型的 value 是怎么实现的，首先看下 redisObject 的源码头文件</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* The actual Redis Object */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_STRING 0    <span class="comment">/* String object. */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_LIST 1      <span class="comment">/* List object. */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_SET 2       <span class="comment">/* Set object. */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ZSET 3      <span class="comment">/* Sorted set object. */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_HASH 4      <span class="comment">/* Hash object. */</span></span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Objects encoding. Some kind of objects like Strings and Hashes can be</span></span><br><span class="line"><span class="comment"> * internally represented in multiple ways. The 'encoding' field of the object</span></span><br><span class="line"><span class="comment"> * is set to one of this fields for this object. */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_RAW 0     <span class="comment">/* Raw representation */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_INT 1     <span class="comment">/* Encoded as integer */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_HT 2      <span class="comment">/* Encoded as hash table */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_ZIPMAP 3  <span class="comment">/* Encoded as zipmap */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_LINKEDLIST 4 <span class="comment">/* No longer used: old list encoding. */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_ZIPLIST 5 <span class="comment">/* Encoded as ziplist */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_INTSET 6  <span class="comment">/* Encoded as intset */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_SKIPLIST 7  <span class="comment">/* Encoded as skiplist */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_EMBSTR 8  <span class="comment">/* Embedded sds string encoding */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_QUICKLIST 9 <span class="comment">/* Encoded as linked list of ziplists */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_ENCODING_STREAM 10 <span class="comment">/* Encoded as a radix tree of listpacks */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LRU_BITS 24</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LRU_CLOCK_MAX ((1<span class="meta-string">&lt;&lt;LRU_BITS)-1) /* Max value of obj-&gt;lru */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LRU_CLOCK_RESOLUTION 1000 <span class="comment">/* LRU clock resolution in ms */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OBJ_SHARED_REFCOUNT INT_MAX</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span> &#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> type:<span class="number">4</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> encoding:<span class="number">4</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> lru:LRU_BITS; <span class="comment">/* LRU time (relative to global lru_clock) or</span></span><br><span class="line"><span class="comment">                            * LFU data (least significant 8 bits frequency</span></span><br><span class="line"><span class="comment">                            * and most significant 16 bits access time). */</span></span><br><span class="line">    <span class="keyword">int</span> refcount;</span><br><span class="line">    <span class="keyword">void</span> *ptr;</span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;* The actual Redis Object *&#x2F;
+#define OBJ_STRING 0    &#x2F;* String object. *&#x2F;
+#define OBJ_LIST 1      &#x2F;* List object. *&#x2F;
+#define OBJ_SET 2       &#x2F;* Set object. *&#x2F;
+#define OBJ_ZSET 3      &#x2F;* Sorted set object. *&#x2F;
+#define OBJ_HASH 4      &#x2F;* Hash object. *&#x2F;
+&#x2F;*
+ * Objects encoding. Some kind of objects like Strings and Hashes can be
+ * internally represented in multiple ways. The &#39;encoding&#39; field of the object
+ * is set to one of this fields for this object. *&#x2F;
+#define OBJ_ENCODING_RAW 0     &#x2F;* Raw representation *&#x2F;
+#define OBJ_ENCODING_INT 1     &#x2F;* Encoded as integer *&#x2F;
+#define OBJ_ENCODING_HT 2      &#x2F;* Encoded as hash table *&#x2F;
+#define OBJ_ENCODING_ZIPMAP 3  &#x2F;* Encoded as zipmap *&#x2F;
+#define OBJ_ENCODING_LINKEDLIST 4 &#x2F;* No longer used: old list encoding. *&#x2F;
+#define OBJ_ENCODING_ZIPLIST 5 &#x2F;* Encoded as ziplist *&#x2F;
+#define OBJ_ENCODING_INTSET 6  &#x2F;* Encoded as intset *&#x2F;
+#define OBJ_ENCODING_SKIPLIST 7  &#x2F;* Encoded as skiplist *&#x2F;
+#define OBJ_ENCODING_EMBSTR 8  &#x2F;* Embedded sds string encoding *&#x2F;
+#define OBJ_ENCODING_QUICKLIST 9 &#x2F;* Encoded as linked list of ziplists *&#x2F;
+#define OBJ_ENCODING_STREAM 10 &#x2F;* Encoded as a radix tree of listpacks *&#x2F;
+
+#define LRU_BITS 24
+#define LRU_CLOCK_MAX ((1&lt;&lt;LRU_BITS)-1) &#x2F;* Max value of obj-&gt;lru *&#x2F;
+#define LRU_CLOCK_RESOLUTION 1000 &#x2F;* LRU clock resolution in ms *&#x2F;
+
+#define OBJ_SHARED_REFCOUNT INT_MAX
+typedef struct redisObject &#123;
+    unsigned type:4;
+    unsigned encoding:4;
+    unsigned lru:LRU_BITS; &#x2F;* LRU time (relative to global lru_clock) or
+                            * LFU data (least significant 8 bits frequency
+                            * and most significant 16 bits access time). *&#x2F;
+    int refcount;
+    void *ptr;
+&#125; robj;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>主体结构就是这个 redisObject，</p>
 <ul>
 <li>type： 字段表示对象的类型，它对应的就是 redis 的对外暴露的，或者说用户可以使用的五种类型，OBJ_STRING, OBJ_LIST, OBJ_SET, OBJ_ZSET, OBJ_HASH</li>
@@ -767,13 +1020,40 @@
 <blockquote>
 <p>The ziplist is a specially encoded dually linked list that is designed to be very memory efficient.<br>这是摘自 redis 源码中ziplist.c 文件的注释，也说明了原因，它的大概结构是这样子</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;zlbytes&gt; &lt;zltail&gt; &lt;zllen&gt; &lt;entry&gt; &lt;entry&gt; ... &lt;entry&gt; &lt;zlend&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;zlbytes&gt; &lt;zltail&gt; &lt;zllen&gt; &lt;entry&gt; &lt;entry&gt; ... &lt;entry&gt; &lt;zlend&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>其中<br><code>&lt;zlbytes&gt;</code>表示 ziplist 占用的字节总数，类型是uint32_t，32 位的无符号整型，当然表示的字节数也包含自己本身占用的 4 个<br><code>&lt;zltail&gt;</code> 类型也是是uint32_t，表示ziplist表中最后一项（entry）在ziplist中的偏移字节数。<code>&lt;zltail&gt;</code>的存在，使得我们可以很方便地找到最后一项（不用遍历整个ziplist），从而可以在ziplist尾端快速地执行push或pop操作。<br><code>&lt;uint16_t zllen&gt;</code> 表示ziplist 中的数据项个数，因为是 16 位，所以当数量超过所能表示的最大的数量，它的 16 位全会置为 1，但是真实的数量需要遍历整个 ziplist 才能知道<br><code>&lt;entry&gt;</code>是具体的数据项，后面解释<br><code>&lt;zlend&gt;</code> ziplist 的最后一个字节，固定是255。<br>再看一下<code>&lt;entry&gt;</code>中的具体结构，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;prevlen&gt; &lt;encoding&gt; &lt;entry-data&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;prevlen&gt; &lt;encoding&gt; &lt;entry-data&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>首先这个<code>&lt;prevlen&gt;</code>有两种情况，一种是前面的元素的长度，如果是小于等于 253的时候就用一个uint8_t 来表示前一元素的长度，如果大于的话他将占用五个字节，第一个字节是 254，即表示这个字节已经表示不下了，需要后面的四个字节帮忙表示<br><code>&lt;encoding&gt;</code>这个就比较复杂，把源码的注释放下面先看下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">* |00pppppp| - 1 byte</span><br><span class="line">*      String value with length less than or equal to 63 bytes (6 bits).</span><br><span class="line">*      &quot;pppppp&quot; represents the unsigned 6 bit length.</span><br><span class="line">* |01pppppp|qqqqqqqq| - 2 bytes</span><br><span class="line">*      String value with length less than or equal to 16383 bytes (14 bits).</span><br><span class="line">*      IMPORTANT: The 14 bit number is stored in big endian.</span><br><span class="line">* |10000000|qqqqqqqq|rrrrrrrr|ssssssss|tttttttt| - 5 bytes</span><br><span class="line">*      String value with length greater than or equal to 16384 bytes.</span><br><span class="line">*      Only the 4 bytes following the first byte represents the length</span><br><span class="line">*      up to 32^2-1. The 6 lower bits of the first byte are not used and</span><br><span class="line">*      are set to zero.</span><br><span class="line">*      IMPORTANT: The 32 bit number is stored in big endian.</span><br><span class="line">* |11000000| - 3 bytes</span><br><span class="line">*      Integer encoded as int16_t (2 bytes).</span><br><span class="line">* |11010000| - 5 bytes</span><br><span class="line">*      Integer encoded as int32_t (4 bytes).</span><br><span class="line">* |11100000| - 9 bytes</span><br><span class="line">*      Integer encoded as int64_t (8 bytes).</span><br><span class="line">* |11110000| - 4 bytes</span><br><span class="line">*      Integer encoded as 24 bit signed (3 bytes).</span><br><span class="line">* |11111110| - 2 bytes</span><br><span class="line">*      Integer encoded as 8 bit signed (1 byte).</span><br><span class="line">* |1111xxxx| - (with xxxx between 0000 and 1101) immediate 4 bit integer.</span><br><span class="line">*      Unsigned integer from 0 to 12. The encoded value is actually from</span><br><span class="line">*      1 to 13 because 0000 and 1111 can not be used, so 1 should be</span><br><span class="line">*      subtracted from the encoded 4 bit value to obtain the right value.</span><br><span class="line">* |11111111| - End of ziplist special entry.</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">* |00pppppp| - 1 byte
+*      String value with length less than or equal to 63 bytes (6 bits).
+*      &quot;pppppp&quot; represents the unsigned 6 bit length.
+* |01pppppp|qqqqqqqq| - 2 bytes
+*      String value with length less than or equal to 16383 bytes (14 bits).
+*      IMPORTANT: The 14 bit number is stored in big endian.
+* |10000000|qqqqqqqq|rrrrrrrr|ssssssss|tttttttt| - 5 bytes
+*      String value with length greater than or equal to 16384 bytes.
+*      Only the 4 bytes following the first byte represents the length
+*      up to 32^2-1. The 6 lower bits of the first byte are not used and
+*      are set to zero.
+*      IMPORTANT: The 32 bit number is stored in big endian.
+* |11000000| - 3 bytes
+*      Integer encoded as int16_t (2 bytes).
+* |11010000| - 5 bytes
+*      Integer encoded as int32_t (4 bytes).
+* |11100000| - 9 bytes
+*      Integer encoded as int64_t (8 bytes).
+* |11110000| - 4 bytes
+*      Integer encoded as 24 bit signed (3 bytes).
+* |11111110| - 2 bytes
+*      Integer encoded as 8 bit signed (1 byte).
+* |1111xxxx| - (with xxxx between 0000 and 1101) immediate 4 bit integer.
+*      Unsigned integer from 0 to 12. The encoded value is actually from
+*      1 to 13 because 0000 and 1111 can not be used, so 1 should be
+*      subtracted from the encoded 4 bit value to obtain the right value.
+* |11111111| - End of ziplist special entry.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>首先如果 encoding 的前两位是 00 的话代表这个元素是个 6 位的字符串，即直接将数据保存在 encoding 中，不消耗额外的<code>&lt;entry-data&gt;</code>，如果前两位是 01 的话表示是个 14 位的字符串，如果是 10 的话表示encoding 块之后的四个字节是存放字符串类型的数据，encoding 的剩余 6 位置 0。<br>如果 encoding 的前两位是 11 的话表示这是个整型，具体的如果后两位是00的话，表示后面是个2字节的 int16_t 类型，如果是01的话，后面是个4字节的int32_t,如果是10的话后面是8字节的int64_t,如果是 11 的话后面是 3 字节的有符号整型，这些都要最后 4 位都是 0 的情况噢<br>剩下当是<code>11111110</code>时，则表示是一个1 字节的有符号数，如果是 <code>1111xxxx</code>，其中<code>xxxx</code>在0000 到 1101 表示实际的 1 到 13，为啥呢，因为 0000 前面已经用过了，而 1110 跟 1111 也都有用了。<br>看个具体的例子(上下有点对不齐，将就看)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[0f 00 00 00] [0c 00 00 00] [02 00] [00 f3] [02 f6] [ff]</span><br><span class="line">|**zlbytes***|  |***zltail***|  |*zllen*|  |entry1 entry2|  |zlend|</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">[0f 00 00 00] [0c 00 00 00] [02 00] [00 f3] [02 f6] [ff]
+|**zlbytes***|  |***zltail***|  |*zllen*|  |entry1 entry2|  |zlend|<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>第一部分代表整个 ziplist 有 15 个字节，zlbytes 自己占了 4 个 zltail 表示最后一个元素的偏移量，第 13 个字节起，zllen 表示有 2 个元素，第一个元素是<code>00f3</code>,00表示前一个元素长度是 0，本来前面就没元素(不过不知道这个能不能优化这一字节)，然后是 f3，换成二进制就是11110011,对照上面的注释，是落在|1111xxxx|这个类型里，注意这个其实是用 0001 到 1101 也就是 1到 13 来表示 0到 12，所以 f3 应该就是 2，第一个元素是 2，第二个元素呢，02 代表前一个元素也就是刚才说的这个，占用 2 字节，f6 展开也是刚才的类型，实际是 5，ff 表示 ziplist 的结尾，所以这个 ziplist 里面是两个元素，2 跟 5</p>
 
       

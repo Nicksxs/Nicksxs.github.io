@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -32,17 +32,16 @@
 <meta property="og:url" content="https://nicksxs.me/2021/01/10/Leetcode-160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8-intersection-of-two-linked-lists-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Nicksxs&#39;s Blog">
 <meta property="og:description" content="题目介绍写一个程序找出两个单向链表的交叉起始点，可能是我英语不好，图里画的其实还有一点是交叉以后所有节点都是相同的Write a program to find the node at which the intersection of two singly linked lists begins. For example, the following two linked lists:begin">
+<meta property="og:locale">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/nkha2z.png">
 <meta property="og:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/1TrhYe.png">
 <meta property="article:published_time" content="2021-01-10T13:09:28.000Z">
-<meta property="article:modified_time" content="2021-01-22T12:22:13.202Z">
+<meta property="article:modified_time" content="2021-01-10T13:09:28.000Z">
 <meta property="article:author" content="Nicksxs">
-<meta property="article:tag" content="Java">
 <meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="题解">
 <meta property="article:tag" content="Linked List">
-<meta property="article:tag" content="代码题解">
-<meta property="article:tag" content="intersection-of-two-linked-lists">
-<meta property="article:tag" content="leetcode 160">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/nicksxs/images/raw/master/uPic/nkha2z.png">
 
@@ -236,13 +235,6 @@
 
               <time title="Created: 2021-01-10 21:09:28" itemprop="dateCreated datePublished" datetime="2021-01-10T21:09:28+08:00">2021-01-10</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-22 20:22:13" itemprop="dateModified" datetime="2021-01-22T20:22:13+08:00">2021-01-22</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -309,11 +301,55 @@
 
       
         <h2 id="题目介绍"><a href="#题目介绍" class="headerlink" title="题目介绍"></a>题目介绍</h2><p>写一个程序找出两个单向链表的交叉起始点，可能是我英语不好，图里画的其实还有一点是交叉以后所有节点都是相同的<br>Write a program to find the node at which the intersection of two singly linked lists begins.</p>
-<p>For example, the following two linked lists:<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/nkha2z.png" alt=""><br>begin to intersect at node c1.</p>
-<h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1:"></a>Example 1:</h3><p><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/1TrhYe.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: intersectVal &#x3D; 8, listA &#x3D; [4,1,8,4,5], listB &#x3D; [5,6,1,8,4,5], skipA &#x3D; 2, skipB &#x3D; 3</span><br><span class="line">Output: Reference of the node with value &#x3D; 8</span><br><span class="line">Input Explanation: The intersected node&#39;s value is 8 (note that this must not be 0 if the two lists intersect). From the head of A, it reads as [4,1,8,4,5]. From the head of B, it reads as [5,6,1,8,4,5]. There are 2 nodes before the intersected node in A; There are 3 nodes before the intersected node in B.</span><br></pre></td></tr></table></figure>
+<p>For example, the following two linked lists:<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/nkha2z.png"><br>begin to intersect at node c1.</p>
+<h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1:"></a>Example 1:</h3><p><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/1TrhYe.png"></p>
+<pre class="line-numbers language-none"><code class="language-none">Input: intersectVal &#x3D; 8, listA &#x3D; [4,1,8,4,5], listB &#x3D; [5,6,1,8,4,5], skipA &#x3D; 2, skipB &#x3D; 3
+Output: Reference of the node with value &#x3D; 8
+Input Explanation: The intersected node&#39;s value is 8 (note that this must not be 0 if the two lists intersect). From the head of A, it reads as [4,1,8,4,5]. From the head of B, it reads as [5,6,1,8,4,5]. There are 2 nodes before the intersected node in A; There are 3 nodes before the intersected node in B.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h2 id="分析题解"><a href="#分析题解" class="headerlink" title="分析题解"></a>分析题解</h2><p>一开始没什么头绪，感觉只能最原始的遍历，后来看了一些文章，发现比较简单的方式就是先找两个链表的长度差，因为从相交点开始肯定是长度一致的，这是个很好的解题突破口，找到长度差以后就是先跳过长链表的较长部分，然后开始同步遍历比较 A，B 链表；</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 算 A 的长度</span></span><br><span class="line">        <span class="keyword">int</span> countA = <span class="number">0</span>;</span><br><span class="line">        ListNode tailA = headA;</span><br><span class="line">        <span class="keyword">while</span> (tailA != <span class="keyword">null</span>) &#123;</span><br><span class="line">            tailA = tailA.next;</span><br><span class="line">            countA++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 算 B 的长度</span></span><br><span class="line">        <span class="keyword">int</span> countB = <span class="number">0</span>;</span><br><span class="line">        ListNode tailB = headB;</span><br><span class="line">        <span class="keyword">while</span> (tailB != <span class="keyword">null</span>) &#123;</span><br><span class="line">            tailB = tailB.next;</span><br><span class="line">            countB++;</span><br><span class="line">        &#125;</span><br><span class="line">        tailA = headA;</span><br><span class="line">        tailB = headB;</span><br><span class="line">        <span class="comment">// 依据长度差，先让长的链表 tail 指针往后移</span></span><br><span class="line">        <span class="keyword">if</span> (countA &gt; countB) &#123;</span><br><span class="line">            <span class="keyword">while</span> (countA &gt; countB) &#123;</span><br><span class="line">                tailA = tailA.next;</span><br><span class="line">                countA--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (countA &lt; countB) &#123;</span><br><span class="line">            <span class="keyword">while</span> (countA &lt; countB) &#123;</span><br><span class="line">                tailB = tailB.next;</span><br><span class="line">                countB--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 然后以相同速度遍历两个链表比较</span></span><br><span class="line">        <span class="keyword">while</span> (tailA != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (tailA == tailB) &#123;</span><br><span class="line">                <span class="keyword">return</span> tailA;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                tailA = tailA.next;</span><br><span class="line">                tailB = tailB.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">ListNode</span> <span class="token function">getIntersectionNode</span><span class="token punctuation">(</span><span class="token class-name">ListNode</span> headA<span class="token punctuation">,</span> <span class="token class-name">ListNode</span> headB<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>headA <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> headB <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 算 A 的长度</span>
+        <span class="token keyword">int</span> countA <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token class-name">ListNode</span> tailA <span class="token operator">=</span> headA<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>tailA <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            tailA <span class="token operator">=</span> tailA<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            countA<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 算 B 的长度</span>
+        <span class="token keyword">int</span> countB <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token class-name">ListNode</span> tailB <span class="token operator">=</span> headB<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>tailB <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            tailB <span class="token operator">=</span> tailB<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            countB<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        tailA <span class="token operator">=</span> headA<span class="token punctuation">;</span>
+        tailB <span class="token operator">=</span> headB<span class="token punctuation">;</span>
+        <span class="token comment">// 依据长度差，先让长的链表 tail 指针往后移</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>countA <span class="token operator">></span> countB<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>countA <span class="token operator">></span> countB<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                tailA <span class="token operator">=</span> tailA<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+                countA<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>countA <span class="token operator">&lt;</span> countB<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>countA <span class="token operator">&lt;</span> countB<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                tailB <span class="token operator">=</span> tailB<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+                countB<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 然后以相同速度遍历两个链表比较</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>tailA <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>tailA <span class="token operator">==</span> tailB<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> tailA<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                tailA <span class="token operator">=</span> tailA<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+                tailB <span class="token operator">=</span> tailB<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>可能缺少这种思维，做的还是比较少，所以没法一下子反应过来，需要锻炼，我的第一反应是两重遍历，不过那样复杂度就高了，这里应该是只有 O(N) 的复杂度。</p>
 
     </div>
@@ -331,13 +367,13 @@
       <div class="popular-posts-title"><a href="/2020/10/25/Leetcode-104-二叉树的最大深度-Maximum-Depth-of-Binary-Tree-题解分析/" rel="bookmark">Leetcode 104 二叉树的最大深度(Maximum Depth of Binary Tree) 题解分析</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/01/24/Leetcode-124-二叉树中的最大路径和-Binary-Tree-Maximum-Path-Sum-题解分析/" rel="bookmark">Leetcode 124 二叉树中的最大路径和(Binary Tree Maximum Path Sum) 题解分析</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/12/13/Leetcode-105-从前序与中序遍历序列构造二叉树-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal-题解分析/" rel="bookmark">Leetcode 105 从前序与中序遍历序列构造二叉树(Construct Binary Tree from Preorder and Inorder Traversal) 题解分析</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/10/11/Leetcode-2-Add-Two-Numbers-题解分析/" rel="bookmark">Leetcode 2 Add Two Numbers 题解分析</a></div>
+      <div class="popular-posts-title"><a href="/2021/01/24/Leetcode-124-二叉树中的最大路径和-Binary-Tree-Maximum-Path-Sum-题解分析/" rel="bookmark">Leetcode 124 二叉树中的最大路径和(Binary Tree Maximum Path Sum) 题解分析</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/12/06/Leetcode-155-最小栈-Min-Stack-题解分析/" rel="bookmark">Leetcode 155 最小栈(Min Stack) 题解分析</a></div>
     </li>
   </ul>
 
@@ -465,7 +501,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目介绍"><span class="nav-number">1.</span> <span class="nav-text">题目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-1"><span class="nav-number">1.1.</span> <span class="nav-text">Example 1:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析题解"><span class="nav-number">2.</span> <span class="nav-text">分析题解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.2.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">题目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-1"><span class="nav-number">1.1.</span> <span class="nav-text">Example 1:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E9%A2%98%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">分析题解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.2.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
