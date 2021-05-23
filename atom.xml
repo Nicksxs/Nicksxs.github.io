@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2021-05-16T12:19:00.000Z</updated>
+  <updated>2021-05-23T15:45:04.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode 236 二叉树的最近公共祖先(Lowest Common Ancestor of a Binary Tree) 题解分析</title>
+    <link href="https://nicksxs.me/2021/05/23/Leetcode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-Lowest-Common-Ancestor-of-a-Binary-Tree-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
+    <id>https://nicksxs.me/2021/05/23/Leetcode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-Lowest-Common-Ancestor-of-a-Binary-Tree-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
+    <published>2021-05-23T15:45:04.000Z</published>
+    <updated>2021-05-23T15:45:04.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;Given a binary tree, find the lowest common ancestor (LCA) of</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
+    
+    <category term="Lowest Common Ancestor of a Binary Tree" scheme="https://nicksxs.me/categories/Java/leetcode/Lowest-Common-Ancestor-of-a-Binary-Tree/"/>
+    
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    
+    <category term="Lowest Common Ancestor of a Binary Tree" scheme="https://nicksxs.me/tags/Lowest-Common-Ancestor-of-a-Binary-Tree/"/>
+    
+  </entry>
   
   <entry>
     <title>rust学习笔记-所有权三之切片</title>
@@ -780,45 +815,6 @@
     <category term="糟心事" scheme="https://nicksxs.me/tags/%E7%B3%9F%E5%BF%83%E4%BA%8B/"/>
     
     <category term="规则" scheme="https://nicksxs.me/tags/%E8%A7%84%E5%88%99/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode 160 相交链表(intersection-of-two-linked-lists) 题解分析</title>
-    <link href="https://nicksxs.me/2021/01/10/Leetcode-160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8-intersection-of-two-linked-lists-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
-    <id>https://nicksxs.me/2021/01/10/Leetcode-160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8-intersection-of-two-linked-lists-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
-    <published>2021-01-10T13:09:28.000Z</published>
-    <updated>2021-01-10T13:09:28.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
-    
-    <category term="Linked List" scheme="https://nicksxs.me/categories/Linked-List/"/>
-    
-    <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
-    
-    <category term="Linked List" scheme="https://nicksxs.me/categories/leetcode/java/Linked-List/"/>
-    
-    
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
-    
-    <category term="Linked List" scheme="https://nicksxs.me/tags/Linked-List/"/>
     
   </entry>
   
