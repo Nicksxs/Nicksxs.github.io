@@ -201,6 +201,142 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/01/04/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Nicksxs">
+      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nicksxs's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/04/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%8C/" class="post-title-link" itemprop="url">redis数据结构介绍二-第二部分 跳表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-04 00:03:05" itemprop="dateCreated datePublished" datetime="2020-01-04T00:03:05+08:00">2020-01-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">源码</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/01/04/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%8C/" class="post-meta-item leancloud_visitors" data-flag-title="redis数据结构介绍二-第二部分 跳表" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/01/04/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%8C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/01/04/redis数据结构介绍二/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="跳表-skiplist"><a href="#跳表-skiplist" class="headerlink" title="跳表 skiplist"></a>跳表 skiplist</h2><p>跳表是个在我们日常的代码中不太常用到的数据结构，相对来讲就没有像数组，链表，字典，散列，树等结构那么熟悉，所以就从头开始分析下，首先是链表，跳表跟链表都有个表字（太硬扯了我🤦‍♀️），注意这是个有序链表<br><img data-src="https://i.loli.net/2020/01/03/Og9i3pCIfxrMhja.png"><br>如上图，在这个链表里如果我要找到 23，是不是我需要从3，5，9开始一直往后找直到找到 23，也就是说时间复杂度是 O(N),N 的一次幂复杂度，那么我们来看看第二个<br><img data-src="https://i.loli.net/2020/01/03/81P2baupiedOmNf.png"><br>这个结构跟原先有点不一样，它给链表中偶数位的节点又加了一个指针把它们链接起来，这样子当我们要寻找 23 的时候就可以从原来的一个个往下找变成跳着找，先找到 5，然后是 10，接着是 19，然后是 28，这时候发现 28 比 23 大了，那我在退回到 19，然后从下一层原来的链表往前找，<br><img data-src="https://i.loli.net/2020/01/03/NBguAphilKjs2MO.png"><br>这里毛估估是不是前面的节点我就少找了一半,有那么点二分法的意思。<br>前面的其实是跳表的引子，真正的跳表其实不是这样，因为上面的其实有个比较大的问题，就是插入一个元素后需要调整每个元素的指针，在 redis 中的跳表其实是做了个随机层数的优化，因为沿着前面的例子，其实当数据量很大的时候，是不是层数越多，其查询效率越高，但是随着层数变多，要保持这种严格的层数规则其实也会增大处理复杂度，所以 redis 插入每个元素的时候都是使用随机的方式，看一眼代码</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;* ZSETs use a specialized version of Skiplists *&#x2F;
+typedef struct zskiplistNode &#123;
+    sds ele;
+    double score;
+    struct zskiplistNode *backward;
+    struct zskiplistLevel &#123;
+        struct zskiplistNode *forward;
+        unsigned long span;
+    &#125; level[];
+&#125; zskiplistNode;
+
+typedef struct zskiplist &#123;
+    struct zskiplistNode *header, *tail;
+    unsigned long length;
+    int level;
+&#125; zskiplist;
+
+typedef struct zset &#123;
+    dict *dict;
+    zskiplist *zsl;
+&#125; zset;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>忘了说了，redis 是把 skiplist 跳表用在 zset 里，zset 是个有序的集合，可以看到 zskiplist 就是个跳表的结构，里面用 header 保存跳表的表头，tail 保存表尾，还有长度和最大层级，具体的跳表节点元素使用 zskiplistNode 表示，里面包含了 sds 类型的元素值，double 类型的分值，用来排序，一个 backward 后向指针和一个 zskiplistLevel 数组，每个 level 包含了一个前向指针，和一个 span，span 表示的是跳表前向指针的跨度，这里再补充一点，前面说了为了灵活这个跳表的新增修改，redis 使用了随机层高的方式插入新节点，但是如果所有节点都随机到很高的层级或者所有都很低的话，跳表的效率优势就会减小，所以 redis 使用了个小技巧，贴下代码</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">#define ZSKIPLIST_P 0.25      &#x2F;* Skiplist P &#x3D; 1&#x2F;4 *&#x2F;
+int zslRandomLevel(void) &#123;
+    int level &#x3D; 1;
+    while ((random()&amp;0xFFFF) &lt; (ZSKIPLIST_P * 0xFFFF))
+        level +&#x3D; 1;
+    return (level&lt;ZSKIPLIST_MAXLEVEL) ? level : ZSKIPLIST_MAXLEVEL;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>当随机值跟0xFFFF进行与操作小于ZSKIPLIST_P * 0xFFFF时才会增大 level 的值，因此保持了一个相对递减的概率<br>可以简单分析下，当 random() 的值小于 0xFFFF 的 1/4,才会 level + 1，就意味着当有 1 - 1/4也就是3/4的概率是直接跳出，所以一层的概率是3/4,也就是 1-P，二层的概率是 P*(1-P),三层的概率是 P² * (1-P) 依次递推。</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2019/12/26/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -768,704 +904,6 @@ typedef struct dict &#123;
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2019/12/07/JVM-G1-Part-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Nicksxs">
-      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nicksxs's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/07/JVM-G1-Part-1/" class="post-title-link" itemprop="url">JVM源码分析之G1垃圾收集器分析一</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-07 00:54:19" itemprop="dateCreated datePublished" datetime="2019-12-07T00:54:19+08:00">2019-12-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-20 00:01:42" itemprop="dateModified" datetime="2019-12-20T00:01:42+08:00">2019-12-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/GC/" itemprop="url" rel="index"><span itemprop="name">GC</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/12/07/JVM-G1-Part-1/" class="post-meta-item leancloud_visitors" data-flag-title="JVM源码分析之G1垃圾收集器分析一" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2019/12/07/JVM-G1-Part-1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/12/07/JVM-G1-Part-1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>对 Java 的 gc 实现比较感兴趣，原先一般都是看周志明的书，但其实并没有讲具体的 gc 源码，而是把整个思路和流程讲解了一下<br>特别是 G1 的具体实现<br>一般对 G1 的理解其实就是把原先整块的新生代老年代分成了以 region 为单位的小块内存，简而言之，就是原先对新生代老年代的收集会涉及到整个代的堆内存空间，而G1 把它变成了更细致的小块内存<br>这带来了一个很明显的好处和一个很明显的坏处，好处是内存收集可以更灵活，耗时会变短，但整个收集的处理复杂度就变高了<br>目前看了一点点关于 G1 收集的预期时间相关的代码</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">HeapWord* G1CollectedHeap::do_collection_pause(size_t word_size,
-                                               uint gc_count_before,
-                                               bool* succeeded,
-                                               GCCause::Cause gc_cause) &#123;
-  assert_heap_not_locked_and_not_at_safepoint();
-  VM_G1CollectForAllocation op(word_size,
-                               gc_count_before,
-                               gc_cause,
-                               false, &#x2F;* should_initiate_conc_mark *&#x2F;
-                               g1_policy()-&gt;max_pause_time_ms());
-  VMThread::execute(&amp;op);
-
-  HeapWord* result &#x3D; op.result();
-  bool ret_succeeded &#x3D; op.prologue_succeeded() &amp;&amp; op.pause_succeeded();
-  assert(result &#x3D;&#x3D; NULL || ret_succeeded,
-         &quot;the result should be NULL if the VM did not succeed&quot;);
-  *succeeded &#x3D; ret_succeeded;
-
-  assert_heap_not_locked();
-  return result;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里就是收集时需要停顿的，其中<code>VMThread::execute(&amp;op);</code>是具体执行的，真正执行的是<code>VM_G1CollectForAllocation::doit</code>方法</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">void VM_G1CollectForAllocation::doit() &#123;
-  G1CollectedHeap* g1h &#x3D; G1CollectedHeap::heap();
-  assert(!_should_initiate_conc_mark || g1h-&gt;should_do_concurrent_full_gc(_gc_cause),
-      &quot;only a GC locker, a System.gc(), stats update, whitebox, or a hum allocation induced GC should start a cycle&quot;);
-
-  if (_word_size &gt; 0) &#123;
-    &#x2F;&#x2F; An allocation has been requested. So, try to do that first.
-    _result &#x3D; g1h-&gt;attempt_allocation_at_safepoint(_word_size,
-                                                   false &#x2F;* expect_null_cur_alloc_region *&#x2F;);
-    if (_result !&#x3D; NULL) &#123;
-      &#x2F;&#x2F; If we can successfully allocate before we actually do the
-      &#x2F;&#x2F; pause then we will consider this pause successful.
-      _pause_succeeded &#x3D; true;
-      return;
-    &#125;
-  &#125;
-
-  GCCauseSetter x(g1h, _gc_cause);
-  if (_should_initiate_conc_mark) &#123;
-    &#x2F;&#x2F; It&#39;s safer to read old_marking_cycles_completed() here, given
-    &#x2F;&#x2F; that noone else will be updating it concurrently. Since we&#39;ll
-    &#x2F;&#x2F; only need it if we&#39;re initiating a marking cycle, no point in
-    &#x2F;&#x2F; setting it earlier.
-    _old_marking_cycles_completed_before &#x3D; g1h-&gt;old_marking_cycles_completed();
-
-    &#x2F;&#x2F; At this point we are supposed to start a concurrent cycle. We
-    &#x2F;&#x2F; will do so if one is not already in progress.
-    bool res &#x3D; g1h-&gt;g1_policy()-&gt;force_initial_mark_if_outside_cycle(_gc_cause);
-
-    &#x2F;&#x2F; The above routine returns true if we were able to force the
-    &#x2F;&#x2F; next GC pause to be an initial mark; it returns false if a
-    &#x2F;&#x2F; marking cycle is already in progress.
-    &#x2F;&#x2F;
-    &#x2F;&#x2F; If a marking cycle is already in progress just return and skip the
-    &#x2F;&#x2F; pause below - if the reason for requesting this initial mark pause
-    &#x2F;&#x2F; was due to a System.gc() then the requesting thread should block in
-    &#x2F;&#x2F; doit_epilogue() until the marking cycle is complete.
-    &#x2F;&#x2F;
-    &#x2F;&#x2F; If this initial mark pause was requested as part of a humongous
-    &#x2F;&#x2F; allocation then we know that the marking cycle must just have
-    &#x2F;&#x2F; been started by another thread (possibly also allocating a humongous
-    &#x2F;&#x2F; object) as there was no active marking cycle when the requesting
-    &#x2F;&#x2F; thread checked before calling collect() in
-    &#x2F;&#x2F; attempt_allocation_humongous(). Retrying the GC, in this case,
-    &#x2F;&#x2F; will cause the requesting thread to spin inside collect() until the
-    &#x2F;&#x2F; just started marking cycle is complete - which may be a while. So
-    &#x2F;&#x2F; we do NOT retry the GC.
-    if (!res) &#123;
-      assert(_word_size &#x3D;&#x3D; 0, &quot;Concurrent Full GC&#x2F;Humongous Object IM shouldn&#39;t be allocating&quot;);
-      if (_gc_cause !&#x3D; GCCause::_g1_humongous_allocation) &#123;
-        _should_retry_gc &#x3D; true;
-      &#125;
-      return;
-    &#125;
-  &#125;
-
-  &#x2F;&#x2F; Try a partial collection of some kind.
-  _pause_succeeded &#x3D; g1h-&gt;do_collection_pause_at_safepoint(_target_pause_time_ms);
-
-  if (_pause_succeeded) &#123;
-    if (_word_size &gt; 0) &#123;
-      &#x2F;&#x2F; An allocation had been requested. Do it, eventually trying a stronger
-      &#x2F;&#x2F; kind of GC.
-      _result &#x3D; g1h-&gt;satisfy_failed_allocation(_word_size, &amp;_pause_succeeded);
-    &#125; else &#123;
-      bool should_upgrade_to_full &#x3D; !g1h-&gt;should_do_concurrent_full_gc(_gc_cause) &amp;&amp;
-                                    !g1h-&gt;has_regions_left_for_allocation();
-      if (should_upgrade_to_full) &#123;
-        &#x2F;&#x2F; There has been a request to perform a GC to free some space. We have no
-        &#x2F;&#x2F; information on how much memory has been asked for. In case there are
-        &#x2F;&#x2F; absolutely no regions left to allocate into, do a maximally compacting full GC.
-        log_info(gc, ergo)(&quot;Attempting maximally compacting collection&quot;);
-        _pause_succeeded &#x3D; g1h-&gt;do_full_collection(false, &#x2F;* explicit gc *&#x2F;
-                                                   true   &#x2F;* clear_all_soft_refs *&#x2F;);
-      &#125;
-    &#125;
-    guarantee(_pause_succeeded, &quot;Elevated collections during the safepoint must always succeed.&quot;);
-  &#125; else &#123;
-    assert(_result &#x3D;&#x3D; NULL, &quot;invariant&quot;);
-    &#x2F;&#x2F; The only reason for the pause to not be successful is that, the GC locker is
-    &#x2F;&#x2F; active (or has become active since the prologue was executed). In this case
-    &#x2F;&#x2F; we should retry the pause after waiting for the GC locker to become inactive.
-    _should_retry_gc &#x3D; true;
-  &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里可以看到核心的是<code>G1CollectedHeap::do_collection_pause_at_safepoint</code>这个方法，它带上了目标暂停时间的值</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">G1CollectedHeap::do_collection_pause_at_safepoint(double target_pause_time_ms) &#123;
-  assert_at_safepoint_on_vm_thread();
-  guarantee(!is_gc_active(), &quot;collection is not reentrant&quot;);
-
-  if (GCLocker::check_active_before_gc()) &#123;
-    return false;
-  &#125;
-
-  _gc_timer_stw-&gt;register_gc_start();
-
-  GCIdMark gc_id_mark;
-  _gc_tracer_stw-&gt;report_gc_start(gc_cause(), _gc_timer_stw-&gt;gc_start());
-
-  SvcGCMarker sgcm(SvcGCMarker::MINOR);
-  ResourceMark rm;
-
-  g1_policy()-&gt;note_gc_start();
-
-  wait_for_root_region_scanning();
-
-  print_heap_before_gc();
-  print_heap_regions();
-  trace_heap_before_gc(_gc_tracer_stw);
-
-  _verifier-&gt;verify_region_sets_optional();
-  _verifier-&gt;verify_dirty_young_regions();
-
-  &#x2F;&#x2F; We should not be doing initial mark unless the conc mark thread is running
-  if (!_cm_thread-&gt;should_terminate()) &#123;
-    &#x2F;&#x2F; This call will decide whether this pause is an initial-mark
-    &#x2F;&#x2F; pause. If it is, in_initial_mark_gc() will return true
-    &#x2F;&#x2F; for the duration of this pause.
-    g1_policy()-&gt;decide_on_conc_mark_initiation();
-  &#125;
-
-  &#x2F;&#x2F; We do not allow initial-mark to be piggy-backed on a mixed GC.
-  assert(!collector_state()-&gt;in_initial_mark_gc() ||
-          collector_state()-&gt;in_young_only_phase(), &quot;sanity&quot;);
-
-  &#x2F;&#x2F; We also do not allow mixed GCs during marking.
-  assert(!collector_state()-&gt;mark_or_rebuild_in_progress() || collector_state()-&gt;in_young_only_phase(), &quot;sanity&quot;);
-
-  &#x2F;&#x2F; Record whether this pause is an initial mark. When the current
-  &#x2F;&#x2F; thread has completed its logging output and it&#39;s safe to signal
-  &#x2F;&#x2F; the CM thread, the flag&#39;s value in the policy has been reset.
-  bool should_start_conc_mark &#x3D; collector_state()-&gt;in_initial_mark_gc();
-
-  &#x2F;&#x2F; Inner scope for scope based logging, timers, and stats collection
-  &#123;
-    EvacuationInfo evacuation_info;
-
-    if (collector_state()-&gt;in_initial_mark_gc()) &#123;
-      &#x2F;&#x2F; We are about to start a marking cycle, so we increment the
-      &#x2F;&#x2F; full collection counter.
-      increment_old_marking_cycles_started();
-      _cm-&gt;gc_tracer_cm()-&gt;set_gc_cause(gc_cause());
-    &#125;
-
-    _gc_tracer_stw-&gt;report_yc_type(collector_state()-&gt;yc_type());
-
-    GCTraceCPUTime tcpu;
-
-    G1HeapVerifier::G1VerifyType verify_type;
-    FormatBuffer&lt;&gt; gc_string(&quot;Pause Young &quot;);
-    if (collector_state()-&gt;in_initial_mark_gc()) &#123;
-      gc_string.append(&quot;(Concurrent Start)&quot;);
-      verify_type &#x3D; G1HeapVerifier::G1VerifyConcurrentStart;
-    &#125; else if (collector_state()-&gt;in_young_only_phase()) &#123;
-      if (collector_state()-&gt;in_young_gc_before_mixed()) &#123;
-        gc_string.append(&quot;(Prepare Mixed)&quot;);
-      &#125; else &#123;
-        gc_string.append(&quot;(Normal)&quot;);
-      &#125;
-      verify_type &#x3D; G1HeapVerifier::G1VerifyYoungNormal;
-    &#125; else &#123;
-      gc_string.append(&quot;(Mixed)&quot;);
-      verify_type &#x3D; G1HeapVerifier::G1VerifyMixed;
-    &#125;
-    GCTraceTime(Info, gc) tm(gc_string, NULL, gc_cause(), true);
-
-    uint active_workers &#x3D; AdaptiveSizePolicy::calc_active_workers(workers()-&gt;total_workers(),
-                                                                  workers()-&gt;active_workers(),
-                                                                  Threads::number_of_non_daemon_threads());
-    active_workers &#x3D; workers()-&gt;update_active_workers(active_workers);
-    log_info(gc,task)(&quot;Using %u workers of %u for evacuation&quot;, active_workers, workers()-&gt;total_workers());
-
-    TraceCollectorStats tcs(g1mm()-&gt;incremental_collection_counters());
-    TraceMemoryManagerStats tms(&amp;_memory_manager, gc_cause(),
-                                collector_state()-&gt;yc_type() &#x3D;&#x3D; Mixed &#x2F;* allMemoryPoolsAffected *&#x2F;);
-
-    G1HeapTransition heap_transition(this);
-    size_t heap_used_bytes_before_gc &#x3D; used();
-
-    &#x2F;&#x2F; Don&#39;t dynamically change the number of GC threads this early.  A value of
-    &#x2F;&#x2F; 0 is used to indicate serial work.  When parallel work is done,
-    &#x2F;&#x2F; it will be set.
-
-    &#123; &#x2F;&#x2F; Call to jvmpi::post_class_unload_events must occur outside of active GC
-      IsGCActiveMark x;
-
-      gc_prologue(false);
-
-      if (VerifyRememberedSets) &#123;
-        log_info(gc, verify)(&quot;[Verifying RemSets before GC]&quot;);
-        VerifyRegionRemSetClosure v_cl;
-        heap_region_iterate(&amp;v_cl);
-      &#125;
-
-      _verifier-&gt;verify_before_gc(verify_type);
-
-      _verifier-&gt;check_bitmaps(&quot;GC Start&quot;);
-
-#if COMPILER2_OR_JVMCI
-      DerivedPointerTable::clear();
-#endif
-
-      &#x2F;&#x2F; Please see comment in g1CollectedHeap.hpp and
-      &#x2F;&#x2F; G1CollectedHeap::ref_processing_init() to see how
-      &#x2F;&#x2F; reference processing currently works in G1.
-
-      &#x2F;&#x2F; Enable discovery in the STW reference processor
-      _ref_processor_stw-&gt;enable_discovery();
-
-      &#123;
-        &#x2F;&#x2F; We want to temporarily turn off discovery by the
-        &#x2F;&#x2F; CM ref processor, if necessary, and turn it back on
-        &#x2F;&#x2F; on again later if we do. Using a scoped
-        &#x2F;&#x2F; NoRefDiscovery object will do this.
-        NoRefDiscovery no_cm_discovery(_ref_processor_cm);
-
-        &#x2F;&#x2F; Forget the current alloc region (we might even choose it to be part
-        &#x2F;&#x2F; of the collection set!).
-        _allocator-&gt;release_mutator_alloc_region();
-
-        &#x2F;&#x2F; This timing is only used by the ergonomics to handle our pause target.
-        &#x2F;&#x2F; It is unclear why this should not include the full pause. We will
-        &#x2F;&#x2F; investigate this in CR 7178365.
-        &#x2F;&#x2F;
-        &#x2F;&#x2F; Preserving the old comment here if that helps the investigation:
-        &#x2F;&#x2F;
-        &#x2F;&#x2F; The elapsed time induced by the start time below deliberately elides
-        &#x2F;&#x2F; the possible verification above.
-        double sample_start_time_sec &#x3D; os::elapsedTime();
-
-        g1_policy()-&gt;record_collection_pause_start(sample_start_time_sec);
-
-        if (collector_state()-&gt;in_initial_mark_gc()) &#123;
-          concurrent_mark()-&gt;pre_initial_mark();
-        &#125;
-
-        g1_policy()-&gt;finalize_collection_set(target_pause_time_ms, &amp;_survivor);
-
-        evacuation_info.set_collectionset_regions(collection_set()-&gt;region_length());
-
-        &#x2F;&#x2F; Make sure the remembered sets are up to date. This needs to be
-        &#x2F;&#x2F; done before register_humongous_regions_with_cset(), because the
-        &#x2F;&#x2F; remembered sets are used there to choose eager reclaim candidates.
-        &#x2F;&#x2F; If the remembered sets are not up to date we might miss some
-        &#x2F;&#x2F; entries that need to be handled.
-        g1_rem_set()-&gt;cleanupHRRS();
-
-        register_humongous_regions_with_cset();
-
-        assert(_verifier-&gt;check_cset_fast_test(), &quot;Inconsistency in the InCSetState table.&quot;);
-
-        &#x2F;&#x2F; We call this after finalize_cset() to
-        &#x2F;&#x2F; ensure that the CSet has been finalized.
-        _cm-&gt;verify_no_cset_oops();
-
-        if (_hr_printer.is_active()) &#123;
-          G1PrintCollectionSetClosure cl(&amp;_hr_printer);
-          _collection_set.iterate(&amp;cl);
-        &#125;
-
-        &#x2F;&#x2F; Initialize the GC alloc regions.
-        _allocator-&gt;init_gc_alloc_regions(evacuation_info);
-
-        G1ParScanThreadStateSet per_thread_states(this, workers()-&gt;active_workers(), collection_set()-&gt;young_region_length());
-        pre_evacuate_collection_set();
-
-        &#x2F;&#x2F; Actually do the work...
-        evacuate_collection_set(&amp;per_thread_states);
-
-        post_evacuate_collection_set(evacuation_info, &amp;per_thread_states);
-
-        const size_t* surviving_young_words &#x3D; per_thread_states.surviving_young_words();
-        free_collection_set(&amp;_collection_set, evacuation_info, surviving_young_words);
-
-        eagerly_reclaim_humongous_regions();
-
-        record_obj_copy_mem_stats();
-        _survivor_evac_stats.adjust_desired_plab_sz();
-        _old_evac_stats.adjust_desired_plab_sz();
-
-        double start &#x3D; os::elapsedTime();
-        start_new_collection_set();
-        g1_policy()-&gt;phase_times()-&gt;record_start_new_cset_time_ms((os::elapsedTime() - start) * 1000.0);
-
-        if (evacuation_failed()) &#123;
-          set_used(recalculate_used());
-          if (_archive_allocator !&#x3D; NULL) &#123;
-            _archive_allocator-&gt;clear_used();
-          &#125;
-          for (uint i &#x3D; 0; i &lt; ParallelGCThreads; i++) &#123;
-            if (_evacuation_failed_info_array[i].has_failed()) &#123;
-              _gc_tracer_stw-&gt;report_evacuation_failed(_evacuation_failed_info_array[i]);
-            &#125;
-          &#125;
-        &#125; else &#123;
-          &#x2F;&#x2F; The &quot;used&quot; of the the collection set have already been subtracted
-          &#x2F;&#x2F; when they were freed.  Add in the bytes evacuated.
-          increase_used(g1_policy()-&gt;bytes_copied_during_gc());
-        &#125;
-
-        if (collector_state()-&gt;in_initial_mark_gc()) &#123;
-          &#x2F;&#x2F; We have to do this before we notify the CM threads that
-          &#x2F;&#x2F; they can start working to make sure that all the
-          &#x2F;&#x2F; appropriate initialization is done on the CM object.
-          concurrent_mark()-&gt;post_initial_mark();
-          &#x2F;&#x2F; Note that we don&#39;t actually trigger the CM thread at
-          &#x2F;&#x2F; this point. We do that later when we&#39;re sure that
-          &#x2F;&#x2F; the current thread has completed its logging output.
-        &#125;
-
-        allocate_dummy_regions();
-
-        _allocator-&gt;init_mutator_alloc_region();
-
-        &#123;
-          size_t expand_bytes &#x3D; _heap_sizing_policy-&gt;expansion_amount();
-          if (expand_bytes &gt; 0) &#123;
-            size_t bytes_before &#x3D; capacity();
-            &#x2F;&#x2F; No need for an ergo logging here,
-            &#x2F;&#x2F; expansion_amount() does this when it returns a value &gt; 0.
-            double expand_ms;
-            if (!expand(expand_bytes, _workers, &amp;expand_ms)) &#123;
-              &#x2F;&#x2F; We failed to expand the heap. Cannot do anything about it.
-            &#125;
-            g1_policy()-&gt;phase_times()-&gt;record_expand_heap_time(expand_ms);
-          &#125;
-        &#125;
-
-        &#x2F;&#x2F; We redo the verification but now wrt to the new CSet which
-        &#x2F;&#x2F; has just got initialized after the previous CSet was freed.
-        _cm-&gt;verify_no_cset_oops();
-
-        &#x2F;&#x2F; This timing is only used by the ergonomics to handle our pause target.
-        &#x2F;&#x2F; It is unclear why this should not include the full pause. We will
-        &#x2F;&#x2F; investigate this in CR 7178365.
-        double sample_end_time_sec &#x3D; os::elapsedTime();
-        double pause_time_ms &#x3D; (sample_end_time_sec - sample_start_time_sec) * MILLIUNITS;
-        size_t total_cards_scanned &#x3D; g1_policy()-&gt;phase_times()-&gt;sum_thread_work_items(G1GCPhaseTimes::ScanRS, G1GCPhaseTimes::ScanRSScannedCards);
-        g1_policy()-&gt;record_collection_pause_end(pause_time_ms, total_cards_scanned, heap_used_bytes_before_gc);
-
-        evacuation_info.set_collectionset_used_before(collection_set()-&gt;bytes_used_before());
-        evacuation_info.set_bytes_copied(g1_policy()-&gt;bytes_copied_during_gc());
-
-        if (VerifyRememberedSets) &#123;
-          log_info(gc, verify)(&quot;[Verifying RemSets after GC]&quot;);
-          VerifyRegionRemSetClosure v_cl;
-          heap_region_iterate(&amp;v_cl);
-        &#125;
-
-        _verifier-&gt;verify_after_gc(verify_type);
-        _verifier-&gt;check_bitmaps(&quot;GC End&quot;);
-
-        assert(!_ref_processor_stw-&gt;discovery_enabled(), &quot;Postcondition&quot;);
-        _ref_processor_stw-&gt;verify_no_references_recorded();
-
-        &#x2F;&#x2F; CM reference discovery will be re-enabled if necessary.
-      &#125;
-
-#ifdef TRACESPINNING
-      ParallelTaskTerminator::print_termination_counts();
-#endif
-
-      gc_epilogue(false);
-    &#125;
-
-    &#x2F;&#x2F; Print the remainder of the GC log output.
-    if (evacuation_failed()) &#123;
-      log_info(gc)(&quot;To-space exhausted&quot;);
-    &#125;
-
-    g1_policy()-&gt;print_phases();
-    heap_transition.print();
-
-    &#x2F;&#x2F; It is not yet to safe to tell the concurrent mark to
-    &#x2F;&#x2F; start as we have some optional output below. We don&#39;t want the
-    &#x2F;&#x2F; output from the concurrent mark thread interfering with this
-    &#x2F;&#x2F; logging output either.
-
-    _hrm.verify_optional();
-    _verifier-&gt;verify_region_sets_optional();
-
-    TASKQUEUE_STATS_ONLY(print_taskqueue_stats());
-    TASKQUEUE_STATS_ONLY(reset_taskqueue_stats());
-
-    print_heap_after_gc();
-    print_heap_regions();
-    trace_heap_after_gc(_gc_tracer_stw);
-
-    &#x2F;&#x2F; We must call G1MonitoringSupport::update_sizes() in the same scoping level
-    &#x2F;&#x2F; as an active TraceMemoryManagerStats object (i.e. before the destructor for the
-    &#x2F;&#x2F; TraceMemoryManagerStats is called) so that the G1 memory pools are updated
-    &#x2F;&#x2F; before any GC notifications are raised.
-    g1mm()-&gt;update_sizes();
-
-    _gc_tracer_stw-&gt;report_evacuation_info(&amp;evacuation_info);
-    _gc_tracer_stw-&gt;report_tenuring_threshold(_g1_policy-&gt;tenuring_threshold());
-    _gc_timer_stw-&gt;register_gc_end();
-    _gc_tracer_stw-&gt;report_gc_end(_gc_timer_stw-&gt;gc_end(), _gc_timer_stw-&gt;time_partitions());
-  &#125;
-  &#x2F;&#x2F; It should now be safe to tell the concurrent mark thread to start
-  &#x2F;&#x2F; without its logging output interfering with the logging output
-  &#x2F;&#x2F; that came from the pause.
-
-  if (should_start_conc_mark) &#123;
-    &#x2F;&#x2F; CAUTION: after the doConcurrentMark() call below,
-    &#x2F;&#x2F; the concurrent marking thread(s) could be running
-    &#x2F;&#x2F; concurrently with us. Make sure that anything after
-    &#x2F;&#x2F; this point does not assume that we are the only GC thread
-    &#x2F;&#x2F; running. Note: of course, the actual marking work will
-    &#x2F;&#x2F; not start until the safepoint itself is released in
-    &#x2F;&#x2F; SuspendibleThreadSet::desynchronize().
-    do_concurrent_mark();
-  &#125;
-
-  return true;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>往下走就是这一步<code>G1Policy::finalize_collection_set</code>,去处理新生代和老年代</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">void G1Policy::finalize_collection_set(double target_pause_time_ms, G1SurvivorRegions* survivor) &#123;
-  double time_remaining_ms &#x3D; _collection_set-&gt;finalize_young_part(target_pause_time_ms, survivor);
-  _collection_set-&gt;finalize_old_part(time_remaining_ms);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里分别调用了两个方法，可以看到剩余时间是往下传的，来看一下具体的方法</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">double G1CollectionSet::finalize_young_part(double target_pause_time_ms, G1SurvivorRegions* survivors) &#123;
-  double young_start_time_sec &#x3D; os::elapsedTime();
-
-  finalize_incremental_building();
-
-  guarantee(target_pause_time_ms &gt; 0.0,
-            &quot;target_pause_time_ms &#x3D; %1.6lf should be positive&quot;, target_pause_time_ms);
-
-  size_t pending_cards &#x3D; _policy-&gt;pending_cards();
-  double base_time_ms &#x3D; _policy-&gt;predict_base_elapsed_time_ms(pending_cards);
-  double time_remaining_ms &#x3D; MAX2(target_pause_time_ms - base_time_ms, 0.0);
-
-  log_trace(gc, ergo, cset)(&quot;Start choosing CSet. pending cards: &quot; SIZE_FORMAT &quot; predicted base time: %1.2fms remaining time: %1.2fms target pause time: %1.2fms&quot;,
-                            pending_cards, base_time_ms, time_remaining_ms, target_pause_time_ms);
-
-  &#x2F;&#x2F; The young list is laid with the survivor regions from the previous
-  &#x2F;&#x2F; pause are appended to the RHS of the young list, i.e.
-  &#x2F;&#x2F;   [Newly Young Regions ++ Survivors from last pause].
-
-  uint survivor_region_length &#x3D; survivors-&gt;length();
-  uint eden_region_length &#x3D; _g1h-&gt;eden_regions_count();
-  init_region_lengths(eden_region_length, survivor_region_length);
-
-  verify_young_cset_indices();
-
-  &#x2F;&#x2F; Clear the fields that point to the survivor list - they are all young now.
-  survivors-&gt;convert_to_eden();
-
-  _bytes_used_before &#x3D; _inc_bytes_used_before;
-  time_remaining_ms &#x3D; MAX2(time_remaining_ms - _inc_predicted_elapsed_time_ms, 0.0);
-
-  log_trace(gc, ergo, cset)(&quot;Add young regions to CSet. eden: %u regions, survivors: %u regions, predicted young region time: %1.2fms, target pause time: %1.2fms&quot;,
-                            eden_region_length, survivor_region_length, _inc_predicted_elapsed_time_ms, target_pause_time_ms);
-
-  &#x2F;&#x2F; The number of recorded young regions is the incremental
-  &#x2F;&#x2F; collection set&#39;s current size
-  set_recorded_rs_lengths(_inc_recorded_rs_lengths);
-
-  double young_end_time_sec &#x3D; os::elapsedTime();
-  phase_times()-&gt;record_young_cset_choice_time_ms((young_end_time_sec - young_start_time_sec) * 1000.0);
-
-  return time_remaining_ms;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>下面是老年代的部分</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">void G1CollectionSet::finalize_old_part(double time_remaining_ms) &#123;
-  double non_young_start_time_sec &#x3D; os::elapsedTime();
-  double predicted_old_time_ms &#x3D; 0.0;
-
-  if (collector_state()-&gt;in_mixed_phase()) &#123;
-    cset_chooser()-&gt;verify();
-    const uint min_old_cset_length &#x3D; _policy-&gt;calc_min_old_cset_length();
-    const uint max_old_cset_length &#x3D; _policy-&gt;calc_max_old_cset_length();
-
-    uint expensive_region_num &#x3D; 0;
-    bool check_time_remaining &#x3D; _policy-&gt;adaptive_young_list_length();
-
-    HeapRegion* hr &#x3D; cset_chooser()-&gt;peek();
-    while (hr !&#x3D; NULL) &#123;
-      if (old_region_length() &gt;&#x3D; max_old_cset_length) &#123;
-        &#x2F;&#x2F; Added maximum number of old regions to the CSet.
-        log_debug(gc, ergo, cset)(&quot;Finish adding old regions to CSet (old CSet region num reached max). old %u regions, max %u regions&quot;,
-                                  old_region_length(), max_old_cset_length);
-        break;
-      &#125;
-
-      &#x2F;&#x2F; Stop adding regions if the remaining reclaimable space is
-      &#x2F;&#x2F; not above G1HeapWastePercent.
-      size_t reclaimable_bytes &#x3D; cset_chooser()-&gt;remaining_reclaimable_bytes();
-      double reclaimable_percent &#x3D; _policy-&gt;reclaimable_bytes_percent(reclaimable_bytes);
-      double threshold &#x3D; (double) G1HeapWastePercent;
-      if (reclaimable_percent &lt;&#x3D; threshold) &#123;
-        &#x2F;&#x2F; We&#39;ve added enough old regions that the amount of uncollected
-        &#x2F;&#x2F; reclaimable space is at or below the waste threshold. Stop
-        &#x2F;&#x2F; adding old regions to the CSet.
-        log_debug(gc, ergo, cset)(&quot;Finish adding old regions to CSet (reclaimable percentage not over threshold). &quot;
-                                  &quot;old %u regions, max %u regions, reclaimable: &quot; SIZE_FORMAT &quot;B (%1.2f%%) threshold: &quot; UINTX_FORMAT &quot;%%&quot;,
-                                  old_region_length(), max_old_cset_length, reclaimable_bytes, reclaimable_percent, G1HeapWastePercent);
-        break;
-      &#125;
-
-      double predicted_time_ms &#x3D; predict_region_elapsed_time_ms(hr);
-      if (check_time_remaining) &#123;
-        if (predicted_time_ms &gt; time_remaining_ms) &#123;
-          &#x2F;&#x2F; Too expensive for the current CSet.
-
-          if (old_region_length() &gt;&#x3D; min_old_cset_length) &#123;
-            &#x2F;&#x2F; We have added the minimum number of old regions to the CSet,
-            &#x2F;&#x2F; we are done with this CSet.
-            log_debug(gc, ergo, cset)(&quot;Finish adding old regions to CSet (predicted time is too high). &quot;
-                                      &quot;predicted time: %1.2fms, remaining time: %1.2fms old %u regions, min %u regions&quot;,
-                                      predicted_time_ms, time_remaining_ms, old_region_length(), min_old_cset_length);
-            break;
-          &#125;
-
-          &#x2F;&#x2F; We&#39;ll add it anyway given that we haven&#39;t reached the
-          &#x2F;&#x2F; minimum number of old regions.
-          expensive_region_num +&#x3D; 1;
-        &#125;
-      &#125; else &#123;
-        if (old_region_length() &gt;&#x3D; min_old_cset_length) &#123;
-          &#x2F;&#x2F; In the non-auto-tuning case, we&#39;ll finish adding regions
-          &#x2F;&#x2F; to the CSet if we reach the minimum.
-
-          log_debug(gc, ergo, cset)(&quot;Finish adding old regions to CSet (old CSet region num reached min). old %u regions, min %u regions&quot;,
-                                    old_region_length(), min_old_cset_length);
-          break;
-        &#125;
-      &#125;
-
-      &#x2F;&#x2F; We will add this region to the CSet.
-      time_remaining_ms &#x3D; MAX2(time_remaining_ms - predicted_time_ms, 0.0);
-      predicted_old_time_ms +&#x3D; predicted_time_ms;
-      cset_chooser()-&gt;pop(); &#x2F;&#x2F; already have region via peek()
-      _g1h-&gt;old_set_remove(hr);
-      add_old_region(hr);
-
-      hr &#x3D; cset_chooser()-&gt;peek();
-    &#125;
-    if (hr &#x3D;&#x3D; NULL) &#123;
-      log_debug(gc, ergo, cset)(&quot;Finish adding old regions to CSet (candidate old regions not available)&quot;);
-    &#125;
-
-    if (expensive_region_num &gt; 0) &#123;
-      &#x2F;&#x2F; We print the information once here at the end, predicated on
-      &#x2F;&#x2F; whether we added any apparently expensive regions or not, to
-      &#x2F;&#x2F; avoid generating output per region.
-      log_debug(gc, ergo, cset)(&quot;Added expensive regions to CSet (old CSet region num not reached min).&quot;
-                                &quot;old: %u regions, expensive: %u regions, min: %u regions, remaining time: %1.2fms&quot;,
-                                old_region_length(), expensive_region_num, min_old_cset_length, time_remaining_ms);
-    &#125;
-
-    cset_chooser()-&gt;verify();
-  &#125;
-
-  stop_incremental_building();
-
-  log_debug(gc, ergo, cset)(&quot;Finish choosing CSet. old: %u regions, predicted old region time: %1.2fms, time remaining: %1.2f&quot;,
-                            old_region_length(), predicted_old_time_ms, time_remaining_ms);
-
-  double non_young_end_time_sec &#x3D; os::elapsedTime();
-  phase_times()-&gt;record_non_young_cset_choice_time_ms((non_young_end_time_sec - non_young_start_time_sec) * 1000.0);
-
-  QuickSort::sort(_collection_set_regions, _collection_set_cur_length, compare_region_idx, true);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>上面第三行是个判断，当前是否是 mixed 回收阶段，如果不是的话其实是没有老年代什么事的，所以可以看到代码基本是从这个 if 判断<br><code>if (collector_state()-&gt;in_mixed_phase()) &#123;</code>开始往下走的<br>先写到这，偏向于做笔记用，有错轻拍</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1537,7 +975,7 @@ typedef struct dict &#123;
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-count">105</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1550,7 +988,7 @@ typedef struct dict &#123;
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">207</span>
+        <span class="site-state-item-count">211</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1575,7 +1013,7 @@ typedef struct dict &#123;
   <div class="widget-wrap">
     <div id="myCanvasContainer" class="widget tagcloud">
       <canvas width="250" height="250" id="resCanvas" style="width=100%">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2019/" rel="tag">2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2020/" rel="tag">2020</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2021/" rel="tag">2021</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2PC/" rel="tag">2PC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/360-%E5%85%A8%E5%AE%B6%E6%A1%B6/" rel="tag">360 全家桶</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3PC/" rel="tag">3PC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/" rel="tag">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adaptive/" rel="tag">Adaptive</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apollo/" rel="tag">Apollo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Broker/" rel="tag">Broker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CachedThreadPool/" rel="tag">CachedThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Comparator/" rel="tag">Comparator</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DefaultMQPushConsumer/" rel="tag">DefaultMQPushConsumer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/" rel="tag">Design Patterns</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Lock/" rel="tag">Distributed Lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dockerfile/" rel="tag">Dockerfile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/" rel="tag">Dubbo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EagerThreadPool/" rel="tag">EagerThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Filter/" rel="tag">Filter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FixedThreadPool/" rel="tag">FixedThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/G1/" rel="tag">G1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/" rel="tag">GC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garbage-First-Collector/" rel="tag">Garbage-First Collector</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gogs/" rel="tag">Gogs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Homebrew/" rel="tag">Homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inorder-Traversal/" rel="tag">Inorder Traversal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Interceptor/" rel="tag">Interceptor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JMap/" rel="tag">JMap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPS/" rel="tag">JPS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JStack/" rel="tag">JStack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LimitedThreadPool/" rel="tag">LimitedThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lowest-Common-Ancestor-of-a-Binary-Tree/" rel="tag">Lowest Common Ancestor of a Binary Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/" rel="tag">MQ</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NameServer/" rel="tag">NameServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Preorder-Traversal/" rel="tag">Preorder Traversal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RPC/" rel="tag">RPC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RocketMQ/" rel="tag">RocketMQ</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rotate-Image/" rel="tag">Rotate Image</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPI/" rel="tag">SPI</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Singleton/" rel="tag">Singleton</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql%E6%B3%A8%E5%85%A5/" rel="tag">Sql注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stream/" rel="tag">Stream</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread-dump/" rel="tag">Thread dump</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadPool/" rel="tag">ThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/" rel="tag">Tomcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/" rel="tag">Web</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webhook/" rel="tag">Webhook</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aqs/" rel="tag">aqs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/await/" rel="tag">await</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bloom-filter/" rel="tag">bloom filter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cgroup/" rel="tag">cgroup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cluster/" rel="tag">cluster</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/condition/" rel="tag">condition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echo/" rel="tag">echo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/environment/" rel="tag">environment</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gap-lock/" rel="tag">gap lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gc/" rel="tag">gc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grep/" rel="tag">grep</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/icu4c/" rel="tag">icu4c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/im/" rel="tag">im</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/is-not-null/" rel="tag">is not null</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/is-null/" rel="tag">is null</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/j-u-c/" rel="tag">j.u.c</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/" rel="tag">jvm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">24</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode-155/" rel="tag">leetcode 155</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linked-list/" rel="tag">linked list</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lock/" rel="tag">lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mfc/" rel="tag">mfc</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/min-stack/" rel="tag">min stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvcc/" rel="tag">mvcc</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namespace/" rel="tag">namespace</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/next-key-lock/" rel="tag">next-key lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nullsfirst/" rel="tag">nullsfirst</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openresty/" rel="tag">openresty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/procedure/" rel="tag">procedure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-view/" rel="tag">read view</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/signal/" rel="tag">signal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/" rel="tag">sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/" rel="tag">spark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/string/" rel="tag">string</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swoole/" rel="tag">swoole</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/top/" rel="tag">top</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uname/" rel="tag">uname</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlock/" rel="tag">unlock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/value/" rel="tag">value</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websocket/" rel="tag">websocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zsh/" rel="tag">zsh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">三阶段提交</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/" rel="tag">不可变引用</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">两阶段提交</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E5%B1%B1%E8%B7%AF/" rel="tag">中山路</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E5%BA%8F/" rel="tag">中序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">中间件</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/" rel="tag">互斥锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%AE%E7%94%B5%E8%84%91%E7%9A%84/" rel="tag">修电脑的</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%81%A5%E5%BA%B7%E7%A0%81/" rel="tag">健康码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E4%BA%A4/" rel="tag">公交</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E4%BA%A4%E8%BD%A6/" rel="tag">公交车</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/" rel="tag">内存分布</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%8F%E8%82%A5/" rel="tag">减肥</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="tag">分布式事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="tag">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%87%E7%89%87/" rel="tag">切片</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8A%E5%B3%B0%E5%A1%AB%E8%B0%B7/" rel="tag">削峰填谷</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E5%BA%8F/" rel="tag">前序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%A1%9E/" rel="tag">加塞</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B/" rel="tag">单例</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%EF%BC%8C%E6%96%87%E7%AB%A0/" rel="tag">博客，文章</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%A6%E9%97%A8/" rel="tag">厦门</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E8%A1%8C%E7%89%88/" rel="tag">发行版</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A3%E7%BD%A9/" rel="tag">口罩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/" rel="tag">可变引用</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%90%E6%A7%BD/" rel="tag">吐槽</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" rel="tag">垃圾回收</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" rel="tag">基础设施</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/" rel="tag">容错机制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%84%E7%94%9F%E8%99%AB/" rel="tag">寄生虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" rel="tag">小技巧</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%80%E5%8F%A3%E8%A1%97/" rel="tag">局口街</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">布隆过滤器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B2%E6%B4%BB/" rel="tag">干活</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/" rel="tag">年中总结</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" rel="tag">年终总结</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B8%E7%A6%8F%E4%BA%86%E5%90%97/" rel="tag">幸福了吗</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%BB%E8%AF%BB/" rel="tag">幻读</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E8%BD%A6/" rel="tag">开车</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BD%B1%E8%AF%84/" rel="tag">影评</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%80%E6%9C%89%E6%9D%83/" rel="tag">所有权</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%93%E5%8D%A1/" rel="tag">打卡</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%96%E6%9B%B4/" rel="tag">拖更</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%B0%E8%AF%AD%E8%A8%80/" rel="tag">新语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%85%E6%B8%B8/" rel="tag">旅游</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9B%BE%E5%8E%9D%E5%9E%B5/" rel="tag">曾厝垵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E6%A0%88/" rel="tag">最小栈</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%80%E4%BA%BA%E8%AF%9B%E5%BF%83/" rel="tag">杀人诛心</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%AD%E5%B7%9E/" rel="tag">杭州</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86/" rel="tag">标记整理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A4%8D%E7%89%A9%E5%9B%AD/" rel="tag">植物园</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B2%99%E8%8C%B6%E9%9D%A2/" rel="tag">沙茶面</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E8%A7%A3/" rel="tag">注解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%B7%E8%9B%8E%E7%85%8E/" rel="tag">海蛎煎</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%96%AB%E6%83%85/" rel="tag">疫情</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%9F%E5%BF%83%E4%BA%8B/" rel="tag">糟心事</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="tag">线程池</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/" rel="tag">缓存击穿</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/" rel="tag">缓存穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" rel="tag">缓存雪崩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%8E%E5%9B%BD/" rel="tag">美国</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%80%81%E7%94%B5%E8%84%91/" rel="tag">老电脑</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E6%8B%93%E5%B1%95/" rel="tag">自适应拓展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E7%94%B5%E8%84%91/" rel="tag">装电脑</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99/" rel="tag">规则</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6/" rel="tag">读书</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="tag">读后感</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B6%B3%E7%90%83/" rel="tag">足球</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%91%E6%AD%A5/" rel="tag">跑步</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E6%94%BF%E8%A7%84%E5%88%92/" rel="tag">路政规划</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BD%AC%E4%B9%89/" rel="tag">转义</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E5%8A%A8/" rel="tag">运动</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A2%98%E8%A7%A3/" rel="tag">题解</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A9%AC%E6%88%8F%E5%9B%A2/" rel="tag">马戏团</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AB%98%E9%80%9F/" rel="tag">高速</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BC%93%E6%B5%AA%E5%B1%BF/" rel="tag">鼓浪屿</a><span class="tag-list-count">1</span></li></ul>
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2019/" rel="tag">2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2020/" rel="tag">2020</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2021/" rel="tag">2021</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2PC/" rel="tag">2PC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/360-%E5%85%A8%E5%AE%B6%E6%A1%B6/" rel="tag">360 全家桶</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3PC/" rel="tag">3PC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/" rel="tag">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adaptive/" rel="tag">Adaptive</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apollo/" rel="tag">Apollo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Broker/" rel="tag">Broker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CachedThreadPool/" rel="tag">CachedThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Comparator/" rel="tag">Comparator</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DefaultMQPushConsumer/" rel="tag">DefaultMQPushConsumer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/" rel="tag">Design Patterns</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Lock/" rel="tag">Distributed Lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dockerfile/" rel="tag">Dockerfile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/" rel="tag">Dubbo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EagerThreadPool/" rel="tag">EagerThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Filter/" rel="tag">Filter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FixedThreadPool/" rel="tag">FixedThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/G1/" rel="tag">G1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/" rel="tag">GC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garbage-First-Collector/" rel="tag">Garbage-First Collector</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gogs/" rel="tag">Gogs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Homebrew/" rel="tag">Homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inorder-Traversal/" rel="tag">Inorder Traversal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Interceptor/" rel="tag">Interceptor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JMap/" rel="tag">JMap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPS/" rel="tag">JPS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JStack/" rel="tag">JStack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LimitedThreadPool/" rel="tag">LimitedThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lowest-Common-Ancestor-of-a-Binary-Tree/" rel="tag">Lowest Common Ancestor of a Binary Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/" rel="tag">MQ</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NameServer/" rel="tag">NameServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Preorder-Traversal/" rel="tag">Preorder Traversal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RPC/" rel="tag">RPC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RocketMQ/" rel="tag">RocketMQ</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rotate-Image/" rel="tag">Rotate Image</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPI/" rel="tag">SPI</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Singleton/" rel="tag">Singleton</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql%E6%B3%A8%E5%85%A5/" rel="tag">Sql注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stream/" rel="tag">Stream</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread-dump/" rel="tag">Thread dump</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/" rel="tag">ThreadLocal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadPool/" rel="tag">ThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/" rel="tag">Tomcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WeakReference/" rel="tag">WeakReference</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/" rel="tag">Web</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webhook/" rel="tag">Webhook</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aqs/" rel="tag">aqs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/await/" rel="tag">await</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bloom-filter/" rel="tag">bloom filter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cgroup/" rel="tag">cgroup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cluster/" rel="tag">cluster</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/condition/" rel="tag">condition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echo/" rel="tag">echo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/environment/" rel="tag">environment</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gap-lock/" rel="tag">gap lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gc/" rel="tag">gc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grep/" rel="tag">grep</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/icu4c/" rel="tag">icu4c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/im/" rel="tag">im</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/is-not-null/" rel="tag">is not null</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/is-null/" rel="tag">is null</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/j-u-c/" rel="tag">j.u.c</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/" rel="tag">jvm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">24</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode-155/" rel="tag">leetcode 155</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linked-list/" rel="tag">linked list</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lock/" rel="tag">lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mfc/" rel="tag">mfc</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/min-stack/" rel="tag">min stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvcc/" rel="tag">mvcc</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namespace/" rel="tag">namespace</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/next-key-lock/" rel="tag">next-key lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nullsfirst/" rel="tag">nullsfirst</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openresty/" rel="tag">openresty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/procedure/" rel="tag">procedure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-view/" rel="tag">read view</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/signal/" rel="tag">signal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/" rel="tag">sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/" rel="tag">spark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/string/" rel="tag">string</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swoole/" rel="tag">swoole</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/top/" rel="tag">top</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uname/" rel="tag">uname</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlock/" rel="tag">unlock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/value/" rel="tag">value</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websocket/" rel="tag">websocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zsh/" rel="tag">zsh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">三阶段提交</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/" rel="tag">不可变引用</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">两阶段提交</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E5%B1%B1%E8%B7%AF/" rel="tag">中山路</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E5%BA%8F/" rel="tag">中序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">中间件</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/" rel="tag">互斥锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%AE%E7%94%B5%E8%84%91%E7%9A%84/" rel="tag">修电脑的</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%81%A5%E5%BA%B7%E7%A0%81/" rel="tag">健康码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E4%BA%A4/" rel="tag">公交</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E4%BA%A4%E8%BD%A6/" rel="tag">公交车</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/" rel="tag">内存分布</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" rel="tag">内存泄漏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%8F%E8%82%A5/" rel="tag">减肥</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="tag">分布式事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="tag">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%87%E7%89%87/" rel="tag">切片</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8A%E5%B3%B0%E5%A1%AB%E8%B0%B7/" rel="tag">削峰填谷</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E5%BA%8F/" rel="tag">前序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%A1%9E/" rel="tag">加塞</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B/" rel="tag">单例</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%EF%BC%8C%E6%96%87%E7%AB%A0/" rel="tag">博客，文章</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%A6%E9%97%A8/" rel="tag">厦门</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E8%A1%8C%E7%89%88/" rel="tag">发行版</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A3%E7%BD%A9/" rel="tag">口罩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/" rel="tag">可变引用</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%90%E6%A7%BD/" rel="tag">吐槽</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" rel="tag">垃圾回收</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" rel="tag">基础设施</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/" rel="tag">容错机制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%84%E7%94%9F%E8%99%AB/" rel="tag">寄生虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" rel="tag">小技巧</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%80%E5%8F%A3%E8%A1%97/" rel="tag">局口街</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">布隆过滤器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B2%E6%B4%BB/" rel="tag">干活</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/" rel="tag">年中总结</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" rel="tag">年终总结</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B8%E7%A6%8F%E4%BA%86%E5%90%97/" rel="tag">幸福了吗</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%BB%E8%AF%BB/" rel="tag">幻读</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E8%BD%A6/" rel="tag">开车</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%B1%E5%BC%95%E7%94%A8/" rel="tag">弱引用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BD%B1%E8%AF%84/" rel="tag">影评</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%80%E6%9C%89%E6%9D%83/" rel="tag">所有权</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%93%E5%8D%A1/" rel="tag">打卡</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%96%E6%9B%B4/" rel="tag">拖更</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%B0%E8%AF%AD%E8%A8%80/" rel="tag">新语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%85%E6%B8%B8/" rel="tag">旅游</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9B%BE%E5%8E%9D%E5%9E%B5/" rel="tag">曾厝垵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E6%A0%88/" rel="tag">最小栈</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%80%E4%BA%BA%E8%AF%9B%E5%BF%83/" rel="tag">杀人诛心</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%AD%E5%B7%9E/" rel="tag">杭州</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86/" rel="tag">标记整理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A4%8D%E7%89%A9%E5%9B%AD/" rel="tag">植物园</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B2%99%E8%8C%B6%E9%9D%A2/" rel="tag">沙茶面</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E8%A7%A3/" rel="tag">注解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%B7%E8%9B%8E%E7%85%8E/" rel="tag">海蛎煎</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%96%AB%E6%83%85/" rel="tag">疫情</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%9F%E5%BF%83%E4%BA%8B/" rel="tag">糟心事</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="tag">线程池</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/" rel="tag">缓存击穿</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/" rel="tag">缓存穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" rel="tag">缓存雪崩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%8E%E5%9B%BD/" rel="tag">美国</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%80%81%E7%94%B5%E8%84%91/" rel="tag">老电脑</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E6%8B%93%E5%B1%95/" rel="tag">自适应拓展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E7%94%B5%E8%84%91/" rel="tag">装电脑</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99/" rel="tag">规则</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6/" rel="tag">读书</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="tag">读后感</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B6%B3%E7%90%83/" rel="tag">足球</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%91%E6%AD%A5/" rel="tag">跑步</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E6%94%BF%E8%A7%84%E5%88%92/" rel="tag">路政规划</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BD%AC%E4%B9%89/" rel="tag">转义</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E5%8A%A8/" rel="tag">运动</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A2%98%E8%A7%A3/" rel="tag">题解</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A9%AC%E6%88%8F%E5%9B%A2/" rel="tag">马戏团</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AB%98%E9%80%9F/" rel="tag">高速</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BC%93%E6%B5%AA%E5%B1%BF/" rel="tag">鼓浪屿</a><span class="tag-list-count">1</span></li></ul>
       </canvas>
     </div>
   </div>
