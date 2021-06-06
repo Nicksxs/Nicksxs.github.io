@@ -201,6 +201,623 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/04/18/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E5%85%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Nicksxs">
+      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nicksxs's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/18/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E5%85%AB/" class="post-title-link" itemprop="url">redis系列介绍八-淘汰策略</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-18 23:23:41" itemprop="dateCreated datePublished" datetime="2020-04-18T23:23:41+08:00">2020-04-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">源码</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/04/18/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E5%85%AB/" class="post-meta-item leancloud_visitors" data-flag-title="redis系列介绍八-淘汰策略" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/04/18/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E5%85%AB/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/18/redis系列介绍八/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="LRU"><a href="#LRU" class="headerlink" title="LRU"></a>LRU</h3><p>说完了过期策略再说下淘汰策略，redis 使用的策略是近似的 lru 策略，为什么是近似的呢，先来看下什么是 lru，看下 wiki 的介绍<br><img data-src="https://i.loli.net/2020/04/14/wWyhc2dQfb4BYsK.png">，图中一共有四个槽的存储空间，依次访问顺序是 A B C D E D F，<br>当第一次访问 D 时刚好占满了坑，并且值是 4，这个值越小代表越先被淘汰，当 E 进来时，看了下已经存在的四个里 A 是最小的，代表是最早存在并且最早被访问的，那就先淘汰它了，E 占领了 A 的位置，并设置值为 4，然后又访问 D 了，D 已经存在了，不过又被访问到了，得更新值为 5，然后是 F 进来了，这时 B 是最老的且最近未被访问，所以就淘汰它了。以上是一个 lru 的简要说明，但是 redis 没有严格按照这个去执行，理由跟前面过期策略一致，最严格的过期策略应该是每个 key 都有对应的定时器，当超时时马上就能清除，但是问题是这样的cpu 消耗太大，所换来的内存效率不太值得，淘汰策略也是这样，类似于上图，要维护所有 key 的一个有序 lru 值，并且遍历将最小的淘汰，redis 采用的是抽样的形式，最初的实现方式是随机从 dict 抽取 5 个 key，淘汰一个 lru 最小的，这样子勉强能达到淘汰的目的，但是效果不是特别好，后面在 redis 3.0开始，将随机抽取改成了维护一个 pool，pool 的大小默认是 16，每次放入的都是按lru 值有序排列好，每一次放入的必须是 lru小于 pool 中最小的 lru 才允许放入，直到放满，后面再有新的就会将大的踢出。<br>redis 针对这个策略的改进做了一个实验，这里借用下图<br><img data-src="https://i.loli.net/2020/04/18/QwcROpB345ezEkX.png"><br>首先背景是这图中的所有点都对应一个 redis 的 key，灰色部分加入后被顺序访问过一遍，然后又加入了绿色部分，那么按照理论的 lru 算法，应该是图左上中，浅灰色部分全都被淘汰，那么对比来看看图右上，左下和右下，左下表示 2.8 版本就是随机抽样 5 个 key，淘汰其中 lru 最小的一个，发现是灰色和浅灰色的都有被淘汰的，右下的 3.0 版本抽样数量不变的情况下，稍好一些，当 3.0 版本的抽样数量调整成 10 后，已经较为接近理论上的 lru 策略了，通过代码来简要分析下</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">typedef struct redisObject &#123;
+    unsigned type:4;
+    unsigned encoding:4;
+    unsigned lru:LRU_BITS; &#x2F;* LRU time (relative to global lru_clock) or
+                            * LFU data (least significant 8 bits frequency
+                            * and most significant 16 bits access time). *&#x2F;
+    int refcount;
+    void *ptr;
+&#125; robj;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对于 lru 策略来说，lru 字段记录的就是<a target="_blank" rel="noopener" href="https://github.com/antirez/redis/blob/unstable/src/server.h#L603"><code>redisObj</code></a> 的LRU time，<br>redis 在访问数据时，都会调用<a target="_blank" rel="noopener" href="https://github.com/antirez/redis/blob/unstable/src/db.c#L55"><code>lookupKey</code></a>方法</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;* Low level key lookup API, not actually called directly from commands
+ * implementations that should instead rely on lookupKeyRead(),
+ * lookupKeyWrite() and lookupKeyReadWithFlags(). *&#x2F;
+robj *lookupKey(redisDb *db, robj *key, int flags) &#123;
+    dictEntry *de &#x3D; dictFind(db-&gt;dict,key-&gt;ptr);
+    if (de) &#123;
+        robj *val &#x3D; dictGetVal(de);
+
+        &#x2F;* Update the access time for the ageing algorithm.
+         * Don&#39;t do it if we have a saving child, as this will trigger
+         * a copy on write madness. *&#x2F;
+        if (!hasActiveChildProcess() &amp;&amp; !(flags &amp; LOOKUP_NOTOUCH))&#123;
+            if (server.maxmemory_policy &amp; MAXMEMORY_FLAG_LFU) &#123;
+                &#x2F;&#x2F; 这个是后面一节的内容
+                updateLFU(val);
+            &#125; else &#123;
+                &#x2F;&#x2F;  对于这个分支，访问时就会去更新 lru 值
+                val-&gt;lru &#x3D; LRU_CLOCK();
+            &#125;
+        &#125;
+        return val;
+    &#125; else &#123;
+        return NULL;
+    &#125;
+&#125;
+&#x2F;* This function is used to obtain the current LRU clock.
+ * If the current resolution is lower than the frequency we refresh the
+ * LRU clock (as it should be in production servers) we return the
+ * precomputed value, otherwise we need to resort to a system call. *&#x2F;
+unsigned int LRU_CLOCK(void) &#123;
+    unsigned int lruclock;
+    if (1000&#x2F;server.hz &lt;&#x3D; LRU_CLOCK_RESOLUTION) &#123;
+        &#x2F;&#x2F; 如果服务器的频率server.hz大于 1 时就是用系统预设的 lruclock
+        lruclock &#x3D; server.lruclock;
+    &#125; else &#123;
+        lruclock &#x3D; getLRUClock();
+    &#125;
+    return lruclock;
+&#125;
+&#x2F;* Return the LRU clock, based on the clock resolution. This is a time
+ * in a reduced-bits format that can be used to set and check the
+ * object-&gt;lru field of redisObject structures. *&#x2F;
+unsigned int getLRUClock(void) &#123;
+    return (mstime()&#x2F;LRU_CLOCK_RESOLUTION) &amp; LRU_CLOCK_MAX;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>redis 处理命令是在这里<a target="_blank" rel="noopener" href="https://github.com/antirez/redis/blob/unstable/src/server.c#L3355"><code>processCommand</code></a></p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;* If this function gets called we already read a whole
+ * command, arguments are in the client argv&#x2F;argc fields.
+ * processCommand() execute the command or prepare the
+ * server for a bulk read from the client.
+ *
+ * If C_OK is returned the client is still alive and valid and
+ * other operations can be performed by the caller. Otherwise
+ * if C_ERR is returned the client was destroyed (i.e. after QUIT). *&#x2F;
+int processCommand(client *c) &#123;
+    moduleCallCommandFilters(c);
+
+    
+
+    &#x2F;* Handle the maxmemory directive.
+     *
+     * Note that we do not want to reclaim memory if we are here re-entering
+     * the event loop since there is a busy Lua script running in timeout
+     * condition, to avoid mixing the propagation of scripts with the
+     * propagation of DELs due to eviction. *&#x2F;
+    if (server.maxmemory &amp;&amp; !server.lua_timedout) &#123;
+        int out_of_memory &#x3D; freeMemoryIfNeededAndSafe() &#x3D;&#x3D; C_ERR;
+        &#x2F;* freeMemoryIfNeeded may flush slave output buffers. This may result
+         * into a slave, that may be the active client, to be freed. *&#x2F;
+        if (server.current_client &#x3D;&#x3D; NULL) return C_ERR;
+
+        &#x2F;* It was impossible to free enough memory, and the command the client
+         * is trying to execute is denied during OOM conditions or the client
+         * is in MULTI&#x2F;EXEC context? Error. *&#x2F;
+        if (out_of_memory &amp;&amp;
+            (c-&gt;cmd-&gt;flags &amp; CMD_DENYOOM ||
+             (c-&gt;flags &amp; CLIENT_MULTI &amp;&amp;
+              c-&gt;cmd-&gt;proc !&#x3D; execCommand &amp;&amp;
+              c-&gt;cmd-&gt;proc !&#x3D; discardCommand)))
+        &#123;
+            flagTransaction(c);
+            addReply(c, shared.oomerr);
+            return C_OK;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里只摘了部分，当需要清理内存时就会调用, 然后调用了<a target="_blank" rel="noopener" href="https://github.com/antirez/redis/blob/unstable/src/evict.c#L631"><code>freeMemoryIfNeededAndSafe</code></a></p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;* This is a wrapper for freeMemoryIfNeeded() that only really calls the
+ * function if right now there are the conditions to do so safely:
+ *
+ * - There must be no script in timeout condition.
+ * - Nor we are loading data right now.
+ *
+ *&#x2F;
+int freeMemoryIfNeededAndSafe(void) &#123;
+    if (server.lua_timedout || server.loading) return C_OK;
+    return freeMemoryIfNeeded();
+&#125;
+&#x2F;* This function is periodically called to see if there is memory to free
+ * according to the current &quot;maxmemory&quot; settings. In case we are over the
+ * memory limit, the function will try to free some memory to return back
+ * under the limit.
+ *
+ * The function returns C_OK if we are under the memory limit or if we
+ * were over the limit, but the attempt to free memory was successful.
+ * Otehrwise if we are over the memory limit, but not enough memory
+ * was freed to return back under the limit, the function returns C_ERR. *&#x2F;
+int freeMemoryIfNeeded(void) &#123;
+    int keys_freed &#x3D; 0;
+    &#x2F;* By default replicas should ignore maxmemory
+     * and just be masters exact copies. *&#x2F;
+    if (server.masterhost &amp;&amp; server.repl_slave_ignore_maxmemory) return C_OK;
+
+    size_t mem_reported, mem_tofree, mem_freed;
+    mstime_t latency, eviction_latency;
+    long long delta;
+    int slaves &#x3D; listLength(server.slaves);
+
+    &#x2F;* When clients are paused the dataset should be static not just from the
+     * POV of clients not being able to write, but also from the POV of
+     * expires and evictions of keys not being performed. *&#x2F;
+    if (clientsArePaused()) return C_OK;
+    if (getMaxmemoryState(&amp;mem_reported,NULL,&amp;mem_tofree,NULL) &#x3D;&#x3D; C_OK)
+        return C_OK;
+
+    mem_freed &#x3D; 0;
+
+    if (server.maxmemory_policy &#x3D;&#x3D; MAXMEMORY_NO_EVICTION)
+        goto cant_free; &#x2F;* We need to free memory, but policy forbids. *&#x2F;
+
+    latencyStartMonitor(latency);
+    while (mem_freed &lt; mem_tofree) &#123;
+        int j, k, i;
+        static unsigned int next_db &#x3D; 0;
+        sds bestkey &#x3D; NULL;
+        int bestdbid;
+        redisDb *db;
+        dict *dict;
+        dictEntry *de;
+
+        if (server.maxmemory_policy &amp; (MAXMEMORY_FLAG_LRU|MAXMEMORY_FLAG_LFU) ||
+            server.maxmemory_policy &#x3D;&#x3D; MAXMEMORY_VOLATILE_TTL)
+        &#123;
+            struct evictionPoolEntry *pool &#x3D; EvictionPoolLRU;
+
+            while(bestkey &#x3D;&#x3D; NULL) &#123;
+                unsigned long total_keys &#x3D; 0, keys;
+
+                &#x2F;* We don&#39;t want to make local-db choices when expiring keys,
+                 * so to start populate the eviction pool sampling keys from
+                 * every DB. *&#x2F;
+                for (i &#x3D; 0; i &lt; server.dbnum; i++) &#123;
+                    db &#x3D; server.db+i;
+                    dict &#x3D; (server.maxmemory_policy &amp; MAXMEMORY_FLAG_ALLKEYS) ?
+                            db-&gt;dict : db-&gt;expires;
+                    if ((keys &#x3D; dictSize(dict)) !&#x3D; 0) &#123;
+                        evictionPoolPopulate(i, dict, db-&gt;dict, pool);
+                        total_keys +&#x3D; keys;
+                    &#125;
+                &#125;
+                if (!total_keys) break; &#x2F;* No keys to evict. *&#x2F;
+
+                &#x2F;* Go backward from best to worst element to evict. *&#x2F;
+                for (k &#x3D; EVPOOL_SIZE-1; k &gt;&#x3D; 0; k--) &#123;
+                    if (pool[k].key &#x3D;&#x3D; NULL) continue;
+                    bestdbid &#x3D; pool[k].dbid;
+
+                    if (server.maxmemory_policy &amp; MAXMEMORY_FLAG_ALLKEYS) &#123;
+                        de &#x3D; dictFind(server.db[pool[k].dbid].dict,
+                            pool[k].key);
+                    &#125; else &#123;
+                        de &#x3D; dictFind(server.db[pool[k].dbid].expires,
+                            pool[k].key);
+                    &#125;
+
+                    &#x2F;* Remove the entry from the pool. *&#x2F;
+                    if (pool[k].key !&#x3D; pool[k].cached)
+                        sdsfree(pool[k].key);
+                    pool[k].key &#x3D; NULL;
+                    pool[k].idle &#x3D; 0;
+
+                    &#x2F;* If the key exists, is our pick. Otherwise it is
+                     * a ghost and we need to try the next element. *&#x2F;
+                    if (de) &#123;
+                        bestkey &#x3D; dictGetKey(de);
+                        break;
+                    &#125; else &#123;
+                        &#x2F;* Ghost... Iterate again. *&#x2F;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+
+        &#x2F;* volatile-random and allkeys-random policy *&#x2F;
+        else if (server.maxmemory_policy &#x3D;&#x3D; MAXMEMORY_ALLKEYS_RANDOM ||
+                 server.maxmemory_policy &#x3D;&#x3D; MAXMEMORY_VOLATILE_RANDOM)
+        &#123;
+            &#x2F;* When evicting a random key, we try to evict a key for
+             * each DB, so we use the static &#39;next_db&#39; variable to
+             * incrementally visit all DBs. *&#x2F;
+            for (i &#x3D; 0; i &lt; server.dbnum; i++) &#123;
+                j &#x3D; (++next_db) % server.dbnum;
+                db &#x3D; server.db+j;
+                dict &#x3D; (server.maxmemory_policy &#x3D;&#x3D; MAXMEMORY_ALLKEYS_RANDOM) ?
+                        db-&gt;dict : db-&gt;expires;
+                if (dictSize(dict) !&#x3D; 0) &#123;
+                    de &#x3D; dictGetRandomKey(dict);
+                    bestkey &#x3D; dictGetKey(de);
+                    bestdbid &#x3D; j;
+                    break;
+                &#125;
+            &#125;
+        &#125;
+
+        &#x2F;* Finally remove the selected key. *&#x2F;
+        if (bestkey) &#123;
+            db &#x3D; server.db+bestdbid;
+            robj *keyobj &#x3D; createStringObject(bestkey,sdslen(bestkey));
+            propagateExpire(db,keyobj,server.lazyfree_lazy_eviction);
+            &#x2F;* We compute the amount of memory freed by db*Delete() alone.
+             * It is possible that actually the memory needed to propagate
+             * the DEL in AOF and replication link is greater than the one
+             * we are freeing removing the key, but we can&#39;t account for
+             * that otherwise we would never exit the loop.
+             *
+             * AOF and Output buffer memory will be freed eventually so
+             * we only care about memory used by the key space. *&#x2F;
+            delta &#x3D; (long long) zmalloc_used_memory();
+            latencyStartMonitor(eviction_latency);
+            if (server.lazyfree_lazy_eviction)
+                dbAsyncDelete(db,keyobj);
+            else
+                dbSyncDelete(db,keyobj);
+            latencyEndMonitor(eviction_latency);
+            latencyAddSampleIfNeeded(&quot;eviction-del&quot;,eviction_latency);
+            latencyRemoveNestedEvent(latency,eviction_latency);
+            delta -&#x3D; (long long) zmalloc_used_memory();
+            mem_freed +&#x3D; delta;
+            server.stat_evictedkeys++;
+            notifyKeyspaceEvent(NOTIFY_EVICTED, &quot;evicted&quot;,
+                keyobj, db-&gt;id);
+            decrRefCount(keyobj);
+            keys_freed++;
+
+            &#x2F;* When the memory to free starts to be big enough, we may
+             * start spending so much time here that is impossible to
+             * deliver data to the slaves fast enough, so we force the
+             * transmission here inside the loop. *&#x2F;
+            if (slaves) flushSlavesOutputBuffers();
+
+            &#x2F;* Normally our stop condition is the ability to release
+             * a fixed, pre-computed amount of memory. However when we
+             * are deleting objects in another thread, it&#39;s better to
+             * check, from time to time, if we already reached our target
+             * memory, since the &quot;mem_freed&quot; amount is computed only
+             * across the dbAsyncDelete() call, while the thread can
+             * release the memory all the time. *&#x2F;
+            if (server.lazyfree_lazy_eviction &amp;&amp; !(keys_freed % 16)) &#123;
+                if (getMaxmemoryState(NULL,NULL,NULL,NULL) &#x3D;&#x3D; C_OK) &#123;
+                    &#x2F;* Let&#39;s satisfy our stop condition. *&#x2F;
+                    mem_freed &#x3D; mem_tofree;
+                &#125;
+            &#125;
+        &#125; else &#123;
+            latencyEndMonitor(latency);
+            latencyAddSampleIfNeeded(&quot;eviction-cycle&quot;,latency);
+            goto cant_free; &#x2F;* nothing to free... *&#x2F;
+        &#125;
+    &#125;
+    latencyEndMonitor(latency);
+    latencyAddSampleIfNeeded(&quot;eviction-cycle&quot;,latency);
+    return C_OK;
+
+cant_free:
+    &#x2F;* We are here if we are not able to reclaim memory. There is only one
+     * last thing we can try: check if the lazyfree thread has jobs in queue
+     * and wait... *&#x2F;
+    while(bioPendingJobsOfType(BIO_LAZY_FREE)) &#123;
+        if (((mem_reported - zmalloc_used_memory()) + mem_freed) &gt;&#x3D; mem_tofree)
+            break;
+        usleep(1000);
+    &#125;
+    return C_ERR;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里就是根据具体策略去淘汰 key，首先是要往 pool 更新 key，更新key 的方法是<a target="_blank" rel="noopener" href="https://github.com/antirez/redis/blob/unstable/src/evict.c#L162"><code>evictionPoolPopulate</code></a></p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">void evictionPoolPopulate(int dbid, dict *sampledict, dict *keydict, struct evictionPoolEntry *pool) &#123;
+    int j, k, count;
+    dictEntry *samples[server.maxmemory_samples];
+
+    count &#x3D; dictGetSomeKeys(sampledict,samples,server.maxmemory_samples);
+    for (j &#x3D; 0; j &lt; count; j++) &#123;
+        unsigned long long idle;
+        sds key;
+        robj *o;
+        dictEntry *de;
+
+        de &#x3D; samples[j];
+        key &#x3D; dictGetKey(de);
+
+        &#x2F;* If the dictionary we are sampling from is not the main
+         * dictionary (but the expires one) we need to lookup the key
+         * again in the key dictionary to obtain the value object. *&#x2F;
+        if (server.maxmemory_policy !&#x3D; MAXMEMORY_VOLATILE_TTL) &#123;
+            if (sampledict !&#x3D; keydict) de &#x3D; dictFind(keydict, key);
+            o &#x3D; dictGetVal(de);
+        &#125;
+
+        &#x2F;* Calculate the idle time according to the policy. This is called
+         * idle just because the code initially handled LRU, but is in fact
+         * just a score where an higher score means better candidate. *&#x2F;
+        if (server.maxmemory_policy &amp; MAXMEMORY_FLAG_LRU) &#123;
+            idle &#x3D; estimateObjectIdleTime(o);
+        &#125; else if (server.maxmemory_policy &amp; MAXMEMORY_FLAG_LFU) &#123;
+            &#x2F;* When we use an LRU policy, we sort the keys by idle time
+             * so that we expire keys starting from greater idle time.
+             * However when the policy is an LFU one, we have a frequency
+             * estimation, and we want to evict keys with lower frequency
+             * first. So inside the pool we put objects using the inverted
+             * frequency subtracting the actual frequency to the maximum
+             * frequency of 255. *&#x2F;
+            idle &#x3D; 255-LFUDecrAndReturn(o);
+        &#125; else if (server.maxmemory_policy &#x3D;&#x3D; MAXMEMORY_VOLATILE_TTL) &#123;
+            &#x2F;* In this case the sooner the expire the better. *&#x2F;
+            idle &#x3D; ULLONG_MAX - (long)dictGetVal(de);
+        &#125; else &#123;
+            serverPanic(&quot;Unknown eviction policy in evictionPoolPopulate()&quot;);
+        &#125;
+
+        &#x2F;* Insert the element inside the pool.
+         * First, find the first empty bucket or the first populated
+         * bucket that has an idle time smaller than our idle time. *&#x2F;
+        k &#x3D; 0;
+        while (k &lt; EVPOOL_SIZE &amp;&amp;
+               pool[k].key &amp;&amp;
+               pool[k].idle &lt; idle) k++;
+        if (k &#x3D;&#x3D; 0 &amp;&amp; pool[EVPOOL_SIZE-1].key !&#x3D; NULL) &#123;
+            &#x2F;* Can&#39;t insert if the element is &lt; the worst element we have
+             * and there are no empty buckets. *&#x2F;
+            continue;
+        &#125; else if (k &lt; EVPOOL_SIZE &amp;&amp; pool[k].key &#x3D;&#x3D; NULL) &#123;
+            &#x2F;* Inserting into empty position. No setup needed before insert. *&#x2F;
+        &#125; else &#123;
+            &#x2F;* Inserting in the middle. Now k points to the first element
+             * greater than the element to insert.  *&#x2F;
+            if (pool[EVPOOL_SIZE-1].key &#x3D;&#x3D; NULL) &#123;
+                &#x2F;* Free space on the right? Insert at k shifting
+                 * all the elements from k to end to the right. *&#x2F;
+
+                &#x2F;* Save SDS before overwriting. *&#x2F;
+                sds cached &#x3D; pool[EVPOOL_SIZE-1].cached;
+                memmove(pool+k+1,pool+k,
+                    sizeof(pool[0])*(EVPOOL_SIZE-k-1));
+                pool[k].cached &#x3D; cached;
+            &#125; else &#123;
+                &#x2F;* No free space on right? Insert at k-1 *&#x2F;
+                k--;
+                &#x2F;* Shift all elements on the left of k (included) to the
+                 * left, so we discard the element with smaller idle time. *&#x2F;
+                sds cached &#x3D; pool[0].cached; &#x2F;* Save SDS before overwriting. *&#x2F;
+                if (pool[0].key !&#x3D; pool[0].cached) sdsfree(pool[0].key);
+                memmove(pool,pool+1,sizeof(pool[0])*k);
+                pool[k].cached &#x3D; cached;
+            &#125;
+        &#125;
+
+        &#x2F;* Try to reuse the cached SDS string allocated in the pool entry,
+         * because allocating and deallocating this object is costly
+         * (according to the profiler, not my fantasy. Remember:
+         * premature optimizbla bla bla bla. *&#x2F;
+        int klen &#x3D; sdslen(key);
+        if (klen &gt; EVPOOL_CACHED_SDS_SIZE) &#123;
+            pool[k].key &#x3D; sdsdup(key);
+        &#125; else &#123;
+            memcpy(pool[k].cached,key,klen+1);
+            sdssetlen(pool[k].cached,klen);
+            pool[k].key &#x3D; pool[k].cached;
+        &#125;
+        pool[k].idle &#x3D; idle;
+        pool[k].dbid &#x3D; dbid;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>Redis</code>随机选择<code>maxmemory_samples</code>数量的key，然后计算这些<code>key</code>的空闲时间<code>idle time</code>，当满足条件时(比pool中的某些键的空闲时间还大)就可以进<code>pool</code>。<code>pool</code>更新之后，就淘汰<code>pool</code>中空闲时间最大的键。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/antirez/redis/blob/unstable/src/evict.c#L90"><code>estimateObjectIdleTime</code></a>用来计算Redis对象的空闲时间：</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;* Given an object returns the min number of milliseconds the object was never
+ * requested, using an approximated LRU algorithm. *&#x2F;
+unsigned long long estimateObjectIdleTime(robj *o) &#123;
+    unsigned long long lruclock &#x3D; LRU_CLOCK();
+    if (lruclock &gt;&#x3D; o-&gt;lru) &#123;
+        return (lruclock - o-&gt;lru) * LRU_CLOCK_RESOLUTION;
+    &#125; else &#123;
+        return (lruclock + (LRU_CLOCK_MAX - o-&gt;lru)) *
+                    LRU_CLOCK_RESOLUTION;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>空闲时间第一种是 lurclock 大于对象的 lru，那么就是减一下乘以精度，因为 lruclock 有可能是已经预生成的，所以会可能走下面这个</p>
+<h3 id="LFU"><a href="#LFU" class="headerlink" title="LFU"></a>LFU</h3><p>上面介绍了LRU 的算法，但是考虑一种场景</p>
+<pre class="line-numbers language-none"><code class="language-none">~~~~~A~~~~~A~~~~~A~~~~A~~~~~A~~~~~A~~|
+~~B~~B~~B~~B~~B~~B~~B~~B~~B~~B~~B~~B~|
+~~~~~~~~~~C~~~~~~~~~C~~~~~~~~~C~~~~~~|
+~~~~~D~~~~~~~~~~D~~~~~~~~~D~~~~~~~~~D|<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以发现，当采用 lru 的淘汰策略的时候，D 是最新的，会被认为是最值得保留的，但是事实上还不如 A 跟 B，然后 antirez 大神就想到了LFU (Least Frequently Used) 这个算法, 显然对于上面的四个 key 的访问频率，保留优先级应该是 B &gt; A &gt; C = D<br>那要怎么来实现这个 LFU 算法呢，其实像LRU，理想的情况就是维护个链表，把最新访问的放到头上去，但是这个会影响访问速度，注意到前面代码的应该可以看到，redisObject 的 lru 字段其实是两用的，当策略是 LFU 时，这个字段就另作他用了，它的 24 位长度被分成两部分</p>
+<pre class="line-numbers language-none"><code class="language-none">      16 bits      8 bits
++----------------+--------+
++ Last decr time | LOG_C  |
++----------------+--------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>前16位字段是最后一次递减时间，因此Redis知道 上一次计数器递减，后8位是 计数器 counter。<br>LFU 的主体策略就是当这个 key 被访问的次数越多频率越高他就越容易被保留下来，并且是最近被访问的频率越高。这其实有两个事情要做，一个是在访问的时候增加计数值，在一定长时间不访问时进行衰减，所以这里用了两个值，前 16 位记录上一次衰减的时间，后 8 位记录具体的计数值。<br>Redis4.0之后为maxmemory_policy淘汰策略添加了两个LFU模式：</p>
+<p><code>volatile-lfu</code>：对有过期时间的key采用LFU淘汰策略<br><code>allkeys-lfu</code>：对全部key采用LFU淘汰策略<br>还有2个配置可以调整LFU算法：  </p>
+<pre class="line-numbers language-none"><code class="language-none">lfu-log-factor 10
+lfu-decay-time 1
+&#96;&#96;&#96;  
+&#96;lfu-log-factor&#96; 可以调整计数器counter的增长速度，lfu-log-factor越大，counter增长的越慢。
+
+&#96;lfu-decay-time&#96;是一个以分钟为单位的数值，可以调整counter的减少速度
+这里有个问题是 8 位大小够计么，访问一次加 1 的话的确不够，不过大神就是大神，才不会这么简单的加一。往下看代码
+&#96;&#96;&#96;C
+&#x2F;* Low level key lookup API, not actually called directly from commands
+ * implementations that should instead rely on lookupKeyRead(),
+ * lookupKeyWrite() and lookupKeyReadWithFlags(). *&#x2F;
+robj *lookupKey(redisDb *db, robj *key, int flags) &#123;
+    dictEntry *de &#x3D; dictFind(db-&gt;dict,key-&gt;ptr);
+    if (de) &#123;
+        robj *val &#x3D; dictGetVal(de);
+
+        &#x2F;* Update the access time for the ageing algorithm.
+         * Don&#39;t do it if we have a saving child, as this will trigger
+         * a copy on write madness. *&#x2F;
+        if (!hasActiveChildProcess() &amp;&amp; !(flags &amp; LOOKUP_NOTOUCH))&#123;
+            if (server.maxmemory_policy &amp; MAXMEMORY_FLAG_LFU) &#123;
+                &#x2F;&#x2F; 当淘汰策略是 LFU 时，就会调用这个updateLFU
+                updateLFU(val);
+            &#125; else &#123;
+                val-&gt;lru &#x3D; LRU_CLOCK();
+            &#125;
+        &#125;
+        return val;
+    &#125; else &#123;
+        return NULL;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://github.com/antirez/redis/blob/unstable/src/db.c#L46"><code>updateLFU</code></a> 这个其实个入口，调用了两个重要的方法</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;* Update LFU when an object is accessed.
+ * Firstly, decrement the counter if the decrement time is reached.
+ * Then logarithmically increment the counter, and update the access time. *&#x2F;
+void updateLFU(robj *val) &#123;
+    unsigned long counter &#x3D; LFUDecrAndReturn(val);
+    counter &#x3D; LFULogIncr(counter);
+    val-&gt;lru &#x3D; (LFUGetTimeInMinutes()&lt;&lt;8) | counter;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>首先来看看<a target="_blank" rel="noopener" href="https://github.com/antirez/redis/blob/unstable/src/evict.c#L335"><code>LFUDecrAndReturn</code></a>，这个方法的作用是根据上一次衰减时间和系统配置的 <code>lfu-decay-time</code> 参数来确定需要将 counter 减去多少</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;* If the object decrement time is reached decrement the LFU counter but
+ * do not update LFU fields of the object, we update the access time
+ * and counter in an explicit way when the object is really accessed.
+ * And we will times halve the counter according to the times of
+ * elapsed time than server.lfu_decay_time.
+ * Return the object frequency counter.
+ *
+ * This function is used in order to scan the dataset for the best object
+ * to fit: as we check for the candidate, we incrementally decrement the
+ * counter of the scanned objects if needed. *&#x2F;
+unsigned long LFUDecrAndReturn(robj *o) &#123;
+    &#x2F;&#x2F; 右移 8 位，拿到上次衰减时间
+    unsigned long ldt &#x3D; o-&gt;lru &gt;&gt; 8;
+    &#x2F;&#x2F; 对 255 做与操作，拿到 counter 值
+    unsigned long counter &#x3D; o-&gt;lru &amp; 255;
+    &#x2F;&#x2F; 根据lfu_decay_time来算出过了多少个衰减周期
+    unsigned long num_periods &#x3D; server.lfu_decay_time ? LFUTimeElapsed(ldt) &#x2F; server.lfu_decay_time : 0;
+    if (num_periods)
+        counter &#x3D; (num_periods &gt; counter) ? 0 : counter - num_periods;
+    return counter;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后是加，调用了<a target="_blank" rel="noopener" href="https://github.com/antirez/redis/blob/unstable/src/evict.c#L315"><code>LFULogIncr</code></a></p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;* Logarithmically increment a counter. The greater is the current counter value
+ * the less likely is that it gets really implemented. Saturate it at 255. *&#x2F;
+uint8_t LFULogIncr(uint8_t counter) &#123;
+    &#x2F;&#x2F; 最大值就是 255，到顶了就不加了
+    if (counter &#x3D;&#x3D; 255) return 255;
+    &#x2F;&#x2F; 生成个随机小数
+    double r &#x3D; (double)rand()&#x2F;RAND_MAX;
+    &#x2F;&#x2F; 减去个基础值，LFU_INIT_VAL &#x3D; 5，防止刚进来就被逐出
+    double baseval &#x3D; counter - LFU_INIT_VAL;
+    &#x2F;&#x2F; 如果是小于 0，
+    if (baseval &lt; 0) baseval &#x3D; 0;
+    &#x2F;&#x2F; 如果 baseval 是 0，那么 p 就是 1了，后面 counter 直接加一，如果不是的话，得看系统参数lfu_log_factor，这个越大，除出来的 p 越小，那么 counter++的可能性也越小，这样子就把前面的疑问给解决了，不是直接+1 的
+    double p &#x3D; 1.0&#x2F;(baseval*server.lfu_log_factor+1);
+    if (r &lt; p) counter++;
+    return counter;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>大概的变化速度可以参考</p>
+<pre class="line-numbers language-none"><code class="language-none">+--------+------------+------------+------------+------------+------------+
+| factor | 100 hits   | 1000 hits  | 100K hits  | 1M hits    | 10M hits   |
++--------+------------+------------+------------+------------+------------+
+| 0      | 104        | 255        | 255        | 255        | 255        |
++--------+------------+------------+------------+------------+------------+
+| 1      | 18         | 49         | 255        | 255        | 255        |
++--------+------------+------------+------------+------------+------------+
+| 10     | 10         | 18         | 142        | 255        | 255        |
++--------+------------+------------+------------+------------+------------+
+| 100    | 8          | 11         | 49         | 143        | 255        |
++--------+------------+------------+------------+------------+------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>简而言之就是 lfu_log_factor 越大变化的越慢</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总结一下，redis 实现了近似的 lru 淘汰策略，通过增加了淘汰 key 的池子(pool)，并且增大每次抽样的 key 的数量来将淘汰效果更进一步地接近于 lru，这是 lru 策略，但是对于前面举的一个例子，其实 lru 并不能保证 key 的淘汰就如我们预期，所以在后期又引入了 lfu 的策略，lfu的策略比较巧妙，复用了 redis 对象的 lru 字段，并且使用了factor 参数来控制计数器递增的速度，防止 8 位的计数器太早溢出。</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/04/12/redis%E7%B3%BB%E5%88%97%E4%BB%8B%E7%BB%8D%E4%B8%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1112,129 +1729,10 @@ EXPOSE 80<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://nicksxs.me/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Nicksxs">
-      <meta itemprop="description" content="learn from zero,技术博客，Nicksxs，史学森">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nicksxs's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/" class="post-title-link" itemprop="url">docker比一般多一点的初学者介绍二</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-15 22:33:55" itemprop="dateCreated datePublished" datetime="2020-03-15T22:33:55+08:00">2020-03-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/%E4%BB%8B%E7%BB%8D/" itemprop="url" rel="index"><span itemprop="name">介绍</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/" class="post-meta-item leancloud_visitors" data-flag-title="docker比一般多一点的初学者介绍二" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/03/15/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%BA%8C/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/15/docker比一般多一点的初学者介绍二/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="限制下-docker-的-cpu-使用率"><a href="#限制下-docker-的-cpu-使用率" class="headerlink" title="限制下 docker 的 cpu 使用率"></a>限制下 docker 的 cpu 使用率</h2><p>这里我们开始玩一点有意思的，我们在容器里装下 vim 和 gcc，然后写这样一段 c 代码</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">#include &lt;stdio.h&gt;
-int main(void)
-&#123;
-    int i &#x3D; 0;
-    for(;;) i++;
-    return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>就是一个最简单的死循环，然后在容器里跑起来</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ gcc 1.c 
-$ .&#x2F;a.out<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>然后我们来看下系统资源占用（CPU）<br><img data-src="https://i.loli.net/2020/03/09/Xs562iawhHyMxeO.png" alt="Xs562iawhHyMxeO"><br>上图是在容器里的，可以看到 cpu 已经 100%了<br>然后看看容器外面的<br><img data-src="https://i.loli.net/2020/03/09/ecqH8XJ4k7rKhzu.png" alt="ecqH8XJ4k7rKhzu"><br>可以看到一个核的 cpu 也被占满了，因为是个双核的机器，并且代码是单线程的<br>然后呢我们要做点啥<br>因为已经在这个 ubuntu 容器中装了 vim 和 gcc，考虑到国内的网络，所以我们先把这个容器 commit 一下，</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker commit -a &quot;nick&quot; -m &quot;my ubuntu&quot; f63c5607df06 my_ubuntu:v1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>然后再运行起来</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker run -it --cpus&#x3D;0.1 my_ubuntu:v1 bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img data-src="https://i.loli.net/2020/03/15/x2oGCPQr9Mm8ZYj.png"><br>我们的代码跟可执行文件都还在，要的就是这个效果，然后再运行一下<br><img data-src="https://i.loli.net/2020/03/10/3EgzYxpqlwobNRj.png"><br>结果是这个样子的，有点神奇是不，关键就在于 run 的时候的<code>--cpus=0.1</code>这个参数，它其实就是基于我前一篇说的 cgroup 技术，能将进程之间的cpu，内存等资源进行隔离</p>
-<h2 id="开始第一个-Dockerfile"><a href="#开始第一个-Dockerfile" class="headerlink" title="开始第一个 Dockerfile"></a>开始第一个 Dockerfile</h2><p>上一面为了复用那个我装了 vim 跟 gcc 的容器，我把它提交到了本地，使用了<code>docker commit</code>命令，有点类似于 git 的 commit，但是这个不是个很好的操作方式，需要手动介入，这里更推荐使用 Dockerfile 来构建镜像</p>
-<pre class="line-numbers language-Docker" data-language="Docker"><code class="language-Docker">From ubuntu:latest
-MAINTAINER Nicksxs &quot;nicksxs@hotmail.com&quot;
-RUN  sed -i s@&#x2F;archive.ubuntu.com&#x2F;@&#x2F;mirrors.aliyun.com&#x2F;@g &#x2F;etc&#x2F;apt&#x2F;sources.list
-RUN apt-get clean
-RUN apt-get update &amp;&amp; apt install -y nginx
-RUN echo &#39;Hi, i am in container&#39; \
-    &gt; &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html
-EXPOSE 80<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>先解释下这是在干嘛，首先是这个<code>From ubuntu:latest</code>基于的 ubuntu 的最新版本的镜像，然后第二行是维护人的信息，第三四行么作为墙内人你懂的，把 ubuntu 的源换成阿里云的，不然就有的等了，然后就是装下 nginx，往默认的 nginx 的入口 html 文件里输入一行欢迎语，然后暴露 80 端口<br>然后我们使用<code>sudo docker build -t=&quot;nicksxs/static_web&quot; .</code>命令来基于这个 Dockerfile 构建我们自己的镜像，过程中是这样的<br><img data-src="https://i.loli.net/2020/03/15/aiIMrhy9WHetDSl.png"><br><img data-src="https://i.loli.net/2020/03/11/RC6yjImFZps4HWl.png"><br>可以看到图中，我的 Dockerfile 是 7 行，里面就执行了 7 步，并且每一步都有一个类似于容器 id 的层 id 出来，这里就是一个比较重要的东西，docker 在构建的时候其实是有这个层的概念，Dockerfile 里的每一行都会往上加一层，这里有还注意下命令后面的<code>.</code>，代表当前目录下会自行去寻找 Dockerfile 进行构建，构建完了之后我们再看下我们的本地镜像<br><img data-src="https://i.loli.net/2020/03/11/op5c7UGTbhjwPOI.png"><br>我们自己的镜像出现啦<br>然后有个问题，如果这个构建中途报了错咋办呢，来试试看，我们把 nginx 改成随便的一个错误名，nginxx(不知道会不会运气好真的有这玩意)，再来 build 一把<br><img data-src="https://i.loli.net/2020/03/14/ALWIobjchnu1Rvi.png"><br>找不到 nginxx 包，是不是这个镜像就完全不能用呢，当然也不是，因为前面说到了，docker 是基于层去构建的，可以看到前面的 4 个 step 都没报错，那我们基于最后的成功步骤创建下容器看看<br>也就是<code>sudo docker run -t -i bd26f991b6c8 /bin/bash</code><br>答案是可以的，只是没装成功 nginx<br><img data-src="https://i.loli.net/2020/03/14/grcMNVxTabDPipu.png"><br>还有一点注意到没，前面的几个 step 都有一句 <code>Using cache</code>，说明 docker 在构建镜像的时候是有缓存的，这也更能说明 docker 是基于层去构建镜像，同样的底包，同样的步骤，这些层是可以被复用的，这就是 docker 的构建缓存，当然我们也可以在 build 的时候加上<code>--no-cache</code>去把构建缓存禁用掉。</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1302,7 +1800,7 @@ EXPOSE 80<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1315,7 +1813,7 @@ EXPOSE 80<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">211</span>
+        <span class="site-state-item-count">215</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1340,7 +1838,7 @@ EXPOSE 80<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
   <div class="widget-wrap">
     <div id="myCanvasContainer" class="widget tagcloud">
       <canvas width="250" height="250" id="resCanvas" style="width=100%">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2019/" rel="tag">2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2020/" rel="tag">2020</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2021/" rel="tag">2021</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2PC/" rel="tag">2PC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/360-%E5%85%A8%E5%AE%B6%E6%A1%B6/" rel="tag">360 全家桶</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3PC/" rel="tag">3PC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/" rel="tag">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adaptive/" rel="tag">Adaptive</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apollo/" rel="tag">Apollo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Broker/" rel="tag">Broker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CachedThreadPool/" rel="tag">CachedThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Comparator/" rel="tag">Comparator</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DefaultMQPushConsumer/" rel="tag">DefaultMQPushConsumer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/" rel="tag">Design Patterns</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Lock/" rel="tag">Distributed Lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dockerfile/" rel="tag">Dockerfile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/" rel="tag">Dubbo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EagerThreadPool/" rel="tag">EagerThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Filter/" rel="tag">Filter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FixedThreadPool/" rel="tag">FixedThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/G1/" rel="tag">G1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/" rel="tag">GC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garbage-First-Collector/" rel="tag">Garbage-First Collector</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gogs/" rel="tag">Gogs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Homebrew/" rel="tag">Homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inorder-Traversal/" rel="tag">Inorder Traversal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Interceptor/" rel="tag">Interceptor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JMap/" rel="tag">JMap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPS/" rel="tag">JPS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JStack/" rel="tag">JStack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LimitedThreadPool/" rel="tag">LimitedThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lowest-Common-Ancestor-of-a-Binary-Tree/" rel="tag">Lowest Common Ancestor of a Binary Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/" rel="tag">MQ</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NameServer/" rel="tag">NameServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Preorder-Traversal/" rel="tag">Preorder Traversal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RPC/" rel="tag">RPC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RocketMQ/" rel="tag">RocketMQ</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rotate-Image/" rel="tag">Rotate Image</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPI/" rel="tag">SPI</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Singleton/" rel="tag">Singleton</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql%E6%B3%A8%E5%85%A5/" rel="tag">Sql注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stream/" rel="tag">Stream</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread-dump/" rel="tag">Thread dump</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/" rel="tag">ThreadLocal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadPool/" rel="tag">ThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/" rel="tag">Tomcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WeakReference/" rel="tag">WeakReference</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/" rel="tag">Web</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webhook/" rel="tag">Webhook</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aqs/" rel="tag">aqs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/await/" rel="tag">await</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bloom-filter/" rel="tag">bloom filter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cgroup/" rel="tag">cgroup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cluster/" rel="tag">cluster</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/condition/" rel="tag">condition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echo/" rel="tag">echo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/environment/" rel="tag">environment</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gap-lock/" rel="tag">gap lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gc/" rel="tag">gc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grep/" rel="tag">grep</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/icu4c/" rel="tag">icu4c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/im/" rel="tag">im</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/is-not-null/" rel="tag">is not null</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/is-null/" rel="tag">is null</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/j-u-c/" rel="tag">j.u.c</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/" rel="tag">jvm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">24</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode-155/" rel="tag">leetcode 155</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linked-list/" rel="tag">linked list</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lock/" rel="tag">lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mfc/" rel="tag">mfc</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/min-stack/" rel="tag">min stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvcc/" rel="tag">mvcc</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namespace/" rel="tag">namespace</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/next-key-lock/" rel="tag">next-key lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nullsfirst/" rel="tag">nullsfirst</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openresty/" rel="tag">openresty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/procedure/" rel="tag">procedure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-view/" rel="tag">read view</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/signal/" rel="tag">signal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/" rel="tag">sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/" rel="tag">spark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/string/" rel="tag">string</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swoole/" rel="tag">swoole</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/top/" rel="tag">top</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uname/" rel="tag">uname</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlock/" rel="tag">unlock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/value/" rel="tag">value</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websocket/" rel="tag">websocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zsh/" rel="tag">zsh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">三阶段提交</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/" rel="tag">不可变引用</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">两阶段提交</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E5%B1%B1%E8%B7%AF/" rel="tag">中山路</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E5%BA%8F/" rel="tag">中序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">中间件</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/" rel="tag">互斥锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%AE%E7%94%B5%E8%84%91%E7%9A%84/" rel="tag">修电脑的</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%81%A5%E5%BA%B7%E7%A0%81/" rel="tag">健康码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E4%BA%A4/" rel="tag">公交</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E4%BA%A4%E8%BD%A6/" rel="tag">公交车</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/" rel="tag">内存分布</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" rel="tag">内存泄漏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%8F%E8%82%A5/" rel="tag">减肥</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="tag">分布式事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="tag">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%87%E7%89%87/" rel="tag">切片</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8A%E5%B3%B0%E5%A1%AB%E8%B0%B7/" rel="tag">削峰填谷</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E5%BA%8F/" rel="tag">前序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%A1%9E/" rel="tag">加塞</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B/" rel="tag">单例</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%EF%BC%8C%E6%96%87%E7%AB%A0/" rel="tag">博客，文章</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%A6%E9%97%A8/" rel="tag">厦门</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E8%A1%8C%E7%89%88/" rel="tag">发行版</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A3%E7%BD%A9/" rel="tag">口罩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/" rel="tag">可变引用</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%90%E6%A7%BD/" rel="tag">吐槽</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" rel="tag">垃圾回收</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" rel="tag">基础设施</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/" rel="tag">容错机制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%84%E7%94%9F%E8%99%AB/" rel="tag">寄生虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" rel="tag">小技巧</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%80%E5%8F%A3%E8%A1%97/" rel="tag">局口街</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">布隆过滤器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B2%E6%B4%BB/" rel="tag">干活</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/" rel="tag">年中总结</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" rel="tag">年终总结</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B8%E7%A6%8F%E4%BA%86%E5%90%97/" rel="tag">幸福了吗</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%BB%E8%AF%BB/" rel="tag">幻读</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E8%BD%A6/" rel="tag">开车</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%B1%E5%BC%95%E7%94%A8/" rel="tag">弱引用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BD%B1%E8%AF%84/" rel="tag">影评</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%80%E6%9C%89%E6%9D%83/" rel="tag">所有权</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%93%E5%8D%A1/" rel="tag">打卡</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%96%E6%9B%B4/" rel="tag">拖更</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%B0%E8%AF%AD%E8%A8%80/" rel="tag">新语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%85%E6%B8%B8/" rel="tag">旅游</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9B%BE%E5%8E%9D%E5%9E%B5/" rel="tag">曾厝垵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E6%A0%88/" rel="tag">最小栈</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%80%E4%BA%BA%E8%AF%9B%E5%BF%83/" rel="tag">杀人诛心</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%AD%E5%B7%9E/" rel="tag">杭州</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86/" rel="tag">标记整理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A4%8D%E7%89%A9%E5%9B%AD/" rel="tag">植物园</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B2%99%E8%8C%B6%E9%9D%A2/" rel="tag">沙茶面</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E8%A7%A3/" rel="tag">注解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%B7%E8%9B%8E%E7%85%8E/" rel="tag">海蛎煎</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%96%AB%E6%83%85/" rel="tag">疫情</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%9F%E5%BF%83%E4%BA%8B/" rel="tag">糟心事</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="tag">线程池</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/" rel="tag">缓存击穿</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/" rel="tag">缓存穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" rel="tag">缓存雪崩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%8E%E5%9B%BD/" rel="tag">美国</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%80%81%E7%94%B5%E8%84%91/" rel="tag">老电脑</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E6%8B%93%E5%B1%95/" rel="tag">自适应拓展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E7%94%B5%E8%84%91/" rel="tag">装电脑</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99/" rel="tag">规则</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6/" rel="tag">读书</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="tag">读后感</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B6%B3%E7%90%83/" rel="tag">足球</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%91%E6%AD%A5/" rel="tag">跑步</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E6%94%BF%E8%A7%84%E5%88%92/" rel="tag">路政规划</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BD%AC%E4%B9%89/" rel="tag">转义</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E5%8A%A8/" rel="tag">运动</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A2%98%E8%A7%A3/" rel="tag">题解</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A9%AC%E6%88%8F%E5%9B%A2/" rel="tag">马戏团</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AB%98%E9%80%9F/" rel="tag">高速</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BC%93%E6%B5%AA%E5%B1%BF/" rel="tag">鼓浪屿</a><span class="tag-list-count">1</span></li></ul>
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2019/" rel="tag">2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2020/" rel="tag">2020</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2021/" rel="tag">2021</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/2PC/" rel="tag">2PC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/360-%E5%85%A8%E5%AE%B6%E6%A1%B6/" rel="tag">360 全家桶</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3PC/" rel="tag">3PC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/" rel="tag">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adaptive/" rel="tag">Adaptive</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apollo/" rel="tag">Apollo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Broker/" rel="tag">Broker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CachedThreadPool/" rel="tag">CachedThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Comparator/" rel="tag">Comparator</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DefaultMQPushConsumer/" rel="tag">DefaultMQPushConsumer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/" rel="tag">Design Patterns</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Lock/" rel="tag">Distributed Lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dockerfile/" rel="tag">Dockerfile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/" rel="tag">Dubbo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EagerThreadPool/" rel="tag">EagerThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Filter/" rel="tag">Filter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FixedThreadPool/" rel="tag">FixedThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/G1/" rel="tag">G1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC/" rel="tag">GC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garbage-First-Collector/" rel="tag">Garbage-First Collector</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gogs/" rel="tag">Gogs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Homebrew/" rel="tag">Homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inorder-Traversal/" rel="tag">Inorder Traversal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Interceptor/" rel="tag">Interceptor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JMap/" rel="tag">JMap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPS/" rel="tag">JPS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JStack/" rel="tag">JStack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LimitedThreadPool/" rel="tag">LimitedThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lowest-Common-Ancestor-of-a-Binary-Tree/" rel="tag">Lowest Common Ancestor of a Binary Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/" rel="tag">MQ</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NameServer/" rel="tag">NameServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Preorder-Traversal/" rel="tag">Preorder Traversal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RPC/" rel="tag">RPC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RocketMQ/" rel="tag">RocketMQ</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rotate-Image/" rel="tag">Rotate Image</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPI/" rel="tag">SPI</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Singleton/" rel="tag">Singleton</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql%E6%B3%A8%E5%85%A5/" rel="tag">Sql注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stream/" rel="tag">Stream</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread-dump/" rel="tag">Thread dump</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/" rel="tag">ThreadLocal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadPool/" rel="tag">ThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/" rel="tag">Tomcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WeakReference/" rel="tag">WeakReference</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/" rel="tag">Web</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webhook/" rel="tag">Webhook</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aqs/" rel="tag">aqs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/await/" rel="tag">await</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bloom-filter/" rel="tag">bloom filter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cgroup/" rel="tag">cgroup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cluster/" rel="tag">cluster</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/condition/" rel="tag">condition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echo/" rel="tag">echo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/environment/" rel="tag">environment</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gap-lock/" rel="tag">gap lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gc/" rel="tag">gc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grep/" rel="tag">grep</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/icu4c/" rel="tag">icu4c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/im/" rel="tag">im</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/is-not-null/" rel="tag">is not null</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/is-null/" rel="tag">is null</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/j-u-c/" rel="tag">j.u.c</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/" rel="tag">jvm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">24</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode-155/" rel="tag">leetcode 155</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linked-list/" rel="tag">linked list</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lock/" rel="tag">lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mfc/" rel="tag">mfc</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/min-stack/" rel="tag">min stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvcc/" rel="tag">mvcc</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namespace/" rel="tag">namespace</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/next-key-lock/" rel="tag">next-key lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nullsfirst/" rel="tag">nullsfirst</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openresty/" rel="tag">openresty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/procedure/" rel="tag">procedure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-view/" rel="tag">read view</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/signal/" rel="tag">signal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/" rel="tag">sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/" rel="tag">spark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/string/" rel="tag">string</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swoole/" rel="tag">swoole</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/top/" rel="tag">top</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uname/" rel="tag">uname</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlock/" rel="tag">unlock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/value/" rel="tag">value</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websocket/" rel="tag">websocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zsh/" rel="tag">zsh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">三阶段提交</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/" rel="tag">不可变引用</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">两阶段提交</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E5%B1%B1%E8%B7%AF/" rel="tag">中山路</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E5%BA%8F/" rel="tag">中序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">中间件</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/" rel="tag">互斥锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%AE%E7%94%B5%E8%84%91%E7%9A%84/" rel="tag">修电脑的</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%81%A5%E5%BA%B7%E7%A0%81/" rel="tag">健康码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E4%BA%A4/" rel="tag">公交</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E4%BA%A4%E8%BD%A6/" rel="tag">公交车</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/" rel="tag">内存分布</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" rel="tag">内存泄漏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%8F%E8%82%A5/" rel="tag">减肥</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="tag">分布式事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="tag">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%87%E7%89%87/" rel="tag">切片</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8A%E5%B3%B0%E5%A1%AB%E8%B0%B7/" rel="tag">削峰填谷</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E5%BA%8F/" rel="tag">前序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%A1%9E/" rel="tag">加塞</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B/" rel="tag">单例</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%EF%BC%8C%E6%96%87%E7%AB%A0/" rel="tag">博客，文章</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%A6%E9%97%A8/" rel="tag">厦门</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E8%A1%8C%E7%89%88/" rel="tag">发行版</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A3%E7%BD%A9/" rel="tag">口罩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/" rel="tag">可变引用</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%90%E6%A7%BD/" rel="tag">吐槽</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" rel="tag">垃圾回收</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" rel="tag">基础设施</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/" rel="tag">容错机制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%84%E7%94%9F%E8%99%AB/" rel="tag">寄生虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" rel="tag">小技巧</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%80%E5%8F%A3%E8%A1%97/" rel="tag">局口街</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">布隆过滤器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B2%E6%B4%BB/" rel="tag">干活</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/" rel="tag">年中总结</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" rel="tag">年终总结</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B8%E7%A6%8F%E4%BA%86%E5%90%97/" rel="tag">幸福了吗</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%BB%E8%AF%BB/" rel="tag">幻读</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E8%BD%A6/" rel="tag">开车</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%B1%E5%BC%95%E7%94%A8/" rel="tag">弱引用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BD%B1%E8%AF%84/" rel="tag">影评</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%80%E6%9C%89%E6%9D%83/" rel="tag">所有权</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%93%E5%8D%A1/" rel="tag">打卡</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%B6%E6%A2%AF/" rel="tag">扶梯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%96%E6%9B%B4/" rel="tag">拖更</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%B0%E8%AF%AD%E8%A8%80/" rel="tag">新语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%85%E6%B8%B8/" rel="tag">旅游</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9B%BE%E5%8E%9D%E5%9E%B5/" rel="tag">曾厝垵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E6%A0%88/" rel="tag">最小栈</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%80%E4%BA%BA%E8%AF%9B%E5%BF%83/" rel="tag">杀人诛心</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%AD%E5%B7%9E/" rel="tag">杭州</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86/" rel="tag">标记整理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A4%8D%E7%89%A9%E5%9B%AD/" rel="tag">植物园</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B2%99%E8%8C%B6%E9%9D%A2/" rel="tag">沙茶面</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E8%A7%A3/" rel="tag">注解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%B7%E8%9B%8E%E7%85%8E/" rel="tag">海蛎煎</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%B5%E7%93%B6%E8%BD%A6/" rel="tag">电瓶车</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%96%AB%E6%83%85/" rel="tag">疫情</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B3%9F%E5%BF%83%E4%BA%8B/" rel="tag">糟心事</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="tag">线程池</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/" rel="tag">缓存击穿</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/" rel="tag">缓存穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" rel="tag">缓存雪崩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%8E%E5%9B%BD/" rel="tag">美国</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%80%81%E7%94%B5%E8%84%91/" rel="tag">老电脑</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E6%8B%93%E5%B1%95/" rel="tag">自适应拓展</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E7%94%B5%E8%84%91/" rel="tag">装电脑</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99/" rel="tag">规则</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6/" rel="tag">读书</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="tag">读后感</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B6%B3%E7%90%83/" rel="tag">足球</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%91%E6%AD%A5/" rel="tag">跑步</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E6%94%BF%E8%A7%84%E5%88%92/" rel="tag">路政规划</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B8%A9%E8%B8%8F/" rel="tag">踩踏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BD%AC%E4%B9%89/" rel="tag">转义</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E5%8A%A8/" rel="tag">运动</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A2%98%E8%A7%A3/" rel="tag">题解</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A9%AC%E6%88%8F%E5%9B%A2/" rel="tag">马戏团</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AB%98%E9%80%9F/" rel="tag">高速</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BC%93%E6%B5%AA%E5%B1%BF/" rel="tag">鼓浪屿</a><span class="tag-list-count">1</span></li></ul>
       </canvas>
     </div>
   </div>
