@@ -730,13 +730,13 @@
     
     
     
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
     <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
     
-    <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
     <category term="DP" scheme="https://nicksxs.me/categories/DP/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/categories/leetcode/java/"/>
     
     <category term="DP" scheme="https://nicksxs.me/categories/leetcode/java/DP/"/>
     
