@@ -730,9 +730,9 @@
     
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
-    
     <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/categories/leetcode/"/>
     
     <category term="DP" scheme="https://nicksxs.me/categories/DP/"/>
     
