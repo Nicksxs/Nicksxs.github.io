@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2021-08-19T06:56:58.000Z</updated>
+  <updated>2021-08-29T12:41:17.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊一下 RocketMQ 的顺序消息</title>
+    <link href="https://nicksxs.me/2021/08/29/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/"/>
+    <id>https://nicksxs.me/2021/08/29/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/</id>
+    <published>2021-08-29T12:41:17.000Z</published>
+    <updated>2021-08-29T12:41:17.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;rocketmq</summary>
+        
+      
+    
+    
+    
+    <category term="MQ" scheme="https://nicksxs.me/categories/MQ/"/>
+    
+    <category term="RocketMQ" scheme="https://nicksxs.me/categories/MQ/RocketMQ/"/>
+    
+    <category term="消息队列" scheme="https://nicksxs.me/categories/MQ/RocketMQ/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+    
+    <category term="MQ" scheme="https://nicksxs.me/tags/MQ/"/>
+    
+    <category term="消息队列" scheme="https://nicksxs.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+    <category term="RocketMQ" scheme="https://nicksxs.me/tags/RocketMQ/"/>
+    
+  </entry>
   
   <entry>
     <title>聊在东京奥运会闭幕式这天-二</title>
@@ -134,9 +167,9 @@
     
     <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
     
-    <category term="应用" scheme="https://nicksxs.me/tags/%E5%BA%94%E7%94%A8/"/>
-    
     <category term="淘汰策略" scheme="https://nicksxs.me/tags/%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/"/>
+    
+    <category term="应用" scheme="https://nicksxs.me/tags/%E5%BA%94%E7%94%A8/"/>
     
     <category term="Evict" scheme="https://nicksxs.me/tags/Evict/"/>
     
@@ -165,9 +198,9 @@
     
     <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
     
-    <category term="过期策略" scheme="https://nicksxs.me/tags/%E8%BF%87%E6%9C%9F%E7%AD%96%E7%95%A5/"/>
-    
     <category term="应用" scheme="https://nicksxs.me/tags/%E5%BA%94%E7%94%A8/"/>
+    
+    <category term="过期策略" scheme="https://nicksxs.me/tags/%E8%BF%87%E6%9C%9F%E7%AD%96%E7%95%A5/"/>
     
   </entry>
   
@@ -699,55 +732,6 @@
     <category term="可变引用" scheme="https://nicksxs.me/tags/%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/"/>
     
     <category term="不可变引用" scheme="https://nicksxs.me/tags/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊厦门旅游的好与不好</title>
-    <link href="https://nicksxs.me/2021/04/11/%E8%81%8A%E8%81%8A%E5%8E%A6%E9%97%A8%E6%97%85%E6%B8%B8%E7%9A%84%E5%A5%BD%E4%B8%8E%E4%B8%8D%E5%A5%BD/"/>
-    <id>https://nicksxs.me/2021/04/11/%E8%81%8A%E8%81%8A%E5%8E%A6%E9%97%A8%E6%97%85%E6%B8%B8%E7%9A%84%E5%A5%BD%E4%B8%8E%E4%B8%8D%E5%A5%BD/</id>
-    <published>2021-04-11T15:38:07.000Z</published>
-    <updated>2021-04-11T15:38:07.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这几天去了趟厦门，原来几年前就想去了，本来都请好假了，后面因为一些事情没去成，这次刚好公司组织，就跟 LD</summary>
-        
-      
-    
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    <category term="旅游" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E6%97%85%E6%B8%B8/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-    <category term="杭州" scheme="https://nicksxs.me/tags/%E6%9D%AD%E5%B7%9E/"/>
-    
-    <category term="旅游" scheme="https://nicksxs.me/tags/%E6%97%85%E6%B8%B8/"/>
-    
-    <category term="厦门" scheme="https://nicksxs.me/tags/%E5%8E%A6%E9%97%A8/"/>
-    
-    <category term="中山路" scheme="https://nicksxs.me/tags/%E4%B8%AD%E5%B1%B1%E8%B7%AF/"/>
-    
-    <category term="局口街" scheme="https://nicksxs.me/tags/%E5%B1%80%E5%8F%A3%E8%A1%97/"/>
-    
-    <category term="鼓浪屿" scheme="https://nicksxs.me/tags/%E9%BC%93%E6%B5%AA%E5%B1%BF/"/>
-    
-    <category term="曾厝垵" scheme="https://nicksxs.me/tags/%E6%9B%BE%E5%8E%9D%E5%9E%B5/"/>
-    
-    <category term="植物园" scheme="https://nicksxs.me/tags/%E6%A4%8D%E7%89%A9%E5%9B%AD/"/>
-    
-    <category term="马戏团" scheme="https://nicksxs.me/tags/%E9%A9%AC%E6%88%8F%E5%9B%A2/"/>
-    
-    <category term="沙茶面" scheme="https://nicksxs.me/tags/%E6%B2%99%E8%8C%B6%E9%9D%A2/"/>
-    
-    <category term="海蛎煎" scheme="https://nicksxs.me/tags/%E6%B5%B7%E8%9B%8E%E7%85%8E/"/>
     
   </entry>
   
