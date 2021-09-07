@@ -120,4 +120,5 @@
 {"title":"redis 的 rdb 和 COW 介绍","url":"/2021/08/15/redis-的-rdb-和-COW-介绍/"},
 {"title":"聊在东京奥运会闭幕式这天-二","url":"/2021/08/19/聊在东京奥运会闭幕式这天-二/"},
 {"title":"聊一下 RocketMQ 的顺序消息","url":"/2021/08/29/聊一下-RocketMQ-的顺序消息/"},
+{"title":"聊一下 RocketMQ 的消息存储之 MMAP","url":"/2021/09/04/聊一下-RocketMQ-的消息存储/"},
 ]
