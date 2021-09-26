@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2021-09-19T14:56:31.000Z</updated>
+  <updated>2021-09-26T09:41:49.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊一下 SpringBoot 中动态切换数据源的方法</title>
+    <link href="https://nicksxs.me/2021/09/26/%E8%81%8A%E4%B8%80%E4%B8%8B-SpringBoot-%E4%B8%AD%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E6%95%B0%E6%8D%AE%E6%BA%90%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+    <id>https://nicksxs.me/2021/09/26/%E8%81%8A%E4%B8%80%E4%B8%8B-SpringBoot-%E4%B8%AD%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E6%95%B0%E6%8D%AE%E6%BA%90%E7%9A%84%E6%96%B9%E6%B3%95/</id>
+    <published>2021-09-26T09:41:49.000Z</published>
+    <updated>2021-09-26T09:41:49.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;其实这个表示有点不太对，应该是 Druid 动态切换数据源的方法，只是应用在了 springboot 框架中，准备代码准备了半天，之前在一次数据库迁移中使用了，发现 Druid</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
+    
+    <category term="Spring" scheme="https://nicksxs.me/tags/Spring/"/>
+    
+    <category term="Druid" scheme="https://nicksxs.me/tags/Druid/"/>
+    
+    <category term="数据源动态切换" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E6%BA%90%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2/"/>
+    
+  </entry>
   
   <entry>
     <title>聊一下 SpringBoot 中使用的 cglib 作为动态代理中的一个注意点</title>
@@ -694,39 +729,6 @@
     <category term="不可变引用" scheme="https://nicksxs.me/tags/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/"/>
     
     <category term="切片" scheme="https://nicksxs.me/tags/%E5%88%87%E7%89%87/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊给亲戚朋友的老电脑重装系统那些事儿</title>
-    <link href="https://nicksxs.me/2021/05/09/%E8%81%8A%E8%81%8A%E7%BB%99%E4%BA%B2%E6%88%9A%E6%9C%8B%E5%8F%8B%E7%9A%84%E8%80%81%E7%94%B5%E8%84%91%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/"/>
-    <id>https://nicksxs.me/2021/05/09/%E8%81%8A%E8%81%8A%E7%BB%99%E4%BA%B2%E6%88%9A%E6%9C%8B%E5%8F%8B%E7%9A%84%E8%80%81%E7%94%B5%E8%84%91%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/</id>
-    <published>2021-05-09T14:19:51.000Z</published>
-    <updated>2021-05-09T14:19:51.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前面这个五一回去之前，LD 姐姐跟我说电脑很卡了，想让我重装系统，问了下 LD 可能是那个 09 年买的笔记本，想想有点害怕[捂脸]，前年有一次好像让我帮忙装了她同事的一个三星的笔记本，本着一些系统洁癖，所以就从开始找纯净版的 win7 家庭版，因为之前那些本基本都自带</summary>
-        
-      
-    
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-    <category term="装电脑" scheme="https://nicksxs.me/tags/%E8%A3%85%E7%94%B5%E8%84%91/"/>
-    
-    <category term="老电脑" scheme="https://nicksxs.me/tags/%E8%80%81%E7%94%B5%E8%84%91/"/>
-    
-    <category term="360 全家桶" scheme="https://nicksxs.me/tags/360-%E5%85%A8%E5%AE%B6%E6%A1%B6/"/>
-    
-    <category term="修电脑的" scheme="https://nicksxs.me/tags/%E4%BF%AE%E7%94%B5%E8%84%91%E7%9A%84/"/>
     
   </entry>
   
