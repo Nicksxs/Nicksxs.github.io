@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2021-09-26T09:41:49.000Z</updated>
+  <updated>2021-10-03T12:17:37.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊一下 RocketMQ 的消息存储三</title>
+    <link href="https://nicksxs.me/2021/10/03/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8%E4%B8%89/"/>
+    <id>https://nicksxs.me/2021/10/03/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8%E4%B8%89/</id>
+    <published>2021-10-03T12:17:37.000Z</published>
+    <updated>2021-10-03T12:17:37.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;ConsumeQueue 其实是定位到一个 topic 下的消息在 CommitLog 下的偏移量，它也是固定大小的&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-java&quot; data-language=&quot;java&quot;&gt;&lt;code</summary>
+        
+      
+    
+    
+    
+    <category term="MQ" scheme="https://nicksxs.me/categories/MQ/"/>
+    
+    <category term="RocketMQ" scheme="https://nicksxs.me/categories/MQ/RocketMQ/"/>
+    
+    <category term="消息队列" scheme="https://nicksxs.me/categories/MQ/RocketMQ/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+    
+    <category term="MQ" scheme="https://nicksxs.me/tags/MQ/"/>
+    
+    <category term="消息队列" scheme="https://nicksxs.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+    <category term="RocketMQ" scheme="https://nicksxs.me/tags/RocketMQ/"/>
+    
+  </entry>
   
   <entry>
     <title>聊一下 SpringBoot 中动态切换数据源的方法</title>
@@ -689,46 +723,6 @@
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
     <category term="Lowest Common Ancestor of a Binary Tree" scheme="https://nicksxs.me/tags/Lowest-Common-Ancestor-of-a-Binary-Tree/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>rust学习笔记-所有权三之切片</title>
-    <link href="https://nicksxs.me/2021/05/16/rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%89%80%E6%9C%89%E6%9D%83%E4%B8%89%E4%B9%8B%E5%88%87%E7%89%87/"/>
-    <id>https://nicksxs.me/2021/05/16/rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%89%80%E6%9C%89%E6%9D%83%E4%B8%89%E4%B9%8B%E5%88%87%E7%89%87/</id>
-    <published>2021-05-16T12:19:00.000Z</published>
-    <updated>2021-05-16T12:19:00.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;除了引用，Rust 还有另外一种不持有所有权的数据类型：切片(slice)。切片允许我们引用集合中某一段连续的元素序列，而不是整个集合。&lt;br&gt;例如代码&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-rust&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="语言" scheme="https://nicksxs.me/categories/%E8%AF%AD%E8%A8%80/"/>
-    
-    <category term="Rust" scheme="https://nicksxs.me/categories/%E8%AF%AD%E8%A8%80/Rust/"/>
-    
-    
-    <category term="Rust" scheme="https://nicksxs.me/tags/Rust/"/>
-    
-    <category term="所有权" scheme="https://nicksxs.me/tags/%E6%89%80%E6%9C%89%E6%9D%83/"/>
-    
-    <category term="内存分布" scheme="https://nicksxs.me/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/"/>
-    
-    <category term="新语言" scheme="https://nicksxs.me/tags/%E6%96%B0%E8%AF%AD%E8%A8%80/"/>
-    
-    <category term="可变引用" scheme="https://nicksxs.me/tags/%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/"/>
-    
-    <category term="不可变引用" scheme="https://nicksxs.me/tags/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8/"/>
-    
-    <category term="切片" scheme="https://nicksxs.me/tags/%E5%88%87%E7%89%87/"/>
     
   </entry>
   
