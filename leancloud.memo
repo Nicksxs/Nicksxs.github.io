@@ -124,4 +124,5 @@
 {"title":"聊一下 RocketMQ 的消息存储二","url":"/2021/09/12/聊一下-RocketMQ-的消息存储二/"},
 {"title":"聊一下 SpringBoot 中使用的 cglib 作为动态代理中的一个注意点","url":"/2021/09/19/聊一下-SpringBoot-中使用的-cglib-作为动态代理中的一个注意点/"},
 {"title":"聊一下 SpringBoot 中动态切换数据源的方法","url":"/2021/09/26/聊一下-SpringBoot-中动态切换数据源的方法/"},
+{"title":"聊一下 RocketMQ 的消息存储三","url":"/2021/10/03/聊一下-RocketMQ-的消息存储三/"},
 ]
