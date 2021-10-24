@@ -117,6 +117,52 @@
       </tags>
   </entry>
   <entry>
+    <title>34_Search_for_a_Range</title>
+    <url>/2016/08/14/34-Search-for-a-Range/</url>
+    <content><![CDATA[<h2 id="question"><a href="#question" class="headerlink" title="question"></a>question</h2><h3 id="34-Search-for-a-Range"><a href="#34-Search-for-a-Range" class="headerlink" title="34. Search for a Range"></a>34. Search for a Range</h3><p><a href="https://leetcode.com/problems/search-for-a-range/">Original Page</a></p>
+<p>Given a sorted array of integers, find the starting and ending position of a given target value.</p>
+<p>Your algorithm’s runtime complexity must be in the order of <em>O</em>(log <em>n</em>).</p>
+<p>If the target is not found in the array, return <code>[-1, -1]</code>.</p>
+<p>For example,<br>Given <code>[5, 7, 7, 8, 8, 10]</code> and target value 8,<br>return <code>[3, 4]</code>.</p>
+<h2 id="analysis"><a href="#analysis" class="headerlink" title="analysis"></a>analysis</h2><p>一开始就想到了二分查找，但是原来做二分查找的时候一般都是找到确定的那个数就完成了，<br>这里的情况比较特殊，需要找到整个区间，所以需要两遍查找，并且一个是找到小于target<br>的最大索引，一个是找到大于target的最大索引，代码参考<a href="https://discuss.leetcode.com/topic/5891/clean-iterative-solution-with-two-binary-searches-with-explanation/2">leetcode discuss</a>,这位仁<br>兄也做了详细的分析解释。  </p>
+<h2 id="code"><a href="#code" class="headerlink" title="code"></a>code</h2><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    vector&lt;int&gt; searchRange(vector&lt;int&gt;&amp; nums, int target) &#123;
+        vector&lt;int&gt; ret(2, -1);
+        int i &#x3D; 0, j &#x3D; nums.size() - 1;
+        int mid;
+        while(i &lt; j)&#123;
+            mid &#x3D; (i + j) &#x2F; 2;
+            if(nums[mid] &lt; target) i &#x3D; mid + 1;
+            else j &#x3D; mid;
+        &#125;
+        if(nums[i] !&#x3D; target) return ret;
+        else &#123;
+            ret[0] &#x3D; i;
+            if((i+1) &lt; (nums.size() - 1) &amp;&amp; nums[i+1] &gt; target)&#123;
+                ret[1] &#x3D; i;
+                return ret;
+            &#125;
+        &#125;   &#x2F;&#x2F;一点小优化
+        j &#x3D; nums.size() - 1;
+        while(i &lt; j)&#123;
+            mid &#x3D; (i + j) &#x2F; 2 + 1;
+            if(nums[mid] &gt; target) j &#x3D; mid - 1;
+            else i &#x3D; mid;
+        &#125;
+        ret[1] &#x3D; j;
+        return ret;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>c++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AQS篇一</title>
     <url>/2021/02/14/AQS%E7%AF%87%E4%B8%80/</url>
     <content><![CDATA[<p>很多东西都是时看时新，而且时间长了也会忘，所以再来复习下，也会有一些新的角度看法这次来聊下AQS的内容，主要是这几个点，</p>
@@ -342,52 +388,6 @@
         <tag>并发</tag>
         <tag>j.u.c</tag>
         <tag>aqs</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>34_Search_for_a_Range</title>
-    <url>/2016/08/14/34-Search-for-a-Range/</url>
-    <content><![CDATA[<h2 id="question"><a href="#question" class="headerlink" title="question"></a>question</h2><h3 id="34-Search-for-a-Range"><a href="#34-Search-for-a-Range" class="headerlink" title="34. Search for a Range"></a>34. Search for a Range</h3><p><a href="https://leetcode.com/problems/search-for-a-range/">Original Page</a></p>
-<p>Given a sorted array of integers, find the starting and ending position of a given target value.</p>
-<p>Your algorithm’s runtime complexity must be in the order of <em>O</em>(log <em>n</em>).</p>
-<p>If the target is not found in the array, return <code>[-1, -1]</code>.</p>
-<p>For example,<br>Given <code>[5, 7, 7, 8, 8, 10]</code> and target value 8,<br>return <code>[3, 4]</code>.</p>
-<h2 id="analysis"><a href="#analysis" class="headerlink" title="analysis"></a>analysis</h2><p>一开始就想到了二分查找，但是原来做二分查找的时候一般都是找到确定的那个数就完成了，<br>这里的情况比较特殊，需要找到整个区间，所以需要两遍查找，并且一个是找到小于target<br>的最大索引，一个是找到大于target的最大索引，代码参考<a href="https://discuss.leetcode.com/topic/5891/clean-iterative-solution-with-two-binary-searches-with-explanation/2">leetcode discuss</a>,这位仁<br>兄也做了详细的分析解释。  </p>
-<h2 id="code"><a href="#code" class="headerlink" title="code"></a>code</h2><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
-public:
-    vector&lt;int&gt; searchRange(vector&lt;int&gt;&amp; nums, int target) &#123;
-        vector&lt;int&gt; ret(2, -1);
-        int i &#x3D; 0, j &#x3D; nums.size() - 1;
-        int mid;
-        while(i &lt; j)&#123;
-            mid &#x3D; (i + j) &#x2F; 2;
-            if(nums[mid] &lt; target) i &#x3D; mid + 1;
-            else j &#x3D; mid;
-        &#125;
-        if(nums[i] !&#x3D; target) return ret;
-        else &#123;
-            ret[0] &#x3D; i;
-            if((i+1) &lt; (nums.size() - 1) &amp;&amp; nums[i+1] &gt; target)&#123;
-                ret[1] &#x3D; i;
-                return ret;
-            &#125;
-        &#125;   &#x2F;&#x2F;一点小优化
-        j &#x3D; nums.size() - 1;
-        while(i &lt; j)&#123;
-            mid &#x3D; (i + j) &#x2F; 2 + 1;
-            if(nums[mid] &gt; target) j &#x3D; mid - 1;
-            else i &#x3D; mid;
-        &#125;
-        ret[1] &#x3D; j;
-        return ret;
-    &#125;
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -647,6 +647,59 @@ public:
       </tags>
   </entry>
   <entry>
+    <title>Clone Graph Part I</title>
+    <url>/2014/12/30/Clone-Graph-Part-I/</url>
+    <content><![CDATA[<h3 id="problem"><a href="#problem" class="headerlink" title="problem"></a>problem</h3><pre class="line-numbers language-none"><code class="language-none">Clone a graph. Input is a Node pointer. Return the Node pointer of the cloned graph.
+
+A graph is defined below:
+struct Node &#123;
+vector neighbors;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<span id="more"></span>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">typedef unordered_map&lt;Node *, Node *&gt; Map;
+ 
+Node *clone(Node *graph) &#123;
+    if (!graph) return NULL;
+ 
+    Map map;
+    queue&lt;Node *&gt; q;
+    q.push(graph);
+ 
+    Node *graphCopy &#x3D; new Node();
+    map[graph] &#x3D; graphCopy;
+ 
+    while (!q.empty()) &#123;
+        Node *node &#x3D; q.front();
+        q.pop();
+        int n &#x3D; node-&gt;neighbors.size();
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            Node *neighbor &#x3D; node-&gt;neighbors[i];
+            &#x2F;&#x2F; no copy exists
+            if (map.find(neighbor) &#x3D;&#x3D; map.end()) &#123;
+                Node *p &#x3D; new Node();
+                map[node]-&gt;neighbors.push_back(p);
+                map[neighbor] &#x3D; p;
+                q.push(neighbor);
+            &#125; else &#123;     &#x2F;&#x2F; a copy already exists
+                map[node]-&gt;neighbors.push_back(map[neighbor]);
+            &#125;
+        &#125;
+    &#125;
+ 
+    return graphCopy;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="anlysis"><a href="#anlysis" class="headerlink" title="anlysis"></a>anlysis</h3><p>using the Breadth-first traversal<br>and use a map to save the neighbors not to be duplicated.</p>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Comparator使用小记</title>
     <url>/2020/04/05/Comparator%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0/</url>
     <content><![CDATA[<p>在Java8的stream之前，将对象进行排序的时候，可能需要对象实现Comparable接口，或者自己实现一个Comparator，</p>
@@ -745,59 +798,6 @@ public:
         <tag>排序</tag>
         <tag>sort</tag>
         <tag>nullsfirst</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Clone Graph Part I</title>
-    <url>/2014/12/30/Clone-Graph-Part-I/</url>
-    <content><![CDATA[<h3 id="problem"><a href="#problem" class="headerlink" title="problem"></a>problem</h3><pre class="line-numbers language-none"><code class="language-none">Clone a graph. Input is a Node pointer. Return the Node pointer of the cloned graph.
-
-A graph is defined below:
-struct Node &#123;
-vector neighbors;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<span id="more"></span>
-<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">typedef unordered_map&lt;Node *, Node *&gt; Map;
- 
-Node *clone(Node *graph) &#123;
-    if (!graph) return NULL;
- 
-    Map map;
-    queue&lt;Node *&gt; q;
-    q.push(graph);
- 
-    Node *graphCopy &#x3D; new Node();
-    map[graph] &#x3D; graphCopy;
- 
-    while (!q.empty()) &#123;
-        Node *node &#x3D; q.front();
-        q.pop();
-        int n &#x3D; node-&gt;neighbors.size();
-        for (int i &#x3D; 0; i &lt; n; i++) &#123;
-            Node *neighbor &#x3D; node-&gt;neighbors[i];
-            &#x2F;&#x2F; no copy exists
-            if (map.find(neighbor) &#x3D;&#x3D; map.end()) &#123;
-                Node *p &#x3D; new Node();
-                map[node]-&gt;neighbors.push_back(p);
-                map[neighbor] &#x3D; p;
-                q.push(neighbor);
-            &#125; else &#123;     &#x2F;&#x2F; a copy already exists
-                map[node]-&gt;neighbors.push_back(map[neighbor]);
-            &#125;
-        &#125;
-    &#125;
- 
-    return graphCopy;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="anlysis"><a href="#anlysis" class="headerlink" title="anlysis"></a>anlysis</h3><p>using the Breadth-first traversal<br>and use a map to save the neighbors not to be duplicated.</p>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1332,62 +1332,6 @@ Input Explanation: The intersected node&#39;s value is 8 (note that this must no
       </tags>
   </entry>
   <entry>
-    <title>Leetcode 234 回文链表(Palindrome Linked List) 题解分析</title>
-    <url>/2020/11/15/Leetcode-234-%E5%9B%9E%E6%96%87%E8%81%94%E8%A1%A8-Palindrome-Linked-List-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h2 id="题目介绍"><a href="#题目介绍" class="headerlink" title="题目介绍"></a>题目介绍</h2><p>Given a singly linked list, determine if it is a palindrome.<br>给定一个单向链表，判断是否是回文链表</p>
-<h3 id="例一-Example-1"><a href="#例一-Example-1" class="headerlink" title="例一 Example 1:"></a>例一 Example 1:</h3><p>Input: 1-&gt;2<br>Output: false</p>
-<h3 id="例二-Example-2"><a href="#例二-Example-2" class="headerlink" title="例二 Example 2:"></a>例二 Example 2:</h3><p>Input: 1-&gt;2-&gt;2-&gt;1<br>Output: true</p>
-<h3 id="挑战下自己"><a href="#挑战下自己" class="headerlink" title="挑战下自己"></a>挑战下自己</h3><p>Follow up:<br>Could you do it in O(n) time and O(1) space?</p>
-<h2 id="简要分析"><a href="#简要分析" class="headerlink" title="简要分析"></a>简要分析</h2><p>首先这是个单向链表，如果是双向的就可以一个从头到尾，一个从尾到头，显然那样就没啥意思了，然后想过要不找到中点，然后用一个栈，把前一半塞进栈里，但是这种其实也比较麻烦，比如长度是奇偶数，然后如何找到中点，这倒是可以借助于双指针，还是比较麻烦，再想一想，回文链表，就跟最开始的一样，链表只有单向的，我用个栈不就可以逆向了么，先把链表整个塞进栈里，然后在一个个 pop 出来跟链表从头开始比较，全对上了就是回文了</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
- * Definition for singly-linked list.
- * public class ListNode &#123;
- *     int val;
- *     ListNode next;
- *     ListNode() &#123;&#125;
- *     ListNode(int val) &#123; this.val = val; &#125;
- *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;
- * &#125;
- */</span>
-<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span><span class="token class-name">ListNode</span> head<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token class-name">ListNode</span> tail <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        <span class="token class-name">LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// 这里就是一个循环，将所有元素依次压入栈</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>tail <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tail<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            tail <span class="token operator">=</span> tail<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token comment">// 在逐个 pop 出来，其实这个出来的顺序就等于链表从尾到头遍历，同时跟链表从头到尾遍历进行逐对对比</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>stack<span class="token punctuation">.</span><span class="token function">peekFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> head<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                stack<span class="token punctuation">.</span><span class="token function">pollFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                head <span class="token operator">=</span> head<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      <categories>
-        <category>Java</category>
-        <category>leetcode</category>
-        <category>Linked List</category>
-        <category>java</category>
-        <category>Linked List</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>java</tag>
-        <tag>题解</tag>
-        <tag>Linked List</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Leetcode 2 Add Two Numbers 题解分析</title>
     <url>/2020/10/11/Leetcode-2-Add-Two-Numbers-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p>又 roll 到了一个以前做过的题，不过现在用 Java 也来写一下，是 easy 级别的，所以就简单说下</p>
@@ -1446,6 +1390,62 @@ Output: [8,9,9,9,0,0,0,1]<span aria-hidden="true" class="line-numbers-rows"><spa
         <tag>java</tag>
         <tag>题解</tag>
         <tag>linked list</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Leetcode 234 回文链表(Palindrome Linked List) 题解分析</title>
+    <url>/2020/11/15/Leetcode-234-%E5%9B%9E%E6%96%87%E8%81%94%E8%A1%A8-Palindrome-Linked-List-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h2 id="题目介绍"><a href="#题目介绍" class="headerlink" title="题目介绍"></a>题目介绍</h2><p>Given a singly linked list, determine if it is a palindrome.<br>给定一个单向链表，判断是否是回文链表</p>
+<h3 id="例一-Example-1"><a href="#例一-Example-1" class="headerlink" title="例一 Example 1:"></a>例一 Example 1:</h3><p>Input: 1-&gt;2<br>Output: false</p>
+<h3 id="例二-Example-2"><a href="#例二-Example-2" class="headerlink" title="例二 Example 2:"></a>例二 Example 2:</h3><p>Input: 1-&gt;2-&gt;2-&gt;1<br>Output: true</p>
+<h3 id="挑战下自己"><a href="#挑战下自己" class="headerlink" title="挑战下自己"></a>挑战下自己</h3><p>Follow up:<br>Could you do it in O(n) time and O(1) space?</p>
+<h2 id="简要分析"><a href="#简要分析" class="headerlink" title="简要分析"></a>简要分析</h2><p>首先这是个单向链表，如果是双向的就可以一个从头到尾，一个从尾到头，显然那样就没啥意思了，然后想过要不找到中点，然后用一个栈，把前一半塞进栈里，但是这种其实也比较麻烦，比如长度是奇偶数，然后如何找到中点，这倒是可以借助于双指针，还是比较麻烦，再想一想，回文链表，就跟最开始的一样，链表只有单向的，我用个栈不就可以逆向了么，先把链表整个塞进栈里，然后在一个个 pop 出来跟链表从头开始比较，全对上了就是回文了</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * Definition for singly-linked list.
+ * public class ListNode &#123;
+ *     int val;
+ *     ListNode next;
+ *     ListNode() &#123;&#125;
+ *     ListNode(int val) &#123; this.val = val; &#125;
+ *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;
+ * &#125;
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span><span class="token class-name">ListNode</span> head<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token class-name">ListNode</span> tail <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        <span class="token class-name">LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 这里就是一个循环，将所有元素依次压入栈</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>tail <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tail<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            tail <span class="token operator">=</span> tail<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 在逐个 pop 出来，其实这个出来的顺序就等于链表从尾到头遍历，同时跟链表从头到尾遍历进行逐对对比</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>stack<span class="token punctuation">.</span><span class="token function">peekFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> head<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                stack<span class="token punctuation">.</span><span class="token function">pollFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                head <span class="token operator">=</span> head<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      <categories>
+        <category>Java</category>
+        <category>leetcode</category>
+        <category>Linked List</category>
+        <category>java</category>
+        <category>Linked List</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>java</tag>
+        <tag>题解</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
   <entry>
@@ -1698,34 +1698,6 @@ maxR<span class="token punctuation">[</span>n <span class="token operator">-</sp
       </tags>
   </entry>
   <entry>
-    <title>leetcode no.3</title>
-    <url>/2015/04/15/Leetcode-No-3/</url>
-    <content><![CDATA[<p>**Longest Substring Without Repeating Characters **</p>
-<span id="more"></span>
-<h3 id="description"><a href="#description" class="headerlink" title="description"></a>description</h3><p>Given a string, find the length of the longest substring without repeating characters.<br>For example, the longest substring without repeating letters for “abcabcbb” is “abc”,<br>which the length is 3. For “bbbbb” the longest substring is “b”, with the length of 1.  </p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p><a href="http://www.cnblogs.com/dollarzhaole/p/3155712.html">源码</a>这次是参考了这个代码，<br>tail 表示的当前子串的起始点位置，tail从-1开始就包括的串的长度是1的边界。其实我<br>也是猜的（逃</p>
-<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">int ct[256];
-    memset(ct, -1, sizeof(ct));
-	int tail &#x3D; -1;
-	int max &#x3D; 0;
-	for (int i &#x3D; 0; i &lt; s.size(); i++)&#123;
-		if (ct[s[i]] &gt; tail)
-			tail &#x3D; ct[s[i]];
-		if (i - tail &gt; max)
-			max &#x3D; i - tail;
-		ct[s[i]] &#x3D; i;
-	&#125;
-	return max;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>c++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux 下 grep 命令的一点小技巧</title>
     <url>/2020/08/06/Linux-%E4%B8%8B-grep-%E5%91%BD%E4%BB%A4%E7%9A%84%E4%B8%80%E7%82%B9%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
     <content><![CDATA[<p>用了比较久的 grep 命令，其实都只是用了最最基本的功能来查日志，</p>
@@ -1778,6 +1750,34 @@ grep &#39;\&quot;userId\&quot;:\&quot;123456\&quot;&#39; xxxx.log
       <tags>
         <tag>c++</tag>
         <tag>mfc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode no.3</title>
+    <url>/2015/04/15/Leetcode-No-3/</url>
+    <content><![CDATA[<p>**Longest Substring Without Repeating Characters **</p>
+<span id="more"></span>
+<h3 id="description"><a href="#description" class="headerlink" title="description"></a>description</h3><p>Given a string, find the length of the longest substring without repeating characters.<br>For example, the longest substring without repeating letters for “abcabcbb” is “abc”,<br>which the length is 3. For “bbbbb” the longest substring is “b”, with the length of 1.  </p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p><a href="http://www.cnblogs.com/dollarzhaole/p/3155712.html">源码</a>这次是参考了这个代码，<br>tail 表示的当前子串的起始点位置，tail从-1开始就包括的串的长度是1的边界。其实我<br>也是猜的（逃</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">int ct[256];
+    memset(ct, -1, sizeof(ct));
+	int tail &#x3D; -1;
+	int max &#x3D; 0;
+	for (int i &#x3D; 0; i &lt; s.size(); i++)&#123;
+		if (ct[s[i]] &gt; tail)
+			tail &#x3D; ct[s[i]];
+		if (i - tail &gt; max)
+			max &#x3D; i - tail;
+		ct[s[i]] &#x3D; i;
+	&#125;
+	return max;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -2206,42 +2206,6 @@ master_port&#x3D;3306;                    &#x2F;&#x2F;如果是同一宿主机�
       </tags>
   </entry>
   <entry>
-    <title>docker比一般多一点的初学者介绍三</title>
-    <url>/2020/03/21/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%B8%89/</url>
-    <content><![CDATA[<h2 id="运行第一个-Dockerfile"><a href="#运行第一个-Dockerfile" class="headerlink" title="运行第一个 Dockerfile"></a>运行第一个 Dockerfile</h2><p>上一篇的 Dockerfile 我们停留在构建阶段，现在来把它跑起来</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker run -d -p 80 --name static_web nicksxs&#x2F;static_web \
-nginx -g &quot;daemon off;&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>这里的<code>-d</code>表示以分离模型运行docker (detached),然后-p 是表示将容器的 80 端口开放给宿主机，然后容器名就叫 static_web,使用了我们上次构建的 static_web 镜像，后面的是让 nginx 在前台运行<br><img data-src="https://i.loli.net/2020/03/21/VCEuf5BTopXNkcA.png"><br>可以看到返回了个容器 id，但是具体情况没出现，也没连上去，那我们想看看怎么访问在 Dockerfile 里写的静态页面，我们来看下docker 进程<br><img data-src="https://i.loli.net/2020/03/21/Cx1JYGBrHRqojpz.png"><br>发现为我们随机分配了一个宿主机的端口，32768，去服务器的防火墙把这个外网端口开一下，看看是不是符合我们的预期呢<br><img data-src="https://i.loli.net/2020/03/21/xhAcQlX5iP9KnYB.png"><br>好像不太对额，应该是 ubuntu 安装的 nginx 的默认工作目录不对，我们来进容器看看，再熟悉下命令<code>docker exec -it 4792455ca2ed /bin/bash</code><br>记得容器 id 换成自己的，进入容器后得找找 nginx 的配置文件，通常在<code>/etc/nginx</code>,<code>/usr/local/etc</code>等目录下，然后找到我们的目录是在这<br><img data-src="https://i.loli.net/2020/03/21/wE8TfkbC2d9pNuv.png"><br>所以把刚才的内容复制过去再试试<br><img data-src="https://i.loli.net/2020/03/21/qNkpHn3GW8aiwIr.png"><br>目标达成，give me five✌️</p>
-<h2 id="第二个-Dockerfile"><a href="#第二个-Dockerfile" class="headerlink" title="第二个 Dockerfile"></a>第二个 Dockerfile</h2><p>然后就想来动态一点的，毕竟写过 PHP，就来试试 PHP<br>再建一个目录叫 dynamic_web，里面创建 src 目录，放一个 index.php<br>内容是</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
-<span class="token keyword">echo</span> <span class="token string double-quoted-string">"Hello World!"</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>然后在 dynamic_web 目录下创建 Dockerfile，</p>
-<pre class="line-numbers language-Dockerfile" data-language="Dockerfile"><code class="language-Dockerfile">FROM trafex&#x2F;alpine-nginx-php7:latest
-COPY src&#x2F; &#x2F;var&#x2F;www&#x2F;html
-EXPOSE 80<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>Dockerfile 虽然只有三行，不过要着重说明下，这个底包其实不是docker 官方的，有两点考虑，一点是官方的基本都是 php apache 的镜像，还有就是 alpine这个，截取一段中文介绍</p>
-<blockquote>
-<p>Alpine 操作系统是一个面向安全的轻型 Linux 发行版。它不同于通常 Linux 发行版，Alpine 采用了 musl libc 和 busybox 以减小系统的体积和运行时资源消耗，但功能上比 busybox 又完善的多，因此得到开源社区越来越多的青睐。在保持瘦身的同时，Alpine 还提供了自己的包管理工具 apk，可以通过 <a href="https://pkgs.alpinelinux.org/packages">https://pkgs.alpinelinux.org/packages</a> 网站上查询包信息，也可以直接通过 apk 命令直接查询和安装各种软件。<br>Alpine 由非商业组织维护的，支持广泛场景的 Linux发行版，它特别为资深/重度Linux用户而优化，关注安全，性能和资源效能。Alpine 镜像可以适用于更多常用场景，并且是一个优秀的可以适用于生产的基础系统/环境。</p>
-</blockquote>
-<blockquote>
-<p>Alpine Docker 镜像也继承了 Alpine Linux 发行版的这些优势。相比于其他 Docker 镜像，它的容量非常小，仅仅只有 5 MB 左右（对比 Ubuntu 系列镜像接近 200 MB），且拥有非常友好的包管理机制。官方镜像来自 docker-alpine 项目。</p>
-</blockquote>
-<blockquote>
-<p>目前 Docker 官方已开始推荐使用 Alpine 替代之前的 Ubuntu 做为基础镜像环境。这样会带来多个好处。包括镜像下载速度加快，镜像安全性提高，主机之间的切换更方便，占用更少磁盘空间等。  </p>
-</blockquote>
-<p>一方面在没有镜像的情况下，拉取 docker 镜像还是比较费力的，第二个就是也能节省硬盘空间，所以目前有大部分的 docker 镜像都将 alpine 作为基础镜像了<br>然后再来构建下<br><img data-src="https://i.loli.net/2020/03/21/56cuKf1ObvkBSG3.png"><br>这里还有个点，就是上面的那个镜像我们也是 EXPOSE 80端口，然后外部宿主机会随机映射一个端口，为了偷个懒，我们就直接指定外部端口了<br><code>docker run -d -p 80:80 dynamic_web</code>打开浏览器发现访问不了，咋回事呢<br>因为我们没看<code>trafex/alpine-nginx-php7:latest</code>这个镜像<a href="https://hub.docker.com/r/trafex/alpine-nginx-php7">说明</a>,它内部的服务是 8080 端口的，所以我们映射的暴露端口应该是 8080，再用<code> docker run -d -p 80:8080 dynamic_web</code>这个启动，<br><img data-src="https://i.loli.net/2020/03/21/qDd2LVhz1Po4McX.png"></p>
-]]></content>
-      <categories>
-        <category>Docker</category>
-        <category>介绍</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
-        <tag>namespace</tag>
-        <tag>Dockerfile</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>docker比一般多一点的初学者介绍</title>
     <url>/2020/03/08/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D/</url>
     <content><![CDATA[<p>因为最近想搭一个phabricator用来做看板和任务管理，一开始了解这个是Easy大大有在微博推荐过，后来苏洋也在群里和博客里说到了，看上去还不错的样子，因为主角是docker所以就不介绍太多，后面有机会写一下。</p>
@@ -2295,6 +2259,42 @@ Run a command in a new container<span aria-hidden="true" class="line-numbers-row
         <tag>Docker</tag>
         <tag>namespace</tag>
         <tag>cgroup</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>docker比一般多一点的初学者介绍三</title>
+    <url>/2020/03/21/docker%E6%AF%94%E4%B8%80%E8%88%AC%E5%A4%9A%E4%B8%80%E7%82%B9%E7%9A%84%E5%88%9D%E5%AD%A6%E8%80%85%E4%BB%8B%E7%BB%8D%E4%B8%89/</url>
+    <content><![CDATA[<h2 id="运行第一个-Dockerfile"><a href="#运行第一个-Dockerfile" class="headerlink" title="运行第一个 Dockerfile"></a>运行第一个 Dockerfile</h2><p>上一篇的 Dockerfile 我们停留在构建阶段，现在来把它跑起来</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker run -d -p 80 --name static_web nicksxs&#x2F;static_web \
+nginx -g &quot;daemon off;&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这里的<code>-d</code>表示以分离模型运行docker (detached),然后-p 是表示将容器的 80 端口开放给宿主机，然后容器名就叫 static_web,使用了我们上次构建的 static_web 镜像，后面的是让 nginx 在前台运行<br><img data-src="https://i.loli.net/2020/03/21/VCEuf5BTopXNkcA.png"><br>可以看到返回了个容器 id，但是具体情况没出现，也没连上去，那我们想看看怎么访问在 Dockerfile 里写的静态页面，我们来看下docker 进程<br><img data-src="https://i.loli.net/2020/03/21/Cx1JYGBrHRqojpz.png"><br>发现为我们随机分配了一个宿主机的端口，32768，去服务器的防火墙把这个外网端口开一下，看看是不是符合我们的预期呢<br><img data-src="https://i.loli.net/2020/03/21/xhAcQlX5iP9KnYB.png"><br>好像不太对额，应该是 ubuntu 安装的 nginx 的默认工作目录不对，我们来进容器看看，再熟悉下命令<code>docker exec -it 4792455ca2ed /bin/bash</code><br>记得容器 id 换成自己的，进入容器后得找找 nginx 的配置文件，通常在<code>/etc/nginx</code>,<code>/usr/local/etc</code>等目录下，然后找到我们的目录是在这<br><img data-src="https://i.loli.net/2020/03/21/wE8TfkbC2d9pNuv.png"><br>所以把刚才的内容复制过去再试试<br><img data-src="https://i.loli.net/2020/03/21/qNkpHn3GW8aiwIr.png"><br>目标达成，give me five✌️</p>
+<h2 id="第二个-Dockerfile"><a href="#第二个-Dockerfile" class="headerlink" title="第二个 Dockerfile"></a>第二个 Dockerfile</h2><p>然后就想来动态一点的，毕竟写过 PHP，就来试试 PHP<br>再建一个目录叫 dynamic_web，里面创建 src 目录，放一个 index.php<br>内容是</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">echo</span> <span class="token string double-quoted-string">"Hello World!"</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>然后在 dynamic_web 目录下创建 Dockerfile，</p>
+<pre class="line-numbers language-Dockerfile" data-language="Dockerfile"><code class="language-Dockerfile">FROM trafex&#x2F;alpine-nginx-php7:latest
+COPY src&#x2F; &#x2F;var&#x2F;www&#x2F;html
+EXPOSE 80<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Dockerfile 虽然只有三行，不过要着重说明下，这个底包其实不是docker 官方的，有两点考虑，一点是官方的基本都是 php apache 的镜像，还有就是 alpine这个，截取一段中文介绍</p>
+<blockquote>
+<p>Alpine 操作系统是一个面向安全的轻型 Linux 发行版。它不同于通常 Linux 发行版，Alpine 采用了 musl libc 和 busybox 以减小系统的体积和运行时资源消耗，但功能上比 busybox 又完善的多，因此得到开源社区越来越多的青睐。在保持瘦身的同时，Alpine 还提供了自己的包管理工具 apk，可以通过 <a href="https://pkgs.alpinelinux.org/packages">https://pkgs.alpinelinux.org/packages</a> 网站上查询包信息，也可以直接通过 apk 命令直接查询和安装各种软件。<br>Alpine 由非商业组织维护的，支持广泛场景的 Linux发行版，它特别为资深/重度Linux用户而优化，关注安全，性能和资源效能。Alpine 镜像可以适用于更多常用场景，并且是一个优秀的可以适用于生产的基础系统/环境。</p>
+</blockquote>
+<blockquote>
+<p>Alpine Docker 镜像也继承了 Alpine Linux 发行版的这些优势。相比于其他 Docker 镜像，它的容量非常小，仅仅只有 5 MB 左右（对比 Ubuntu 系列镜像接近 200 MB），且拥有非常友好的包管理机制。官方镜像来自 docker-alpine 项目。</p>
+</blockquote>
+<blockquote>
+<p>目前 Docker 官方已开始推荐使用 Alpine 替代之前的 Ubuntu 做为基础镜像环境。这样会带来多个好处。包括镜像下载速度加快，镜像安全性提高，主机之间的切换更方便，占用更少磁盘空间等。  </p>
+</blockquote>
+<p>一方面在没有镜像的情况下，拉取 docker 镜像还是比较费力的，第二个就是也能节省硬盘空间，所以目前有大部分的 docker 镜像都将 alpine 作为基础镜像了<br>然后再来构建下<br><img data-src="https://i.loli.net/2020/03/21/56cuKf1ObvkBSG3.png"><br>这里还有个点，就是上面的那个镜像我们也是 EXPOSE 80端口，然后外部宿主机会随机映射一个端口，为了偷个懒，我们就直接指定外部端口了<br><code>docker run -d -p 80:80 dynamic_web</code>打开浏览器发现访问不了，咋回事呢<br>因为我们没看<code>trafex/alpine-nginx-php7:latest</code>这个镜像<a href="https://hub.docker.com/r/trafex/alpine-nginx-php7">说明</a>,它内部的服务是 8080 端口的，所以我们映射的暴露端口应该是 8080，再用<code> docker run -d -p 80:8080 dynamic_web</code>这个启动，<br><img data-src="https://i.loli.net/2020/03/21/qDd2LVhz1Po4McX.png"></p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+        <category>介绍</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>namespace</tag>
+        <tag>Dockerfile</tag>
       </tags>
   </entry>
   <entry>
@@ -3062,21 +3062,6 @@ Fatal error: Abstract function abst1::abstra1() cannot contain body in php on li
       </tags>
   </entry>
   <entry>
-    <title>redis 的 rdb 和 COW 介绍</title>
-    <url>/2021/08/15/redis-%E7%9A%84-rdb-%E5%92%8C-COW-%E4%BB%8B%E7%BB%8D/</url>
-    <content><![CDATA[<p>redis 在使用 rdb 策略进行备份时，rdb 的意思是会在开启备份的时候将开启时间点的内存数据进行备份，并且可以设置时间，这样子就是这个策略其实还是不完全可靠的，如果是在这个间隔中宕机了，或者间隔过长，不过这个不在这次的要说的内容中，如果自己去写这个 rdb 的策略可能就有点类似于 mvcc 的 redolog，需要知道这个时间点之前的数据是怎么样的，防止后面更改的干扰，但是这样一方面需要有比较复杂的 mvcc 实现，另一方面是很占用存储空间，所以 redis 在这里面使用了 COW (Copy On Write) 技术，这个技术呢以前听过，也大致了解是怎么个意思，这次稍微具体地来看下，其实 redis 的 copy-on-write 就是来自于 linux 的 cow</p>
-<h3 id="Linux中的CopyOnWrite"><a href="#Linux中的CopyOnWrite" class="headerlink" title="Linux中的CopyOnWrite"></a>Linux中的CopyOnWrite</h3><p>fork()之后，kernel把父进程中所有的内存页的权限都设为read-only，然后子进程的地址空间指向父进程。当父子进程都只读内存时，相安无事。当其中某个进程写内存时，CPU硬件检测到内存页是read-only的，于是触发页异常中断（page-fault），陷入kernel的一个中断例程。中断例程中，kernel就会把触发的异常的页复制一份，于是父子进程各自持有独立的一份。这个操作其实可以类比为写屏障，正常的读取是没问题的，当有写入时就会分裂。</p>
-<h3 id="CopyOnWrite的好处："><a href="#CopyOnWrite的好处：" class="headerlink" title="CopyOnWrite的好处："></a>CopyOnWrite的好处：</h3><p>1、减少分配和复制资源时带来的瞬时延迟；<br>2、减少不必要的资源分配；<br>CopyOnWrite的缺点：<br>1、如果父子进程都需要进行大量的写操作，会产生大量的分页错误（页异常中断page-fault）;</p>
-<h3 id="Redis中的CopyOnWrite"><a href="#Redis中的CopyOnWrite" class="headerlink" title="Redis中的CopyOnWrite"></a>Redis中的CopyOnWrite</h3><p>Redis在持久化时，如果是采用BGSAVE命令或者BGREWRITEAOF的方式，那Redis会fork出一个子进程来读取数据，从而写到磁盘中。<br>总体来看，Redis还是读操作比较多。如果子进程存在期间，发生了大量的写操作，那可能就会出现很多的分页错误(页异常中断page-fault)，这样就得耗费不少性能在复制上。<br>而在rehash阶段上，写操作是无法避免的。所以Redis在fork出子进程之后，将负载因子阈值提高，尽量减少写操作，避免不必要的内存写入操作，最大限度地节约内存。这里其实更巧妙了，在细节上去优化会产生大量页异常中断的情况。</p>
-]]></content>
-      <categories>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>rabbitmq-tips</title>
     <url>/2017/04/25/rabbitmq-tips/</url>
     <content><![CDATA[<h2 id="rabbitmq-介绍"><a href="#rabbitmq-介绍" class="headerlink" title="rabbitmq 介绍"></a>rabbitmq 介绍</h2><p>接触了一下rabbitmq，原来在选型的时候是在rabbitmq跟kafka之间做选择，网上搜了一下之后发现kafka的优势在于吞吐量，而rabbitmq相对注重可靠性，因为应用在im上，需要保证消息不能丢失所以就暂时选定rabbitmq，<br>Message Queue的需求由来已久，80年代最早在金融交易中，高盛等公司采用Teknekron公司的产品，当时的Message queuing软件叫做：the information bus（TIB）。 TIB被电信和通讯公司采用，路透社收购了Teknekron公司。之后，IBM开发了MQSeries，微软开发了Microsoft Message Queue（MSMQ）。这些商业MQ供应商的问题是厂商锁定，价格高昂。2001年，Java Message queuing试图解决锁定和交互性的问题，但对应用来说反而更加麻烦了。<br>RabbitMQ采用Erlang语言开发。Erlang语言由Ericson设计，专门为开发concurrent和distribution系统的一种语言，在电信领域使用广泛。OTP（Open Telecom Platform）作为Erlang语言的一部分，包含了很多基于Erlang开发的中间件／库／工具，如mnesia／SASL，极大方便了Erlang应用的开发。OTP就类似于Python语言中众多的module，用户借助这些module可以很方便的开发应用。<br>于是2004年，摩根大通和iMatrix开始着手<a href="https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol">Advanced Message Queuing Protocol （AMQP）</a>开放标准的开发。2006年，AMQP规范发布。2007年，Rabbit技术公司基于AMQP标准开发的RabbitMQ 1.0 发布。所有主要的编程语言均有与代理接口通讯的客户端库。</p>
@@ -3108,44 +3093,18 @@ Starting node rabbit@rabbit2 ...done.<span aria-hidden="true" class="line-number
       </tags>
   </entry>
   <entry>
-    <title>redis数据结构介绍三-第三部分 整数集合</title>
-    <url>/2020/01/10/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%B8%89/</url>
-    <content><![CDATA[<p>redis中对于 set 其实有两种处理，对于元素均为整型，并且元素数目较少时，使用 intset 作为底层数据结构，否则使用 dict 作为底层数据结构，先看一下代码先</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">typedef struct intset &#123;
-    &#x2F;&#x2F; 编码方式
-    uint32_t encoding;
-    &#x2F;&#x2F; 集合包含的元素数量
-    uint32_t length;
-    &#x2F;&#x2F; 保存元素的数组
-    int8_t contents[];
-&#125; intset;
-
-&#x2F;* Note that these encodings are ordered, so:
- * INTSET_ENC_INT16 &lt; INTSET_ENC_INT32 &lt; INTSET_ENC_INT64. *&#x2F;
-#define INTSET_ENC_INT16 (sizeof(int16_t))
-#define INTSET_ENC_INT32 (sizeof(int32_t))
-#define INTSET_ENC_INT64 (sizeof(int64_t))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>一眼看，为啥整型还需要编码，然后 int8_t 怎么能存下大整形呢，带着这些疑问，我们一步步分析下去，这里的编码其实指的是这个整型集合里存的究竟是多大的整型，16 位，还是 32 位，还是 64 位，结构体下面的宏定义就是表示了 encoding 的可能取值，INTSET_ENC_INT16 表示每个元素用2个字节存储，INTSET_ENC_INT32 表示每个元素用4个字节存储，INTSET_ENC_INT64 表示每个元素用8个字节存储。因此，intset中存储的整数最多只能占用64bit。length 就是正常的表示集合中元素的数量。最奇怪的应该就是这个 contents 了，是个 int8_t 的数组，那放毛线数据啊，最小的都有 16 位，这里我在看代码和《redis 设计与实现》的时候也有点懵逼，后来查了下发现这是个比较取巧的用法，这里我用自己的理解表述一下，先看看 8，16，32，64 的关系，一眼看就知道都是 2 的 N 次，并且呈两倍关系，而且 8 位刚好一个字节，所以呢其实这里的contents 不是个常规意义上的 int8_t 类型的数组，而是个柔性数组。看下 wiki 的定义</p>
-<blockquote>
-<p>Flexible array members<a href="https://en.wikipedia.org/wiki/Flexible_array_member#cite_note-1">1</a> were introduced in the <a href="https://en.wikipedia.org/wiki/C99">C99</a> standard of the <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C programming language</a> (in particular, in section §6.7.2.1, item 16, page 103).<a href="https://en.wikipedia.org/wiki/Flexible_array_member#cite_note-2">2</a> It is a member of a struct, which is an array without a given dimension. It must be the last member of such a struct and it must be accompanied by at least one other member, as in the following example:</p>
-</blockquote>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">struct vectord &#123;
-    size_t len;
-    double arr[]; &#x2F;&#x2F; the flexible array member must be last
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>在初始化这个 intset 的时候，这个contents数组是不占用空间的，后面的反正用到了申请，那么这里就有一个问题，给出了三种可能的 encoding 值，他们能随便换吗，显然不行，首先在 intset 中数据的存放是有序的，这个有部分原因是方便二分查找，然后存放数据其实随着数据的大小不同会有一个升级的过程，看下图<br><img data-src="https://i.loli.net/2020/01/10/qIc6HgP7wfCLipN.png"><br>新创建的intset只有一个header，总共8个字节。其中encoding = 2, length = 0, 类型都是uint32_t，各占 4 字节，添加15, 5两个元素之后，因为它们是比较小的整数，都能使用2个字节表示，所以encoding不变，值还是2，也就是默认的 <code>INTSET_ENC_INT16</code>，当添加32768的时候，它不再能用2个字节来表示了（2个字节能表达的数据范围是-215~215-1，而32768等于215，超出范围了），因此encoding必须升级到INTSET_ENC_INT32（值为4），即用4个字节表示一个元素。在添加每个元素的过程中，intset始终保持从小到大有序。与ziplist类似，intset也是按小端（little endian）模式存储的（参见维基百科词条<a href="https://en.wikipedia.org/wiki/Endianness">Endianness</a>）。比如，在上图中intset添加完所有数据之后，表示encoding字段的4个字节应该解释成0x00000004，而第4个数据应该解释成0x00008000 = 32768</p>
+    <title>redis 的 rdb 和 COW 介绍</title>
+    <url>/2021/08/15/redis-%E7%9A%84-rdb-%E5%92%8C-COW-%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[<p>redis 在使用 rdb 策略进行备份时，rdb 的意思是会在开启备份的时候将开启时间点的内存数据进行备份，并且可以设置时间，这样子就是这个策略其实还是不完全可靠的，如果是在这个间隔中宕机了，或者间隔过长，不过这个不在这次的要说的内容中，如果自己去写这个 rdb 的策略可能就有点类似于 mvcc 的 redolog，需要知道这个时间点之前的数据是怎么样的，防止后面更改的干扰，但是这样一方面需要有比较复杂的 mvcc 实现，另一方面是很占用存储空间，所以 redis 在这里面使用了 COW (Copy On Write) 技术，这个技术呢以前听过，也大致了解是怎么个意思，这次稍微具体地来看下，其实 redis 的 copy-on-write 就是来自于 linux 的 cow</p>
+<h3 id="Linux中的CopyOnWrite"><a href="#Linux中的CopyOnWrite" class="headerlink" title="Linux中的CopyOnWrite"></a>Linux中的CopyOnWrite</h3><p>fork()之后，kernel把父进程中所有的内存页的权限都设为read-only，然后子进程的地址空间指向父进程。当父子进程都只读内存时，相安无事。当其中某个进程写内存时，CPU硬件检测到内存页是read-only的，于是触发页异常中断（page-fault），陷入kernel的一个中断例程。中断例程中，kernel就会把触发的异常的页复制一份，于是父子进程各自持有独立的一份。这个操作其实可以类比为写屏障，正常的读取是没问题的，当有写入时就会分裂。</p>
+<h3 id="CopyOnWrite的好处："><a href="#CopyOnWrite的好处：" class="headerlink" title="CopyOnWrite的好处："></a>CopyOnWrite的好处：</h3><p>1、减少分配和复制资源时带来的瞬时延迟；<br>2、减少不必要的资源分配；<br>CopyOnWrite的缺点：<br>1、如果父子进程都需要进行大量的写操作，会产生大量的分页错误（页异常中断page-fault）;</p>
+<h3 id="Redis中的CopyOnWrite"><a href="#Redis中的CopyOnWrite" class="headerlink" title="Redis中的CopyOnWrite"></a>Redis中的CopyOnWrite</h3><p>Redis在持久化时，如果是采用BGSAVE命令或者BGREWRITEAOF的方式，那Redis会fork出一个子进程来读取数据，从而写到磁盘中。<br>总体来看，Redis还是读操作比较多。如果子进程存在期间，发生了大量的写操作，那可能就会出现很多的分页错误(页异常中断page-fault)，这样就得耗费不少性能在复制上。<br>而在rehash阶段上，写操作是无法避免的。所以Redis在fork出子进程之后，将负载因子阈值提高，尽量减少写操作，避免不必要的内存写入操作，最大限度地节约内存。这里其实更巧妙了，在细节上去优化会产生大量页异常中断的情况。</p>
 ]]></content>
       <categories>
-        <category>Redis</category>
-        <category>数据结构</category>
-        <category>C</category>
-        <category>源码</category>
-        <category>Redis</category>
+        <category>redis</category>
       </categories>
       <tags>
         <tag>redis</tag>
-        <tag>数据结构</tag>
-        <tag>源码</tag>
       </tags>
   </entry>
   <entry>
@@ -3220,6 +3179,47 @@ typedef struct dict &#123;
     int iterators; &#x2F;* number of iterators currently running *&#x2F;
 &#125; dict;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>看了下这个 2.2 版本的代码跟最新版的其实也差的不是很多，所以还是照旧用老代码，可以看到上面四个结构体中，其实只有三个是存储数据用的，dictType 是用来放操作函数的，那么三个存放数据的结构体分别是干嘛的，这时候感觉需要一个图来说明比较好，稍等，我去画个图~<br><img data-src="https://i.loli.net/2019/12/29/UL4AR1HSEKOh9Qm.png"><br>这个图看着应该比较清楚这些都是用来干嘛的了，dict 是我们的主体结构，它有一个指向 dictType 的指针，这里面包含了字典的操作函数，然后是一个私有数据指针，接下来是一个 dictht 的数组，包含两个dictht，这个就是用来存数据的了，然后是 rehashidx 表示重哈希的状态，当是-1 的时候表示当前没有重哈希，iterators 表示正在遍历的迭代器的数量。<br>首先说说为啥需要有两个 dictht，这是因为字典 dict 这个数据结构随着数据量的增减，会需要在中途做扩容或者缩容操作，如果只有一个的话，对它进行扩容缩容时会影响正常的访问和修改操作，或者说保证正常查询，修改的正确性会比较复杂，并且因为需要高效利用空间，不能一下子申请一个非常大的空间来存很少的数据。当 dict 中 dictht 中的数据量超过 size 的时候负载就超过了 1，就需要进行扩容，这里的其实跟 Java 中的 HashMap 比较类似，超过一定的负载之后进行扩容。这里为啥 size 会超过 1 呢，可能有部分不了解这类结构的同学会比较奇怪，其实就是上图中画的，在数据结构中对于散列的冲突有几类解决方法，比如转换成链表，二次散列，找下个空槽等，这里就使用了链表法，或者说拉链法。当一个新元素通过 hashFunction 得出的 key 跟 sizemask 取模之后的值相同了，那就将其放在原来的节点之前，变成链表挂在数组 dictht.table下面，放在原有节点前是考虑到可能会优先访问。<br>忘了说明下 dictht 跟 dictEntry 的关系了，dictht 就是个哈希表，它里面是个dictEntry 的二维数组，而 dictEntry 是个包含了 key-value 结构之外还有一个 next 指针，因此可以将哈希冲突的以链表的形式保存下来。<br>在重点说下重哈希，可能同样写 Java 的同学对这个比较有感觉，跟 HashMap 一样，会以 2 的 N 次方进行扩容，那么扩容的方法就会比较简单，每个键重哈希要不就在原来这个槽，要不就在原来的槽加原 dictht.size 的位置；然后是重头戏，具体是怎么做扩容呢，其实这里就把第二个 ht 用上了，其实这两个hashtable 的具体作用有点类似于 jvm 中的两个 survival 区，但是又不全一样，因为 redis 在扩容的时候是采用的渐进式地重哈希，什么叫渐进式的呢，就是它不是像 jvm 那种标记复制的模式直接将一个 eden 区和原来的 survival 区存活的对象复制到另一个 survival 区，而是在每一次添加，删除，查找或者更新操作时，都会额外的帮忙搬运一部分的原 dictht 中的数据，这里会根据 rehashidx 的值来判断，如果是-1 表示并没有在重哈希中，如果是 0 表示开始重哈希了，然后rehashidx 还会随着每次的帮忙搬运往上加，但全部被搬运完成后 rehashidx 又变回了-1，又可以扯到Java 中的 Concurrent HashMap, 他在扩容的时候也使用了类似的操作。</p>
+]]></content>
+      <categories>
+        <category>Redis</category>
+        <category>数据结构</category>
+        <category>C</category>
+        <category>源码</category>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+        <tag>数据结构</tag>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis数据结构介绍三-第三部分 整数集合</title>
+    <url>/2020/01/10/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%B8%89/</url>
+    <content><![CDATA[<p>redis中对于 set 其实有两种处理，对于元素均为整型，并且元素数目较少时，使用 intset 作为底层数据结构，否则使用 dict 作为底层数据结构，先看一下代码先</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">typedef struct intset &#123;
+    &#x2F;&#x2F; 编码方式
+    uint32_t encoding;
+    &#x2F;&#x2F; 集合包含的元素数量
+    uint32_t length;
+    &#x2F;&#x2F; 保存元素的数组
+    int8_t contents[];
+&#125; intset;
+
+&#x2F;* Note that these encodings are ordered, so:
+ * INTSET_ENC_INT16 &lt; INTSET_ENC_INT32 &lt; INTSET_ENC_INT64. *&#x2F;
+#define INTSET_ENC_INT16 (sizeof(int16_t))
+#define INTSET_ENC_INT32 (sizeof(int32_t))
+#define INTSET_ENC_INT64 (sizeof(int64_t))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>一眼看，为啥整型还需要编码，然后 int8_t 怎么能存下大整形呢，带着这些疑问，我们一步步分析下去，这里的编码其实指的是这个整型集合里存的究竟是多大的整型，16 位，还是 32 位，还是 64 位，结构体下面的宏定义就是表示了 encoding 的可能取值，INTSET_ENC_INT16 表示每个元素用2个字节存储，INTSET_ENC_INT32 表示每个元素用4个字节存储，INTSET_ENC_INT64 表示每个元素用8个字节存储。因此，intset中存储的整数最多只能占用64bit。length 就是正常的表示集合中元素的数量。最奇怪的应该就是这个 contents 了，是个 int8_t 的数组，那放毛线数据啊，最小的都有 16 位，这里我在看代码和《redis 设计与实现》的时候也有点懵逼，后来查了下发现这是个比较取巧的用法，这里我用自己的理解表述一下，先看看 8，16，32，64 的关系，一眼看就知道都是 2 的 N 次，并且呈两倍关系，而且 8 位刚好一个字节，所以呢其实这里的contents 不是个常规意义上的 int8_t 类型的数组，而是个柔性数组。看下 wiki 的定义</p>
+<blockquote>
+<p>Flexible array members<a href="https://en.wikipedia.org/wiki/Flexible_array_member#cite_note-1">1</a> were introduced in the <a href="https://en.wikipedia.org/wiki/C99">C99</a> standard of the <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C programming language</a> (in particular, in section §6.7.2.1, item 16, page 103).<a href="https://en.wikipedia.org/wiki/Flexible_array_member#cite_note-2">2</a> It is a member of a struct, which is an array without a given dimension. It must be the last member of such a struct and it must be accompanied by at least one other member, as in the following example:</p>
+</blockquote>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">struct vectord &#123;
+    size_t len;
+    double arr[]; &#x2F;&#x2F; the flexible array member must be last
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在初始化这个 intset 的时候，这个contents数组是不占用空间的，后面的反正用到了申请，那么这里就有一个问题，给出了三种可能的 encoding 值，他们能随便换吗，显然不行，首先在 intset 中数据的存放是有序的，这个有部分原因是方便二分查找，然后存放数据其实随着数据的大小不同会有一个升级的过程，看下图<br><img data-src="https://i.loli.net/2020/01/10/qIc6HgP7wfCLipN.png"><br>新创建的intset只有一个header，总共8个字节。其中encoding = 2, length = 0, 类型都是uint32_t，各占 4 字节，添加15, 5两个元素之后，因为它们是比较小的整数，都能使用2个字节表示，所以encoding不变，值还是2，也就是默认的 <code>INTSET_ENC_INT16</code>，当添加32768的时候，它不再能用2个字节来表示了（2个字节能表达的数据范围是-215~215-1，而32768等于215，超出范围了），因此encoding必须升级到INTSET_ENC_INT32（值为4），即用4个字节表示一个元素。在添加每个元素的过程中，intset始终保持从小到大有序。与ziplist类似，intset也是按小端（little endian）模式存储的（参见维基百科词条<a href="https://en.wikipedia.org/wiki/Endianness">Endianness</a>）。比如，在上图中intset添加完所有数据之后，表示encoding字段的4个字节应该解释成0x00000004，而第4个数据应该解释成0x00008000 = 32768</p>
 ]]></content>
       <categories>
         <category>Redis</category>
@@ -4373,6 +4373,13 @@ user3:
 <p>而对于其他的人感觉演技都不错，只是最后有一些虎头蛇尾吧，不知道是不是审核的原因，也不细说了怕被请喝茶，还有提一点就是麦佳的这个事情，她其实是里面很惨的一个人，把高明远当成最亲近的人，而其实真相令人感觉不寒而栗，杀父杀母的仇人，对于麦佳这个演员，一直觉得印象深刻，后来才想起来就是在爱情公寓里演被关谷救了要以身相遇的那个女孩，长相其实蛮令人印象深刻的，但好像也一直不温不火，不过也不能说演技很好吧，只是在这里演的任务真的是很可怜了，剧情设计里也应该是个很重要的串联人物，最终被高明远献给了大佬，这里扯开一点，好像有的观点说贺芸之前也是这样的，只是一种推测了。</p>
 <p>看完这部剧其实有很多想说的，但是也为了不被请喝茶，尽量少说了，只想说珍爱生命，还是自己小心吧</p>
 ]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+        <tag>影评</tag>
+      </tags>
   </entry>
   <entry>
     <title>聊一下 RocketMQ 的消息存储之 MMAP</title>
@@ -5370,26 +5377,6 @@ user3:
       </tags>
   </entry>
   <entry>
-    <title>聊在东京奥运会闭幕式这天</title>
-    <url>/2021/08/08/%E8%81%8A%E5%9C%A8%E4%B8%9C%E4%BA%AC%E5%A5%A5%E8%BF%90%E4%BC%9A%E9%97%AD%E5%B9%95%E5%BC%8F%E8%BF%99%E5%A4%A9/</url>
-    <content><![CDATA[<p>这届奥运会有可能是我除了 08 年之外关注度最高的一届奥运会，原因可能是因为最近也没什么电影综艺啥的比较好看，前面看跑男倒还行，不是说多好，也就图一乐，最开始看向往的生活觉得也挺不错的，后面变成了统一来了就看黄磊做饭，然后夸黄磊做饭好吃，然后无聊的说这种生活多么多么美好，单调无聊，差不多弃了，这里面还包括大华不在了，大华其实个人还是有点呱噪的，但是挺能搞气氛，并且也有才华，彭彭跟子枫人是不讨厌，但是撑不起来，所以也导致了前面说的结果，都变成了黄磊彩虹屁现场，虽然偶尔怀疑他是否做得好吃，但是整体还是承认的，可对于一个这么多季了的综艺来说，这样也有点单调了。</p>
-<p>还有奥运会像乒乓球，篮球，跳水这几个都是比较喜欢的项目，篮球🏀是从初中开始就也有在自己在玩的，虽然因为身高啊体质基本没什么天赋，但也算是热爱驱动，差不多到了大学因为比较懒才放下了，初中高中还是有很多时间花在上面，不像别人经常打球跑跑跳跳还能长高，我反而一直都没长个子，也因为这个其实蛮遗憾的，后面想想可能是初中的时候远走他乡去住宿读初中，伙食营养跟不上导致的，可能也是自己的一厢情愿吧，总觉得应该还能再长点个，这一点以后我自己的小孩我应该会特别注意这段时间他/她的营养摄入了；然后像乒乓球🏓的话其实小时候是比较讨厌的，因为家里人，父母都没有这类爱好习惯，我也完全不会，但是小学那会班里的“恶霸”就以公平之名要我们男生每个人都排队打几个，我这种不会的反而又要被嘲笑，这个小时候的阴影让我有了比较不好的印象，对它🏓的改观是在工作以后，前司跟一个同样不会的同事经常在饭点会打打，而且那会因为这个其实身体得到了锻炼，感觉是个不错的健身方式，然后又是中国的优势项目，小时候跟着我爸看孔令辉，那时候完全不懂，印象就觉得老瓦很牛，后面其实也没那么关注，上一届好像看了马龙的比赛；跳水也是中国的优势项目，而且也比较简单，不是说真的很简单，就是我们外行观众看着就看看水花大小图一乐。</p>
-<p>这次的观赛过程其实主要还是在乒乓球上面，现在都有点怪我的乌鸦嘴，混双我一直就不太放心（关我什么事，我也不专业），然后一直觉得混双是不是不太稳，结果那天看的时候也是因为央视一套跟五套都没放，我家的有线电视又是没有五加体育，然后用电脑投屏就很卡，看得也很不爽，同时那天因为看的时候已经是 2:0还是再后面点了，一方面是不懂每队只有一次暂停，另一方面不知道已经用过暂停了，所以就特别怀疑马林是不是只会无脑鼓掌，感觉作为教练，并且是前冠军，应该也能在擦汗间隙，或者局间休息调整的时候多给些战略战术的指导，类似于后面男团小胖打奥恰洛夫，像解说都看出来了，其实奥恰那会的反手特别顺，打得特别凶，那就不能让他能特别顺手的上反手位，这当然是外行比较粗浅的看法，在混双过程中其实除了这个，还有让人很不爽的就是我们的许昕跟刘诗雯有种拿不出破釜沉舟的勇气的感觉，在气势上完全被对面两位日本乒乓球最讨厌的两位对手压制着，我都要输了，我就每一颗都要不让你好过，因为真的不是说没有实力，对面水谷隼也不是多么多么强的，可能上一届男团许昕输给他还留着阴影，但是以许昕 19 年男单世界第一的实力，目前也排在世界前三，输一场不应该成为这种阻力，有一些失误也很可惜，后面孙颖莎真的打得很解气，第二局一度以为又要被翻盘了，结果来了个大逆转，女团的时候也是，感觉在心态上孙颖莎还是很值得肯定的，少年老成这个词很适合，看其他的视频也觉得莎莎萌萌哒，陈梦总感觉还欠一点王者霸气，王曼昱还是可以的，反手很凶，我觉得其实这一届日本女乒就是打得非常凶，即使像平野这种看着很弱的妹子，打的球可一点都不弱，也是这种凶狠的打法，有点要压制中国的感觉，这方面我觉得是需要改善的，打这种要不就是实力上的完全碾压，要不就是我实力虽然比较没强多少，但是你狠我打得比你还狠，越保守越要输，我不太成熟的想法是这样的，还有就是面对逆境，这个就要说到男队的了，樊振东跟马龙在半决赛的时候，特别是男团的第二盘，樊振东打奥恰很好地表现了这个心态，当然樊振东我不是特别了解，据说他是比较善于打相持，比较善于焦灼的情况，不过整体看下来樊振东还是有一些欠缺，就是面对情况的快速转变应对，这一点也是马龙特别强的，虽然看起来马龙真的是年纪大了点，没有 16 年那会满头发胶，油光锃亮的大背头和满脸胶原蛋白的意气风发，大范围运动能力也弱了一点，但是经验和能力的全面性也让他最终能再次站上巅峰，还是非常佩服的，这里提一下张继科，虽然可能天赋上是张继科更强点，但是男乒一直都是有强者出现，能为国家队付出这么多并且一直坚持的可不是人人都可以，即使现在同台竞技马龙打不过张继科我还是更喜欢马龙。再来说说我们的对手，主要分三部分，德国男乒，里面有波尔（我刚听到的时候在想怎么又出来个叫波尔的，是不是像举重的石智勇一样，又来一个同名的，结果是同一个，已经四十岁了），这真是个让人敬佩的对手，实力强，经验丰富，虽然男单有点可惜，但是帮助男团获得银牌，真的是起到了定海神针的作用；奥恰洛夫，以前完全不认识，或者说看过也忘了，这次是真的有点意外，竟然有这么个马龙护法，其实他也坦言非常想赢一次马龙，并且在半决赛也非常接近赢得比赛，是个实力非常强的对手，就是男团半决赛输给张本智和有点可惜，有点被打蒙的感觉，佛朗西斯卡的话也是实力不错的选手，就是可能被奥恰跟波尔的光芒掩盖了，跟波尔在男团第一盘男双的比赛中打败日本那对男双也是非常给力的，说实话，最后打国乒的时候的确是国乒实力更胜一筹，但是即使德国赢了我也是充满尊敬，拼的就是硬实力，就像第二盘奥恰打樊振东，反手是真的很强，反过来看奥恰可能也不是很善于快速调整，樊振东打出来自己的节奏，主攻奥恰的中路，他好像没什么好办法解决。再来说我最讨厌的日本，嗯，小日本，张本智和、水谷隼、伊藤美诚，一一评价下（我是外行，绝对主观评价），张本智和，父母也是中国人，原来叫张智和，改日本籍后加了个本，被微博网友笑称日本尖叫鸡，男单输给了斯洛文尼亚选手，男团里是赢了两场，但是在我看来其实实力上可能比不上全力的奥恰，主要是特别能叫，会干扰对手，如果觉得这种也是种能力我也无话可说，要是有那种吼声能直接把对手震聋的，都不需要打比赛了，我简单记了下，赢一颗球，他要叫八声，用 LD 的话来说烦都烦死了，心态是在面对一些困境顺境的应对调整适应能力，而不是对这种噪音的适应能力，至少我是这么看的，所以我很期待樊振东能好好地虐虐他，因为其他像林昀儒真的是非常优秀的新选手，所谓的国乒克星估计也是小日本自己说说的，国乒其实有很多对手，马龙跟樊振东在男单半决赛碰到的这两个几乎都差点把他们掀翻了，所以还是练好自己的实力再来吹吧，免得打脸；水谷隼的话真的是长相就是特别地讨厌，还搞出那套不打比赛的姿态，男团里被波尔干掉就是很好的例子，波尔虽然真的很强，但毕竟 40 岁了，跟伊藤美诚一起说了吧，伊藤实力说实话是有的，混双中很大一部分的赢面来自于她，刘诗雯做了手术状态不好，许昕失误稍多，但是这种赢球了就感觉我赢了你一辈子一场没输的感觉，还有那种不知道怎么形容的笑，实力强的正常打比赛的我都佩服，像女团决赛里，平野跟石川佳纯的打法其实也很凶狠，但是都是正常的比赛，即使中国队两位实力不济输了也很正常，这种就真的需要像孙颖莎这样的小魔王无视各种魔法攻击，无视你各种花里胡哨的打法的人好好教训一下，混双输了以后了解了下她，感觉实力真的不错，是个大威胁，但是其实我们孙颖莎也是经历了九个月的继续成长，像张怡宁也评价了她，可能后面就没什么空间了，当然如果由张怡宁来打她就更适合了，净整这些有的没的，就打得你没脾气。</p>
-<p>乒乓球的说的有点多，就分篇说了，第一篇先到这。</p>
-]]></content>
-      <categories>
-        <category>生活</category>
-        <category>运动</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
-        <tag>运动</tag>
-        <tag>东京奥运会</tag>
-        <tag>乒乓球</tag>
-        <tag>跳水</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>聊在东京奥运会闭幕式这天-二</title>
     <url>/2021/08/19/%E8%81%8A%E5%9C%A8%E4%B8%9C%E4%BA%AC%E5%A5%A5%E8%BF%90%E4%BC%9A%E9%97%AD%E5%B9%95%E5%BC%8F%E8%BF%99%E5%A4%A9-%E4%BA%8C/</url>
     <content><![CDATA[<p>前面主要还是说了乒乓球的，因为整体还是乒乓球的比赛赛程比较长，比较激烈，扣人心弦，记得那会在公司没法看视频直播，就偶尔看看奥运会官网的比分，还几场马龙樊振东，陈梦被赢了一局就吓尿了，已经被混双那场留下了阴影，其实后面去看看16 年的比赛什么的，中国队虽然拿了这么多冠军，但是自改成 11 分制以来，其实都没办法那么完全彻底地碾压，而且像张继科，樊振东，陈梦都多少有些慢热，现在看来是马龙比较全面，不过看过了马龙，刘国梁，许昕等的一些过往经历，都是起起伏伏，即使是张怡宁这样的大魔王，也经历过逢王楠不赢的阶段，心态无法调整好。</p>
@@ -5407,6 +5394,26 @@ user3:
         <tag>东京奥运会</tag>
         <tag>举重</tag>
         <tag>射击</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>聊在东京奥运会闭幕式这天</title>
+    <url>/2021/08/08/%E8%81%8A%E5%9C%A8%E4%B8%9C%E4%BA%AC%E5%A5%A5%E8%BF%90%E4%BC%9A%E9%97%AD%E5%B9%95%E5%BC%8F%E8%BF%99%E5%A4%A9/</url>
+    <content><![CDATA[<p>这届奥运会有可能是我除了 08 年之外关注度最高的一届奥运会，原因可能是因为最近也没什么电影综艺啥的比较好看，前面看跑男倒还行，不是说多好，也就图一乐，最开始看向往的生活觉得也挺不错的，后面变成了统一来了就看黄磊做饭，然后夸黄磊做饭好吃，然后无聊的说这种生活多么多么美好，单调无聊，差不多弃了，这里面还包括大华不在了，大华其实个人还是有点呱噪的，但是挺能搞气氛，并且也有才华，彭彭跟子枫人是不讨厌，但是撑不起来，所以也导致了前面说的结果，都变成了黄磊彩虹屁现场，虽然偶尔怀疑他是否做得好吃，但是整体还是承认的，可对于一个这么多季了的综艺来说，这样也有点单调了。</p>
+<p>还有奥运会像乒乓球，篮球，跳水这几个都是比较喜欢的项目，篮球🏀是从初中开始就也有在自己在玩的，虽然因为身高啊体质基本没什么天赋，但也算是热爱驱动，差不多到了大学因为比较懒才放下了，初中高中还是有很多时间花在上面，不像别人经常打球跑跑跳跳还能长高，我反而一直都没长个子，也因为这个其实蛮遗憾的，后面想想可能是初中的时候远走他乡去住宿读初中，伙食营养跟不上导致的，可能也是自己的一厢情愿吧，总觉得应该还能再长点个，这一点以后我自己的小孩我应该会特别注意这段时间他/她的营养摄入了；然后像乒乓球🏓的话其实小时候是比较讨厌的，因为家里人，父母都没有这类爱好习惯，我也完全不会，但是小学那会班里的“恶霸”就以公平之名要我们男生每个人都排队打几个，我这种不会的反而又要被嘲笑，这个小时候的阴影让我有了比较不好的印象，对它🏓的改观是在工作以后，前司跟一个同样不会的同事经常在饭点会打打，而且那会因为这个其实身体得到了锻炼，感觉是个不错的健身方式，然后又是中国的优势项目，小时候跟着我爸看孔令辉，那时候完全不懂，印象就觉得老瓦很牛，后面其实也没那么关注，上一届好像看了马龙的比赛；跳水也是中国的优势项目，而且也比较简单，不是说真的很简单，就是我们外行观众看着就看看水花大小图一乐。</p>
+<p>这次的观赛过程其实主要还是在乒乓球上面，现在都有点怪我的乌鸦嘴，混双我一直就不太放心（关我什么事，我也不专业），然后一直觉得混双是不是不太稳，结果那天看的时候也是因为央视一套跟五套都没放，我家的有线电视又是没有五加体育，然后用电脑投屏就很卡，看得也很不爽，同时那天因为看的时候已经是 2:0还是再后面点了，一方面是不懂每队只有一次暂停，另一方面不知道已经用过暂停了，所以就特别怀疑马林是不是只会无脑鼓掌，感觉作为教练，并且是前冠军，应该也能在擦汗间隙，或者局间休息调整的时候多给些战略战术的指导，类似于后面男团小胖打奥恰洛夫，像解说都看出来了，其实奥恰那会的反手特别顺，打得特别凶，那就不能让他能特别顺手的上反手位，这当然是外行比较粗浅的看法，在混双过程中其实除了这个，还有让人很不爽的就是我们的许昕跟刘诗雯有种拿不出破釜沉舟的勇气的感觉，在气势上完全被对面两位日本乒乓球最讨厌的两位对手压制着，我都要输了，我就每一颗都要不让你好过，因为真的不是说没有实力，对面水谷隼也不是多么多么强的，可能上一届男团许昕输给他还留着阴影，但是以许昕 19 年男单世界第一的实力，目前也排在世界前三，输一场不应该成为这种阻力，有一些失误也很可惜，后面孙颖莎真的打得很解气，第二局一度以为又要被翻盘了，结果来了个大逆转，女团的时候也是，感觉在心态上孙颖莎还是很值得肯定的，少年老成这个词很适合，看其他的视频也觉得莎莎萌萌哒，陈梦总感觉还欠一点王者霸气，王曼昱还是可以的，反手很凶，我觉得其实这一届日本女乒就是打得非常凶，即使像平野这种看着很弱的妹子，打的球可一点都不弱，也是这种凶狠的打法，有点要压制中国的感觉，这方面我觉得是需要改善的，打这种要不就是实力上的完全碾压，要不就是我实力虽然比较没强多少，但是你狠我打得比你还狠，越保守越要输，我不太成熟的想法是这样的，还有就是面对逆境，这个就要说到男队的了，樊振东跟马龙在半决赛的时候，特别是男团的第二盘，樊振东打奥恰很好地表现了这个心态，当然樊振东我不是特别了解，据说他是比较善于打相持，比较善于焦灼的情况，不过整体看下来樊振东还是有一些欠缺，就是面对情况的快速转变应对，这一点也是马龙特别强的，虽然看起来马龙真的是年纪大了点，没有 16 年那会满头发胶，油光锃亮的大背头和满脸胶原蛋白的意气风发，大范围运动能力也弱了一点，但是经验和能力的全面性也让他最终能再次站上巅峰，还是非常佩服的，这里提一下张继科，虽然可能天赋上是张继科更强点，但是男乒一直都是有强者出现，能为国家队付出这么多并且一直坚持的可不是人人都可以，即使现在同台竞技马龙打不过张继科我还是更喜欢马龙。再来说说我们的对手，主要分三部分，德国男乒，里面有波尔（我刚听到的时候在想怎么又出来个叫波尔的，是不是像举重的石智勇一样，又来一个同名的，结果是同一个，已经四十岁了），这真是个让人敬佩的对手，实力强，经验丰富，虽然男单有点可惜，但是帮助男团获得银牌，真的是起到了定海神针的作用；奥恰洛夫，以前完全不认识，或者说看过也忘了，这次是真的有点意外，竟然有这么个马龙护法，其实他也坦言非常想赢一次马龙，并且在半决赛也非常接近赢得比赛，是个实力非常强的对手，就是男团半决赛输给张本智和有点可惜，有点被打蒙的感觉，佛朗西斯卡的话也是实力不错的选手，就是可能被奥恰跟波尔的光芒掩盖了，跟波尔在男团第一盘男双的比赛中打败日本那对男双也是非常给力的，说实话，最后打国乒的时候的确是国乒实力更胜一筹，但是即使德国赢了我也是充满尊敬，拼的就是硬实力，就像第二盘奥恰打樊振东，反手是真的很强，反过来看奥恰可能也不是很善于快速调整，樊振东打出来自己的节奏，主攻奥恰的中路，他好像没什么好办法解决。再来说我最讨厌的日本，嗯，小日本，张本智和、水谷隼、伊藤美诚，一一评价下（我是外行，绝对主观评价），张本智和，父母也是中国人，原来叫张智和，改日本籍后加了个本，被微博网友笑称日本尖叫鸡，男单输给了斯洛文尼亚选手，男团里是赢了两场，但是在我看来其实实力上可能比不上全力的奥恰，主要是特别能叫，会干扰对手，如果觉得这种也是种能力我也无话可说，要是有那种吼声能直接把对手震聋的，都不需要打比赛了，我简单记了下，赢一颗球，他要叫八声，用 LD 的话来说烦都烦死了，心态是在面对一些困境顺境的应对调整适应能力，而不是对这种噪音的适应能力，至少我是这么看的，所以我很期待樊振东能好好地虐虐他，因为其他像林昀儒真的是非常优秀的新选手，所谓的国乒克星估计也是小日本自己说说的，国乒其实有很多对手，马龙跟樊振东在男单半决赛碰到的这两个几乎都差点把他们掀翻了，所以还是练好自己的实力再来吹吧，免得打脸；水谷隼的话真的是长相就是特别地讨厌，还搞出那套不打比赛的姿态，男团里被波尔干掉就是很好的例子，波尔虽然真的很强，但毕竟 40 岁了，跟伊藤美诚一起说了吧，伊藤实力说实话是有的，混双中很大一部分的赢面来自于她，刘诗雯做了手术状态不好，许昕失误稍多，但是这种赢球了就感觉我赢了你一辈子一场没输的感觉，还有那种不知道怎么形容的笑，实力强的正常打比赛的我都佩服，像女团决赛里，平野跟石川佳纯的打法其实也很凶狠，但是都是正常的比赛，即使中国队两位实力不济输了也很正常，这种就真的需要像孙颖莎这样的小魔王无视各种魔法攻击，无视你各种花里胡哨的打法的人好好教训一下，混双输了以后了解了下她，感觉实力真的不错，是个大威胁，但是其实我们孙颖莎也是经历了九个月的继续成长，像张怡宁也评价了她，可能后面就没什么空间了，当然如果由张怡宁来打她就更适合了，净整这些有的没的，就打得你没脾气。</p>
+<p>乒乓球的说的有点多，就分篇说了，第一篇先到这。</p>
+]]></content>
+      <categories>
+        <category>生活</category>
+        <category>运动</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+        <tag>运动</tag>
+        <tag>东京奥运会</tag>
+        <tag>乒乓球</tag>
+        <tag>跳水</tag>
       </tags>
   </entry>
   <entry>
@@ -5556,101 +5563,6 @@ user3:
       </tags>
   </entry>
   <entry>
-    <title>聊聊 Dubbo 的 SPI</title>
-    <url>/2020/05/31/%E8%81%8A%E8%81%8A-Dubbo-%E7%9A%84-SPI/</url>
-    <content><![CDATA[<p>SPI全称是Service Provider Interface，咋眼看跟api是不是有点相似，api是application interface，这两个其实在某些方面有类似的地方，也有蛮大的区别，比如我们基于 dubbo 的微服务，一般我们可以提供服务，然后非泛化调用的话，我们可以把 api 包提供给应用调用方，他们根据接口签名传对应参数并配置好对应的服务发现如 zk 等就可以调用我们的服务了，然后 spi 会有点类似但是是反过来的关系，相当于是一种规范，比如我约定完成这个功能需要两个有两个接口，一个是连接的，一个是断开的，其实就可以用 jdbc 的驱动举例，比较老套了，然后各个厂家去做具体的实现吧，到时候根据我接口的全限定名的文件来加载实际的实现类，然后运行的时候调用对应实现类的方法就完了</p>
-<p><img data-src="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/3sKdpg.png" alt="3sKdpg"></p>
-<p>看上面的图，<code>java.sql.Driver</code>就是 spi，对应在classpath 的 META-INF/services 目录下的这个文件，里边的内容就是具体的实现类</p>
-<p><img data-src="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/1590735097909.jpg" alt="1590735097909"></p>
-<p>简单介绍了 Java的 SPI，再来说说 dubbo 的，dubbo 中为啥要用 SPI 呢，主要是为了框架的可扩展性和性能方面的考虑，比如协议层 dubbo 默认使用 dubbo 协议，同时也支持很多其他协议，也支持用户自己实现协议，那么跟 Java 的 SPI 会有什么区别呢，我们也来看个文件</p>
-<p><img data-src="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/bqxWMp.png" alt="bqxWMp"></p>
-<p>是不是看着很想，又有点不一样，在 Java 的 SPI 配置文件里每一行只有一个实现类的全限定名，在 Dubbo的 SPI配置文件中是 key=value 的形式，我们只需要对应的 key 就能加载对应的实现，</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
-     * 返回指定名字的扩展。如果指定名字的扩展不存在，则抛异常 &#123;@link IllegalStateException&#125;.
-     *
-     * @param name
-     * @return
-     */</span>
-	<span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"unchecked"</span><span class="token punctuation">)</span>
-	<span class="token keyword">public</span> <span class="token class-name">T</span> <span class="token function">getExtension</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-		<span class="token keyword">if</span> <span class="token punctuation">(</span>name <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> name<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-		    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"Extension name == null"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"true"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-		    <span class="token keyword">return</span> <span class="token function">getDefaultExtension</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token punctuation">&#125;</span>
-		<span class="token class-name">Holder</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">></span></span> holder <span class="token operator">=</span> cachedInstances<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token keyword">if</span> <span class="token punctuation">(</span>holder <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-		    cachedInstances<span class="token punctuation">.</span><span class="token function">putIfAbsent</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Holder</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		    holder <span class="token operator">=</span> cachedInstances<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token punctuation">&#125;</span>
-		<span class="token class-name">Object</span> instance <span class="token operator">=</span> holder<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-		    <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>holder<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-	            instance <span class="token operator">=</span> holder<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	            <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-	                instance <span class="token operator">=</span> <span class="token function">createExtension</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	                holder<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	            <span class="token punctuation">&#125;</span>
-	        <span class="token punctuation">&#125;</span>
-		<span class="token punctuation">&#125;</span>
-		<span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> instance<span class="token punctuation">;</span>
-	<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里其实就可以看出来第二个不同点了，就是这个<code>cachedInstances</code>，第一个是不用像 Java 原生的 SPI 那样去遍历加载对应的服务类，只需要通过 key 去寻找，并且寻找的时候会先从缓存的对象里去取，还有就是注意下这里的 DCL(double check lock)</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"unchecked"</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> <span class="token class-name">T</span> <span class="token function">createExtension</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> clazz <span class="token operator">=</span> <span class="token function">getExtensionClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>clazz <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">throw</span> <span class="token function">findException</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
-            <span class="token class-name">T</span> instance <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> EXTENSION_INSTANCES<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                EXTENSION_INSTANCES<span class="token punctuation">.</span><span class="token function">putIfAbsent</span><span class="token punctuation">(</span>clazz<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> clazz<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                instance <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> EXTENSION_INSTANCES<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-            <span class="token function">injectExtension</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token class-name">Set</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Class</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span><span class="token punctuation">></span></span> wrapperClasses <span class="token operator">=</span> cachedWrapperClasses<span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>wrapperClasses <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> wrapperClasses<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> wrapperClass <span class="token operator">:</span> wrapperClasses<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                    instance <span class="token operator">=</span> <span class="token function">injectExtension</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> wrapperClass<span class="token punctuation">.</span><span class="token function">getConstructor</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token punctuation">&#125;</span>
-            <span class="token punctuation">&#125;</span>
-            <span class="token keyword">return</span> instance<span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> t<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span><span class="token string">"Extension instance(name: "</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">", class: "</span> <span class="token operator">+</span>
-                    type <span class="token operator">+</span> <span class="token string">")  could not be instantiated: "</span> <span class="token operator">+</span> t<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然后就是创建扩展了，这里如果 wrapperClasses 就会遍历生成wrapper实例，并做 setter 依赖注入，但是这里cachedWrapperClasses的来源还是有点搞不清楚，得再看下 com.alibaba.dubbo.common.extension.ExtensionLoader#loadFile的具体逻辑<br>又看了遍新的代码，这个函数被抽出来了</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
-    * test if clazz is a wrapper class
-    * &lt;p>
-    * which has Constructor with given class type as its only argument
-    */</span>
-   <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">isWrapperClass</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> clazz<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-       <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
-           clazz<span class="token punctuation">.</span><span class="token function">getConstructor</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-       <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchMethodException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-           <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-       <span class="token punctuation">&#125;</span>
-   <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>是否是 wrapperClass 其实就看构造函数的。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>Dubbo - RPC - SPI</category>
-        <category>Dubbo</category>
-        <category>SPI</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Dubbo</tag>
-        <tag>RPC</tag>
-        <tag>SPI</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>聊聊 Dubbo 的容错机制</title>
     <url>/2020/11/22/%E8%81%8A%E8%81%8A-Dubbo-%E7%9A%84%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/</url>
     <content><![CDATA[<p>之前看了 dubbo 的一些代码，在学习过程中，主要关注那些比较“高级”的内容，SPI，自适应扩展等，却忘了一些作为一个 rpc 框架最核心需要的部分，比如如何通信，序列化，网络，容错机制等等，因为其实这个最核心的就是远程调用，自适应扩展其实就是让代码可扩展性，可读性，更优雅等，写的搓一点其实也问题不大，但是一个合适的通信协议，序列化方法，如何容错等却是真正保证是一个 rpc 框架最重要的要素。<br>首先来看这张图<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/cluster.jpg" alt="cluster"><br>在集群调用失败时，Dubbo 提供了多种容错方案，缺省为 failover 重试。<br>各节点关系：</p>
@@ -5783,6 +5695,101 @@ public Result invoke(final Invocation invocation) throws RpcException &#123;
         <tag>Dubbo</tag>
         <tag>RPC</tag>
         <tag>容错机制</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>聊聊 Dubbo 的 SPI</title>
+    <url>/2020/05/31/%E8%81%8A%E8%81%8A-Dubbo-%E7%9A%84-SPI/</url>
+    <content><![CDATA[<p>SPI全称是Service Provider Interface，咋眼看跟api是不是有点相似，api是application interface，这两个其实在某些方面有类似的地方，也有蛮大的区别，比如我们基于 dubbo 的微服务，一般我们可以提供服务，然后非泛化调用的话，我们可以把 api 包提供给应用调用方，他们根据接口签名传对应参数并配置好对应的服务发现如 zk 等就可以调用我们的服务了，然后 spi 会有点类似但是是反过来的关系，相当于是一种规范，比如我约定完成这个功能需要两个有两个接口，一个是连接的，一个是断开的，其实就可以用 jdbc 的驱动举例，比较老套了，然后各个厂家去做具体的实现吧，到时候根据我接口的全限定名的文件来加载实际的实现类，然后运行的时候调用对应实现类的方法就完了</p>
+<p><img data-src="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/3sKdpg.png" alt="3sKdpg"></p>
+<p>看上面的图，<code>java.sql.Driver</code>就是 spi，对应在classpath 的 META-INF/services 目录下的这个文件，里边的内容就是具体的实现类</p>
+<p><img data-src="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/1590735097909.jpg" alt="1590735097909"></p>
+<p>简单介绍了 Java的 SPI，再来说说 dubbo 的，dubbo 中为啥要用 SPI 呢，主要是为了框架的可扩展性和性能方面的考虑，比如协议层 dubbo 默认使用 dubbo 协议，同时也支持很多其他协议，也支持用户自己实现协议，那么跟 Java 的 SPI 会有什么区别呢，我们也来看个文件</p>
+<p><img data-src="https://mystore-1255223546.cos.ap-chengdu.myqcloud.com/uPic/bqxWMp.png" alt="bqxWMp"></p>
+<p>是不是看着很想，又有点不一样，在 Java 的 SPI 配置文件里每一行只有一个实现类的全限定名，在 Dubbo的 SPI配置文件中是 key=value 的形式，我们只需要对应的 key 就能加载对应的实现，</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+     * 返回指定名字的扩展。如果指定名字的扩展不存在，则抛异常 &#123;@link IllegalStateException&#125;.
+     *
+     * @param name
+     * @return
+     */</span>
+	<span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"unchecked"</span><span class="token punctuation">)</span>
+	<span class="token keyword">public</span> <span class="token class-name">T</span> <span class="token function">getExtension</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>name <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> name<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+		    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"Extension name == null"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"true"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		    <span class="token keyword">return</span> <span class="token function">getDefaultExtension</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token class-name">Holder</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">></span></span> holder <span class="token operator">=</span> cachedInstances<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>holder <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		    cachedInstances<span class="token punctuation">.</span><span class="token function">putIfAbsent</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Holder</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		    holder <span class="token operator">=</span> cachedInstances<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token class-name">Object</span> instance <span class="token operator">=</span> holder<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		    <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>holder<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	            instance <span class="token operator">=</span> holder<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	            <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	                instance <span class="token operator">=</span> <span class="token function">createExtension</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	                holder<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	            <span class="token punctuation">&#125;</span>
+	        <span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> instance<span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里其实就可以看出来第二个不同点了，就是这个<code>cachedInstances</code>，第一个是不用像 Java 原生的 SPI 那样去遍历加载对应的服务类，只需要通过 key 去寻找，并且寻找的时候会先从缓存的对象里去取，还有就是注意下这里的 DCL(double check lock)</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"unchecked"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">T</span> <span class="token function">createExtension</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> clazz <span class="token operator">=</span> <span class="token function">getExtensionClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>clazz <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token function">findException</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">T</span> instance <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> EXTENSION_INSTANCES<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                EXTENSION_INSTANCES<span class="token punctuation">.</span><span class="token function">putIfAbsent</span><span class="token punctuation">(</span>clazz<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> clazz<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                instance <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> EXTENSION_INSTANCES<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token function">injectExtension</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">Set</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Class</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span><span class="token punctuation">></span></span> wrapperClasses <span class="token operator">=</span> cachedWrapperClasses<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>wrapperClasses <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> wrapperClasses<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> wrapperClass <span class="token operator">:</span> wrapperClasses<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    instance <span class="token operator">=</span> <span class="token function">injectExtension</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> wrapperClass<span class="token punctuation">.</span><span class="token function">getConstructor</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">return</span> instance<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> t<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span><span class="token string">"Extension instance(name: "</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">", class: "</span> <span class="token operator">+</span>
+                    type <span class="token operator">+</span> <span class="token string">")  could not be instantiated: "</span> <span class="token operator">+</span> t<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后就是创建扩展了，这里如果 wrapperClasses 就会遍历生成wrapper实例，并做 setter 依赖注入，但是这里cachedWrapperClasses的来源还是有点搞不清楚，得再看下 com.alibaba.dubbo.common.extension.ExtensionLoader#loadFile的具体逻辑<br>又看了遍新的代码，这个函数被抽出来了</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+    * test if clazz is a wrapper class
+    * &lt;p>
+    * which has Constructor with given class type as its only argument
+    */</span>
+   <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">isWrapperClass</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> clazz<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+           clazz<span class="token punctuation">.</span><span class="token function">getConstructor</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+       <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchMethodException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+           <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+       <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>是否是 wrapperClass 其实就看构造函数的。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>Dubbo - RPC - SPI</category>
+        <category>Dubbo</category>
+        <category>SPI</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Dubbo</tag>
+        <tag>RPC</tag>
+        <tag>SPI</tag>
       </tags>
   </entry>
   <entry>
