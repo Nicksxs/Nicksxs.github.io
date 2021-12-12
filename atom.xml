@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2021-12-05T13:37:18.000Z</updated>
+  <updated>2021-12-12T11:58:03.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊聊 Sharding-Jdbc 的简单使用</title>
+    <link href="https://nicksxs.me/2021/12/12/%E8%81%8A%E8%81%8A-Sharding-Jdbc-%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"/>
+    <id>https://nicksxs.me/2021/12/12/%E8%81%8A%E8%81%8A-Sharding-Jdbc-%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</id>
+    <published>2021-12-12T11:58:03.000Z</published>
+    <updated>2021-12-12T11:58:03.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我们在日常工作中还是使用比较多的分库分表组件的，其中比较优秀的就有 Sharding-Jdbc，一开始由当当开源，后来捐献给了 Apache，说一下简单使用，因为原来经常的使用都是基于 xml 跟 properties 组合起来使用，这里主要试下用 Java Config</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Sharding-Jdbc" scheme="https://nicksxs.me/tags/Sharding-Jdbc/"/>
+    
+  </entry>
   
   <entry>
     <title>聊聊部分公交车的设计bug</title>
@@ -605,41 +632,6 @@
     
     
     <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊在东京奥运会闭幕式这天</title>
-    <link href="https://nicksxs.me/2021/08/08/%E8%81%8A%E5%9C%A8%E4%B8%9C%E4%BA%AC%E5%A5%A5%E8%BF%90%E4%BC%9A%E9%97%AD%E5%B9%95%E5%BC%8F%E8%BF%99%E5%A4%A9/"/>
-    <id>https://nicksxs.me/2021/08/08/%E8%81%8A%E5%9C%A8%E4%B8%9C%E4%BA%AC%E5%A5%A5%E8%BF%90%E4%BC%9A%E9%97%AD%E5%B9%95%E5%BC%8F%E8%BF%99%E5%A4%A9/</id>
-    <published>2021-08-08T12:05:07.000Z</published>
-    <updated>2021-08-08T12:05:07.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这届奥运会有可能是我除了 08</summary>
-        
-      
-    
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    <category term="运动" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-    <category term="运动" scheme="https://nicksxs.me/tags/%E8%BF%90%E5%8A%A8/"/>
-    
-    <category term="东京奥运会" scheme="https://nicksxs.me/tags/%E4%B8%9C%E4%BA%AC%E5%A5%A5%E8%BF%90%E4%BC%9A/"/>
-    
-    <category term="乒乓球" scheme="https://nicksxs.me/tags/%E4%B9%92%E4%B9%93%E7%90%83/"/>
-    
-    <category term="跳水" scheme="https://nicksxs.me/tags/%E8%B7%B3%E6%B0%B4/"/>
     
   </entry>
   
