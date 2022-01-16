@@ -266,6 +266,72 @@ public:
       </tags>
   </entry>
   <entry>
+    <title>AbstractQueuedSynchronizer</title>
+    <url>/2019/09/23/AbstractQueuedSynchronizer/</url>
+    <content><![CDATA[<p>最近看了大神的 AQS 的文章，之前总是断断续续地看一点，每次都知难而退，下次看又从头开始，昨天总算硬着头皮看完了第一部分<br>首先 AQS 只要有这些属性</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 头结点，你直接把它当做 当前持有锁的线程 可能是最好理解的</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">Node</span> head<span class="token punctuation">;</span>
+
+<span class="token comment">// 阻塞的尾节点，每个新的节点进来，都插入到最后，也就形成了一个链表</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">Node</span> tail<span class="token punctuation">;</span>
+
+<span class="token comment">// 这个是最重要的，代表当前锁的状态，0代表没有被占用，大于 0 代表有线程持有当前锁</span>
+<span class="token comment">// 这个值可以大于 1，是因为锁可以重入，每次重入都加上 1</span>
+<span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">int</span> state<span class="token punctuation">;</span>
+
+<span class="token comment">// 代表当前持有独占锁的线程，举个最重要的使用例子，因为锁可以重入</span>
+<span class="token comment">// reentrantLock.lock()可以嵌套调用多次，所以每次用这个来判断当前线程是否已经拥有了锁</span>
+<span class="token comment">// if (currentThread == getExclusiveOwnerThread()) &#123;state++&#125;</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token class-name">Thread</span> exclusiveOwnerThread<span class="token punctuation">;</span> <span class="token comment">//继承自AbstractOwnableSynchronizer</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>大概了解了 aqs 底层的双向等待队列，<br>结构是这样的<br><img data-src="https://tva1.sinaimg.cn/large/006tNbRwly1g9mxu0ndt1j319o08w0t7.jpg"><br>每个 node 里面主要是的代码结构也比较简单</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Node</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 标识节点当前在共享模式下</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Node</span> SHARED <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 标识节点当前在独占模式下</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Node</span> EXCLUSIVE <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// ======== 下面的几个int常量是给waitStatus用的 ===========</span>
+    <span class="token comment">/** waitStatus value to indicate thread has cancelled */</span>
+    <span class="token comment">// 代码此线程取消了争抢这个锁</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> CANCELLED <span class="token operator">=</span>  <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token comment">/** waitStatus value to indicate successor's thread needs unparking */</span>
+    <span class="token comment">// 官方的描述是，其表示当前node的后继节点对应的线程需要被唤醒</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> SIGNAL    <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token comment">/** waitStatus value to indicate thread is waiting on condition */</span>
+    <span class="token comment">// 本文不分析condition，所以略过吧，下一篇文章会介绍这个</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> CONDITION <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token comment">/**
+     * waitStatus value to indicate the next acquireShared should
+     * unconditionally propagate
+     */</span>
+    <span class="token comment">// 同样的不分析，略过吧</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> PROPAGATE <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">;</span>
+    <span class="token comment">// =====================================================</span>
+
+
+    <span class="token comment">// 取值为上面的1、-1、-2、-3，或者0(以后会讲到)</span>
+    <span class="token comment">// 这么理解，暂时只需要知道如果这个值 大于0 代表此线程取消了等待，</span>
+    <span class="token comment">//    ps: 半天抢不到锁，不抢了，ReentrantLock是可以指定timeouot的。。。</span>
+    <span class="token keyword">volatile</span> <span class="token keyword">int</span> waitStatus<span class="token punctuation">;</span>
+    <span class="token comment">// 前驱节点的引用</span>
+    <span class="token keyword">volatile</span> <span class="token class-name">Node</span> prev<span class="token punctuation">;</span>
+    <span class="token comment">// 后继节点的引用</span>
+    <span class="token keyword">volatile</span> <span class="token class-name">Node</span> next<span class="token punctuation">;</span>
+    <span class="token comment">// 这个就是线程本尊</span>
+    <span class="token keyword">volatile</span> <span class="token class-name">Thread</span> thread<span class="token punctuation">;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其实可以主要关注这个 <code>waitStatus</code> 因为这个是后面的节点给前面的节点设置的，等于-1 的时候代表后面有节点等待，需要去唤醒，<br>这里使用了一个变种的 CLH 队列实现，CLH 队列相关内容可以查看这篇 <a href="https://coderbee.net/index.php/concurrent/20131115/577">自旋锁、排队自旋锁、MCS锁、CLH锁</a></p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>aqs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Apollo 的 value 注解是怎么自动更新的</title>
     <url>/2020/11/01/Apollo-%E7%9A%84-value-%E6%B3%A8%E8%A7%A3%E6%98%AF%E6%80%8E%E4%B9%88%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E7%9A%84/</url>
     <content><![CDATA[<p>在前司和目前公司，用的配置中心都是使用的 Apollo，经过了业界验证，比较强大的配置管理系统，特别是在0.10 后开始支持对使用 value 注解的配置值进行自动更新，今天刚好有个同学问到我，就顺便写篇文章记录下，其实也是借助于 spring 强大的 bean 生命周期管理，可以实现BeanPostProcessor接口，使用postProcessBeforeInitialization方法，来对bean 内部的属性和方法进行判断，是否有 value 注解，如果有就是将它注册到一个 map 中，可以看到这个方法<code>com.ctrip.framework.apollo.spring.annotation.SpringValueProcessor#processField</code></p>
@@ -350,226 +416,6 @@ public:
         <tag>value</tag>
         <tag>注解</tag>
         <tag>environment</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Clone Graph Part I</title>
-    <url>/2014/12/30/Clone-Graph-Part-I/</url>
-    <content><![CDATA[<h3 id="problem"><a href="#problem" class="headerlink" title="problem"></a>problem</h3><pre class="line-numbers language-none"><code class="language-none">Clone a graph. Input is a Node pointer. Return the Node pointer of the cloned graph.
-
-A graph is defined below:
-struct Node &#123;
-vector neighbors;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<span id="more"></span>
-<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">typedef unordered_map&lt;Node *, Node *&gt; Map;
- 
-Node *clone(Node *graph) &#123;
-    if (!graph) return NULL;
- 
-    Map map;
-    queue&lt;Node *&gt; q;
-    q.push(graph);
- 
-    Node *graphCopy &#x3D; new Node();
-    map[graph] &#x3D; graphCopy;
- 
-    while (!q.empty()) &#123;
-        Node *node &#x3D; q.front();
-        q.pop();
-        int n &#x3D; node-&gt;neighbors.size();
-        for (int i &#x3D; 0; i &lt; n; i++) &#123;
-            Node *neighbor &#x3D; node-&gt;neighbors[i];
-            &#x2F;&#x2F; no copy exists
-            if (map.find(neighbor) &#x3D;&#x3D; map.end()) &#123;
-                Node *p &#x3D; new Node();
-                map[node]-&gt;neighbors.push_back(p);
-                map[neighbor] &#x3D; p;
-                q.push(neighbor);
-            &#125; else &#123;     &#x2F;&#x2F; a copy already exists
-                map[node]-&gt;neighbors.push_back(map[neighbor]);
-            &#125;
-        &#125;
-    &#125;
- 
-    return graphCopy;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="anlysis"><a href="#anlysis" class="headerlink" title="anlysis"></a>anlysis</h3><p>using the Breadth-first traversal<br>and use a map to save the neighbors not to be duplicated.</p>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AbstractQueuedSynchronizer</title>
-    <url>/2019/09/23/AbstractQueuedSynchronizer/</url>
-    <content><![CDATA[<p>最近看了大神的 AQS 的文章，之前总是断断续续地看一点，每次都知难而退，下次看又从头开始，昨天总算硬着头皮看完了第一部分<br>首先 AQS 只要有这些属性</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 头结点，你直接把它当做 当前持有锁的线程 可能是最好理解的</span>
-<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">Node</span> head<span class="token punctuation">;</span>
-
-<span class="token comment">// 阻塞的尾节点，每个新的节点进来，都插入到最后，也就形成了一个链表</span>
-<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">Node</span> tail<span class="token punctuation">;</span>
-
-<span class="token comment">// 这个是最重要的，代表当前锁的状态，0代表没有被占用，大于 0 代表有线程持有当前锁</span>
-<span class="token comment">// 这个值可以大于 1，是因为锁可以重入，每次重入都加上 1</span>
-<span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">int</span> state<span class="token punctuation">;</span>
-
-<span class="token comment">// 代表当前持有独占锁的线程，举个最重要的使用例子，因为锁可以重入</span>
-<span class="token comment">// reentrantLock.lock()可以嵌套调用多次，所以每次用这个来判断当前线程是否已经拥有了锁</span>
-<span class="token comment">// if (currentThread == getExclusiveOwnerThread()) &#123;state++&#125;</span>
-<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token class-name">Thread</span> exclusiveOwnerThread<span class="token punctuation">;</span> <span class="token comment">//继承自AbstractOwnableSynchronizer</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>大概了解了 aqs 底层的双向等待队列，<br>结构是这样的<br><img data-src="https://tva1.sinaimg.cn/large/006tNbRwly1g9mxu0ndt1j319o08w0t7.jpg"><br>每个 node 里面主要是的代码结构也比较简单</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Node</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 标识节点当前在共享模式下</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Node</span> SHARED <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 标识节点当前在独占模式下</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Node</span> EXCLUSIVE <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// ======== 下面的几个int常量是给waitStatus用的 ===========</span>
-    <span class="token comment">/** waitStatus value to indicate thread has cancelled */</span>
-    <span class="token comment">// 代码此线程取消了争抢这个锁</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> CANCELLED <span class="token operator">=</span>  <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token comment">/** waitStatus value to indicate successor's thread needs unparking */</span>
-    <span class="token comment">// 官方的描述是，其表示当前node的后继节点对应的线程需要被唤醒</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> SIGNAL    <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token comment">/** waitStatus value to indicate thread is waiting on condition */</span>
-    <span class="token comment">// 本文不分析condition，所以略过吧，下一篇文章会介绍这个</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> CONDITION <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span>
-    <span class="token comment">/**
-     * waitStatus value to indicate the next acquireShared should
-     * unconditionally propagate
-     */</span>
-    <span class="token comment">// 同样的不分析，略过吧</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> PROPAGATE <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">;</span>
-    <span class="token comment">// =====================================================</span>
-
-
-    <span class="token comment">// 取值为上面的1、-1、-2、-3，或者0(以后会讲到)</span>
-    <span class="token comment">// 这么理解，暂时只需要知道如果这个值 大于0 代表此线程取消了等待，</span>
-    <span class="token comment">//    ps: 半天抢不到锁，不抢了，ReentrantLock是可以指定timeouot的。。。</span>
-    <span class="token keyword">volatile</span> <span class="token keyword">int</span> waitStatus<span class="token punctuation">;</span>
-    <span class="token comment">// 前驱节点的引用</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">Node</span> prev<span class="token punctuation">;</span>
-    <span class="token comment">// 后继节点的引用</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">Node</span> next<span class="token punctuation">;</span>
-    <span class="token comment">// 这个就是线程本尊</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">Thread</span> thread<span class="token punctuation">;</span>
-
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>其实可以主要关注这个 <code>waitStatus</code> 因为这个是后面的节点给前面的节点设置的，等于-1 的时候代表后面有节点等待，需要去唤醒，<br>这里使用了一个变种的 CLH 队列实现，CLH 队列相关内容可以查看这篇 <a href="https://coderbee.net/index.php/concurrent/20131115/577">自旋锁、排队自旋锁、MCS锁、CLH锁</a></p>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>aqs</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Comparator使用小记</title>
-    <url>/2020/04/05/Comparator%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0/</url>
-    <content><![CDATA[<p>在Java8的stream之前，将对象进行排序的时候，可能需要对象实现Comparable接口，或者自己实现一个Comparator，</p>
-<p>比如这样子</p>
-<p>我的对象是Entity</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Entity</span> <span class="token punctuation">&#123;</span>
-
-    <span class="token keyword">private</span> <span class="token class-name">Long</span> id<span class="token punctuation">;</span>
-
-    <span class="token keyword">private</span> <span class="token class-name">Long</span> sortValue<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token class-name">Long</span> <span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> id<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setId</span><span class="token punctuation">(</span><span class="token class-name">Long</span> id<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>id <span class="token operator">=</span> id<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">public</span> <span class="token class-name">Long</span> <span class="token function">getSortValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> sortValue<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setSortValue</span><span class="token punctuation">(</span><span class="token class-name">Long</span> sortValue<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>sortValue <span class="token operator">=</span> sortValue<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>Comparator</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyComparator</span> <span class="token keyword">implements</span> <span class="token class-name">Comparator</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">compare</span><span class="token punctuation">(</span><span class="token class-name">Object</span> o1<span class="token punctuation">,</span> <span class="token class-name">Object</span> o2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">Entity</span> e1 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Entity</span><span class="token punctuation">)</span> o1<span class="token punctuation">;</span>
-        <span class="token class-name">Entity</span> e2 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Entity</span><span class="token punctuation">)</span> o2<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>e1<span class="token punctuation">.</span><span class="token function">getSortValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> e2<span class="token punctuation">.</span><span class="token function">getSortValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>e1<span class="token punctuation">.</span><span class="token function">getSortValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>e2<span class="token punctuation">.</span><span class="token function">getSortValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>比较代码</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">MyComparator</span> myComparator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyComparator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Entity</span><span class="token punctuation">></span></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Entity</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">Entity</span> e1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Entity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        e1<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span><span class="token number">1L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        e1<span class="token punctuation">.</span><span class="token function">setSortValue</span><span class="token punctuation">(</span><span class="token number">1L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>e1<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">Entity</span> e2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Entity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        e2<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span><span class="token number">2L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        e2<span class="token punctuation">.</span><span class="token function">setSortValue</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>e2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>list<span class="token punctuation">,</span> myComparator<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>看到这里的e2的排序值是null，在Comparator中如果要正常运行的话，就得判空之类的，这里有两点需要，一个是不想写这个MyComparator，然后也没那么好排除掉list里排序值，那么有什么办法能解决这种问题呢，应该说java的这方面真的是很强大</p>
-<p><img data-src="https://i.loli.net/2020/04/05/8VfjeOSmcvx4dyk.png"></p>
-<p>看一下nullsFirst的实现</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">NullComparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token keyword">implements</span> <span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span><span class="token punctuation">,</span> <span class="token class-name">Serializable</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">7569533591570686392L</span><span class="token punctuation">;</span>
-        <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> nullFirst<span class="token punctuation">;</span>
-        <span class="token comment">// if null, non-null Ts are considered equal</span>
-        <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> real<span class="token punctuation">;</span>
-
-        <span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"unchecked"</span><span class="token punctuation">)</span>
-        <span class="token class-name">NullComparator</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> nullFirst<span class="token punctuation">,</span> <span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">T</span><span class="token punctuation">></span></span> real<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">this</span><span class="token punctuation">.</span>nullFirst <span class="token operator">=</span> nullFirst<span class="token punctuation">;</span>
-            <span class="token keyword">this</span><span class="token punctuation">.</span>real <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span><span class="token punctuation">)</span> real<span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-
-        <span class="token annotation punctuation">@Override</span>
-        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">compare</span><span class="token punctuation">(</span><span class="token class-name">T</span> a<span class="token punctuation">,</span> <span class="token class-name">T</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>a <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">return</span> <span class="token punctuation">(</span>b <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> <span class="token punctuation">(</span>nullFirst <span class="token operator">?</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>b <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">return</span> nullFirst <span class="token operator">?</span> <span class="token number">1</span><span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">return</span> <span class="token punctuation">(</span>real <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> real<span class="token punctuation">.</span><span class="token function">compare</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>核心代码就是下面这段，其实就是帮我们把前面要做的事情做掉了，是不是挺方便的，小记一下哈</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>集合</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Stream</tag>
-        <tag>Comparator</tag>
-        <tag>排序</tag>
-        <tag>sort</tag>
-        <tag>nullsfirst</tag>
       </tags>
   </entry>
   <entry>
@@ -798,6 +644,160 @@ Node *clone(Node *graph) &#123;
         <tag>aqs</tag>
         <tag>并发</tag>
         <tag>j.u.c</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Clone Graph Part I</title>
+    <url>/2014/12/30/Clone-Graph-Part-I/</url>
+    <content><![CDATA[<h3 id="problem"><a href="#problem" class="headerlink" title="problem"></a>problem</h3><pre class="line-numbers language-none"><code class="language-none">Clone a graph. Input is a Node pointer. Return the Node pointer of the cloned graph.
+
+A graph is defined below:
+struct Node &#123;
+vector neighbors;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<span id="more"></span>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">typedef unordered_map&lt;Node *, Node *&gt; Map;
+ 
+Node *clone(Node *graph) &#123;
+    if (!graph) return NULL;
+ 
+    Map map;
+    queue&lt;Node *&gt; q;
+    q.push(graph);
+ 
+    Node *graphCopy &#x3D; new Node();
+    map[graph] &#x3D; graphCopy;
+ 
+    while (!q.empty()) &#123;
+        Node *node &#x3D; q.front();
+        q.pop();
+        int n &#x3D; node-&gt;neighbors.size();
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            Node *neighbor &#x3D; node-&gt;neighbors[i];
+            &#x2F;&#x2F; no copy exists
+            if (map.find(neighbor) &#x3D;&#x3D; map.end()) &#123;
+                Node *p &#x3D; new Node();
+                map[node]-&gt;neighbors.push_back(p);
+                map[neighbor] &#x3D; p;
+                q.push(neighbor);
+            &#125; else &#123;     &#x2F;&#x2F; a copy already exists
+                map[node]-&gt;neighbors.push_back(map[neighbor]);
+            &#125;
+        &#125;
+    &#125;
+ 
+    return graphCopy;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="anlysis"><a href="#anlysis" class="headerlink" title="anlysis"></a>anlysis</h3><p>using the Breadth-first traversal<br>and use a map to save the neighbors not to be duplicated.</p>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Comparator使用小记</title>
+    <url>/2020/04/05/Comparator%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0/</url>
+    <content><![CDATA[<p>在Java8的stream之前，将对象进行排序的时候，可能需要对象实现Comparable接口，或者自己实现一个Comparator，</p>
+<p>比如这样子</p>
+<p>我的对象是Entity</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Entity</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">Long</span> id<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">Long</span> sortValue<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Long</span> <span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> id<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setId</span><span class="token punctuation">(</span><span class="token class-name">Long</span> id<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>id <span class="token operator">=</span> id<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Long</span> <span class="token function">getSortValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> sortValue<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setSortValue</span><span class="token punctuation">(</span><span class="token class-name">Long</span> sortValue<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>sortValue <span class="token operator">=</span> sortValue<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Comparator</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyComparator</span> <span class="token keyword">implements</span> <span class="token class-name">Comparator</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">compare</span><span class="token punctuation">(</span><span class="token class-name">Object</span> o1<span class="token punctuation">,</span> <span class="token class-name">Object</span> o2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Entity</span> e1 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Entity</span><span class="token punctuation">)</span> o1<span class="token punctuation">;</span>
+        <span class="token class-name">Entity</span> e2 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Entity</span><span class="token punctuation">)</span> o2<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>e1<span class="token punctuation">.</span><span class="token function">getSortValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> e2<span class="token punctuation">.</span><span class="token function">getSortValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>e1<span class="token punctuation">.</span><span class="token function">getSortValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>e2<span class="token punctuation">.</span><span class="token function">getSortValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>比较代码</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">MyComparator</span> myComparator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyComparator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Entity</span><span class="token punctuation">></span></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Entity</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Entity</span> e1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Entity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        e1<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span><span class="token number">1L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        e1<span class="token punctuation">.</span><span class="token function">setSortValue</span><span class="token punctuation">(</span><span class="token number">1L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>e1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Entity</span> e2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Entity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        e2<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span><span class="token number">2L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        e2<span class="token punctuation">.</span><span class="token function">setSortValue</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>e2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>list<span class="token punctuation">,</span> myComparator<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>看到这里的e2的排序值是null，在Comparator中如果要正常运行的话，就得判空之类的，这里有两点需要，一个是不想写这个MyComparator，然后也没那么好排除掉list里排序值，那么有什么办法能解决这种问题呢，应该说java的这方面真的是很强大</p>
+<p><img data-src="https://i.loli.net/2020/04/05/8VfjeOSmcvx4dyk.png"></p>
+<p>看一下nullsFirst的实现</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">NullComparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token keyword">implements</span> <span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span><span class="token punctuation">,</span> <span class="token class-name">Serializable</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">7569533591570686392L</span><span class="token punctuation">;</span>
+        <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> nullFirst<span class="token punctuation">;</span>
+        <span class="token comment">// if null, non-null Ts are considered equal</span>
+        <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> real<span class="token punctuation">;</span>
+
+        <span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"unchecked"</span><span class="token punctuation">)</span>
+        <span class="token class-name">NullComparator</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> nullFirst<span class="token punctuation">,</span> <span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">T</span><span class="token punctuation">></span></span> real<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>nullFirst <span class="token operator">=</span> nullFirst<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>real <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span><span class="token punctuation">)</span> real<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">compare</span><span class="token punctuation">(</span><span class="token class-name">T</span> a<span class="token punctuation">,</span> <span class="token class-name">T</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>a <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> <span class="token punctuation">(</span>b <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> <span class="token punctuation">(</span>nullFirst <span class="token operator">?</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>b <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> nullFirst <span class="token operator">?</span> <span class="token number">1</span><span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> <span class="token punctuation">(</span>real <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> real<span class="token punctuation">.</span><span class="token function">compare</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>核心代码就是下面这段，其实就是帮我们把前面要做的事情做掉了，是不是挺方便的，小记一下哈</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>集合</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Stream</tag>
+        <tag>Comparator</tag>
+        <tag>排序</tag>
+        <tag>sort</tag>
+        <tag>nullsfirst</tag>
       </tags>
   </entry>
   <entry>
@@ -4521,6 +4521,94 @@ user3:
       </tags>
   </entry>
   <entry>
+    <title>搬运两个 StackOverflow 上的 Mysql 编码相关的问题解答</title>
+    <url>/2022/01/16/%E6%90%AC%E8%BF%90%E4%B8%A4%E4%B8%AA-StackOverflow-%E4%B8%8A%E7%9A%84-Mysql-%E7%BC%96%E7%A0%81%E7%9B%B8%E5%85%B3%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94/</url>
+    <content><![CDATA[<h1 id="Mysql-字符编码和排序规则"><a href="#Mysql-字符编码和排序规则" class="headerlink" title="Mysql 字符编码和排序规则"></a>Mysql 字符编码和排序规则</h1><p>这个一直是属于一知半解的状态，知道 utf8 跟 utf8mb4 的区别主要是能不能支持 emoji，但是具体后面配置的排序规则是用来干嘛，或者有什么区别，应该使用哪个，所以在 stackoverflow 上找了下，有两个比较不错的解答，就搬过来并且配合机翻做了点修改</p>
+<h3 id="原文"><a href="#原文" class="headerlink" title="原文"></a><a href="https://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci">原文</a></h3><p>For those people still arriving at this question in 2020 or later, there are newer options that may be better than both of these. For example, <code>utf8mb4_0900_ai_ci</code>.</p>
+<p>All these collations are for the UTF-8 character encoding. The differences are in how text is sorted and compared.</p>
+<p><code>_unicode_ci</code> and <code>_general_ci</code> are two different sets of rules for sorting and comparing text according to the way we expect. Newer versions of MySQL introduce new sets of rules, too, such as <code>_0900_ai_ci</code> for equivalent rules based on Unicode 9.0 - and with no equivalent <code>_general_ci</code> variant. People reading this now should probably use one of these newer collations instead of either <code>_unicode_ci</code> or <code>_general_ci</code>. The description of those older collations below is provided for interest only.</p>
+<p>MySQL is currently transitioning away from an older, flawed UTF-8 implementation. For now, you need to use utf8mb4 instead of utf8 for the character encoding part, to ensure you are getting the fixed version. The flawed version remains for backward compatibility, though it is being deprecated.</p>
+<p>Key differences</p>
+<p><code>utf8mb4_unicode_ci</code> is based on the official Unicode rules for universal sorting and comparison, which sorts accurately in a wide range of languages.</p>
+<p><code>utf8mb4_general_ci</code> is a simplified set of sorting rules which aims to do as well as it can while taking many short-cuts designed to improve speed. It does not follow the Unicode rules and will result in undesirable sorting or comparison in some situations, such as when using particular languages or characters.</p>
+<p>On modern servers, this performance boost will be all but negligible. It was devised in a time when servers had a tiny fraction of the CPU performance of today’s computers.</p>
+<p>Benefits of <code>utf8mb4_unicode_ci</code> over <code>utf8mb4_general_ci</code></p>
+<p>utf8mb4_unicode_ci, which uses the Unicode rules for sorting and comparison, employs a fairly complex algorithm for correct sorting in a wide range of languages and when using a wide range of special characters. These rules need to take into account language-specific conventions; not everybody sorts their characters in what we would call ‘alphabetical order’.</p>
+<p>As far as Latin (ie “European”) languages go, there is not much difference between the Unicode sorting and the simplified <code>utf8mb4_general_ci</code>sorting in MySQL, but there are still a few differences:</p>
+<p>For examples, the Unicode collation sorts “ß” like “ss”, and “Œ” like “OE” as people using those characters would normally want, whereas <code>utf8mb4_general_ci</code>sorts them as single characters (presumably like “s” and “e” respectively).</p>
+<p>Some Unicode characters are defined as ignorable, which means they shouldn’t count toward the sort order and the comparison should move on to the next character instead. <code>utf8mb4_unicode_ci</code>handles these properly.</p>
+<p>In non-latin languages, such as Asian languages or languages with different alphabets, there may be a lot more differences between Unicode sorting and the simplified <code>utf8mb4_general_ci</code>sorting. The suitability of <code>utf8mb4_general_ci</code>will depend heavily on the language used. For some languages, it’ll be quite inadequate.</p>
+<p>What should you use?</p>
+<p>There is almost certainly no reason to use <code>utf8mb4_general_ci</code>anymore, as we have left behind the point where CPU speed is low enough that the performance difference would be important. Your database will almost certainly be limited by other bottlenecks than this.</p>
+<p>In the past, some people recommended to use <code>utf8mb4_general_ci</code>except when accurate sorting was going to be important enough to justify the performance cost. Today, that performance cost has all but disappeared, and developers are treating internationalization more seriously.</p>
+<p>There’s an argument to be made that if speed is more important to you than accuracy, you may as well not do any sorting at all. It’s trivial to make an algorithm faster if you do not need it to be accurate. So, <code>utf8mb4_general_ci</code>is a compromise that’s probably not needed for speed reasons and probably also not suitable for accuracy reasons.</p>
+<p>One other thing I’ll add is that even if you know your application only supports the English language, it may still need to deal with people’s names, which can often contain characters used in other languages in which it is just as important to sort correctly. Using the Unicode rules for everything helps add peace of mind that the very smart Unicode people have worked very hard to make sorting work properly.</p>
+<p>What the parts mean</p>
+<p>Firstly, ci is for case-insensitive sorting and comparison. This means it’s suitable for textual data, and case is not important. The other types of collation are cs (case-sensitive) for textual data where case is important, and bin, for where the encoding needs to match, bit for bit, which is suitable for fields which are really encoded binary data (including, for example, Base64). Case-sensitive sorting leads to some weird results and case-sensitive comparison can result in duplicate values differing only in letter case, so case-sensitive collations are falling out of favor for textual data - if case is significant to you, then otherwise ignorable punctuation and so on is probably also significant, and a binary collation might be more appropriate.</p>
+<p>Next, unicode or general refers to the specific sorting and comparison rules - in particular, the way text is normalized or compared. There are many different sets of rules for the utf8mb4 character encoding, with unicode and general being two that attempt to work well in all possible languages rather than one specific one. The differences between these two sets of rules are the subject of this answer. Note that unicode uses rules from Unicode 4.0. Recent versions of MySQL add the rulesets unicode_520 using rules from Unicode 5.2, and 0900 (dropping the “unicode_” part) using rules from Unicode 9.0.</p>
+<p>And lastly, utf8mb4 is of course the character encoding used internally. In this answer I’m talking only about Unicode based encodings.</p>
+<h3 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h3><p>对于那些在 2020 年或之后仍会遇到这个问题的人，有可能比这两个更好的新选项。例如，<code>utf8mb4_0900_ai_ci</code>。</p>
+<p>所有这些排序规则都用于 UTF-8 字符编码。不同之处在于文本的排序和比较方式。</p>
+<p><code>_unicode_ci</code>和 <code>_general_ci</code>是两组不同的规则，用于按照我们期望的方式对文本进行排序和比较。较新版本的 MySQL 也引入了新的规则集，例如 <code>_0900_ai_ci</code>用于基于 Unicode 9.0 的等效规则 - 并且没有等效的 <code>_general_ci</code>变体。现在阅读本文的人可能应该使用这些较新的排序规则之一，而不是 <code>_unicode_ci</code>或 <code>_general_ci</code>。下面对那些较旧的排序规则的描述仅供参考。</p>
+<p>MySQL 目前正在从旧的、有缺陷的 UTF-8 实现过渡。现在，您需要使用 <code>utf8mb4</code> 而不是 <code>utf8</code>作为字符编码部分，以确保您获得的是固定版本。有缺陷的版本仍然是为了向后兼容，尽管它已被弃用。</p>
+<p>主要区别</p>
+<p><code>utf8mb4_unicode_ci</code>基于官方 Unicode 规则进行通用排序和比较，可在多种语言中准确排序。</p>
+<p><code>utf8mb4_general_ci</code>是一组简化的排序规则，旨在尽其所能，同时采用许多旨在提高速度的捷径。它不遵循 Unicode 规则，并且在某些情况下会导致不希望的排序或比较，例如在使用特定语言或字符时。</p>
+<p>在现代服务器上，这种性能提升几乎可以忽略不计。它是在服务器的 CPU 性能只有当今计算机的一小部分时设计的。</p>
+<p><code>utf8mb4_unicode_ci</code> 相对于 <code>utf8mb4_general_ci</code>的优势</p>
+<p><code>utf8mb4_unicode_ci</code>使用 Unicode 规则进行排序和比较，采用相当复杂的算法在多种语言中以及在使用多种特殊字符时进行正确排序。这些规则需要考虑特定语言的约定；不是每个人都按照我们所说的“字母顺序”对他们的字符进行排序。</p>
+<p>就拉丁语（即“欧洲”）语言而言，Unicode 排序和 MySQL 中简化的 <code>utf8mb4_general_ci</code>排序没有太大区别，但仍有一些区别：</p>
+<p>例如，Unicode 排序规则将“ß”排序为“ss”，将“Œ”排序为“OE”，因为使用这些字符的人通常需要这些字符，而 <code>utf8mb4_general_ci</code>将它们排序为单个字符（大概分别像“s”和“e” ）。</p>
+<p>一些 Unicode 字符被定义为可忽略，这意味着它们不应该计入排序顺序，并且比较应该转到下一个字符。 <code>utf8mb4_unicode_ci</code>正确处理这些。</p>
+<p>在非拉丁语言中，例如亚洲语言或具有不同字母的语言，Unicode 排序和简化的 <code>utf8mb4_general_ci</code>排序之间可能存在更多差异。 <code>utf8mb4_general_ci</code>的适用性在很大程度上取决于所使用的语言。对于某些语言，这将是非常不充分的。</p>
+<p>你应该用什么？</p>
+<p>几乎可以肯定没有理由再使用 <code>utf8mb4_general_ci</code>，因为我们已经将 CPU 速度低到会严重影响性能表现的时代远抛在脑后了。您的数据库几乎肯定会受到除此之外的其他瓶颈的限制。</p>
+<p>过去，有些人建议使用 <code>utf8mb4_general_ci</code>，除非准确排序足够重要以证明性能成本是合理的。如今，这种性能成本几乎消失了，开发人员正在更加认真地对待国际化。</p>
+<p>有一个论点是，如果速度对您来说比准确性更重要，那么您可能根本不进行任何排序。如果您不需要准确的算法，那么使算法更快是微不足道的。因此，<code>utf8mb4_general_ci</code>是一种折衷方案，出于速度原因可能不需要，也可能出于准确性原因也不适合。</p>
+<p>我要补充的另一件事是，即使您知道您的应用程序仅支持英语，它可能仍需要处理人名，这些人名通常包含其他语言中使用的字符，在这些语言中正确排序同样重要.对所有事情都使用 Unicode 规则有助于让您更加安心，因为非常聪明的 Unicode 人员已经非常努力地工作以使排序正常工作。</p>
+<p>其余各个部分是什么意思</p>
+<p>首先， <code>ci</code> 用于不区分大小写的排序和比较。这意味着它适用于文本数据，大小写并不重要。其他类型的排序规则是 <code>cs</code>（区分大小写），用于区分大小写的文本数据，以及 <code>bin</code>，用于编码需要匹配的地方，逐位匹配，适用于真正编码二进制数据的字段（包括，用于例如，Base64）。区分大小写的排序会导致一些奇怪的结果，区分大小写的比较可能会导致重复值仅在字母大小写上有所不同，因此区分大小写的排序规则对文本数据不受欢迎 - 如果大小写对您很重要，那么标点符号就可以忽略等等可能也很重要，二进制排序规则可能更合适。</p>
+<p>接下来，unicode 或general 指的是具体的排序和比较规则——特别是文本被规范化或比较的方式。 utf8mb4 字符编码有许多不同的规则集，其中 unicode 和 general 是两种，它们试图在所有可能的语言中都很好地工作，而不是在一种特定的语言中。这两组规则之间的差异是此答案的主题。请注意，unicode 使用 Unicode 4.0 中的规则。 MySQL 的最新版本使用 Unicode 5.2 的规则添加规则集 unicode_520，使用 Unicode 9.0 的规则添加 0900（删除“unicode_”部分）。</p>
+<p>最后，utf8mb4 当然是内部使用的字符编码。在这个答案中，我只谈论基于 Unicode 的编码。</p>
+<h1 id="utf8-和-utf8mb4-编码有什么区别"><a href="#utf8-和-utf8mb4-编码有什么区别" class="headerlink" title="utf8 和 utf8mb4 编码有什么区别"></a>utf8 和 utf8mb4 编码有什么区别</h1><h3 id="原文-1"><a href="#原文-1" class="headerlink" title="原文"></a><a href="https://stackoverflow.com/questions/30074492/what-is-the-difference-between-utf8mb4-and-utf8-charsets-in-mysql">原文</a></h3><p><a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a>is a variable-length encoding. In the case of UTF-8, this means that storing one code point requires one to four bytes. However, MySQL’s encoding called “utf8” (alias of “utf8mb3”) only stores a maximum of three bytes per code point.</p>
+<p>So the character set “utf8”/“utf8mb3” cannot store all Unicode code points: it only supports the range 0x000 to 0xFFFF, which is called the “<a href="http://en.wikipedia.org/wiki/Plane_%28Unicode%29#Basic_Multilingual_Plane">Basic Multilingual Plane</a>“. See also <a href="http://en.wikipedia.org/wiki/Comparison_of_Unicode_encodings#In_detail">Comparison of Unicode encodings</a>.</p>
+<p>This is what (a previous version of the same page at)<a href="https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8mb4.html">the MySQL documentation</a>has to say about it:</p>
+<blockquote>
+<p>The character set named utf8[/utf8mb3] uses a maximum of three bytes per character and contains only BMP characters. As of MySQL 5.5.3, the utf8mb4 character set uses a maximum of four bytes per character supports supplemental characters:</p>
+<ul>
+<li>For a BMP character, utf8[/utf8mb3] and utf8mb4 have identical storage characteristics: same code values, same encoding, same length.</li>
+<li>For a supplementary character, <strong>utf8[/utf8mb3] cannot store the character at all</strong>, while utf8mb4 requires four bytes to store it. Since utf8[/utf8mb3] cannot store the character at all, you do not have any supplementary characters in utf8[/utf8mb3] columns and you need not worry about converting characters or losing data when upgrading utf8[/utf8mb3] data from older versions of MySQL.</li>
+</ul>
+</blockquote>
+<p>So if you want your column to support storing characters lying outside the BMP (and you usually want to), such as <a href="https://en.wikipedia.org/wiki/Emoji">emoji</a>, use “utf8mb4”. See also <a href="https://stackoverflow.com/questions/5567249/what-are-the-most-common-non-bmp-unicode-characters-in-actual-use">What are the most common non-BMP Unicode characters in actual use?</a>.</p>
+<h3 id="译文"><a href="#译文" class="headerlink" title="译文"></a>译文</h3><p><a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> 是一种可变长度编码。对于 UTF-8，这意味着存储一个代码点需要一到四个字节。但是，MySQL 的编码称为“utf8”（“utf8mb3”的别名）每个代码点最多只能存储三个字节。</p>
+<p>所以字符集“utf8”/“utf8mb3”不能存储所有的Unicode码位：它只支持0x000到0xFFFF的范围，被称为“<a href="http://en.wikipedia.org/wiki/Plane_%28Unicode%29#Basic_Multilingual_Plane">基本多语言平面</a>”。另请参阅 <a href="http://en.wikipedia.org/wiki/Comparison_of_Unicode_encodings#In_detail">Unicode 编码比较</a>。</p>
+<p>这就是（同一页面的先前版本）<a href="https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8mb4.html">MySQL 文档</a> 不得不说的：</p>
+<blockquote>
+<p>名为 utf8[/utf8mb3] 的字符集每个字符最多使用三个字节，并且仅包含 BMP 字符。从 MySQL 5.5.3 开始，utf8mb4 字符集每个字符最多使用四个字节，支持补充字符：</p>
+<ul>
+<li>对于 BMP 字符，utf8[/utf8mb3] 和 utf8mb4 具有相同的存储特性：相同的代码值、相同的编码、相同的长度。</li>
+<li>对于补充字符，<strong>utf8[/utf8mb3] 根本无法存储该字符</strong>，而 utf8mb4 需要四个字节来存储它。由于 utf8[/utf8mb3] 根本无法存储字符，因此您在 utf8[/utf8mb3] 列中没有任何补充字符，您不必担心从旧版本升级 utf8[/utf8mb3] 数据时转换字符或丢失数据mysql。</li>
+</ul>
+</blockquote>
+<p>因此，如果您希望您的列支持存储位于 BMP 之外的字符（并且您通常希望这样做），例如 <a href="https://en.wikipedia.org/wiki/Emoji">emoji</a>，请使用“utf8mb4”。另请参阅</p>
+<p><a href="https://stackoverflow.com/questions/5567249/what-are-the-most-common-non-bmp-unicode-characters-in-actual-use">实际使用中最常见的非 BMP Unicode 字符是什么？</a> 。</p>
+]]></content>
+      <categories>
+        <category>Mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+        <tag>字符集</tag>
+        <tag>编码</tag>
+        <tag>utf8</tag>
+        <tag>utf8mb4</tag>
+        <tag>utf8mb4_0900_ai_ci</tag>
+        <tag>utf8mb4_unicode_ci</tag>
+        <tag>utf8mb4_general_ci</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>看完了扫黑风暴,聊聊感想</title>
     <url>/2021/10/24/%E7%9C%8B%E5%AE%8C%E4%BA%86%E6%89%AB%E9%BB%91%E9%A3%8E%E6%9A%B4-%E8%81%8A%E8%81%8A%E6%84%9F%E6%83%B3/</url>
     <content><![CDATA[<p>一直在想这篇怎么写，看了这部剧其实对我的一些观念是有影响的，应该是在 9 月份就看完了，到现在可能才会稍微平静一点，一开始是没有想看这部剧，因为同期有一部差不多同名的电影，被投诉了对湖南埋尸案家属伤害很大，我以为就是投诉的这部电视剧，后来同事跟我说不是，所以就想着看一下，但是没有马上看，因为一直不喜欢追这种比较纠结的剧，当时看人民的名义，就是后面等不了了直接看了小说，所以差不多是等到更完了才看的。</p>
@@ -7375,6 +7463,20 @@ function hiicu64() &#123;
       </tags>
   </entry>
   <entry>
+    <title>聊聊最近平淡的生活之《花束般的恋爱》观后感</title>
+    <url>/2021/12/31/%E8%81%8A%E8%81%8A%E6%9C%80%E8%BF%91%E5%B9%B3%E6%B7%A1%E7%9A%84%E7%94%9F%E6%B4%BB%E4%B9%8B%E3%80%8A%E8%8A%B1%E6%9D%9F%E8%88%AC%E7%9A%84%E6%81%8B%E7%88%B1%E3%80%8B%E8%A7%82%E5%90%8E%E6%84%9F/</url>
+    <content><![CDATA[<p>周末在领导的提议下看了豆瓣的年度榜单，本来感觉没啥心情看的，看到主演有有村架纯就觉得可以看一下，颜值即正义嘛，男主小麦跟女主小娟（后面简称小麦跟小娟）是两个在一次非常偶然的没赶上地铁末班车事件中相识，这里得说下日本这种通宵营业的店好像挺不错的，看着也挺正常，国内估计只有酒吧之类的可以。晚上去的地方是有点暗暗的，好像也有点类似酒吧，旁边有类似于 dj 那种，然后同桌的还有除了男女主的另外一对男女，也是因为没赶上地铁末班车的，但也是陌生人，然后小麦突然看到了有个非常有名的电影人，小娟竟然也认识，然后旁边那对完全不认识，还在那吹自己看过很多电影，比如《肖申克的救赎》，于是男女主都特别鄙夷地看着他们，然后他们又去了另一个有点像泡澡的地方席地而坐，他们发现了自己的鞋子都是一样的，然后在女的去上厕所的时候，小麦暗恋的学姐也来了，然后小麦就去跟学姐他们一起坐了，小娟回来后有点不开心就说去朋友家睡，幸好小麦看出来了（他竟然看出来了，本来以为应该是没填过恋爱很木讷的），就追出去，然后就去了小麦家，到了家小娟发现小麦家的书柜上的书简直就跟她自己家的一模一样，小麦还给小娟吹了头发，一起吃烤饭团，看电影，第二天送小娟上了公交，还约好了一起看木乃伊展，然而并没有交换联系方式，但是他们还是约上了一起看了木乃伊展，在餐馆就出现了片头那一幕的来源，因为餐馆他们想一起听歌，就用有线耳机一人一个耳朵听，但是旁边就有个大叔说“你们是不是不爱音乐，左右耳朵是不一样的，只有一起听才是真正的音乐”这样的话，然后的剧情有点跳，因为是指他们一直在这家餐馆吃饭，中间有他们一起出去玩情节穿插着，也是在这他们确立了关系，可以说主体就是体现了他们非常的合拍和默契，就像一些影评说的，这部电影是说如何跟百分百合拍的人分手，然后就是正常的恋爱开始啪啪啪，一直腻在床上，也没去就业说明会，后面也有讲了一点小麦带着小娟去认识他的朋友，也把小娟介绍给了他们认识，这里算是个小伏笔，后面他们分手也有这里的人的一些关系，接下去的剧情说实话我是不太喜欢的，如果一部八分的电影只是说恋爱被现实打败的话，我觉得在我这是不合格的，但是事实也是这样，小麦其实是有家里的资助，所以后面还是按自己的喜好给一些机构画点插画，小娟则要出去工作，因为小娟家庭观念也是要让她出去有正经工作，用脚指头想也能知道肯定不顺利，然后就是暂时在一家蛋糕店工作，小麦就每天去接小娟，日子过得甜甜蜜蜜，后面小娟在自己的努力下考了个什么资格证，去了一家医院还是什么做前台行政，这中间当然就有父母来见面吃饭了，他们在开始恋爱不久就同居合租了，然后小娟父母就是来说要让她有个正经工作，对男的说的话就是人生就是责任这类的话，而小麦爸爸算是个导火索，因为小麦家里是做烟花生意的，他爸让他就做烟花生意，因为要回老家，并且小麦也不想做，所以就拒绝了，然后他爸就说不给他每个月五万的资助，这也导致了小麦需要去找工作，这个过程也是很辛苦，本来想要年前找好工作，然后事与愿违，后面有一次小娟被同事吐槽怎么从来不去团建，于是她就去了（我以为会拒绝），正在团建的时候小麦给她电话，说找到工作了，是一个创业物流公司这种，这里剧情就是我觉得比较俗套的，小麦各种被虐，累成狗，但是就像小娟爸爸说的话，人生就是责任，所以一直在坚持，但是这样也导致了跟小娟的交流也越来越少，他们原来最爱的漫画，爱玩的游戏，也只剩小娟一个人看，一个人玩，而正是这个时候，小娟说她辞掉了工作，去做一个不是太靠谱的漫画改造的密室逃脱，然后这里其实有一点后面争议很大的，就是这个工作其实是前面小麦介绍给小娟的那些朋友中一个的女朋友介绍的，而在有个剧情就是小娟有一次在这个密室逃脱的老板怀里醒过来，是在 KTV 那样的场景里，这就有很多人觉得小娟是不是出轨了，我觉得其实不那么重要，因为这个离职的事情已经让一切矛盾都摆在眼前，小麦其实是接受这种需要承担责任的生活，也想着要跟小娟结婚，但是小娟似乎还是想要过着那样理想的生活，做自己想做的事情，看自己爱看的漫画，也要小麦能像以前那样一直那么默契的有着相同的爱好，这里的触发点其实还有个是那个小麦的朋友（也就是他女朋友介绍小娟那个不靠谱工作的）的葬礼上，小麦在参加完葬礼后有挺多想倾诉的，而小娟只是想睡了，这个让小麦第二天起来都不想理小娟，只是这里我不太理解，难道这点闹情绪都不能接受吗，所谓的合拍也只是毫无限制的情况下的合拍吧，真正的生活怎么可能如此理想呢，即使没有物质生活的压力，也会有其他的各种压力和限制，在这之后其实小麦想说的是小娟是不是没有想跟自己继续在一起的想法了，而小娟觉得都不说话了，还怎么结婚呢，后面其实导演搞了个小 trick，突然放了异常婚礼，但是不是男女主的，我并不觉得这个桥段很好，在婚礼里男女主都觉得自己想要跟对方说分手了，但是当他们去了最开始一直去的餐馆的时候，一个算是一个现实映照的就是他们一直坐的位子被占了，可能也是导演想通过这个来说明他们已经回不去了，在餐馆交谈的时候，小麦其实是说他们结婚吧，并没有想前面婚礼上预设地要分手，但是小娟放弃了，不想结婚，因为不想过那样的生活了，而小麦觉得可能生活就是那样，不可能一直保持刚恋爱时候的那种感觉，生活就是责任，人生就意味着责任。</p>
+<p>我的一些观点也在前面说了，恋爱到婚姻，即使物质没问题，经济没问题，也会有各种各样的问题，需要一起去解决，因为结婚就意味着需要相互扶持，而不是各取所需，可能我的要求比较高，后面男女主在分手后还一起住了一段时间，我原来还在想会不会通过这个方式让他们继续去磨合同步，只是我失望了，最后给个打分可能是 5 到 6 分吧，勉强及格，好的影视剧应该源于生活高于生活，这一部可能还比不上生活。</p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+        <tag>看剧</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>聊聊那些加塞狗</title>
     <url>/2021/01/17/%E8%81%8A%E8%81%8A%E9%82%A3%E4%BA%9B%E5%8A%A0%E5%A1%9E%E7%8B%97/</url>
     <content><![CDATA[<p>今天真的是被气得不轻，情况是碰到一个有 70 多秒的直行红灯，然后直行就排了很长的队，但是左转车道没车，就有好几辆车占着左转车道，准备往直行车道插队加塞，一般这种加塞的，会挑个不太计较的，如果前面一辆不让的话就再等等，我因为赶着回家，就不想让，结果那辆车几次车头直接往里冲，当时怒气值基本已经蓄满了，我真的是分毫都不想让，如果路上都是让着这种人的，那么这种情况只会越来越严重，我理解的这种心态，就赌你怕麻烦，多一事不如少一事，结果就是每次都能顺利插队加塞，其实延伸到我们社会中的种种实质性的排队或者等同于排队的情况，都已经有这种惯有思维，一方面这种不符合规则，可能在严重程度上容易被很多人所忽视，基本上已经被很多人当成是“合理”行为，另一方面，对于这些“微小”的违规行为，本身管理层面也基本没有想要管的意思，就更多的成为了纵容这些行为的导火索，并且大多数人都是想着如果不让，发生点小剐小蹭的要浪费很多时间精力来处理，甚至会觉得会被别人觉得自己太小气等等，诸多内外成本结合起来，会真的去硬刚的可能少之又少了，这样也就让更多的人觉得这种行为是被默许的，再举个非常小的例子，以我们公司疫情期间的盒饭发放为例，有两个比较“有意思”的事情，第一个就是因为疫情，本来是让排队要间隔一米，但是可能除了我比较怕死会跟前面的人保持点距离基本没别人会不挨着前面的人，甚至我跟我前面的人保持点距离，后面的同学会推着我让我上去；第二个是关于拿饭，这么多人排着队拿饭，然后有部分同学，一个人拿好几份，帮组里其他人的都拿了，有些甚至一个人拿十份，假如这个盒饭发放是说明了可以按部门直接全领了那就没啥问题，但是当时的状况是个人排队领自己的那一份，如果一个同学直接帮着组里十几个人都拿了，后面排队的人是什么感受呢，甚至有些是看到队伍排长了，就找队伍里自己认识的比较靠前的人说你帮我也拿一份，其实作为我这个比较按规矩办事的“愣头青”来说，我是比较不能接受这两件小事里的行为的，再往下说可能就有点偏激了，先说到这~</p>
@@ -7389,20 +7491,6 @@ function hiicu64() &#123;
         <tag>加塞</tag>
         <tag>糟心事</tag>
         <tag>规则</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>聊聊最近平淡的生活之《花束般的恋爱》观后感</title>
-    <url>/2021/12/31/%E8%81%8A%E8%81%8A%E6%9C%80%E8%BF%91%E5%B9%B3%E6%B7%A1%E7%9A%84%E7%94%9F%E6%B4%BB%E4%B9%8B%E3%80%8A%E8%8A%B1%E6%9D%9F%E8%88%AC%E7%9A%84%E6%81%8B%E7%88%B1%E3%80%8B%E8%A7%82%E5%90%8E%E6%84%9F/</url>
-    <content><![CDATA[<p>周末在领导的提议下看了豆瓣的年度榜单，本来感觉没啥心情看的，看到主演有有村架纯就觉得可以看一下，颜值即正义嘛，男主小麦跟女主小娟（后面简称小麦跟小娟）是两个在一次非常偶然的没赶上地铁末班车事件中相识，这里得说下日本这种通宵营业的店好像挺不错的，看着也挺正常，国内估计只有酒吧之类的可以。晚上去的地方是有点暗暗的，好像也有点类似酒吧，旁边有类似于 dj 那种，然后同桌的还有除了男女主的另外一对男女，也是因为没赶上地铁末班车的，但也是陌生人，然后小麦突然看到了有个非常有名的电影人，小娟竟然也认识，然后旁边那对完全不认识，还在那吹自己看过很多电影，比如《肖申克的救赎》，于是男女主都特别鄙夷地看着他们，然后他们又去了另一个有点像泡澡的地方席地而坐，他们发现了自己的鞋子都是一样的，然后在女的去上厕所的时候，小麦暗恋的学姐也来了，然后小麦就去跟学姐他们一起坐了，小娟回来后有点不开心就说去朋友家睡，幸好小麦看出来了（他竟然看出来了，本来以为应该是没填过恋爱很木讷的），就追出去，然后就去了小麦家，到了家小娟发现小麦家的书柜上的书简直就跟她自己家的一模一样，小麦还给小娟吹了头发，一起吃烤饭团，看电影，第二天送小娟上了公交，还约好了一起看木乃伊展，然而并没有交换联系方式，但是他们还是约上了一起看了木乃伊展，在餐馆就出现了片头那一幕的来源，因为餐馆他们想一起听歌，就用有线耳机一人一个耳朵听，但是旁边就有个大叔说“你们是不是不爱音乐，左右耳朵是不一样的，只有一起听才是真正的音乐”这样的话，然后的剧情有点跳，因为是指他们一直在这家餐馆吃饭，中间有他们一起出去玩情节穿插着，也是在这他们确立了关系，可以说主体就是体现了他们非常的合拍和默契，就像一些影评说的，这部电影是说如何跟百分百合拍的人分手，然后就是正常的恋爱开始啪啪啪，一直腻在床上，也没去就业说明会，后面也有讲了一点小麦带着小娟去认识他的朋友，也把小娟介绍给了他们认识，这里算是个小伏笔，后面他们分手也有这里的人的一些关系，接下去的剧情说实话我是不太喜欢的，如果一部八分的电影只是说恋爱被现实打败的话，我觉得在我这是不合格的，但是事实也是这样，小麦其实是有家里的资助，所以后面还是按自己的喜好给一些机构画点插画，小娟则要出去工作，因为小娟家庭观念也是要让她出去有正经工作，用脚指头想也能知道肯定不顺利，然后就是暂时在一家蛋糕店工作，小麦就每天去接小娟，日子过得甜甜蜜蜜，后面小娟在自己的努力下考了个什么资格证，去了一家医院还是什么做前台行政，这中间当然就有父母来见面吃饭了，他们在开始恋爱不久就同居合租了，然后小娟父母就是来说要让她有个正经工作，对男的说的话就是人生就是责任这类的话，而小麦爸爸算是个导火索，因为小麦家里是做烟花生意的，他爸让他就做烟花生意，因为要回老家，并且小麦也不想做，所以就拒绝了，然后他爸就说不给他每个月五万的资助，这也导致了小麦需要去找工作，这个过程也是很辛苦，本来想要年前找好工作，然后事与愿违，后面有一次小娟被同事吐槽怎么从来不去团建，于是她就去了（我以为会拒绝），正在团建的时候小麦给她电话，说找到工作了，是一个创业物流公司这种，这里剧情就是我觉得比较俗套的，小麦各种被虐，累成狗，但是就像小娟爸爸说的话，人生就是责任，所以一直在坚持，但是这样也导致了跟小娟的交流也越来越少，他们原来最爱的漫画，爱玩的游戏，也只剩小娟一个人看，一个人玩，而正是这个时候，小娟说她辞掉了工作，去做一个不是太靠谱的漫画改造的密室逃脱，然后这里其实有一点后面争议很大的，就是这个工作其实是前面小麦介绍给小娟的那些朋友中一个的女朋友介绍的，而在有个剧情就是小娟有一次在这个密室逃脱的老板怀里醒过来，是在 KTV 那样的场景里，这就有很多人觉得小娟是不是出轨了，我觉得其实不那么重要，因为这个离职的事情已经让一切矛盾都摆在眼前，小麦其实是接受这种需要承担责任的生活，也想着要跟小娟结婚，但是小娟似乎还是想要过着那样理想的生活，做自己想做的事情，看自己爱看的漫画，也要小麦能像以前那样一直那么默契的有着相同的爱好，这里的触发点其实还有个是那个小麦的朋友（也就是他女朋友介绍小娟那个不靠谱工作的）的葬礼上，小麦在参加完葬礼后有挺多想倾诉的，而小娟只是想睡了，这个让小麦第二天起来都不想理小娟，只是这里我不太理解，难道这点闹情绪都不能接受吗，所谓的合拍也只是毫无限制的情况下的合拍吧，真正的生活怎么可能如此理想呢，即使没有物质生活的压力，也会有其他的各种压力和限制，在这之后其实小麦想说的是小娟是不是没有想跟自己继续在一起的想法了，而小娟觉得都不说话了，还怎么结婚呢，后面其实导演搞了个小 trick，突然放了异常婚礼，但是不是男女主的，我并不觉得这个桥段很好，在婚礼里男女主都觉得自己想要跟对方说分手了，但是当他们去了最开始一直去的餐馆的时候，一个算是一个现实映照的就是他们一直坐的位子被占了，可能也是导演想通过这个来说明他们已经回不去了，在餐馆交谈的时候，小麦其实是说他们结婚吧，并没有想前面婚礼上预设地要分手，但是小娟放弃了，不想结婚，因为不想过那样的生活了，而小麦觉得可能生活就是那样，不可能一直保持刚恋爱时候的那种感觉，生活就是责任，人生就意味着责任。</p>
-<p>我的一些观点也在前面说了，恋爱到婚姻，即使物质没问题，经济没问题，也会有各种各样的问题，需要一起去解决，因为结婚就意味着需要相互扶持，而不是各取所需，可能我的要求比较高，后面男女主在分手后还一起住了一段时间，我原来还在想会不会通过这个方式让他们继续去磨合同步，只是我失望了，最后给个打分可能是 5 到 6 分吧，勉强及格，好的影视剧应该源于生活高于生活，这一部可能还比不上生活。</p>
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
-        <tag>看剧</tag>
       </tags>
   </entry>
   <entry>
