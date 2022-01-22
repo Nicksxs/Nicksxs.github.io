@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-01-16T12:52:31.000Z</updated>
+  <updated>2022-01-22T15:27:06.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2021 年终总结</title>
+    <link href="https://nicksxs.me/2022/01/22/2021-%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
+    <id>https://nicksxs.me/2022/01/22/2021-%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</id>
+    <published>2022-01-22T15:27:06.000Z</published>
+    <updated>2022-01-22T15:27:06.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;又是一年年终总结，本着极度讨厌实时需求的理念，我还是 T+N 发布这个年终总结&lt;/p&gt;
+&lt;h1 id=&quot;工作篇&quot;&gt;&lt;a href=&quot;#工作篇&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    <category term="年终总结" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
+    
+    
+    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+    <category term="年终总结" scheme="https://nicksxs.me/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
+    
+    <category term="2021" scheme="https://nicksxs.me/tags/2021/"/>
+    
+    <category term="拖更" scheme="https://nicksxs.me/tags/%E6%8B%96%E6%9B%B4/"/>
+    
+  </entry>
   
   <entry>
     <title>搬运两个 StackOverflow 上的 Mysql 编码相关的问题解答</title>
@@ -585,42 +619,6 @@
     <category term="Druid" scheme="https://nicksxs.me/tags/Druid/"/>
     
     <category term="数据源动态切换" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E6%BA%90%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊一下 SpringBoot 中使用的 cglib 作为动态代理中的一个注意点</title>
-    <link href="https://nicksxs.me/2021/09/19/%E8%81%8A%E4%B8%80%E4%B8%8B-SpringBoot-%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9A%84-cglib-%E4%BD%9C%E4%B8%BA%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AA%E6%B3%A8%E6%84%8F%E7%82%B9/"/>
-    <id>https://nicksxs.me/2021/09/19/%E8%81%8A%E4%B8%80%E4%B8%8B-SpringBoot-%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9A%84-cglib-%E4%BD%9C%E4%B8%BA%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AA%E6%B3%A8%E6%84%8F%E7%82%B9/</id>
-    <published>2021-09-19T14:56:31.000Z</published>
-    <updated>2021-09-19T14:56:31.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这个话题是由一次组内同学分享引出来的，首先在 springboot 2.x 开始默认使用了 cglib 作为 aop 的实现，这里也稍微讲一下，在一个 1.x 的老项目里，可以看到AopAutoConfiguration 是这样的&lt;/p&gt;
-&lt;pre</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-    <category term="Spring" scheme="https://nicksxs.me/tags/Spring/"/>
-    
-    <category term="cglib" scheme="https://nicksxs.me/tags/cglib/"/>
-    
-    <category term="事务" scheme="https://nicksxs.me/tags/%E4%BA%8B%E5%8A%A1/"/>
     
   </entry>
   
