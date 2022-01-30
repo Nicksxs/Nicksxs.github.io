@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-01-22T15:27:06.000Z</updated>
+  <updated>2022-01-30T13:51:03.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>spring event 介绍</title>
+    <link href="https://nicksxs.me/2022/01/30/spring-event-%E4%BB%8B%E7%BB%8D/"/>
+    <id>https://nicksxs.me/2022/01/30/spring-event-%E4%BB%8B%E7%BB%8D/</id>
+    <published>2022-01-30T13:51:03.000Z</published>
+    <updated>2022-01-30T13:51:03.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;spring框架中如果想使用一些一部操作，除了依赖第三方中间件的消息队列，还可以用spring自己的event，简单介绍下使用方法&lt;br&gt;首先我们可以建一个event，继承ApplicationEvent&lt;/p&gt;
+&lt;pre class=&quot;line-numbers</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>2021 年终总结</title>
@@ -584,41 +606,6 @@
     <category term="消息队列" scheme="https://nicksxs.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
     
     <category term="RocketMQ" scheme="https://nicksxs.me/tags/RocketMQ/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊一下 SpringBoot 中动态切换数据源的方法</title>
-    <link href="https://nicksxs.me/2021/09/26/%E8%81%8A%E4%B8%80%E4%B8%8B-SpringBoot-%E4%B8%AD%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E6%95%B0%E6%8D%AE%E6%BA%90%E7%9A%84%E6%96%B9%E6%B3%95/"/>
-    <id>https://nicksxs.me/2021/09/26/%E8%81%8A%E4%B8%80%E4%B8%8B-SpringBoot-%E4%B8%AD%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E6%95%B0%E6%8D%AE%E6%BA%90%E7%9A%84%E6%96%B9%E6%B3%95/</id>
-    <published>2021-09-26T09:41:49.000Z</published>
-    <updated>2021-09-26T09:41:49.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;其实这个表示有点不太对，应该是 Druid 动态切换数据源的方法，只是应用在了 springboot 框架中，准备代码准备了半天，之前在一次数据库迁移中使用了，发现 Druid</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-    <category term="Spring" scheme="https://nicksxs.me/tags/Spring/"/>
-    
-    <category term="Druid" scheme="https://nicksxs.me/tags/Druid/"/>
-    
-    <category term="数据源动态切换" scheme="https://nicksxs.me/tags/%E6%95%B0%E6%8D%AE%E6%BA%90%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2/"/>
     
   </entry>
   
