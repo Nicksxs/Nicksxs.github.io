@@ -94,6 +94,46 @@
       </tags>
   </entry>
   <entry>
+    <title>2021 年中总结</title>
+    <url>/2021/07/18/2021-%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>又到半年总结时，第一次写总结类型的文章感觉挺好写的，但是后面总觉得这过去的一段时间所做的事情，能力上的成长低于预期，但是是需要总结下，找找问题，顺便展望下未来。</p>
+<p>这一年做的最让自己满意的应该就是看了一些书，由折腾群洋总发起的读书打卡活动，到目前为止已经读完了这几本书，《cUrl 必知必会》，《古董局中局 1》，《古董局中局 2》，《算法图解》，《每天 5 分钟玩转 Kubernetes》《幸福了吗？》《高可用可伸缩微服务架构：基于 Dubbo、Spring Cloud和 Service Mesh》《Rust 权威指南》后面可以写个专题说说看的这些书，虽然每天打卡如果时间安排不好，并且看的书像 rust 这样比较难的话还是会有点小焦虑，不过也是个调整过程，一方面可以在白天就抽空看一会，然后也不必要每次都看很大一章，注重吸收。</p>
+<p>技术上的成长的话，有一些比较小的长进吧，对于一些之前忽视的 synchronized，ThreadLocal 和 AQS 等知识点做了下查漏补缺了，然后多了解了一些 Java 垃圾回收的内容，但是在实操上还是比较欠缺，成型的技术方案，架构上所谓的优化也比较少，一些想法也还有考虑不周全的地方，还需要多花时间和心思去学习加强，特别是在目前已经有的基础上如何做系统深层次的优化，既不要是鸡毛蒜皮的，也不能出现一些不可接受的问题和故障，这是个很重要的课题，需要好好学习，后面考虑定一些周期性目标，两个月左右能有一些成果和总结。</p>
+<p>另外一部分是自己的服务，因为 ucloud 的机器太贵就没续费了，所以都迁移到腾讯云的小机器上了，顺便折腾了一点点 traefik，但是还很不熟练，不太习惯这一套，一方面是 docker 还不习惯，这也加重了对这套环境的不适应，还是习惯裸机部署，另一方面就是 k8s 了，家里的机器还没虚拟化，没有很好的条件可以做实验，这也是读书打卡的一个没做好的点，整体的学习效果受限于深度和实操，后面是看都是用 traefik，也找到了一篇文章可以 traefik 转发到裸机应用，因为主仓库用的是裸机的 gogs。</p>
+<p>还有就是运动减肥上，唉，这又是很大的一个痛点，基本没效果，只是还算稳定，昨天看到一个视频说还需要力量训练来增肌，以此可以提升基础代谢，打算往这个方向尝试下，因为今天没有疫情限制了，在 6 月底完成了 200 公里的跑步小目标，只是有些膝盖跟大腿根外侧不适，抽空得去看下医生，后面打算每天也能做点卷腹跟俯卧撑。</p>
+<p>下半年还希望能继续多看看书，比很多网上各种乱七八糟的文章会好很多，结合豆瓣评分，找一些评价高一些的文章，但也不是说分稍低点的就不行，有些也看人是不是适合，一般 6 分以上评价比较多的就可以试试。</p>
+]]></content>
+      <categories>
+        <category>生活</category>
+        <category>年中总结</category>
+        <category>2021</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+        <tag>2021</tag>
+        <tag>年中总结</tag>
+        <tag>技术</tag>
+        <tag>读书</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2021 年终总结</title>
+    <url>/2022/01/22/2021-%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>又是一年年终总结，本着极度讨厌实时需求的理念，我还是 T+N 发布这个年终总结</p>
+<h1 id="工作篇"><a href="#工作篇" class="headerlink" title="工作篇"></a>工作篇</h1><p>工作没什么大变化，有了些微的提升，可能因为是来了之后做了些项目对比公司与来还算是比较重要的，但是技术难度上没有特别突出的点，可能最开始用 openresty+lua 做了个 ab 测的工具，还是让我比较满意的，后面一般都是业务型的需求，今年可能在业务相关的技术逻辑上有了一些深度的了解，而原来一直想做的业务架构升级和通用型技术中间件这样的优化还是停留在想象中，前面说的 ab 测应该算是个半成品，还是没能多走出这一步，得需要多做一些实在的事情，比如轻量级的业务框架，能够对原先不熟悉的业务逻辑，代码逻辑有比较深入的理解，而不是一直都是让特定的同学负责特定的逻辑，很多时候还是在偷懒，习惯以一些简单安全的方案去做事情，在技术上还是要有所追求，还有就是能够在新语言，主要是 rust，swift 这类的能有些小玩具可以做，rust 的话是因为今年看了一本相关的书，后面三分之一其实消化得不好，这本书整体来说是很不错的，只是 rust 本身在所有权这块，还有引用包装等方面是设计得比较难懂，也可能是我基础差，所以还是想在复习下，可以做一个简单的命令行工具这种，然后 swift 是想说可以做点 mac 的小软件，原生的毕竟性能好点，又小。基于 web 做的客户端大部分都是又丑又大，极少数能好看点，但也是很重，起码 7~80M 的大小，原生的估计能除以 10。<br>整体的职业规划貌似陷入了比较大的困惑期，在目前公司发展前景不是很大，但是出去貌似也没有比较适合我的机会，总的来说还是杭州比较卷，个人觉得有自己的时间是非常重要的，而且这个不光是用来自我提升的，还是让自己有足够的时间做缓冲，有足够的时间锻炼减肥，时间少的情况下，不光会在仅有的时间里暴饮暴食，还没空锻炼，身体是革命的本钱，现在其实能特别明显地感觉到身体状态下滑，容易疲劳，焦虑。所以是否也许有可能以后要往外企这类的方向去发展。<br>工作上其实还是有个不大不小的缺点，就是容易激动，容易焦虑，前一点可能有稍稍地改观，因为工作中的很多现状其实是我个人难以改变的，即使觉得不合理，但是结构在那里，还不如自己放宽心，尽量做好事情就行。第二点的话还是做得比较差，一直以来抗压能力都比较差，跟成长环境，家庭环境都有比较大的关系，而且说实在的特别是父母，基本也没有在这方面给我正向的帮助，比较擅长给我施压，从小就是通过压力让我好好读书，当个乖学生，考个好学校，并没有能真正地理解我的压力，教我或者帮助我解压，只会在那说着不着边际的空话，甚至经常反过来对我施压。还是希望能慢慢解开，这点可能对我身体也有影响，也许需要看一些心理疏导相关的书籍。工作篇暂时到这，后续还有其他篇，未完待续哈哈😀</p>
+]]></content>
+      <categories>
+        <category>生活</category>
+        <category>年终总结</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+        <tag>年终总结</tag>
+        <tag>2021</tag>
+        <tag>拖更</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>34_Search_for_a_Range</title>
     <url>/2016/08/14/34-Search-for-a-Range/</url>
     <content><![CDATA[<h2 id="question"><a href="#question" class="headerlink" title="question"></a>question</h2><h3 id="34-Search-for-a-Range"><a href="#34-Search-for-a-Range" class="headerlink" title="34. Search for a Range"></a>34. Search for a Range</h3><p><a href="https://leetcode.com/problems/search-for-a-range/">Original Page</a></p>
@@ -137,95 +177,6 @@ public:
       <tags>
         <tag>leetcode</tag>
         <tag>c++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>2021 年中总结</title>
-    <url>/2021/07/18/2021-%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>又到半年总结时，第一次写总结类型的文章感觉挺好写的，但是后面总觉得这过去的一段时间所做的事情，能力上的成长低于预期，但是是需要总结下，找找问题，顺便展望下未来。</p>
-<p>这一年做的最让自己满意的应该就是看了一些书，由折腾群洋总发起的读书打卡活动，到目前为止已经读完了这几本书，《cUrl 必知必会》，《古董局中局 1》，《古董局中局 2》，《算法图解》，《每天 5 分钟玩转 Kubernetes》《幸福了吗？》《高可用可伸缩微服务架构：基于 Dubbo、Spring Cloud和 Service Mesh》《Rust 权威指南》后面可以写个专题说说看的这些书，虽然每天打卡如果时间安排不好，并且看的书像 rust 这样比较难的话还是会有点小焦虑，不过也是个调整过程，一方面可以在白天就抽空看一会，然后也不必要每次都看很大一章，注重吸收。</p>
-<p>技术上的成长的话，有一些比较小的长进吧，对于一些之前忽视的 synchronized，ThreadLocal 和 AQS 等知识点做了下查漏补缺了，然后多了解了一些 Java 垃圾回收的内容，但是在实操上还是比较欠缺，成型的技术方案，架构上所谓的优化也比较少，一些想法也还有考虑不周全的地方，还需要多花时间和心思去学习加强，特别是在目前已经有的基础上如何做系统深层次的优化，既不要是鸡毛蒜皮的，也不能出现一些不可接受的问题和故障，这是个很重要的课题，需要好好学习，后面考虑定一些周期性目标，两个月左右能有一些成果和总结。</p>
-<p>另外一部分是自己的服务，因为 ucloud 的机器太贵就没续费了，所以都迁移到腾讯云的小机器上了，顺便折腾了一点点 traefik，但是还很不熟练，不太习惯这一套，一方面是 docker 还不习惯，这也加重了对这套环境的不适应，还是习惯裸机部署，另一方面就是 k8s 了，家里的机器还没虚拟化，没有很好的条件可以做实验，这也是读书打卡的一个没做好的点，整体的学习效果受限于深度和实操，后面是看都是用 traefik，也找到了一篇文章可以 traefik 转发到裸机应用，因为主仓库用的是裸机的 gogs。</p>
-<p>还有就是运动减肥上，唉，这又是很大的一个痛点，基本没效果，只是还算稳定，昨天看到一个视频说还需要力量训练来增肌，以此可以提升基础代谢，打算往这个方向尝试下，因为今天没有疫情限制了，在 6 月底完成了 200 公里的跑步小目标，只是有些膝盖跟大腿根外侧不适，抽空得去看下医生，后面打算每天也能做点卷腹跟俯卧撑。</p>
-<p>下半年还希望能继续多看看书，比很多网上各种乱七八糟的文章会好很多，结合豆瓣评分，找一些评价高一些的文章，但也不是说分稍低点的就不行，有些也看人是不是适合，一般 6 分以上评价比较多的就可以试试。</p>
-]]></content>
-      <categories>
-        <category>生活</category>
-        <category>年中总结</category>
-        <category>2021</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
-        <tag>2021</tag>
-        <tag>年中总结</tag>
-        <tag>技术</tag>
-        <tag>读书</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AbstractQueuedSynchronizer</title>
-    <url>/2019/09/23/AbstractQueuedSynchronizer/</url>
-    <content><![CDATA[<p>最近看了大神的 AQS 的文章，之前总是断断续续地看一点，每次都知难而退，下次看又从头开始，昨天总算硬着头皮看完了第一部分<br>首先 AQS 只要有这些属性</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 头结点，你直接把它当做 当前持有锁的线程 可能是最好理解的</span>
-<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">Node</span> head<span class="token punctuation">;</span>
-
-<span class="token comment">// 阻塞的尾节点，每个新的节点进来，都插入到最后，也就形成了一个链表</span>
-<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">Node</span> tail<span class="token punctuation">;</span>
-
-<span class="token comment">// 这个是最重要的，代表当前锁的状态，0代表没有被占用，大于 0 代表有线程持有当前锁</span>
-<span class="token comment">// 这个值可以大于 1，是因为锁可以重入，每次重入都加上 1</span>
-<span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">int</span> state<span class="token punctuation">;</span>
-
-<span class="token comment">// 代表当前持有独占锁的线程，举个最重要的使用例子，因为锁可以重入</span>
-<span class="token comment">// reentrantLock.lock()可以嵌套调用多次，所以每次用这个来判断当前线程是否已经拥有了锁</span>
-<span class="token comment">// if (currentThread == getExclusiveOwnerThread()) &#123;state++&#125;</span>
-<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token class-name">Thread</span> exclusiveOwnerThread<span class="token punctuation">;</span> <span class="token comment">//继承自AbstractOwnableSynchronizer</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>大概了解了 aqs 底层的双向等待队列，<br>结构是这样的<br><img data-src="https://tva1.sinaimg.cn/large/006tNbRwly1g9mxu0ndt1j319o08w0t7.jpg"><br>每个 node 里面主要是的代码结构也比较简单</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Node</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 标识节点当前在共享模式下</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Node</span> SHARED <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 标识节点当前在独占模式下</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Node</span> EXCLUSIVE <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// ======== 下面的几个int常量是给waitStatus用的 ===========</span>
-    <span class="token comment">/** waitStatus value to indicate thread has cancelled */</span>
-    <span class="token comment">// 代码此线程取消了争抢这个锁</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> CANCELLED <span class="token operator">=</span>  <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token comment">/** waitStatus value to indicate successor's thread needs unparking */</span>
-    <span class="token comment">// 官方的描述是，其表示当前node的后继节点对应的线程需要被唤醒</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> SIGNAL    <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token comment">/** waitStatus value to indicate thread is waiting on condition */</span>
-    <span class="token comment">// 本文不分析condition，所以略过吧，下一篇文章会介绍这个</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> CONDITION <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span>
-    <span class="token comment">/**
-     * waitStatus value to indicate the next acquireShared should
-     * unconditionally propagate
-     */</span>
-    <span class="token comment">// 同样的不分析，略过吧</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> PROPAGATE <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">;</span>
-    <span class="token comment">// =====================================================</span>
-
-
-    <span class="token comment">// 取值为上面的1、-1、-2、-3，或者0(以后会讲到)</span>
-    <span class="token comment">// 这么理解，暂时只需要知道如果这个值 大于0 代表此线程取消了等待，</span>
-    <span class="token comment">//    ps: 半天抢不到锁，不抢了，ReentrantLock是可以指定timeouot的。。。</span>
-    <span class="token keyword">volatile</span> <span class="token keyword">int</span> waitStatus<span class="token punctuation">;</span>
-    <span class="token comment">// 前驱节点的引用</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">Node</span> prev<span class="token punctuation">;</span>
-    <span class="token comment">// 后继节点的引用</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">Node</span> next<span class="token punctuation">;</span>
-    <span class="token comment">// 这个就是线程本尊</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">Thread</span> thread<span class="token punctuation">;</span>
-
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>其实可以主要关注这个 <code>waitStatus</code> 因为这个是后面的节点给前面的节点设置的，等于-1 的时候代表后面有节点等待，需要去唤醒，<br>这里使用了一个变种的 CLH 队列实现，CLH 队列相关内容可以查看这篇 <a href="https://coderbee.net/index.php/concurrent/20131115/577">自旋锁、排队自旋锁、MCS锁、CLH锁</a></p>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>aqs</tag>
       </tags>
   </entry>
   <entry>
@@ -451,9 +402,75 @@ public:
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>aqs</tag>
         <tag>并发</tag>
         <tag>j.u.c</tag>
+        <tag>aqs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>AbstractQueuedSynchronizer</title>
+    <url>/2019/09/23/AbstractQueuedSynchronizer/</url>
+    <content><![CDATA[<p>最近看了大神的 AQS 的文章，之前总是断断续续地看一点，每次都知难而退，下次看又从头开始，昨天总算硬着头皮看完了第一部分<br>首先 AQS 只要有这些属性</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 头结点，你直接把它当做 当前持有锁的线程 可能是最好理解的</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">Node</span> head<span class="token punctuation">;</span>
+
+<span class="token comment">// 阻塞的尾节点，每个新的节点进来，都插入到最后，也就形成了一个链表</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">Node</span> tail<span class="token punctuation">;</span>
+
+<span class="token comment">// 这个是最重要的，代表当前锁的状态，0代表没有被占用，大于 0 代表有线程持有当前锁</span>
+<span class="token comment">// 这个值可以大于 1，是因为锁可以重入，每次重入都加上 1</span>
+<span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">int</span> state<span class="token punctuation">;</span>
+
+<span class="token comment">// 代表当前持有独占锁的线程，举个最重要的使用例子，因为锁可以重入</span>
+<span class="token comment">// reentrantLock.lock()可以嵌套调用多次，所以每次用这个来判断当前线程是否已经拥有了锁</span>
+<span class="token comment">// if (currentThread == getExclusiveOwnerThread()) &#123;state++&#125;</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token class-name">Thread</span> exclusiveOwnerThread<span class="token punctuation">;</span> <span class="token comment">//继承自AbstractOwnableSynchronizer</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>大概了解了 aqs 底层的双向等待队列，<br>结构是这样的<br><img data-src="https://tva1.sinaimg.cn/large/006tNbRwly1g9mxu0ndt1j319o08w0t7.jpg"><br>每个 node 里面主要是的代码结构也比较简单</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Node</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 标识节点当前在共享模式下</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Node</span> SHARED <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 标识节点当前在独占模式下</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Node</span> EXCLUSIVE <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// ======== 下面的几个int常量是给waitStatus用的 ===========</span>
+    <span class="token comment">/** waitStatus value to indicate thread has cancelled */</span>
+    <span class="token comment">// 代码此线程取消了争抢这个锁</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> CANCELLED <span class="token operator">=</span>  <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token comment">/** waitStatus value to indicate successor's thread needs unparking */</span>
+    <span class="token comment">// 官方的描述是，其表示当前node的后继节点对应的线程需要被唤醒</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> SIGNAL    <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token comment">/** waitStatus value to indicate thread is waiting on condition */</span>
+    <span class="token comment">// 本文不分析condition，所以略过吧，下一篇文章会介绍这个</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> CONDITION <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token comment">/**
+     * waitStatus value to indicate the next acquireShared should
+     * unconditionally propagate
+     */</span>
+    <span class="token comment">// 同样的不分析，略过吧</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> PROPAGATE <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">;</span>
+    <span class="token comment">// =====================================================</span>
+
+
+    <span class="token comment">// 取值为上面的1、-1、-2、-3，或者0(以后会讲到)</span>
+    <span class="token comment">// 这么理解，暂时只需要知道如果这个值 大于0 代表此线程取消了等待，</span>
+    <span class="token comment">//    ps: 半天抢不到锁，不抢了，ReentrantLock是可以指定timeouot的。。。</span>
+    <span class="token keyword">volatile</span> <span class="token keyword">int</span> waitStatus<span class="token punctuation">;</span>
+    <span class="token comment">// 前驱节点的引用</span>
+    <span class="token keyword">volatile</span> <span class="token class-name">Node</span> prev<span class="token punctuation">;</span>
+    <span class="token comment">// 后继节点的引用</span>
+    <span class="token keyword">volatile</span> <span class="token class-name">Node</span> next<span class="token punctuation">;</span>
+    <span class="token comment">// 这个就是线程本尊</span>
+    <span class="token keyword">volatile</span> <span class="token class-name">Thread</span> thread<span class="token punctuation">;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其实可以主要关注这个 <code>waitStatus</code> 因为这个是后面的节点给前面的节点设置的，等于-1 的时候代表后面有节点等待，需要去唤醒，<br>这里使用了一个变种的 CLH 队列实现，CLH 队列相关内容可以查看这篇 <a href="https://coderbee.net/index.php/concurrent/20131115/577">自旋锁、排队自旋锁、MCS锁、CLH锁</a></p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>aqs</tag>
       </tags>
   </entry>
   <entry>
@@ -798,23 +815,6 @@ Node *clone(Node *graph) &#123;
         <tag>排序</tag>
         <tag>sort</tag>
         <tag>nullsfirst</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>2021 年终总结</title>
-    <url>/2022/01/22/2021-%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>又是一年年终总结，本着极度讨厌实时需求的理念，我还是 T+N 发布这个年终总结</p>
-<h1 id="工作篇"><a href="#工作篇" class="headerlink" title="工作篇"></a>工作篇</h1><p>工作没什么大变化，有了些微的提升，可能因为是来了之后做了些项目对比公司与来还算是比较重要的，但是技术难度上没有特别突出的点，可能最开始用 openresty+lua 做了个 ab 测的工具，还是让我比较满意的，后面一般都是业务型的需求，今年可能在业务相关的技术逻辑上有了一些深度的了解，而原来一直想做的业务架构升级和通用型技术中间件这样的优化还是停留在想象中，前面说的 ab 测应该算是个半成品，还是没能多走出这一步，得需要多做一些实在的事情，比如轻量级的业务框架，能够对原先不熟悉的业务逻辑，代码逻辑有比较深入的理解，而不是一直都是让特定的同学负责特定的逻辑，很多时候还是在偷懒，习惯以一些简单安全的方案去做事情，在技术上还是要有所追求，还有就是能够在新语言，主要是 rust，swift 这类的能有些小玩具可以做，rust 的话是因为今年看了一本相关的书，后面三分之一其实消化得不好，这本书整体来说是很不错的，只是 rust 本身在所有权这块，还有引用包装等方面是设计得比较难懂，也可能是我基础差，所以还是想在复习下，可以做一个简单的命令行工具这种，然后 swift 是想说可以做点 mac 的小软件，原生的毕竟性能好点，又小。基于 web 做的客户端大部分都是又丑又大，极少数能好看点，但也是很重，起码 7~80M 的大小，原生的估计能除以 10。<br>整体的职业规划貌似陷入了比较大的困惑期，在目前公司发展前景不是很大，但是出去貌似也没有比较适合我的机会，总的来说还是杭州比较卷，个人觉得有自己的时间是非常重要的，而且这个不光是用来自我提升的，还是让自己有足够的时间做缓冲，有足够的时间锻炼减肥，时间少的情况下，不光会在仅有的时间里暴饮暴食，还没空锻炼，身体是革命的本钱，现在其实能特别明显地感觉到身体状态下滑，容易疲劳，焦虑。所以是否也许有可能以后要往外企这类的方向去发展。<br>工作上其实还是有个不大不小的缺点，就是容易激动，容易焦虑，前一点可能有稍稍地改观，因为工作中的很多现状其实是我个人难以改变的，即使觉得不合理，但是结构在那里，还不如自己放宽心，尽量做好事情就行。第二点的话还是做得比较差，一直以来抗压能力都比较差，跟成长环境，家庭环境都有比较大的关系，而且说实在的特别是父母，基本也没有在这方面给我正向的帮助，比较擅长给我施压，从小就是通过压力让我好好读书，当个乖学生，考个好学校，并没有能真正地理解我的压力，教我或者帮助我解压，只会在那说着不着边际的空话，甚至经常反过来对我施压。还是希望能慢慢解开，这点可能对我身体也有影响，也许需要看一些心理疏导相关的书籍。工作篇暂时到这，后续还有其他篇，未完待续哈哈😀</p>
-]]></content>
-      <categories>
-        <category>生活</category>
-        <category>年终总结</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
-        <tag>年终总结</tag>
-        <tag>2021</tag>
-        <tag>拖更</tag>
       </tags>
   </entry>
   <entry>
@@ -4536,6 +4536,25 @@ git commit -m &quot;revert OLDER_COMMIT to NEWER_COMMIT&quot;<span aria-hidden="
       </tags>
   </entry>
   <entry>
+    <title>分享记录一下一个 scp 操作方法</title>
+    <url>/2022/02/06/%E5%88%86%E4%BA%AB%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B%E4%B8%80%E4%B8%AA-scp-%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>scp 是个在服务器之间拷贝文件的一个常用命令，有时候有个场景是比如我们需要拷贝一些带有共同前缀的文件，但是有一个问题是比如我们有使用 zsh 的话，会出现一个报错，</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">zsh: no matches found: root@100.100.100.100:&#x2F;&#x2F;root&#x2F;prefix*<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这里就比较奇怪了，这个前缀的文件肯定是有的，这里其实是由于 zsh 会对 <code>*</code> 进行展开，这个可以在例如 <code>ls</code> 命令在使用中就可以发现 <code>zsh</code> 有这个特性<br>需要使用双引号或单引号将路径包起来或者在<code>*</code>之前加反斜杠<code>\</code>来阻止对<code>*</code>展开和转义</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">scp root@100.100.100.100:&#x2F;&#x2F;root&#x2F;prefix* .<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>通过使用双引号<code>&quot;</code>进行转义</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">scp root@100.100.100.100:&quot;&#x2F;&#x2F;root&#x2F;prefix*&quot; .<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>或者可以将 shell 从 zsh 切换成 bash</p>
+]]></content>
+      <categories>
+        <category>shell</category>
+        <category>小技巧</category>
+      </categories>
+      <tags>
+        <tag>scp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>周末我在老丈人家打了天小工</title>
     <url>/2020/08/16/%E5%91%A8%E6%9C%AB%E6%88%91%E5%9C%A8%E8%80%81%E4%B8%88%E4%BA%BA%E5%AE%B6%E6%89%93%E4%BA%86%E5%A4%A9%E5%B0%8F%E5%B7%A5/</url>
     <content><![CDATA[<p>这周回家提前约好了要去老丈人家帮下忙，因为在翻修下老房子，活不是特别整的那种，所以大部分都是自己干，或者找个大工临时干几天（我们这那种比较专业的泥工匠叫做大工），像我这样去帮忙的，就是干点小工（把给大工帮忙的，干些偏体力活的叫做小工）的活。从大学毕业以后真的蛮少帮家里干活了，以前上学的时候放假还是帮家里淘个米，简单的扫地拖地啥的，当然刚高考完的时候，还去我爸厂里帮忙干了几天的活，实在是比较累，不过现在想着是觉得自己那时候比较牛，而不是特别排斥这个活，相对于现在的工作来说，导致了一系列的职业病，颈椎腰背都很僵硬，眼镜也不好，还有反流，像我爸那种活反而是脑力加体力的比较好的结合。<br>这一天的活前半部分主要是在清理厨房，瓷砖上的油污和墙上天花板上即将脱落的石灰或者白色涂料层，这种活特别是瓷砖上的油污，之前在自己家里也干活，还是比较熟悉的，不过前面主要是LD 在干，我主要是先搞墙上和天花板上的，干活还是很需要技巧的，如果直接去铲，那基本我会变成一个灰人，而且吸一鼻子灰，老丈人比较专业，先接上软管用水冲，一冲效果特别好，有些石灰涂料层直接就冲掉了，冲完之后先用带加长杆的刀片铲铲了一圈墙面，说实话因为老房子之前租出去了，所以墙面什么的被糟蹋的比较难看，一层一层的，不过这还算还好，后面主要是天花板上的，这可难倒我了，从小我爸妈是比较把我当小孩管着，爬上爬下的基本都是我爸搞定，但是到了老丈人家也只得硬着头皮上了，爬到跳（一种建筑工地用的架子）上，还有点晃，小心脏扑通扑通跳，而且带加长杆的铲子还是比较重的，铲一会手也有点累，不过坚持着铲完了，上面还是比较平整的，不过下来的时候又把我难住了🤦‍♂️，往下爬的时候有根杆子要跨过去，由于裤子比较紧，强行一把跨过去怕抽筋，所以以一个非常尴尬的姿势停留休息了一会，再跨了过去，幸好事后问 LD，他们都没看到，哈哈哈，然后就是帮忙一起搞瓷砖上的油污，这个太有经验了，不过老丈人更有意思，一会试试啤酒，一会用用沙子，后面在午饭前基本就弄的比较干净了，就坐着等吃饭了，下午午休了会，就继续干活了。<br>下午是我这次体验的重点了，因为要清理以前贴的墙纸，真的是个很麻烦的活，只能说贴墙纸的师傅活干得太好了，基本不可能整个撕下来，想用铲子一点点铲下来也不行，太轻了就只铲掉表面一层，太重了就把墙纸跟墙面的石灰啥的整个铲下来了，而且手又累又酸，后来想着是不是继续用水冲一下，对着一小面墙试验了下，效果还不错，但是又发现了个问题，那一面墙又有一块是后面糊上去的，铲掉外层的石灰后不平，然后就是最最重头的，也是让我后遗症持续到第二天的，要把那一块糊上去的水泥敲下来，毛估下大概是敲了80%左右，剩下的我的手已经不会用力了，因为那一块应该是要糊上去的始作俑者，就一块里面凹进去的，我拿着榔头敲到我手已经没法使劲了，而且大下午，感觉没五分钟，我的汗已经糊满脸，眼睛也睁不开，不然就流到眼睛里了，此处获得成就一：用榔头敲墙壁，也是个技术加体力的活，而且需要非常好的技巧，否则手马上就废了，敲下去的反作用力，没一会就不行了，然后是看着老丈人兄弟帮忙拆一个柜子，在我看来是个几天都搞不定的活，他轻轻松松在我敲墙的那会就搞定了，以前总觉得我干的活非常有技术含量，可是这个事情真的也是很有技巧啊，它是个把一间房间分隔开的柜子，从底到顶上，还带着门，我还在旁边帮忙撬一下脚踢，一根木条撬半天，唉，成就二：专业的人就是不一样。<br>最后就是成就三了：我之前沾沾自喜的跑了多少步，做了什么锻炼，其实都是渣渣，像这样干一天活，没经历过的，基本大半天就废了，反过来说，如果能经常去这么干一天活，跑步啥的都是渣渣，消耗的能量远远超过跑个十公里啥的。</p>
@@ -4654,6 +4673,94 @@ git commit -m &quot;revert OLDER_COMMIT to NEWER_COMMIT&quot;<span aria-hidden="
         <tag>运动</tag>
         <tag>减肥</tag>
         <tag>跑步</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搬运两个 StackOverflow 上的 Mysql 编码相关的问题解答</title>
+    <url>/2022/01/16/%E6%90%AC%E8%BF%90%E4%B8%A4%E4%B8%AA-StackOverflow-%E4%B8%8A%E7%9A%84-Mysql-%E7%BC%96%E7%A0%81%E7%9B%B8%E5%85%B3%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94/</url>
+    <content><![CDATA[<h1 id="Mysql-字符编码和排序规则"><a href="#Mysql-字符编码和排序规则" class="headerlink" title="Mysql 字符编码和排序规则"></a>Mysql 字符编码和排序规则</h1><p>这个一直是属于一知半解的状态，知道 utf8 跟 utf8mb4 的区别主要是能不能支持 emoji，但是具体后面配置的排序规则是用来干嘛，或者有什么区别，应该使用哪个，所以在 stackoverflow 上找了下，有两个比较不错的解答，就搬过来并且配合机翻做了点修改</p>
+<h3 id="原文"><a href="#原文" class="headerlink" title="原文"></a><a href="https://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci">原文</a></h3><p>For those people still arriving at this question in 2020 or later, there are newer options that may be better than both of these. For example, <code>utf8mb4_0900_ai_ci</code>.</p>
+<p>All these collations are for the UTF-8 character encoding. The differences are in how text is sorted and compared.</p>
+<p><code>_unicode_ci</code> and <code>_general_ci</code> are two different sets of rules for sorting and comparing text according to the way we expect. Newer versions of MySQL introduce new sets of rules, too, such as <code>_0900_ai_ci</code> for equivalent rules based on Unicode 9.0 - and with no equivalent <code>_general_ci</code> variant. People reading this now should probably use one of these newer collations instead of either <code>_unicode_ci</code> or <code>_general_ci</code>. The description of those older collations below is provided for interest only.</p>
+<p>MySQL is currently transitioning away from an older, flawed UTF-8 implementation. For now, you need to use utf8mb4 instead of utf8 for the character encoding part, to ensure you are getting the fixed version. The flawed version remains for backward compatibility, though it is being deprecated.</p>
+<p>Key differences</p>
+<p><code>utf8mb4_unicode_ci</code> is based on the official Unicode rules for universal sorting and comparison, which sorts accurately in a wide range of languages.</p>
+<p><code>utf8mb4_general_ci</code> is a simplified set of sorting rules which aims to do as well as it can while taking many short-cuts designed to improve speed. It does not follow the Unicode rules and will result in undesirable sorting or comparison in some situations, such as when using particular languages or characters.</p>
+<p>On modern servers, this performance boost will be all but negligible. It was devised in a time when servers had a tiny fraction of the CPU performance of today’s computers.</p>
+<p>Benefits of <code>utf8mb4_unicode_ci</code> over <code>utf8mb4_general_ci</code></p>
+<p>utf8mb4_unicode_ci, which uses the Unicode rules for sorting and comparison, employs a fairly complex algorithm for correct sorting in a wide range of languages and when using a wide range of special characters. These rules need to take into account language-specific conventions; not everybody sorts their characters in what we would call ‘alphabetical order’.</p>
+<p>As far as Latin (ie “European”) languages go, there is not much difference between the Unicode sorting and the simplified <code>utf8mb4_general_ci</code>sorting in MySQL, but there are still a few differences:</p>
+<p>For examples, the Unicode collation sorts “ß” like “ss”, and “Œ” like “OE” as people using those characters would normally want, whereas <code>utf8mb4_general_ci</code>sorts them as single characters (presumably like “s” and “e” respectively).</p>
+<p>Some Unicode characters are defined as ignorable, which means they shouldn’t count toward the sort order and the comparison should move on to the next character instead. <code>utf8mb4_unicode_ci</code>handles these properly.</p>
+<p>In non-latin languages, such as Asian languages or languages with different alphabets, there may be a lot more differences between Unicode sorting and the simplified <code>utf8mb4_general_ci</code>sorting. The suitability of <code>utf8mb4_general_ci</code>will depend heavily on the language used. For some languages, it’ll be quite inadequate.</p>
+<p>What should you use?</p>
+<p>There is almost certainly no reason to use <code>utf8mb4_general_ci</code>anymore, as we have left behind the point where CPU speed is low enough that the performance difference would be important. Your database will almost certainly be limited by other bottlenecks than this.</p>
+<p>In the past, some people recommended to use <code>utf8mb4_general_ci</code>except when accurate sorting was going to be important enough to justify the performance cost. Today, that performance cost has all but disappeared, and developers are treating internationalization more seriously.</p>
+<p>There’s an argument to be made that if speed is more important to you than accuracy, you may as well not do any sorting at all. It’s trivial to make an algorithm faster if you do not need it to be accurate. So, <code>utf8mb4_general_ci</code>is a compromise that’s probably not needed for speed reasons and probably also not suitable for accuracy reasons.</p>
+<p>One other thing I’ll add is that even if you know your application only supports the English language, it may still need to deal with people’s names, which can often contain characters used in other languages in which it is just as important to sort correctly. Using the Unicode rules for everything helps add peace of mind that the very smart Unicode people have worked very hard to make sorting work properly.</p>
+<p>What the parts mean</p>
+<p>Firstly, ci is for case-insensitive sorting and comparison. This means it’s suitable for textual data, and case is not important. The other types of collation are cs (case-sensitive) for textual data where case is important, and bin, for where the encoding needs to match, bit for bit, which is suitable for fields which are really encoded binary data (including, for example, Base64). Case-sensitive sorting leads to some weird results and case-sensitive comparison can result in duplicate values differing only in letter case, so case-sensitive collations are falling out of favor for textual data - if case is significant to you, then otherwise ignorable punctuation and so on is probably also significant, and a binary collation might be more appropriate.</p>
+<p>Next, unicode or general refers to the specific sorting and comparison rules - in particular, the way text is normalized or compared. There are many different sets of rules for the utf8mb4 character encoding, with unicode and general being two that attempt to work well in all possible languages rather than one specific one. The differences between these two sets of rules are the subject of this answer. Note that unicode uses rules from Unicode 4.0. Recent versions of MySQL add the rulesets unicode_520 using rules from Unicode 5.2, and 0900 (dropping the “unicode_” part) using rules from Unicode 9.0.</p>
+<p>And lastly, utf8mb4 is of course the character encoding used internally. In this answer I’m talking only about Unicode based encodings.</p>
+<h3 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h3><p>对于那些在 2020 年或之后仍会遇到这个问题的人，有可能比这两个更好的新选项。例如，<code>utf8mb4_0900_ai_ci</code>。</p>
+<p>所有这些排序规则都用于 UTF-8 字符编码。不同之处在于文本的排序和比较方式。</p>
+<p><code>_unicode_ci</code>和 <code>_general_ci</code>是两组不同的规则，用于按照我们期望的方式对文本进行排序和比较。较新版本的 MySQL 也引入了新的规则集，例如 <code>_0900_ai_ci</code>用于基于 Unicode 9.0 的等效规则 - 并且没有等效的 <code>_general_ci</code>变体。现在阅读本文的人可能应该使用这些较新的排序规则之一，而不是 <code>_unicode_ci</code>或 <code>_general_ci</code>。下面对那些较旧的排序规则的描述仅供参考。</p>
+<p>MySQL 目前正在从旧的、有缺陷的 UTF-8 实现过渡。现在，您需要使用 <code>utf8mb4</code> 而不是 <code>utf8</code>作为字符编码部分，以确保您获得的是固定版本。有缺陷的版本仍然是为了向后兼容，尽管它已被弃用。</p>
+<p>主要区别</p>
+<p><code>utf8mb4_unicode_ci</code>基于官方 Unicode 规则进行通用排序和比较，可在多种语言中准确排序。</p>
+<p><code>utf8mb4_general_ci</code>是一组简化的排序规则，旨在尽其所能，同时采用许多旨在提高速度的捷径。它不遵循 Unicode 规则，并且在某些情况下会导致不希望的排序或比较，例如在使用特定语言或字符时。</p>
+<p>在现代服务器上，这种性能提升几乎可以忽略不计。它是在服务器的 CPU 性能只有当今计算机的一小部分时设计的。</p>
+<p><code>utf8mb4_unicode_ci</code> 相对于 <code>utf8mb4_general_ci</code>的优势</p>
+<p><code>utf8mb4_unicode_ci</code>使用 Unicode 规则进行排序和比较，采用相当复杂的算法在多种语言中以及在使用多种特殊字符时进行正确排序。这些规则需要考虑特定语言的约定；不是每个人都按照我们所说的“字母顺序”对他们的字符进行排序。</p>
+<p>就拉丁语（即“欧洲”）语言而言，Unicode 排序和 MySQL 中简化的 <code>utf8mb4_general_ci</code>排序没有太大区别，但仍有一些区别：</p>
+<p>例如，Unicode 排序规则将“ß”排序为“ss”，将“Œ”排序为“OE”，因为使用这些字符的人通常需要这些字符，而 <code>utf8mb4_general_ci</code>将它们排序为单个字符（大概分别像“s”和“e” ）。</p>
+<p>一些 Unicode 字符被定义为可忽略，这意味着它们不应该计入排序顺序，并且比较应该转到下一个字符。 <code>utf8mb4_unicode_ci</code>正确处理这些。</p>
+<p>在非拉丁语言中，例如亚洲语言或具有不同字母的语言，Unicode 排序和简化的 <code>utf8mb4_general_ci</code>排序之间可能存在更多差异。 <code>utf8mb4_general_ci</code>的适用性在很大程度上取决于所使用的语言。对于某些语言，这将是非常不充分的。</p>
+<p>你应该用什么？</p>
+<p>几乎可以肯定没有理由再使用 <code>utf8mb4_general_ci</code>，因为我们已经将 CPU 速度低到会严重影响性能表现的时代远抛在脑后了。您的数据库几乎肯定会受到除此之外的其他瓶颈的限制。</p>
+<p>过去，有些人建议使用 <code>utf8mb4_general_ci</code>，除非准确排序足够重要以证明性能成本是合理的。如今，这种性能成本几乎消失了，开发人员正在更加认真地对待国际化。</p>
+<p>有一个论点是，如果速度对您来说比准确性更重要，那么您可能根本不进行任何排序。如果您不需要准确的算法，那么使算法更快是微不足道的。因此，<code>utf8mb4_general_ci</code>是一种折衷方案，出于速度原因可能不需要，也可能出于准确性原因也不适合。</p>
+<p>我要补充的另一件事是，即使您知道您的应用程序仅支持英语，它可能仍需要处理人名，这些人名通常包含其他语言中使用的字符，在这些语言中正确排序同样重要.对所有事情都使用 Unicode 规则有助于让您更加安心，因为非常聪明的 Unicode 人员已经非常努力地工作以使排序正常工作。</p>
+<p>其余各个部分是什么意思</p>
+<p>首先， <code>ci</code> 用于不区分大小写的排序和比较。这意味着它适用于文本数据，大小写并不重要。其他类型的排序规则是 <code>cs</code>（区分大小写），用于区分大小写的文本数据，以及 <code>bin</code>，用于编码需要匹配的地方，逐位匹配，适用于真正编码二进制数据的字段（包括，用于例如，Base64）。区分大小写的排序会导致一些奇怪的结果，区分大小写的比较可能会导致重复值仅在字母大小写上有所不同，因此区分大小写的排序规则对文本数据不受欢迎 - 如果大小写对您很重要，那么标点符号就可以忽略等等可能也很重要，二进制排序规则可能更合适。</p>
+<p>接下来，unicode 或general 指的是具体的排序和比较规则——特别是文本被规范化或比较的方式。 utf8mb4 字符编码有许多不同的规则集，其中 unicode 和 general 是两种，它们试图在所有可能的语言中都很好地工作，而不是在一种特定的语言中。这两组规则之间的差异是此答案的主题。请注意，unicode 使用 Unicode 4.0 中的规则。 MySQL 的最新版本使用 Unicode 5.2 的规则添加规则集 unicode_520，使用 Unicode 9.0 的规则添加 0900（删除“unicode_”部分）。</p>
+<p>最后，utf8mb4 当然是内部使用的字符编码。在这个答案中，我只谈论基于 Unicode 的编码。</p>
+<h1 id="utf8-和-utf8mb4-编码有什么区别"><a href="#utf8-和-utf8mb4-编码有什么区别" class="headerlink" title="utf8 和 utf8mb4 编码有什么区别"></a>utf8 和 utf8mb4 编码有什么区别</h1><h3 id="原文-1"><a href="#原文-1" class="headerlink" title="原文"></a><a href="https://stackoverflow.com/questions/30074492/what-is-the-difference-between-utf8mb4-and-utf8-charsets-in-mysql">原文</a></h3><p><a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a>is a variable-length encoding. In the case of UTF-8, this means that storing one code point requires one to four bytes. However, MySQL’s encoding called “utf8” (alias of “utf8mb3”) only stores a maximum of three bytes per code point.</p>
+<p>So the character set “utf8”/“utf8mb3” cannot store all Unicode code points: it only supports the range 0x000 to 0xFFFF, which is called the “<a href="http://en.wikipedia.org/wiki/Plane_%28Unicode%29#Basic_Multilingual_Plane">Basic Multilingual Plane</a>“. See also <a href="http://en.wikipedia.org/wiki/Comparison_of_Unicode_encodings#In_detail">Comparison of Unicode encodings</a>.</p>
+<p>This is what (a previous version of the same page at)<a href="https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8mb4.html">the MySQL documentation</a>has to say about it:</p>
+<blockquote>
+<p>The character set named utf8[/utf8mb3] uses a maximum of three bytes per character and contains only BMP characters. As of MySQL 5.5.3, the utf8mb4 character set uses a maximum of four bytes per character supports supplemental characters:</p>
+<ul>
+<li>For a BMP character, utf8[/utf8mb3] and utf8mb4 have identical storage characteristics: same code values, same encoding, same length.</li>
+<li>For a supplementary character, <strong>utf8[/utf8mb3] cannot store the character at all</strong>, while utf8mb4 requires four bytes to store it. Since utf8[/utf8mb3] cannot store the character at all, you do not have any supplementary characters in utf8[/utf8mb3] columns and you need not worry about converting characters or losing data when upgrading utf8[/utf8mb3] data from older versions of MySQL.</li>
+</ul>
+</blockquote>
+<p>So if you want your column to support storing characters lying outside the BMP (and you usually want to), such as <a href="https://en.wikipedia.org/wiki/Emoji">emoji</a>, use “utf8mb4”. See also <a href="https://stackoverflow.com/questions/5567249/what-are-the-most-common-non-bmp-unicode-characters-in-actual-use">What are the most common non-BMP Unicode characters in actual use?</a>.</p>
+<h3 id="译文"><a href="#译文" class="headerlink" title="译文"></a>译文</h3><p><a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> 是一种可变长度编码。对于 UTF-8，这意味着存储一个代码点需要一到四个字节。但是，MySQL 的编码称为“utf8”（“utf8mb3”的别名）每个代码点最多只能存储三个字节。</p>
+<p>所以字符集“utf8”/“utf8mb3”不能存储所有的Unicode码位：它只支持0x000到0xFFFF的范围，被称为“<a href="http://en.wikipedia.org/wiki/Plane_%28Unicode%29#Basic_Multilingual_Plane">基本多语言平面</a>”。另请参阅 <a href="http://en.wikipedia.org/wiki/Comparison_of_Unicode_encodings#In_detail">Unicode 编码比较</a>。</p>
+<p>这就是（同一页面的先前版本）<a href="https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8mb4.html">MySQL 文档</a> 不得不说的：</p>
+<blockquote>
+<p>名为 utf8[/utf8mb3] 的字符集每个字符最多使用三个字节，并且仅包含 BMP 字符。从 MySQL 5.5.3 开始，utf8mb4 字符集每个字符最多使用四个字节，支持补充字符：</p>
+<ul>
+<li>对于 BMP 字符，utf8[/utf8mb3] 和 utf8mb4 具有相同的存储特性：相同的代码值、相同的编码、相同的长度。</li>
+<li>对于补充字符，<strong>utf8[/utf8mb3] 根本无法存储该字符</strong>，而 utf8mb4 需要四个字节来存储它。由于 utf8[/utf8mb3] 根本无法存储字符，因此您在 utf8[/utf8mb3] 列中没有任何补充字符，您不必担心从旧版本升级 utf8[/utf8mb3] 数据时转换字符或丢失数据mysql。</li>
+</ul>
+</blockquote>
+<p>因此，如果您希望您的列支持存储位于 BMP 之外的字符（并且您通常希望这样做），例如 <a href="https://en.wikipedia.org/wiki/Emoji">emoji</a>，请使用“utf8mb4”。另请参阅</p>
+<p><a href="https://stackoverflow.com/questions/5567249/what-are-the-most-common-non-bmp-unicode-characters-in-actual-use">实际使用中最常见的非 BMP Unicode 字符是什么？</a> 。</p>
+]]></content>
+      <categories>
+        <category>Mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+        <tag>字符集</tag>
+        <tag>编码</tag>
+        <tag>utf8</tag>
+        <tag>utf8mb4</tag>
+        <tag>utf8mb4_0900_ai_ci</tag>
+        <tag>utf8mb4_unicode_ci</tag>
+        <tag>utf8mb4_general_ci</tag>
       </tags>
   </entry>
   <entry>
@@ -5688,94 +5795,6 @@ git commit -m &quot;revert OLDER_COMMIT to NEWER_COMMIT&quot;<span aria-hidden="
       </tags>
   </entry>
   <entry>
-    <title>搬运两个 StackOverflow 上的 Mysql 编码相关的问题解答</title>
-    <url>/2022/01/16/%E6%90%AC%E8%BF%90%E4%B8%A4%E4%B8%AA-StackOverflow-%E4%B8%8A%E7%9A%84-Mysql-%E7%BC%96%E7%A0%81%E7%9B%B8%E5%85%B3%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94/</url>
-    <content><![CDATA[<h1 id="Mysql-字符编码和排序规则"><a href="#Mysql-字符编码和排序规则" class="headerlink" title="Mysql 字符编码和排序规则"></a>Mysql 字符编码和排序规则</h1><p>这个一直是属于一知半解的状态，知道 utf8 跟 utf8mb4 的区别主要是能不能支持 emoji，但是具体后面配置的排序规则是用来干嘛，或者有什么区别，应该使用哪个，所以在 stackoverflow 上找了下，有两个比较不错的解答，就搬过来并且配合机翻做了点修改</p>
-<h3 id="原文"><a href="#原文" class="headerlink" title="原文"></a><a href="https://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci">原文</a></h3><p>For those people still arriving at this question in 2020 or later, there are newer options that may be better than both of these. For example, <code>utf8mb4_0900_ai_ci</code>.</p>
-<p>All these collations are for the UTF-8 character encoding. The differences are in how text is sorted and compared.</p>
-<p><code>_unicode_ci</code> and <code>_general_ci</code> are two different sets of rules for sorting and comparing text according to the way we expect. Newer versions of MySQL introduce new sets of rules, too, such as <code>_0900_ai_ci</code> for equivalent rules based on Unicode 9.0 - and with no equivalent <code>_general_ci</code> variant. People reading this now should probably use one of these newer collations instead of either <code>_unicode_ci</code> or <code>_general_ci</code>. The description of those older collations below is provided for interest only.</p>
-<p>MySQL is currently transitioning away from an older, flawed UTF-8 implementation. For now, you need to use utf8mb4 instead of utf8 for the character encoding part, to ensure you are getting the fixed version. The flawed version remains for backward compatibility, though it is being deprecated.</p>
-<p>Key differences</p>
-<p><code>utf8mb4_unicode_ci</code> is based on the official Unicode rules for universal sorting and comparison, which sorts accurately in a wide range of languages.</p>
-<p><code>utf8mb4_general_ci</code> is a simplified set of sorting rules which aims to do as well as it can while taking many short-cuts designed to improve speed. It does not follow the Unicode rules and will result in undesirable sorting or comparison in some situations, such as when using particular languages or characters.</p>
-<p>On modern servers, this performance boost will be all but negligible. It was devised in a time when servers had a tiny fraction of the CPU performance of today’s computers.</p>
-<p>Benefits of <code>utf8mb4_unicode_ci</code> over <code>utf8mb4_general_ci</code></p>
-<p>utf8mb4_unicode_ci, which uses the Unicode rules for sorting and comparison, employs a fairly complex algorithm for correct sorting in a wide range of languages and when using a wide range of special characters. These rules need to take into account language-specific conventions; not everybody sorts their characters in what we would call ‘alphabetical order’.</p>
-<p>As far as Latin (ie “European”) languages go, there is not much difference between the Unicode sorting and the simplified <code>utf8mb4_general_ci</code>sorting in MySQL, but there are still a few differences:</p>
-<p>For examples, the Unicode collation sorts “ß” like “ss”, and “Œ” like “OE” as people using those characters would normally want, whereas <code>utf8mb4_general_ci</code>sorts them as single characters (presumably like “s” and “e” respectively).</p>
-<p>Some Unicode characters are defined as ignorable, which means they shouldn’t count toward the sort order and the comparison should move on to the next character instead. <code>utf8mb4_unicode_ci</code>handles these properly.</p>
-<p>In non-latin languages, such as Asian languages or languages with different alphabets, there may be a lot more differences between Unicode sorting and the simplified <code>utf8mb4_general_ci</code>sorting. The suitability of <code>utf8mb4_general_ci</code>will depend heavily on the language used. For some languages, it’ll be quite inadequate.</p>
-<p>What should you use?</p>
-<p>There is almost certainly no reason to use <code>utf8mb4_general_ci</code>anymore, as we have left behind the point where CPU speed is low enough that the performance difference would be important. Your database will almost certainly be limited by other bottlenecks than this.</p>
-<p>In the past, some people recommended to use <code>utf8mb4_general_ci</code>except when accurate sorting was going to be important enough to justify the performance cost. Today, that performance cost has all but disappeared, and developers are treating internationalization more seriously.</p>
-<p>There’s an argument to be made that if speed is more important to you than accuracy, you may as well not do any sorting at all. It’s trivial to make an algorithm faster if you do not need it to be accurate. So, <code>utf8mb4_general_ci</code>is a compromise that’s probably not needed for speed reasons and probably also not suitable for accuracy reasons.</p>
-<p>One other thing I’ll add is that even if you know your application only supports the English language, it may still need to deal with people’s names, which can often contain characters used in other languages in which it is just as important to sort correctly. Using the Unicode rules for everything helps add peace of mind that the very smart Unicode people have worked very hard to make sorting work properly.</p>
-<p>What the parts mean</p>
-<p>Firstly, ci is for case-insensitive sorting and comparison. This means it’s suitable for textual data, and case is not important. The other types of collation are cs (case-sensitive) for textual data where case is important, and bin, for where the encoding needs to match, bit for bit, which is suitable for fields which are really encoded binary data (including, for example, Base64). Case-sensitive sorting leads to some weird results and case-sensitive comparison can result in duplicate values differing only in letter case, so case-sensitive collations are falling out of favor for textual data - if case is significant to you, then otherwise ignorable punctuation and so on is probably also significant, and a binary collation might be more appropriate.</p>
-<p>Next, unicode or general refers to the specific sorting and comparison rules - in particular, the way text is normalized or compared. There are many different sets of rules for the utf8mb4 character encoding, with unicode and general being two that attempt to work well in all possible languages rather than one specific one. The differences between these two sets of rules are the subject of this answer. Note that unicode uses rules from Unicode 4.0. Recent versions of MySQL add the rulesets unicode_520 using rules from Unicode 5.2, and 0900 (dropping the “unicode_” part) using rules from Unicode 9.0.</p>
-<p>And lastly, utf8mb4 is of course the character encoding used internally. In this answer I’m talking only about Unicode based encodings.</p>
-<h3 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h3><p>对于那些在 2020 年或之后仍会遇到这个问题的人，有可能比这两个更好的新选项。例如，<code>utf8mb4_0900_ai_ci</code>。</p>
-<p>所有这些排序规则都用于 UTF-8 字符编码。不同之处在于文本的排序和比较方式。</p>
-<p><code>_unicode_ci</code>和 <code>_general_ci</code>是两组不同的规则，用于按照我们期望的方式对文本进行排序和比较。较新版本的 MySQL 也引入了新的规则集，例如 <code>_0900_ai_ci</code>用于基于 Unicode 9.0 的等效规则 - 并且没有等效的 <code>_general_ci</code>变体。现在阅读本文的人可能应该使用这些较新的排序规则之一，而不是 <code>_unicode_ci</code>或 <code>_general_ci</code>。下面对那些较旧的排序规则的描述仅供参考。</p>
-<p>MySQL 目前正在从旧的、有缺陷的 UTF-8 实现过渡。现在，您需要使用 <code>utf8mb4</code> 而不是 <code>utf8</code>作为字符编码部分，以确保您获得的是固定版本。有缺陷的版本仍然是为了向后兼容，尽管它已被弃用。</p>
-<p>主要区别</p>
-<p><code>utf8mb4_unicode_ci</code>基于官方 Unicode 规则进行通用排序和比较，可在多种语言中准确排序。</p>
-<p><code>utf8mb4_general_ci</code>是一组简化的排序规则，旨在尽其所能，同时采用许多旨在提高速度的捷径。它不遵循 Unicode 规则，并且在某些情况下会导致不希望的排序或比较，例如在使用特定语言或字符时。</p>
-<p>在现代服务器上，这种性能提升几乎可以忽略不计。它是在服务器的 CPU 性能只有当今计算机的一小部分时设计的。</p>
-<p><code>utf8mb4_unicode_ci</code> 相对于 <code>utf8mb4_general_ci</code>的优势</p>
-<p><code>utf8mb4_unicode_ci</code>使用 Unicode 规则进行排序和比较，采用相当复杂的算法在多种语言中以及在使用多种特殊字符时进行正确排序。这些规则需要考虑特定语言的约定；不是每个人都按照我们所说的“字母顺序”对他们的字符进行排序。</p>
-<p>就拉丁语（即“欧洲”）语言而言，Unicode 排序和 MySQL 中简化的 <code>utf8mb4_general_ci</code>排序没有太大区别，但仍有一些区别：</p>
-<p>例如，Unicode 排序规则将“ß”排序为“ss”，将“Œ”排序为“OE”，因为使用这些字符的人通常需要这些字符，而 <code>utf8mb4_general_ci</code>将它们排序为单个字符（大概分别像“s”和“e” ）。</p>
-<p>一些 Unicode 字符被定义为可忽略，这意味着它们不应该计入排序顺序，并且比较应该转到下一个字符。 <code>utf8mb4_unicode_ci</code>正确处理这些。</p>
-<p>在非拉丁语言中，例如亚洲语言或具有不同字母的语言，Unicode 排序和简化的 <code>utf8mb4_general_ci</code>排序之间可能存在更多差异。 <code>utf8mb4_general_ci</code>的适用性在很大程度上取决于所使用的语言。对于某些语言，这将是非常不充分的。</p>
-<p>你应该用什么？</p>
-<p>几乎可以肯定没有理由再使用 <code>utf8mb4_general_ci</code>，因为我们已经将 CPU 速度低到会严重影响性能表现的时代远抛在脑后了。您的数据库几乎肯定会受到除此之外的其他瓶颈的限制。</p>
-<p>过去，有些人建议使用 <code>utf8mb4_general_ci</code>，除非准确排序足够重要以证明性能成本是合理的。如今，这种性能成本几乎消失了，开发人员正在更加认真地对待国际化。</p>
-<p>有一个论点是，如果速度对您来说比准确性更重要，那么您可能根本不进行任何排序。如果您不需要准确的算法，那么使算法更快是微不足道的。因此，<code>utf8mb4_general_ci</code>是一种折衷方案，出于速度原因可能不需要，也可能出于准确性原因也不适合。</p>
-<p>我要补充的另一件事是，即使您知道您的应用程序仅支持英语，它可能仍需要处理人名，这些人名通常包含其他语言中使用的字符，在这些语言中正确排序同样重要.对所有事情都使用 Unicode 规则有助于让您更加安心，因为非常聪明的 Unicode 人员已经非常努力地工作以使排序正常工作。</p>
-<p>其余各个部分是什么意思</p>
-<p>首先， <code>ci</code> 用于不区分大小写的排序和比较。这意味着它适用于文本数据，大小写并不重要。其他类型的排序规则是 <code>cs</code>（区分大小写），用于区分大小写的文本数据，以及 <code>bin</code>，用于编码需要匹配的地方，逐位匹配，适用于真正编码二进制数据的字段（包括，用于例如，Base64）。区分大小写的排序会导致一些奇怪的结果，区分大小写的比较可能会导致重复值仅在字母大小写上有所不同，因此区分大小写的排序规则对文本数据不受欢迎 - 如果大小写对您很重要，那么标点符号就可以忽略等等可能也很重要，二进制排序规则可能更合适。</p>
-<p>接下来，unicode 或general 指的是具体的排序和比较规则——特别是文本被规范化或比较的方式。 utf8mb4 字符编码有许多不同的规则集，其中 unicode 和 general 是两种，它们试图在所有可能的语言中都很好地工作，而不是在一种特定的语言中。这两组规则之间的差异是此答案的主题。请注意，unicode 使用 Unicode 4.0 中的规则。 MySQL 的最新版本使用 Unicode 5.2 的规则添加规则集 unicode_520，使用 Unicode 9.0 的规则添加 0900（删除“unicode_”部分）。</p>
-<p>最后，utf8mb4 当然是内部使用的字符编码。在这个答案中，我只谈论基于 Unicode 的编码。</p>
-<h1 id="utf8-和-utf8mb4-编码有什么区别"><a href="#utf8-和-utf8mb4-编码有什么区别" class="headerlink" title="utf8 和 utf8mb4 编码有什么区别"></a>utf8 和 utf8mb4 编码有什么区别</h1><h3 id="原文-1"><a href="#原文-1" class="headerlink" title="原文"></a><a href="https://stackoverflow.com/questions/30074492/what-is-the-difference-between-utf8mb4-and-utf8-charsets-in-mysql">原文</a></h3><p><a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a>is a variable-length encoding. In the case of UTF-8, this means that storing one code point requires one to four bytes. However, MySQL’s encoding called “utf8” (alias of “utf8mb3”) only stores a maximum of three bytes per code point.</p>
-<p>So the character set “utf8”/“utf8mb3” cannot store all Unicode code points: it only supports the range 0x000 to 0xFFFF, which is called the “<a href="http://en.wikipedia.org/wiki/Plane_%28Unicode%29#Basic_Multilingual_Plane">Basic Multilingual Plane</a>“. See also <a href="http://en.wikipedia.org/wiki/Comparison_of_Unicode_encodings#In_detail">Comparison of Unicode encodings</a>.</p>
-<p>This is what (a previous version of the same page at)<a href="https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8mb4.html">the MySQL documentation</a>has to say about it:</p>
-<blockquote>
-<p>The character set named utf8[/utf8mb3] uses a maximum of three bytes per character and contains only BMP characters. As of MySQL 5.5.3, the utf8mb4 character set uses a maximum of four bytes per character supports supplemental characters:</p>
-<ul>
-<li>For a BMP character, utf8[/utf8mb3] and utf8mb4 have identical storage characteristics: same code values, same encoding, same length.</li>
-<li>For a supplementary character, <strong>utf8[/utf8mb3] cannot store the character at all</strong>, while utf8mb4 requires four bytes to store it. Since utf8[/utf8mb3] cannot store the character at all, you do not have any supplementary characters in utf8[/utf8mb3] columns and you need not worry about converting characters or losing data when upgrading utf8[/utf8mb3] data from older versions of MySQL.</li>
-</ul>
-</blockquote>
-<p>So if you want your column to support storing characters lying outside the BMP (and you usually want to), such as <a href="https://en.wikipedia.org/wiki/Emoji">emoji</a>, use “utf8mb4”. See also <a href="https://stackoverflow.com/questions/5567249/what-are-the-most-common-non-bmp-unicode-characters-in-actual-use">What are the most common non-BMP Unicode characters in actual use?</a>.</p>
-<h3 id="译文"><a href="#译文" class="headerlink" title="译文"></a>译文</h3><p><a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> 是一种可变长度编码。对于 UTF-8，这意味着存储一个代码点需要一到四个字节。但是，MySQL 的编码称为“utf8”（“utf8mb3”的别名）每个代码点最多只能存储三个字节。</p>
-<p>所以字符集“utf8”/“utf8mb3”不能存储所有的Unicode码位：它只支持0x000到0xFFFF的范围，被称为“<a href="http://en.wikipedia.org/wiki/Plane_%28Unicode%29#Basic_Multilingual_Plane">基本多语言平面</a>”。另请参阅 <a href="http://en.wikipedia.org/wiki/Comparison_of_Unicode_encodings#In_detail">Unicode 编码比较</a>。</p>
-<p>这就是（同一页面的先前版本）<a href="https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8mb4.html">MySQL 文档</a> 不得不说的：</p>
-<blockquote>
-<p>名为 utf8[/utf8mb3] 的字符集每个字符最多使用三个字节，并且仅包含 BMP 字符。从 MySQL 5.5.3 开始，utf8mb4 字符集每个字符最多使用四个字节，支持补充字符：</p>
-<ul>
-<li>对于 BMP 字符，utf8[/utf8mb3] 和 utf8mb4 具有相同的存储特性：相同的代码值、相同的编码、相同的长度。</li>
-<li>对于补充字符，<strong>utf8[/utf8mb3] 根本无法存储该字符</strong>，而 utf8mb4 需要四个字节来存储它。由于 utf8[/utf8mb3] 根本无法存储字符，因此您在 utf8[/utf8mb3] 列中没有任何补充字符，您不必担心从旧版本升级 utf8[/utf8mb3] 数据时转换字符或丢失数据mysql。</li>
-</ul>
-</blockquote>
-<p>因此，如果您希望您的列支持存储位于 BMP 之外的字符（并且您通常希望这样做），例如 <a href="https://en.wikipedia.org/wiki/Emoji">emoji</a>，请使用“utf8mb4”。另请参阅</p>
-<p><a href="https://stackoverflow.com/questions/5567249/what-are-the-most-common-non-bmp-unicode-characters-in-actual-use">实际使用中最常见的非 BMP Unicode 字符是什么？</a> 。</p>
-]]></content>
-      <categories>
-        <category>Mysql</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-        <tag>字符集</tag>
-        <tag>编码</tag>
-        <tag>utf8</tag>
-        <tag>utf8mb4</tag>
-        <tag>utf8mb4_0900_ai_ci</tag>
-        <tag>utf8mb4_unicode_ci</tag>
-        <tag>utf8mb4_general_ci</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>聊在东京奥运会闭幕式这天</title>
     <url>/2021/08/08/%E8%81%8A%E5%9C%A8%E4%B8%9C%E4%BA%AC%E5%A5%A5%E8%BF%90%E4%BC%9A%E9%97%AD%E5%B9%95%E5%BC%8F%E8%BF%99%E5%A4%A9/</url>
     <content><![CDATA[<p>这届奥运会有可能是我除了 08 年之外关注度最高的一届奥运会，原因可能是因为最近也没什么电影综艺啥的比较好看，前面看跑男倒还行，不是说多好，也就图一乐，最开始看向往的生活觉得也挺不错的，后面变成了统一来了就看黄磊做饭，然后夸黄磊做饭好吃，然后无聊的说这种生活多么多么美好，单调无聊，差不多弃了，这里面还包括大华不在了，大华其实个人还是有点呱噪的，但是挺能搞气氛，并且也有才华，彭彭跟子枫人是不讨厌，但是撑不起来，所以也导致了前面说的结果，都变成了黄磊彩虹屁现场，虽然偶尔怀疑他是否做得好吃，但是整体还是承认的，可对于一个这么多季了的综艺来说，这样也有点单调了。</p>
@@ -6634,6 +6653,96 @@ public Result invoke(final Invocation invocation) throws RpcException &#123;
       </tags>
   </entry>
   <entry>
+    <title>聊聊 Sharding-Jdbc 分库分表下的分页方案</title>
+    <url>/2022/01/09/%E8%81%8A%E8%81%8A-Sharding-Jdbc-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E4%B8%8B%E7%9A%84%E5%88%86%E9%A1%B5%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<p>前面在聊 Sharding-Jdbc 的时候看到了一篇文章，关于一个分页的查询，一直比较直接的想法就是分库分表下的分页是非常不合理的，一般我们的实操方案都是分表加上 ES 搜索做分页，或者通过合表读写分离的方案，因为对于 sharding-jdbc 如果没有带分表键，查询基本都是只能在所有分表都执行一遍，然后再加上分页，基本上是分页越大后续的查询越耗资源，但是仔细的去想这个细节还是这次，就简单说说<br>首先就是我的分表结构</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>student_time_0<span class="token punctuation">`</span> <span class="token punctuation">(</span>
+  <span class="token punctuation">`</span>id<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token keyword">unsigned</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>user_id<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>name<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> utf8_bin <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>age<span class="token punctuation">`</span> <span class="token keyword">tinyint</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token keyword">unsigned</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>create_time<span class="token punctuation">`</span> <span class="token keyword">bigint</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>id<span class="token punctuation">`</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token operator">=</span><span class="token number">674</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARSET</span><span class="token operator">=</span>utf8 <span class="token keyword">COLLATE</span><span class="token operator">=</span>utf8_bin<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>有这样的三个表，<code>student_time_0</code>, <code>student_time_1</code>, <code>student_time_2</code>, 以 user_id 作为分表键，根据表数量取模作为分表依据<br>这里先构造点数据，</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">insert</span> <span class="token keyword">into</span> student_time <span class="token punctuation">(</span><span class="token punctuation">`</span>name<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>user_id<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>age<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>create_time<span class="token punctuation">`</span><span class="token punctuation">)</span> <span class="token keyword">values</span> <span class="token punctuation">(</span>?<span class="token punctuation">,</span> ?<span class="token punctuation">,</span> ?<span class="token punctuation">,</span> ?<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>主要是为了保证 <code>create_time</code> 唯一比较好说明问题，</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">try</span> <span class="token punctuation">(</span>
+        <span class="token class-name">Connection</span> conn <span class="token operator">=</span> dataSource<span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">PreparedStatement</span> ps <span class="token operator">=</span> conn<span class="token punctuation">.</span><span class="token function">prepareStatement</span><span class="token punctuation">(</span>insertSql<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">do</span> <span class="token punctuation">&#123;</span>
+        ps<span class="token punctuation">.</span><span class="token function">setString</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> localName <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">Random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ps<span class="token punctuation">.</span><span class="token function">setLong</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">10086L</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ps<span class="token punctuation">.</span><span class="token function">setInt</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ps<span class="token punctuation">.</span><span class="token function">setLong</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+        <span class="token keyword">int</span> result <span class="token operator">=</span> ps<span class="token punctuation">.</span><span class="token function">executeUpdate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"current execute result: &#123;&#125;"</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        i<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;=</span> <span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>三个表的数据分别是 673，678，650，说明符合预期了，各个表数据不一样，接下来比如我们想要做一个这样的分页查询</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> student_time <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> create_time <span class="token keyword">ASC</span> <span class="token keyword">limit</span> <span class="token number">1000</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><code>student_time</code> 对于我们使用的 <code>sharding-jdbc</code> 来说当然是逻辑表，首先从一无所知去想这个查询如果我们自己来处理应该是怎么做，<br>首先是不是可以每个表都从 333 开始取 5 条数据，类似于下面的查询，然后进行 15 条的合并重排序获取前面的 5 条</p>
+<pre class="line-numbers language-none"><code class="language-none">select * from student_time_0 ORDER BY create_time ASC limit 333, 5;
+select * from student_time_1 ORDER BY create_time ASC limit 333, 5;
+select * from student_time_2 ORDER BY create_time ASC limit 333, 5;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>忽略前面 limit 差的 1，这个结果除非三个表的分布是绝对的均匀，否则结果肯定会出现一定的偏差，以为每个表的 333 这个位置对于其他表来说都不一定是一样的，这样对于最后整体的结果，就会出现偏差<br>因为一直在纠结怎么让这个更直观的表现出来，所以尝试画了个图<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/Gj7TPq.png"><br>黑色的框代表我从每个表里按排序从 334 到 338 的 5 条数据， 他们在每个表里都是代表了各自正确的排序值，但是对于我们想要的其实是合表后的 1001，1005 这五条，然后我们假设总的排序值位于前 1000 的分布是第 0 个表是 320 条，第 1 个表是 340 条，第 2 个表是 340 条，那么可以明显地看出来我这么查的结果简单合并肯定是不对的。<br>那么 sharding-jdbc 是如何保证这个结果的呢，其实就是我在每个表里都查分页偏移量和分页大小那么多的数据，在我这个例子里就是对于 0，1，2 三个分表每个都查 1005 条数据，即使我的数据不平衡到最极端的情况，前 1005 条数据都出在某个分表中，也可以正确获得最后的结果，但是明显的问题就是大分页，数据较多，就会导致非常大的问题，即使如 sharding-jdbc 对于合并排序的优化做得比较好，也还是需要传输那么大量的数据，并且查询也耗时，那么有没有解决方案呢，应该说有两个，或者说主要是想讲后者<br>第一个办法是像这种查询，如果业务上不需要进行跳页，而是只给下一页，那么我们就能把前一次的最大偏移量的 create_time 记录下来，下一页就可以拿着这个偏移量进行查询，这个比较简单易懂，就不多说了<br>第二个办法是看的58 沈剑的一篇文章，尝试理解讲述一下，<br>这个办法的第一步跟前面那个错误的方法或者说不准确的方法一样，先是将分页偏移量平均后在三个表里进行查询</p>
+<pre class="line-numbers language-none"><code class="language-none">t0
+334 10158 nick95  18  1641548941767
+335 10098 nick11  18  1641548941879
+336 10167 nick51  18  1641548942089
+337 10167 nick3 18  1641548942119
+338 10170 nick57  18  1641548942169
+
+
+t1
+334 10105 nick98  18  1641548939071   最小
+335 10174 nick94  18  1641548939377
+336 10129 nick85  18  1641548939442
+337 10141 nick84  18  1641548939480
+338 10096 nick74  18  1641548939668
+
+t2
+334 10184 nick11  18  1641548945075
+335 10109 nick93  18  1641548945382
+336 10181 nick41  18  1641548945583
+337 10130 nick80  18  1641548945993
+338 10184 nick19  18  1641548946294  最大<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后要做什么呢，其实目标比较明白，因为前面那种方法其实就是我知道了前一页的偏移量，所以可以直接当做条件来进行查询，那这里我也想着拿到这个条件，所以我将第一遍查出来的最小的 create_time 和最大的 create_time 找出来，然后再去三个表里查询，其实主要是最小值，因为我拿着最小值去查以后我就能知道这个最小值在每个表里处在什么位置，</p>
+<pre class="line-numbers language-none"><code class="language-none">t0
+322 10161 nick81  18  1641548939284
+323 10113 nick16  18  1641548939393
+324 10110 nick56  18  1641548939577
+325 10116 nick69  18  1641548939588
+326 10173 nick51  18  1641548939646
+
+t1
+334 10105 nick98  18  1641548939071
+335 10174 nick94  18  1641548939377
+336 10129 nick85  18  1641548939442
+337 10141 nick84  18  1641548939480
+338 10096 nick74  18  1641548939668
+
+t2
+297 10136 nick28  18  1641548939161
+298 10142 nick68  18  1641548939177
+299 10124 nick41  18  1641548939237
+300 10148 nick87  18  1641548939510
+301 10169 nick23  18  1641548939715<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我只贴了前五条数据，为了方便知道偏移量，每个分表都使用了自增主键，我们可以看到前一次查询的最小值分别在其他两个表里的位置分别是 322-1 和 297-1，那么对于总体来说这个时间应该是在 <code>322 - 1 + 333 + 297 - 1 = 951</code>，那这样子我只要对后面的数据最多每个表查 <code>1000 - 951 + 5 = 54</code> 条数据再进行合并排序就可以获得最终正确的结果。<br>这个就是传说中的二次查询法。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Sharding-Jdbc</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>聊聊 Sharding-Jdbc 的简单使用</title>
     <url>/2021/12/12/%E8%81%8A%E8%81%8A-Sharding-Jdbc-%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<p>我们在日常工作中还是使用比较多的分库分表组件的，其中比较优秀的就有 Sharding-Jdbc，一开始由当当开源，后来捐献给了 Apache，说一下简单使用，因为原来经常的使用都是基于 xml 跟 properties 组合起来使用，这里主要试下用 Java Config 来配置<br>首先是通过 Spring Initializr 创建个带 jdbc 的 Spring Boot 项目，然后引入主要的依赖</p>
@@ -6739,43 +6848,32 @@ public Result invoke(final Invocation invocation) throws RpcException &#123;
       </tags>
   </entry>
   <entry>
-    <title>聊聊 mysql 的 MVCC 续篇</title>
-    <url>/2020/05/02/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%AF%87/</url>
-    <content><![CDATA[<p>上一篇聊了mysql 的 innodb 引擎基于 read view 实现的 mvcc 和事务隔离级别，可能有些细心的小伙伴会发现一些问题，第一个是在 RC 级别下的事务提交后的可见性，这里涉及到了三个参数，m_low_limit_id，m_up_limit_id，m_ids，之前看到知乎的一篇写的非常不错的文章，但是就在这一点上似乎有点疑惑，这里基于源码和注释来解释下这个问题</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
-Opens a read view where exactly the transactions serialized before this
-point in time are seen in the view.
-@param id		Creator transaction id *&#x2F;
-
-void ReadView::prepare(trx_id_t id) &#123;
-  ut_ad(mutex_own(&amp;trx_sys-&gt;mutex));
-
-  m_creator_trx_id &#x3D; id;
-
-  m_low_limit_no &#x3D; m_low_limit_id &#x3D; m_up_limit_id &#x3D; trx_sys-&gt;max_trx_id;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>m_low_limit_id赋的值是trx_sys-&gt;max_trx_id，代表的是当前系统最小的未分配的事务 id，所以呢，举个例子，当前有三个活跃事务，事务 id 分别是 100，200，300，而 m_up_limit_id = 100, m_low_limit_id = 301，当事务 id 是 200 的提交之后，它的更新就是可以被 100 和 300 看到，而不是说 m_ids 里没了 200，并且 200 比 100 大就应该不可见了</p>
-<h2 id="幻读"><a href="#幻读" class="headerlink" title="幻读"></a>幻读</h2><p>还有一个问题是幻读的问题，这貌似也是个高频面试题，啥意思呢，或者说跟它最常拿来比较的脏读，脏读是指读到了别的事务未提交的数据，因为未提交，严格意义上来讲，不一定是会被最后落到库里，可能会回滚，也就是在 read uncommitted 级别下会出现的问题，但是幻读不太一样，幻读是指两次查询的结果数量不一样，比如我查了第一次是 <code>select * from table1 where id &lt; 10 for update</code>,查出来了一条结果 id 是 5，然后再查一下发现出来了一条 id 是 5，一条 id 是 7，那是不是有点尴尬了，其实呢这个点我觉得脏读跟幻读也比较是从原理层面来命名，如果第一次接触的同学发觉有点不理解也比较正常，因为从逻辑上讲总之都是数据不符合预期，但是基于源码层面其实是不同的情况，幻读是在原先的 read view 无法完全解决的，怎么解决呢，简单的来说就是锁咯，我们知道innodb 是基于 record lock 行锁的，但是貌似没有办法解决这种问题，那么 innodb 就引入了 gap lock 间隙锁，比如上面说的情况下，id 小于 10 的情况下，是都应该锁住的，gap lock 其实是基于索引结构来锁的，因为索引树除了树形结构之外，还有一个next record 的指针，gap lock 也是基于这个来锁的<br>看一下 mysql 的文档</p>
-<blockquote>
-<p>SELECT … FOR UPDATE sets an exclusive next-key lock on every record the search encounters. However, only an index record lock is required for statements that lock rows using a unique index to search for a unique row.  </p>
-</blockquote>
-<p>对于一个 for update 查询，在 RR 级别下，会设置一个 next-key lock在每一条被查询到的记录上，next-lock 又是啥呢，其实就是 gap 锁和 record 锁的结合体，比如我在数据库里有 id 是 1，3，5，7，10，对于上面那条查询，查出来的结果就是 1，3，5，7，那么按照文档里描述的，对于这几条记录都会加上next-key lock，也就是(-∞, 1], (1, 3], (3, 5], (5, 7], (7, 10) 这些区间和记录会被锁起来，不让插入，再唠叨一下呢，就是其实如果是只读的事务，光 read view 一致性读就够了，如果是有写操作的呢，就需要锁了。</p>
+    <title>聊聊 Sharding-Jdbc 的简单原理初篇</title>
+    <url>/2021/12/26/%E8%81%8A%E8%81%8A-Sharding-Jdbc-%E7%9A%84%E7%AE%80%E5%8D%95%E5%8E%9F%E7%90%86%E5%88%9D%E7%AF%87/</url>
+    <content><![CDATA[<p>在上一篇 sharding-jdbc 的介绍中其实碰到过一个问题，这里也引出了一个比较有意思的话题<br>就是我在执行 query 的时候犯过一个比较难发现的错误，</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">ResultSet</span> resultSet <span class="token operator">=</span> ps<span class="token punctuation">.</span><span class="token function">executeQuery</span><span class="token punctuation">(</span>sql<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>实际上应该是</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">ResultSet</span> resultSet <span class="token operator">=</span> ps<span class="token punctuation">.</span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>而这里的差别就是，是否传 sql 这个参数，首先我们要知道这个 ps 是什么，它也是个接口<code>java.sql.PreparedStatement</code>,而真正的实现类是<code>org.apache.shardingsphere.driver.jdbc.core.statement.ShardingSpherePreparedStatement</code>,我们来看下继承关系<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/LqJznh.png"><br>这里可以看到继承关系里有<code>org.apache.shardingsphere.driver.jdbc.unsupported.AbstractUnsupportedOperationPreparedStatement</code><br>那么在我上面的写错的代码里</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token class-name">ResultSet</span> <span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">String</span> sql<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">SQLException</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">SQLFeatureNotSupportedException</span><span class="token punctuation">(</span><span class="token string">"executeQuery with SQL for PreparedStatement"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这个报错一开始让我有点懵，后来点进去了发现是这么个异常，但是我其实一开始是用的更新语句，以为更新不支持，因为平时使用没有深究过，以为是不是需要使用 Mybatis 才可以执行更新，但是理论上也不应该，再往上看原来这些异常是由 sharding-jdbc 包装的，也就是在上面说的<code>AbstractUnsupportedOperationPreparedStatement</code>，这其实也是一种设计思想，本身 jdbc 提供了一系列接口，由各家去支持，包括 mysql，sql server，oracle 等，而正因为这个设计，所以 sharding-jdbc 也可以在此基础上进行设计，我们可以总体地看下 sharding-jdbc 的实现基础<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/RWvrK6.png"><br>看了前面<code>ShardingSpherePreparedStatement</code>的继承关系，应该也能猜到这里的几个类都是实现了 jdbc 的基础接口，<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/0QncpD.png"><br>在前一篇的 demo 中的</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Connection</span> conn <span class="token operator">=</span> dataSource<span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>其实就获得了<code>org.apache.shardingsphere.driver.jdbc.core.connection.ShardingSphereConnection#ShardingSphereConnection</code><br>然后获得<code>java.sql.PreparedStatement</code></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">PreparedStatement</span> ps <span class="token operator">=</span> conn<span class="token punctuation">.</span><span class="token function">prepareStatement</span><span class="token punctuation">(</span>sql<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>就是获取了<code>org.apache.shardingsphere.driver.jdbc.core.statement.ShardingSpherePreparedStatement</code><br>然后就是执行</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">ResultSet</span> resultSet <span class="token operator">=</span> ps<span class="token punctuation">.</span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后获得结果<br><code>org.apache.shardingsphere.driver.jdbc.core.resultset.ShardingSphereResultSet</code></p>
+<p>其实像 mybatis 也是基于这样去实现的</p>
 ]]></content>
       <categories>
-        <category>Mysql</category>
-        <category>C</category>
-        <category>数据结构</category>
-        <category>源码</category>
-        <category>Mysql</category>
+        <category>Java</category>
       </categories>
       <tags>
-        <tag>mysql</tag>
-        <tag>数据结构</tag>
-        <tag>源码</tag>
-        <tag>mvcc</tag>
-        <tag>read view</tag>
-        <tag>gap lock</tag>
-        <tag>next-key lock</tag>
-        <tag>幻读</tag>
+        <tag>Java</tag>
+        <tag>Sharding-Jdbc</tag>
       </tags>
   </entry>
   <entry>
@@ -6837,6 +6935,46 @@ void ReadView::prepare(trx_id_t id) &#123;
         <tag>LimitedThreadPool</tag>
         <tag>EagerThreadPool</tag>
         <tag>CachedThreadPool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>聊聊 mysql 的 MVCC 续篇</title>
+    <url>/2020/05/02/%E8%81%8A%E8%81%8A-mysql-%E7%9A%84-MVCC-%E7%BB%AD%E7%AF%87/</url>
+    <content><![CDATA[<p>上一篇聊了mysql 的 innodb 引擎基于 read view 实现的 mvcc 和事务隔离级别，可能有些细心的小伙伴会发现一些问题，第一个是在 RC 级别下的事务提交后的可见性，这里涉及到了三个参数，m_low_limit_id，m_up_limit_id，m_ids，之前看到知乎的一篇写的非常不错的文章，但是就在这一点上似乎有点疑惑，这里基于源码和注释来解释下这个问题</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
+Opens a read view where exactly the transactions serialized before this
+point in time are seen in the view.
+@param id		Creator transaction id *&#x2F;
+
+void ReadView::prepare(trx_id_t id) &#123;
+  ut_ad(mutex_own(&amp;trx_sys-&gt;mutex));
+
+  m_creator_trx_id &#x3D; id;
+
+  m_low_limit_no &#x3D; m_low_limit_id &#x3D; m_up_limit_id &#x3D; trx_sys-&gt;max_trx_id;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>m_low_limit_id赋的值是trx_sys-&gt;max_trx_id，代表的是当前系统最小的未分配的事务 id，所以呢，举个例子，当前有三个活跃事务，事务 id 分别是 100，200，300，而 m_up_limit_id = 100, m_low_limit_id = 301，当事务 id 是 200 的提交之后，它的更新就是可以被 100 和 300 看到，而不是说 m_ids 里没了 200，并且 200 比 100 大就应该不可见了</p>
+<h2 id="幻读"><a href="#幻读" class="headerlink" title="幻读"></a>幻读</h2><p>还有一个问题是幻读的问题，这貌似也是个高频面试题，啥意思呢，或者说跟它最常拿来比较的脏读，脏读是指读到了别的事务未提交的数据，因为未提交，严格意义上来讲，不一定是会被最后落到库里，可能会回滚，也就是在 read uncommitted 级别下会出现的问题，但是幻读不太一样，幻读是指两次查询的结果数量不一样，比如我查了第一次是 <code>select * from table1 where id &lt; 10 for update</code>,查出来了一条结果 id 是 5，然后再查一下发现出来了一条 id 是 5，一条 id 是 7，那是不是有点尴尬了，其实呢这个点我觉得脏读跟幻读也比较是从原理层面来命名，如果第一次接触的同学发觉有点不理解也比较正常，因为从逻辑上讲总之都是数据不符合预期，但是基于源码层面其实是不同的情况，幻读是在原先的 read view 无法完全解决的，怎么解决呢，简单的来说就是锁咯，我们知道innodb 是基于 record lock 行锁的，但是貌似没有办法解决这种问题，那么 innodb 就引入了 gap lock 间隙锁，比如上面说的情况下，id 小于 10 的情况下，是都应该锁住的，gap lock 其实是基于索引结构来锁的，因为索引树除了树形结构之外，还有一个next record 的指针，gap lock 也是基于这个来锁的<br>看一下 mysql 的文档</p>
+<blockquote>
+<p>SELECT … FOR UPDATE sets an exclusive next-key lock on every record the search encounters. However, only an index record lock is required for statements that lock rows using a unique index to search for a unique row.  </p>
+</blockquote>
+<p>对于一个 for update 查询，在 RR 级别下，会设置一个 next-key lock在每一条被查询到的记录上，next-lock 又是啥呢，其实就是 gap 锁和 record 锁的结合体，比如我在数据库里有 id 是 1，3，5，7，10，对于上面那条查询，查出来的结果就是 1，3，5，7，那么按照文档里描述的，对于这几条记录都会加上next-key lock，也就是(-∞, 1], (1, 3], (3, 5], (5, 7], (7, 10) 这些区间和记录会被锁起来，不让插入，再唠叨一下呢，就是其实如果是只读的事务，光 read view 一致性读就够了，如果是有写操作的呢，就需要锁了。</p>
+]]></content>
+      <categories>
+        <category>Mysql</category>
+        <category>C</category>
+        <category>数据结构</category>
+        <category>源码</category>
+        <category>Mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+        <tag>数据结构</tag>
+        <tag>源码</tag>
+        <tag>mvcc</tag>
+        <tag>read view</tag>
+        <tag>gap lock</tag>
+        <tag>next-key lock</tag>
+        <tag>幻读</tag>
       </tags>
   </entry>
   <entry>
@@ -7020,35 +7158,6 @@ $
       </tags>
   </entry>
   <entry>
-    <title>聊聊 Sharding-Jdbc 的简单原理初篇</title>
-    <url>/2021/12/26/%E8%81%8A%E8%81%8A-Sharding-Jdbc-%E7%9A%84%E7%AE%80%E5%8D%95%E5%8E%9F%E7%90%86%E5%88%9D%E7%AF%87/</url>
-    <content><![CDATA[<p>在上一篇 sharding-jdbc 的介绍中其实碰到过一个问题，这里也引出了一个比较有意思的话题<br>就是我在执行 query 的时候犯过一个比较难发现的错误，</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">ResultSet</span> resultSet <span class="token operator">=</span> ps<span class="token punctuation">.</span><span class="token function">executeQuery</span><span class="token punctuation">(</span>sql<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>实际上应该是</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">ResultSet</span> resultSet <span class="token operator">=</span> ps<span class="token punctuation">.</span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>而这里的差别就是，是否传 sql 这个参数，首先我们要知道这个 ps 是什么，它也是个接口<code>java.sql.PreparedStatement</code>,而真正的实现类是<code>org.apache.shardingsphere.driver.jdbc.core.statement.ShardingSpherePreparedStatement</code>,我们来看下继承关系<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/LqJznh.png"><br>这里可以看到继承关系里有<code>org.apache.shardingsphere.driver.jdbc.unsupported.AbstractUnsupportedOperationPreparedStatement</code><br>那么在我上面的写错的代码里</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
-<span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token class-name">ResultSet</span> <span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">String</span> sql<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">SQLException</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">SQLFeatureNotSupportedException</span><span class="token punctuation">(</span><span class="token string">"executeQuery with SQL for PreparedStatement"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这个报错一开始让我有点懵，后来点进去了发现是这么个异常，但是我其实一开始是用的更新语句，以为更新不支持，因为平时使用没有深究过，以为是不是需要使用 Mybatis 才可以执行更新，但是理论上也不应该，再往上看原来这些异常是由 sharding-jdbc 包装的，也就是在上面说的<code>AbstractUnsupportedOperationPreparedStatement</code>，这其实也是一种设计思想，本身 jdbc 提供了一系列接口，由各家去支持，包括 mysql，sql server，oracle 等，而正因为这个设计，所以 sharding-jdbc 也可以在此基础上进行设计，我们可以总体地看下 sharding-jdbc 的实现基础<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/RWvrK6.png"><br>看了前面<code>ShardingSpherePreparedStatement</code>的继承关系，应该也能猜到这里的几个类都是实现了 jdbc 的基础接口，<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/0QncpD.png"><br>在前一篇的 demo 中的</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Connection</span> conn <span class="token operator">=</span> dataSource<span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>其实就获得了<code>org.apache.shardingsphere.driver.jdbc.core.connection.ShardingSphereConnection#ShardingSphereConnection</code><br>然后获得<code>java.sql.PreparedStatement</code></p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">PreparedStatement</span> ps <span class="token operator">=</span> conn<span class="token punctuation">.</span><span class="token function">prepareStatement</span><span class="token punctuation">(</span>sql<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>就是获取了<code>org.apache.shardingsphere.driver.jdbc.core.statement.ShardingSpherePreparedStatement</code><br>然后就是执行</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">ResultSet</span> resultSet <span class="token operator">=</span> ps<span class="token punctuation">.</span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>然后获得结果<br><code>org.apache.shardingsphere.driver.jdbc.core.resultset.ShardingSphereResultSet</code></p>
-<p>其实像 mybatis 也是基于这样去实现的</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Sharding-Jdbc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>聊聊 redis 缓存的应用问题</title>
     <url>/2021/01/31/%E8%81%8A%E8%81%8A-redis-%E7%BC%93%E5%AD%98%E7%9A%84%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>前面写过一系列的 redis 源码分析的，但是实际上很多的问题还是需要结合实际的使用，然后其实就避不开缓存使用的三个著名问题，穿透，击穿和雪崩，这三个概念也是有着千丝万缕的关系，</p>
@@ -7204,96 +7313,6 @@ function hiicu64() &#123;
         <tag>Homebrew</tag>
         <tag>icu4c</tag>
         <tag>zsh</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>聊聊 Sharding-Jdbc 分库分表下的分页方案</title>
-    <url>/2022/01/09/%E8%81%8A%E8%81%8A-Sharding-Jdbc-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E4%B8%8B%E7%9A%84%E5%88%86%E9%A1%B5%E6%96%B9%E6%A1%88/</url>
-    <content><![CDATA[<p>前面在聊 Sharding-Jdbc 的时候看到了一篇文章，关于一个分页的查询，一直比较直接的想法就是分库分表下的分页是非常不合理的，一般我们的实操方案都是分表加上 ES 搜索做分页，或者通过合表读写分离的方案，因为对于 sharding-jdbc 如果没有带分表键，查询基本都是只能在所有分表都执行一遍，然后再加上分页，基本上是分页越大后续的查询越耗资源，但是仔细的去想这个细节还是这次，就简单说说<br>首先就是我的分表结构</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>student_time_0<span class="token punctuation">`</span> <span class="token punctuation">(</span>
-  <span class="token punctuation">`</span>id<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token keyword">unsigned</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token punctuation">,</span>
-  <span class="token punctuation">`</span>user_id<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-  <span class="token punctuation">`</span>name<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> utf8_bin <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-  <span class="token punctuation">`</span>age<span class="token punctuation">`</span> <span class="token keyword">tinyint</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token keyword">unsigned</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-  <span class="token punctuation">`</span>create_time<span class="token punctuation">`</span> <span class="token keyword">bigint</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-  <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>id<span class="token punctuation">`</span><span class="token punctuation">)</span>
-<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token operator">=</span><span class="token number">674</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARSET</span><span class="token operator">=</span>utf8 <span class="token keyword">COLLATE</span><span class="token operator">=</span>utf8_bin<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>有这样的三个表，<code>student_time_0</code>, <code>student_time_1</code>, <code>student_time_2</code>, 以 user_id 作为分表键，根据表数量取模作为分表依据<br>这里先构造点数据，</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">insert</span> <span class="token keyword">into</span> student_time <span class="token punctuation">(</span><span class="token punctuation">`</span>name<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>user_id<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>age<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>create_time<span class="token punctuation">`</span><span class="token punctuation">)</span> <span class="token keyword">values</span> <span class="token punctuation">(</span>?<span class="token punctuation">,</span> ?<span class="token punctuation">,</span> ?<span class="token punctuation">,</span> ?<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>主要是为了保证 <code>create_time</code> 唯一比较好说明问题，</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword">try</span> <span class="token punctuation">(</span>
-        <span class="token class-name">Connection</span> conn <span class="token operator">=</span> dataSource<span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">PreparedStatement</span> ps <span class="token operator">=</span> conn<span class="token punctuation">.</span><span class="token function">prepareStatement</span><span class="token punctuation">(</span>insertSql<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">do</span> <span class="token punctuation">&#123;</span>
-        ps<span class="token punctuation">.</span><span class="token function">setString</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> localName <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">Random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        ps<span class="token punctuation">.</span><span class="token function">setLong</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">10086L</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        ps<span class="token punctuation">.</span><span class="token function">setInt</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        ps<span class="token punctuation">.</span><span class="token function">setLong</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-
-        <span class="token keyword">int</span> result <span class="token operator">=</span> ps<span class="token punctuation">.</span><span class="token function">executeUpdate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"current execute result: &#123;&#125;"</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        i<span class="token operator">++</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;=</span> <span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>三个表的数据分别是 673，678，650，说明符合预期了，各个表数据不一样，接下来比如我们想要做一个这样的分页查询</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> student_time <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> create_time <span class="token keyword">ASC</span> <span class="token keyword">limit</span> <span class="token number">1000</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><code>student_time</code> 对于我们使用的 <code>sharding-jdbc</code> 来说当然是逻辑表，首先从一无所知去想这个查询如果我们自己来处理应该是怎么做，<br>首先是不是可以每个表都从 333 开始取 5 条数据，类似于下面的查询，然后进行 15 条的合并重排序获取前面的 5 条</p>
-<pre class="line-numbers language-none"><code class="language-none">select * from student_time_0 ORDER BY create_time ASC limit 333, 5;
-select * from student_time_1 ORDER BY create_time ASC limit 333, 5;
-select * from student_time_2 ORDER BY create_time ASC limit 333, 5;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>忽略前面 limit 差的 1，这个结果除非三个表的分布是绝对的均匀，否则结果肯定会出现一定的偏差，以为每个表的 333 这个位置对于其他表来说都不一定是一样的，这样对于最后整体的结果，就会出现偏差<br>因为一直在纠结怎么让这个更直观的表现出来，所以尝试画了个图<br><img data-src="https://gitee.com/nicksxs/images/raw/master/uPic/Gj7TPq.png"><br>黑色的框代表我从每个表里按排序从 334 到 338 的 5 条数据， 他们在每个表里都是代表了各自正确的排序值，但是对于我们想要的其实是合表后的 1001，1005 这五条，然后我们假设总的排序值位于前 1000 的分布是第 0 个表是 320 条，第 1 个表是 340 条，第 2 个表是 340 条，那么可以明显地看出来我这么查的结果简单合并肯定是不对的。<br>那么 sharding-jdbc 是如何保证这个结果的呢，其实就是我在每个表里都查分页偏移量和分页大小那么多的数据，在我这个例子里就是对于 0，1，2 三个分表每个都查 1005 条数据，即使我的数据不平衡到最极端的情况，前 1005 条数据都出在某个分表中，也可以正确获得最后的结果，但是明显的问题就是大分页，数据较多，就会导致非常大的问题，即使如 sharding-jdbc 对于合并排序的优化做得比较好，也还是需要传输那么大量的数据，并且查询也耗时，那么有没有解决方案呢，应该说有两个，或者说主要是想讲后者<br>第一个办法是像这种查询，如果业务上不需要进行跳页，而是只给下一页，那么我们就能把前一次的最大偏移量的 create_time 记录下来，下一页就可以拿着这个偏移量进行查询，这个比较简单易懂，就不多说了<br>第二个办法是看的58 沈剑的一篇文章，尝试理解讲述一下，<br>这个办法的第一步跟前面那个错误的方法或者说不准确的方法一样，先是将分页偏移量平均后在三个表里进行查询</p>
-<pre class="line-numbers language-none"><code class="language-none">t0
-334 10158 nick95  18  1641548941767
-335 10098 nick11  18  1641548941879
-336 10167 nick51  18  1641548942089
-337 10167 nick3 18  1641548942119
-338 10170 nick57  18  1641548942169
-
-
-t1
-334 10105 nick98  18  1641548939071   最小
-335 10174 nick94  18  1641548939377
-336 10129 nick85  18  1641548939442
-337 10141 nick84  18  1641548939480
-338 10096 nick74  18  1641548939668
-
-t2
-334 10184 nick11  18  1641548945075
-335 10109 nick93  18  1641548945382
-336 10181 nick41  18  1641548945583
-337 10130 nick80  18  1641548945993
-338 10184 nick19  18  1641548946294  最大<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然后要做什么呢，其实目标比较明白，因为前面那种方法其实就是我知道了前一页的偏移量，所以可以直接当做条件来进行查询，那这里我也想着拿到这个条件，所以我将第一遍查出来的最小的 create_time 和最大的 create_time 找出来，然后再去三个表里查询，其实主要是最小值，因为我拿着最小值去查以后我就能知道这个最小值在每个表里处在什么位置，</p>
-<pre class="line-numbers language-none"><code class="language-none">t0
-322 10161 nick81  18  1641548939284
-323 10113 nick16  18  1641548939393
-324 10110 nick56  18  1641548939577
-325 10116 nick69  18  1641548939588
-326 10173 nick51  18  1641548939646
-
-t1
-334 10105 nick98  18  1641548939071
-335 10174 nick94  18  1641548939377
-336 10129 nick85  18  1641548939442
-337 10141 nick84  18  1641548939480
-338 10096 nick74  18  1641548939668
-
-t2
-297 10136 nick28  18  1641548939161
-298 10142 nick68  18  1641548939177
-299 10124 nick41  18  1641548939237
-300 10148 nick87  18  1641548939510
-301 10169 nick23  18  1641548939715<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>我只贴了前五条数据，为了方便知道偏移量，每个分表都使用了自增主键，我们可以看到前一次查询的最小值分别在其他两个表里的位置分别是 322-1 和 297-1，那么对于总体来说这个时间应该是在 <code>322 - 1 + 333 + 297 - 1 = 951</code>，那这样子我只要对后面的数据最多每个表查 <code>1000 - 951 + 5 = 54</code> 条数据再进行合并排序就可以获得最终正确的结果。<br>这个就是传说中的二次查询法。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Sharding-Jdbc</tag>
       </tags>
   </entry>
   <entry>
@@ -7550,6 +7569,20 @@ t2
       </tags>
   </entry>
   <entry>
+    <title>聊聊最近平淡的生活之《花束般的恋爱》观后感</title>
+    <url>/2021/12/31/%E8%81%8A%E8%81%8A%E6%9C%80%E8%BF%91%E5%B9%B3%E6%B7%A1%E7%9A%84%E7%94%9F%E6%B4%BB%E4%B9%8B%E3%80%8A%E8%8A%B1%E6%9D%9F%E8%88%AC%E7%9A%84%E6%81%8B%E7%88%B1%E3%80%8B%E8%A7%82%E5%90%8E%E6%84%9F/</url>
+    <content><![CDATA[<p>周末在领导的提议下看了豆瓣的年度榜单，本来感觉没啥心情看的，看到主演有有村架纯就觉得可以看一下，颜值即正义嘛，男主小麦跟女主小娟（后面简称小麦跟小娟）是两个在一次非常偶然的没赶上地铁末班车事件中相识，这里得说下日本这种通宵营业的店好像挺不错的，看着也挺正常，国内估计只有酒吧之类的可以。晚上去的地方是有点暗暗的，好像也有点类似酒吧，旁边有类似于 dj 那种，然后同桌的还有除了男女主的另外一对男女，也是因为没赶上地铁末班车的，但也是陌生人，然后小麦突然看到了有个非常有名的电影人，小娟竟然也认识，然后旁边那对完全不认识，还在那吹自己看过很多电影，比如《肖申克的救赎》，于是男女主都特别鄙夷地看着他们，然后他们又去了另一个有点像泡澡的地方席地而坐，他们发现了自己的鞋子都是一样的，然后在女的去上厕所的时候，小麦暗恋的学姐也来了，然后小麦就去跟学姐他们一起坐了，小娟回来后有点不开心就说去朋友家睡，幸好小麦看出来了（他竟然看出来了，本来以为应该是没填过恋爱很木讷的），就追出去，然后就去了小麦家，到了家小娟发现小麦家的书柜上的书简直就跟她自己家的一模一样，小麦还给小娟吹了头发，一起吃烤饭团，看电影，第二天送小娟上了公交，还约好了一起看木乃伊展，然而并没有交换联系方式，但是他们还是约上了一起看了木乃伊展，在餐馆就出现了片头那一幕的来源，因为餐馆他们想一起听歌，就用有线耳机一人一个耳朵听，但是旁边就有个大叔说“你们是不是不爱音乐，左右耳朵是不一样的，只有一起听才是真正的音乐”这样的话，然后的剧情有点跳，因为是指他们一直在这家餐馆吃饭，中间有他们一起出去玩情节穿插着，也是在这他们确立了关系，可以说主体就是体现了他们非常的合拍和默契，就像一些影评说的，这部电影是说如何跟百分百合拍的人分手，然后就是正常的恋爱开始啪啪啪，一直腻在床上，也没去就业说明会，后面也有讲了一点小麦带着小娟去认识他的朋友，也把小娟介绍给了他们认识，这里算是个小伏笔，后面他们分手也有这里的人的一些关系，接下去的剧情说实话我是不太喜欢的，如果一部八分的电影只是说恋爱被现实打败的话，我觉得在我这是不合格的，但是事实也是这样，小麦其实是有家里的资助，所以后面还是按自己的喜好给一些机构画点插画，小娟则要出去工作，因为小娟家庭观念也是要让她出去有正经工作，用脚指头想也能知道肯定不顺利，然后就是暂时在一家蛋糕店工作，小麦就每天去接小娟，日子过得甜甜蜜蜜，后面小娟在自己的努力下考了个什么资格证，去了一家医院还是什么做前台行政，这中间当然就有父母来见面吃饭了，他们在开始恋爱不久就同居合租了，然后小娟父母就是来说要让她有个正经工作，对男的说的话就是人生就是责任这类的话，而小麦爸爸算是个导火索，因为小麦家里是做烟花生意的，他爸让他就做烟花生意，因为要回老家，并且小麦也不想做，所以就拒绝了，然后他爸就说不给他每个月五万的资助，这也导致了小麦需要去找工作，这个过程也是很辛苦，本来想要年前找好工作，然后事与愿违，后面有一次小娟被同事吐槽怎么从来不去团建，于是她就去了（我以为会拒绝），正在团建的时候小麦给她电话，说找到工作了，是一个创业物流公司这种，这里剧情就是我觉得比较俗套的，小麦各种被虐，累成狗，但是就像小娟爸爸说的话，人生就是责任，所以一直在坚持，但是这样也导致了跟小娟的交流也越来越少，他们原来最爱的漫画，爱玩的游戏，也只剩小娟一个人看，一个人玩，而正是这个时候，小娟说她辞掉了工作，去做一个不是太靠谱的漫画改造的密室逃脱，然后这里其实有一点后面争议很大的，就是这个工作其实是前面小麦介绍给小娟的那些朋友中一个的女朋友介绍的，而在有个剧情就是小娟有一次在这个密室逃脱的老板怀里醒过来，是在 KTV 那样的场景里，这就有很多人觉得小娟是不是出轨了，我觉得其实不那么重要，因为这个离职的事情已经让一切矛盾都摆在眼前，小麦其实是接受这种需要承担责任的生活，也想着要跟小娟结婚，但是小娟似乎还是想要过着那样理想的生活，做自己想做的事情，看自己爱看的漫画，也要小麦能像以前那样一直那么默契的有着相同的爱好，这里的触发点其实还有个是那个小麦的朋友（也就是他女朋友介绍小娟那个不靠谱工作的）的葬礼上，小麦在参加完葬礼后有挺多想倾诉的，而小娟只是想睡了，这个让小麦第二天起来都不想理小娟，只是这里我不太理解，难道这点闹情绪都不能接受吗，所谓的合拍也只是毫无限制的情况下的合拍吧，真正的生活怎么可能如此理想呢，即使没有物质生活的压力，也会有其他的各种压力和限制，在这之后其实小麦想说的是小娟是不是没有想跟自己继续在一起的想法了，而小娟觉得都不说话了，还怎么结婚呢，后面其实导演搞了个小 trick，突然放了异常婚礼，但是不是男女主的，我并不觉得这个桥段很好，在婚礼里男女主都觉得自己想要跟对方说分手了，但是当他们去了最开始一直去的餐馆的时候，一个算是一个现实映照的就是他们一直坐的位子被占了，可能也是导演想通过这个来说明他们已经回不去了，在餐馆交谈的时候，小麦其实是说他们结婚吧，并没有想前面婚礼上预设地要分手，但是小娟放弃了，不想结婚，因为不想过那样的生活了，而小麦觉得可能生活就是那样，不可能一直保持刚恋爱时候的那种感觉，生活就是责任，人生就意味着责任。</p>
+<p>我的一些观点也在前面说了，恋爱到婚姻，即使物质没问题，经济没问题，也会有各种各样的问题，需要一起去解决，因为结婚就意味着需要相互扶持，而不是各取所需，可能我的要求比较高，后面男女主在分手后还一起住了一段时间，我原来还在想会不会通过这个方式让他们继续去磨合同步，只是我失望了，最后给个打分可能是 5 到 6 分吧，勉强及格，好的影视剧应该源于生活高于生活，这一部可能还比不上生活。</p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+        <tag>看剧</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>聊聊最近平淡的生活之看《神探狄仁杰》</title>
     <url>/2021/12/19/%E8%81%8A%E8%81%8A%E6%9C%80%E8%BF%91%E5%B9%B3%E6%B7%A1%E7%9A%84%E7%94%9F%E6%B4%BB%E4%B9%8B%E7%9C%8B%E3%80%8A%E7%A5%9E%E6%8E%A2%E7%8B%84%E4%BB%81%E6%9D%B0%E3%80%8B/</url>
     <content><![CDATA[<p>其实最近看的不止这一部，前面看了《继承者们》，《少年包青天》这些，就一起聊下，其中看《继承者们》算是个人比较喜欢，以前就有这种看剧的习惯，这个跟《一生一世》里任嘉伦说自己看《寻秦记》看了几十遍一样，我看喜欢的剧也基本上会看不止五遍，继承者们是有帅哥美女看，而且印象中剧情也挺甜的，一般情况下最好是已经有点遗忘剧情了，因为我个人觉得看剧分两种，无聊了又心情不太好，可以看些这类轻松又看过的剧，可以不完全专心地看剧，另外有心情专心看的时候，可以看一些需要思考，一些探案类的或者烧脑类。<br>最近看了《神探狄仁杰》，因为跟前面看的《少年包青天》都是这类古装探案剧，正好有些感想，《少年包青天》算是儿时阴影，本来是不太会去看的，正好有一次有机会跟 LD 一起看了会就也觉得比较有意思就看了下去，不得不说，以前的这些剧还是很不错的，包括剧情和演员，第一部一共是 40 集，看的过程中也发现了大概是五个案子，平均八集一个案子，整体节奏还是比较慢的，但是基本每个案子其实都是构思得很巧妙，很久以前看过但是现在基本不太记得剧情了，每个案子在前面几集的时候基本都猜不到犯案逻辑，但是在看了狄仁杰之后，发现两部剧也有比较大的差别，少年包青天相对来说逻辑性会更强一些，个人主观觉得推理的严谨性更高，可能剧本打磨上更将就一下，而狄仁杰因为要提现他的个人强项，不比少年包青天中有公孙策一时瑜亮的情节，狄仁杰中分工明确，李元芳是个武力担当，曾泰是捧哏的，相对来说是狄仁杰在案子里从始至终地推进案情，有些甚至有些玄乎，会有一些跳脱跟不合理，有些像是狄仁杰的奇遇，不过这些想法是私人的观点，并不是想要评孰优孰劣；第二个感受是不知道是不是年代关系，特别是少年包青天，每个案件的大 boss 基本都不是个完全的坏人，甚至都是比较情有可原的可怜人，因为一些特殊原因，而好几个都是包拯身边的人，这一点其实跟狄仁杰里第一个使团惊魂案件比较类似，虎敬晖也是个人物形象比较丰满的角色，不是个标签化的淡薄形象，跟金木兰的感情和反叛行动在最后都说明的缘由，而且也有随着跟狄仁杰一起办案被其影响感化，最终为了救狄仁杰而被金木兰所杀，只是这样金木兰这个角色就会有些偏执和符号化，当然剧本肯定不是能面面俱到，这样的剧本已经比现在很多流量剧的好很多了。还想到了前阵子看的《指环王》中的白袍萨鲁曼在剧中也是个比较单薄的角色，这样的电影彪炳影史也没办法把个个人物都设计得完整有血有肉，或者说这本来也是应该有侧重点，当然其实我也不觉得指环王就是绝对的最好的，因为相对来说故事情节的复杂性等真的不如西游记，只是在 86 版之后的各种乱七八糟的翻牌和乱拍已经让这个真正的王者神话故事有点力不从心，这里边有部西游记后传是个人还比较喜欢的，虽然武打动作比较鬼畜，但是剧情基本是无敌的，在西游的架构上衍生出来这么完整丰富的故事，人物角色也都有各自的出彩点。<br>说回狄仁杰，在这之前也看过徐克拍的几部狄仁杰的电影版，第一部刘德华拍得相对完成度更高，故事性也可圈可点，后面几部就是剧情拉胯，靠特效拉回来一点分，虽说这个也是所谓的狄仁杰宇宙的构思在里面但是现在来看基本是跟西游那些差不多，完全没有整体性可言，打一枪换一个地方，演员也没有延续性，剧情也是前后跳脱，没什么关联跟承上启下，导致质量层次不一，更不用谈什么狄仁杰宇宙了，不过这个事情也是难说，原因很多，现在资本都是更加趋利的，一些需要更长久时间才能有回报的投资是很难获得资本青睐，所以只能将重心投给选择一些流量明星，而本来应该将资源投给剧本打磨的基本就没了，再深入说也没意义了，社会现状就是这样。<br>还有一点感想是，以前的剧里的拍摄环境还是比较惨的，看着一些房子，甚至皇宫都是比较破旧的，地面还是石板这种，想想以前的演员的环境再想想现在的，比如成龙说的，以前他拍剧就是啪摔了，问这条有没有过，过了就直接送医院，而不是现在可能手蹭破点皮就大叫，甚至还有饭圈这些破事。</p>
@@ -7684,20 +7717,6 @@ t2
         <tag>基础设施</tag>
         <tag>杭州</tag>
         <tag>高速</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>聊聊最近平淡的生活之《花束般的恋爱》观后感</title>
-    <url>/2021/12/31/%E8%81%8A%E8%81%8A%E6%9C%80%E8%BF%91%E5%B9%B3%E6%B7%A1%E7%9A%84%E7%94%9F%E6%B4%BB%E4%B9%8B%E3%80%8A%E8%8A%B1%E6%9D%9F%E8%88%AC%E7%9A%84%E6%81%8B%E7%88%B1%E3%80%8B%E8%A7%82%E5%90%8E%E6%84%9F/</url>
-    <content><![CDATA[<p>周末在领导的提议下看了豆瓣的年度榜单，本来感觉没啥心情看的，看到主演有有村架纯就觉得可以看一下，颜值即正义嘛，男主小麦跟女主小娟（后面简称小麦跟小娟）是两个在一次非常偶然的没赶上地铁末班车事件中相识，这里得说下日本这种通宵营业的店好像挺不错的，看着也挺正常，国内估计只有酒吧之类的可以。晚上去的地方是有点暗暗的，好像也有点类似酒吧，旁边有类似于 dj 那种，然后同桌的还有除了男女主的另外一对男女，也是因为没赶上地铁末班车的，但也是陌生人，然后小麦突然看到了有个非常有名的电影人，小娟竟然也认识，然后旁边那对完全不认识，还在那吹自己看过很多电影，比如《肖申克的救赎》，于是男女主都特别鄙夷地看着他们，然后他们又去了另一个有点像泡澡的地方席地而坐，他们发现了自己的鞋子都是一样的，然后在女的去上厕所的时候，小麦暗恋的学姐也来了，然后小麦就去跟学姐他们一起坐了，小娟回来后有点不开心就说去朋友家睡，幸好小麦看出来了（他竟然看出来了，本来以为应该是没填过恋爱很木讷的），就追出去，然后就去了小麦家，到了家小娟发现小麦家的书柜上的书简直就跟她自己家的一模一样，小麦还给小娟吹了头发，一起吃烤饭团，看电影，第二天送小娟上了公交，还约好了一起看木乃伊展，然而并没有交换联系方式，但是他们还是约上了一起看了木乃伊展，在餐馆就出现了片头那一幕的来源，因为餐馆他们想一起听歌，就用有线耳机一人一个耳朵听，但是旁边就有个大叔说“你们是不是不爱音乐，左右耳朵是不一样的，只有一起听才是真正的音乐”这样的话，然后的剧情有点跳，因为是指他们一直在这家餐馆吃饭，中间有他们一起出去玩情节穿插着，也是在这他们确立了关系，可以说主体就是体现了他们非常的合拍和默契，就像一些影评说的，这部电影是说如何跟百分百合拍的人分手，然后就是正常的恋爱开始啪啪啪，一直腻在床上，也没去就业说明会，后面也有讲了一点小麦带着小娟去认识他的朋友，也把小娟介绍给了他们认识，这里算是个小伏笔，后面他们分手也有这里的人的一些关系，接下去的剧情说实话我是不太喜欢的，如果一部八分的电影只是说恋爱被现实打败的话，我觉得在我这是不合格的，但是事实也是这样，小麦其实是有家里的资助，所以后面还是按自己的喜好给一些机构画点插画，小娟则要出去工作，因为小娟家庭观念也是要让她出去有正经工作，用脚指头想也能知道肯定不顺利，然后就是暂时在一家蛋糕店工作，小麦就每天去接小娟，日子过得甜甜蜜蜜，后面小娟在自己的努力下考了个什么资格证，去了一家医院还是什么做前台行政，这中间当然就有父母来见面吃饭了，他们在开始恋爱不久就同居合租了，然后小娟父母就是来说要让她有个正经工作，对男的说的话就是人生就是责任这类的话，而小麦爸爸算是个导火索，因为小麦家里是做烟花生意的，他爸让他就做烟花生意，因为要回老家，并且小麦也不想做，所以就拒绝了，然后他爸就说不给他每个月五万的资助，这也导致了小麦需要去找工作，这个过程也是很辛苦，本来想要年前找好工作，然后事与愿违，后面有一次小娟被同事吐槽怎么从来不去团建，于是她就去了（我以为会拒绝），正在团建的时候小麦给她电话，说找到工作了，是一个创业物流公司这种，这里剧情就是我觉得比较俗套的，小麦各种被虐，累成狗，但是就像小娟爸爸说的话，人生就是责任，所以一直在坚持，但是这样也导致了跟小娟的交流也越来越少，他们原来最爱的漫画，爱玩的游戏，也只剩小娟一个人看，一个人玩，而正是这个时候，小娟说她辞掉了工作，去做一个不是太靠谱的漫画改造的密室逃脱，然后这里其实有一点后面争议很大的，就是这个工作其实是前面小麦介绍给小娟的那些朋友中一个的女朋友介绍的，而在有个剧情就是小娟有一次在这个密室逃脱的老板怀里醒过来，是在 KTV 那样的场景里，这就有很多人觉得小娟是不是出轨了，我觉得其实不那么重要，因为这个离职的事情已经让一切矛盾都摆在眼前，小麦其实是接受这种需要承担责任的生活，也想着要跟小娟结婚，但是小娟似乎还是想要过着那样理想的生活，做自己想做的事情，看自己爱看的漫画，也要小麦能像以前那样一直那么默契的有着相同的爱好，这里的触发点其实还有个是那个小麦的朋友（也就是他女朋友介绍小娟那个不靠谱工作的）的葬礼上，小麦在参加完葬礼后有挺多想倾诉的，而小娟只是想睡了，这个让小麦第二天起来都不想理小娟，只是这里我不太理解，难道这点闹情绪都不能接受吗，所谓的合拍也只是毫无限制的情况下的合拍吧，真正的生活怎么可能如此理想呢，即使没有物质生活的压力，也会有其他的各种压力和限制，在这之后其实小麦想说的是小娟是不是没有想跟自己继续在一起的想法了，而小娟觉得都不说话了，还怎么结婚呢，后面其实导演搞了个小 trick，突然放了异常婚礼，但是不是男女主的，我并不觉得这个桥段很好，在婚礼里男女主都觉得自己想要跟对方说分手了，但是当他们去了最开始一直去的餐馆的时候，一个算是一个现实映照的就是他们一直坐的位子被占了，可能也是导演想通过这个来说明他们已经回不去了，在餐馆交谈的时候，小麦其实是说他们结婚吧，并没有想前面婚礼上预设地要分手，但是小娟放弃了，不想结婚，因为不想过那样的生活了，而小麦觉得可能生活就是那样，不可能一直保持刚恋爱时候的那种感觉，生活就是责任，人生就意味着责任。</p>
-<p>我的一些观点也在前面说了，恋爱到婚姻，即使物质没问题，经济没问题，也会有各种各样的问题，需要一起去解决，因为结婚就意味着需要相互扶持，而不是各取所需，可能我的要求比较高，后面男女主在分手后还一起住了一段时间，我原来还在想会不会通过这个方式让他们继续去磨合同步，只是我失望了，最后给个打分可能是 5 到 6 分吧，勉强及格，好的影视剧应该源于生活高于生活，这一部可能还比不上生活。</p>
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
-        <tag>看剧</tag>
       </tags>
   </entry>
   <entry>
@@ -8187,9 +8206,9 @@ t2
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>aqs</tag>
         <tag>并发</tag>
         <tag>j.u.c</tag>
+        <tag>aqs</tag>
         <tag>condition</tag>
         <tag>await</tag>
         <tag>signal</tag>
