@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-01-30T13:51:03.000Z</updated>
+  <updated>2022-02-06T13:14:58.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分享记录一下一个 git 操作方法</title>
+    <link href="https://nicksxs.me/2022/02/06/%E5%88%86%E4%BA%AB%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B%E4%B8%80%E4%B8%AA-git-%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95/"/>
+    <id>https://nicksxs.me/2022/02/06/%E5%88%86%E4%BA%AB%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B%E4%B8%80%E4%B8%AA-git-%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95/</id>
+    <published>2022-02-06T13:14:58.000Z</published>
+    <updated>2022-02-06T13:14:58.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前阵子一个同事因为发现某个分支上的代码好像有缺失导致无法正常运行，然后就对比了下把缺失的代码从另一个分支上拷了过来，可能有所欠考虑，不过主要是说下操作过程和最后的处理方法，这位同学的操作是改一些代码commit 一下，这样的 commit 了大概五六次，并且已经 push</summary>
+        
+      
+    
+    
+    
+    <category term="git" scheme="https://nicksxs.me/categories/git/"/>
+    
+    <category term="小技巧" scheme="https://nicksxs.me/categories/git/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="git" scheme="https://nicksxs.me/tags/git/"/>
+    
+  </entry>
   
   <entry>
     <title>spring event 介绍</title>
@@ -582,40 +609,6 @@
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊一下 RocketMQ 的消息存储三</title>
-    <link href="https://nicksxs.me/2021/10/03/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8%E4%B8%89/"/>
-    <id>https://nicksxs.me/2021/10/03/%E8%81%8A%E4%B8%80%E4%B8%8B-RocketMQ-%E7%9A%84%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8%E4%B8%89/</id>
-    <published>2021-10-03T12:17:37.000Z</published>
-    <updated>2021-10-03T12:17:37.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;ConsumeQueue 其实是定位到一个 topic 下的消息在 CommitLog 下的偏移量，它也是固定大小的&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-java&quot; data-language=&quot;java&quot;&gt;&lt;code</summary>
-        
-      
-    
-    
-    
-    <category term="MQ" scheme="https://nicksxs.me/categories/MQ/"/>
-    
-    <category term="RocketMQ" scheme="https://nicksxs.me/categories/MQ/RocketMQ/"/>
-    
-    <category term="消息队列" scheme="https://nicksxs.me/categories/MQ/RocketMQ/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
-    
-    
-    <category term="MQ" scheme="https://nicksxs.me/tags/MQ/"/>
-    
-    <category term="消息队列" scheme="https://nicksxs.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
-    
-    <category term="RocketMQ" scheme="https://nicksxs.me/tags/RocketMQ/"/>
     
   </entry>
   
