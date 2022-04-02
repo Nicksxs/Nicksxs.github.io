@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-03-27T07:15:14.000Z</updated>
+  <updated>2022-04-02T06:58:59.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Dubbo 使用的几个记忆点</title>
+    <link href="https://nicksxs.me/2022/04/02/Dubbo-%E4%BD%BF%E7%94%A8%E7%9A%84%E5%87%A0%E4%B8%AA%E8%AE%B0%E5%BF%86%E7%82%B9/"/>
+    <id>https://nicksxs.me/2022/04/02/Dubbo-%E4%BD%BF%E7%94%A8%E7%9A%84%E5%87%A0%E4%B8%AA%E8%AE%B0%E5%BF%86%E7%82%B9/</id>
+    <published>2022-04-02T06:58:59.000Z</published>
+    <updated>2022-04-02T06:58:59.000Z</updated>
+    
+    
+    <summary type="html">因为后台使用的 dubbo 作为 rpc 框架，并且会有一些日常使用情景有一些小的技巧，在这里做下记录作笔记用，包括只拉取不注册，只注册不拉取和权重配置</summary>
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="Dubbo" scheme="https://nicksxs.me/categories/Java/Dubbo/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Dubbo" scheme="https://nicksxs.me/tags/Dubbo/"/>
+    
+    <category term="RPC" scheme="https://nicksxs.me/tags/RPC/"/>
+    
+    <category term="负载均衡" scheme="https://nicksxs.me/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+    
+  </entry>
   
   <entry>
     <title>Leetcode 4 寻找两个正序数组的中位数 ( Median of Two Sorted Arrays *Hard* ) 题解分析</title>
@@ -552,33 +579,6 @@
     <category term="公交" scheme="https://nicksxs.me/tags/%E5%85%AC%E4%BA%A4/"/>
     
     <category term="杭州" scheme="https://nicksxs.me/tags/%E6%9D%AD%E5%B7%9E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>wordpress 忘记密码的一种解决方法</title>
-    <link href="https://nicksxs.me/2021/12/05/wordpress-%E5%BF%98%E8%AE%B0%E5%AF%86%E7%A0%81%E7%9A%84%E4%B8%80%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
-    <id>https://nicksxs.me/2021/12/05/wordpress-%E5%BF%98%E8%AE%B0%E5%AF%86%E7%A0%81%E7%9A%84%E4%B8%80%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</id>
-    <published>2021-12-05T12:30:58.000Z</published>
-    <updated>2021-12-05T12:30:58.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前阵子搭了个 WordPress，但是没怎么用，前两天发现忘了登录密码了，最近不知道是什么情况，chrome 的记住密码跟历史记录感觉有点问题，历史记录丢了不少东西，可能是时间太久了，但是理论上应该有 LRU</summary>
-        
-      
-    
-    
-    
-    <category term="小技巧" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="WordPress" scheme="https://nicksxs.me/tags/WordPress/"/>
-    
-    <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
   </entry>
   
