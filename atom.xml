@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-04-02T06:58:59.000Z</updated>
+  <updated>2022-04-10T14:05:58.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>难得的大扫除</title>
+    <link href="https://nicksxs.me/2022/04/10/%E9%9A%BE%E5%BE%97%E7%9A%84%E5%A4%A7%E6%89%AB%E9%99%A4/"/>
+    <id>https://nicksxs.me/2022/04/10/%E9%9A%BE%E5%BE%97%E7%9A%84%E5%A4%A7%E6%89%AB%E9%99%A4/</id>
+    <published>2022-04-10T14:05:58.000Z</published>
+    <updated>2022-04-10T14:05:58.000Z</updated>
+    
+    
+    <summary type="html">为了应对房东的视察，周末做了一次难得的大扫除</summary>
+    
+    
+    
+    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+    <category term="大扫除" scheme="https://nicksxs.me/tags/%E5%A4%A7%E6%89%AB%E9%99%A4/"/>
+    
+  </entry>
   
   <entry>
     <title>Dubbo 使用的几个记忆点</title>
@@ -550,35 +571,6 @@
     <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
     <category term="Sharding-Jdbc" scheme="https://nicksxs.me/tags/Sharding-Jdbc/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊部分公交车的设计bug</title>
-    <link href="https://nicksxs.me/2021/12/05/%E8%81%8A%E8%81%8A%E9%83%A8%E5%88%86%E5%85%AC%E4%BA%A4%E8%BD%A6%E7%9A%84%E8%AE%BE%E8%AE%A1bug/"/>
-    <id>https://nicksxs.me/2021/12/05/%E8%81%8A%E8%81%8A%E9%83%A8%E5%88%86%E5%85%AC%E4%BA%A4%E8%BD%A6%E7%9A%84%E8%AE%BE%E8%AE%A1bug/</id>
-    <published>2021-12-05T13:37:18.000Z</published>
-    <updated>2021-12-05T13:37:18.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;今天惯例坐公交回住的地方，不小心撞了头，原因是我们想坐倒数第二排，然后LD 走在我后面，我就走到最后一排中间等着，但是最后一排是高一截的，等 LD</summary>
-        
-      
-    
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-    <category term="公交" scheme="https://nicksxs.me/tags/%E5%85%AC%E4%BA%A4/"/>
-    
-    <category term="杭州" scheme="https://nicksxs.me/tags/%E6%9D%AD%E5%B7%9E/"/>
     
   </entry>
   
