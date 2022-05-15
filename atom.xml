@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-05-08T09:46:35.000Z</updated>
+  <updated>2022-05-15T12:32:19.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记录下 Java Stream 的一些高效操作</title>
+    <link href="https://nicksxs.me/2022/05/15/%E8%AE%B0%E5%BD%95%E4%B8%8B-Java-Lambda-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%AB%98%E6%95%88%E6%93%8D%E4%BD%9C/"/>
+    <id>https://nicksxs.me/2022/05/15/%E8%AE%B0%E5%BD%95%E4%B8%8B-Java-Lambda-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%AB%98%E6%95%88%E6%93%8D%E4%BD%9C/</id>
+    <published>2022-05-15T12:32:19.000Z</published>
+    <updated>2022-05-15T12:32:19.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我们日常在代码里处理一些集合逻辑的时候用到 Stream 其实还挺多的，普通的取值过滤集合一般都是结合 ide 的提示就能搞定了，但是有些不太常用的就在这记录下，争取后面都更新记录下来。&lt;/p&gt;
+&lt;h3 id=&quot;自定义-distinctByKey-对结果进行去重&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="stream" scheme="https://nicksxs.me/tags/stream/"/>
+    
+  </entry>
   
   <entry>
     <title>闲话篇-路遇神逻辑骑车带娃爹</title>
@@ -537,33 +565,6 @@
     <category term="utf8mb4_unicode_ci" scheme="https://nicksxs.me/tags/utf8mb4-unicode-ci/"/>
     
     <category term="utf8mb4_general_ci" scheme="https://nicksxs.me/tags/utf8mb4-general-ci/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊 Sharding-Jdbc 分库分表下的分页方案</title>
-    <link href="https://nicksxs.me/2022/01/09/%E8%81%8A%E8%81%8A-Sharding-Jdbc-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E4%B8%8B%E7%9A%84%E5%88%86%E9%A1%B5%E6%96%B9%E6%A1%88/"/>
-    <id>https://nicksxs.me/2022/01/09/%E8%81%8A%E8%81%8A-Sharding-Jdbc-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E4%B8%8B%E7%9A%84%E5%88%86%E9%A1%B5%E6%96%B9%E6%A1%88/</id>
-    <published>2022-01-09T12:02:49.000Z</published>
-    <updated>2022-01-09T12:02:49.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前面在聊 Sharding-Jdbc 的时候看到了一篇文章，关于一个分页的查询，一直比较直接的想法就是分库分表下的分页是非常不合理的，一般我们的实操方案都是分表加上 ES 搜索做分页，或者通过合表读写分离的方案，因为对于 sharding-jdbc</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Sharding-Jdbc" scheme="https://nicksxs.me/tags/Sharding-Jdbc/"/>
     
   </entry>
   
