@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-05-15T12:32:19.000Z</updated>
+  <updated>2022-05-22T12:43:50.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>闲话篇-也算碰到了为老不尊和坏人变老了的典型案例</title>
+    <link href="https://nicksxs.me/2022/05/22/%E9%97%B2%E8%AF%9D%E7%AF%87-%E4%B9%9F%E7%AE%97%E7%A2%B0%E5%88%B0%E4%BA%86%E4%B8%BA%E8%80%81%E4%B8%8D%E5%B0%8A%E5%92%8C%E5%9D%8F%E4%BA%BA%E5%8F%98%E8%80%81%E4%BA%86%E7%9A%84%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B/"/>
+    <id>https://nicksxs.me/2022/05/22/%E9%97%B2%E8%AF%9D%E7%AF%87-%E4%B9%9F%E7%AE%97%E7%A2%B0%E5%88%B0%E4%BA%86%E4%B8%BA%E8%80%81%E4%B8%8D%E5%B0%8A%E5%92%8C%E5%9D%8F%E4%BA%BA%E5%8F%98%E8%80%81%E4%BA%86%E7%9A%84%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B/</id>
+    <published>2022-05-22T12:43:50.000Z</published>
+    <updated>2022-05-22T12:43:50.000Z</updated>
+    
+    
+    <summary type="html">为老不尊，坏人变老了的典范了</summary>
+    
+    
+    
+    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>记录下 Java Stream 的一些高效操作</title>
@@ -526,45 +545,6 @@
     <category term="2021" scheme="https://nicksxs.me/tags/2021/"/>
     
     <category term="拖更" scheme="https://nicksxs.me/tags/%E6%8B%96%E6%9B%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>搬运两个 StackOverflow 上的 Mysql 编码相关的问题解答</title>
-    <link href="https://nicksxs.me/2022/01/16/%E6%90%AC%E8%BF%90%E4%B8%A4%E4%B8%AA-StackOverflow-%E4%B8%8A%E7%9A%84-Mysql-%E7%BC%96%E7%A0%81%E7%9B%B8%E5%85%B3%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94/"/>
-    <id>https://nicksxs.me/2022/01/16/%E6%90%AC%E8%BF%90%E4%B8%A4%E4%B8%AA-StackOverflow-%E4%B8%8A%E7%9A%84-Mysql-%E7%BC%96%E7%A0%81%E7%9B%B8%E5%85%B3%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94/</id>
-    <published>2022-01-16T12:52:31.000Z</published>
-    <updated>2022-01-16T12:52:31.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Mysql-字符编码和排序规则&quot;&gt;&lt;a href=&quot;#Mysql-字符编码和排序规则&quot; class=&quot;headerlink&quot; title=&quot;Mysql 字符编码和排序规则&quot;&gt;&lt;/a&gt;Mysql 字符编码和排序规则&lt;/h1&gt;&lt;p&gt;这个一直是属于一知半解的状态，知道</summary>
-        
-      
-    
-    
-    
-    <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
-    
-    
-    <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
-    
-    <category term="字符集" scheme="https://nicksxs.me/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/"/>
-    
-    <category term="编码" scheme="https://nicksxs.me/tags/%E7%BC%96%E7%A0%81/"/>
-    
-    <category term="utf8" scheme="https://nicksxs.me/tags/utf8/"/>
-    
-    <category term="utf8mb4" scheme="https://nicksxs.me/tags/utf8mb4/"/>
-    
-    <category term="utf8mb4_0900_ai_ci" scheme="https://nicksxs.me/tags/utf8mb4-0900-ai-ci/"/>
-    
-    <category term="utf8mb4_unicode_ci" scheme="https://nicksxs.me/tags/utf8mb4-unicode-ci/"/>
-    
-    <category term="utf8mb4_general_ci" scheme="https://nicksxs.me/tags/utf8mb4-general-ci/"/>
     
   </entry>
   
