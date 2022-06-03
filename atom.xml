@@ -29,7 +29,7 @@
         
         
     <summary type="html">&lt;p&gt;前阵子做了zk 的集群升级迁移，大概情况是原来是一个三节点的 zk 集群（最小可用&lt;br&gt;大概是&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-shell&quot; data-language=&quot;shell&quot;&gt;&lt;code</summary>
+&lt;pre class=&quot;line-numbers language-bash&quot; data-language=&quot;bash&quot;&gt;&lt;code</summary>
         
       
     
@@ -131,9 +131,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -262,9 +262,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -308,9 +308,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -341,9 +341,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -472,7 +472,7 @@
         
         
     <summary type="html">&lt;p&gt;scp 是个在服务器之间拷贝文件的一个常用命令，有时候有个场景是比如我们需要拷贝一些带有共同前缀的文件，但是有一个问题是比如我们有使用 zsh 的话，会出现一个报错，&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-shell&quot;</summary>
+&lt;pre class=&quot;line-numbers language-bash&quot;</summary>
         
       
     
