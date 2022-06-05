@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-05-29T12:45:35.000Z</updated>
+  <updated>2022-06-05T14:01:39.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>是何原因竟让两人深夜奔袭十公里</title>
+    <link href="https://nicksxs.me/2022/06/05/%E6%98%AF%E4%BD%95%E5%8E%9F%E5%9B%A0%E7%AB%9F%E8%AE%A9%E4%B8%A4%E4%BA%BA%E6%B7%B1%E5%A4%9C%E5%A5%94%E8%A2%AD%E5%8D%81%E5%85%AC%E9%87%8C/"/>
+    <id>https://nicksxs.me/2022/06/05/%E6%98%AF%E4%BD%95%E5%8E%9F%E5%9B%A0%E7%AB%9F%E8%AE%A9%E4%B8%A4%E4%BA%BA%E6%B7%B1%E5%A4%9C%E5%A5%94%E8%A2%AD%E5%8D%81%E5%85%AC%E9%87%8C/</id>
+    <published>2022-06-05T14:01:39.000Z</published>
+    <updated>2022-06-05T14:01:39.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;偶尔来个标题党，不过也是一次比较神奇的经历&lt;br&gt;上周五下班后跟 LD 约好去吃牛蛙，某个朋友好像对这类都不太能接受，我以前小时候也不常吃，但是这类其实都是口味比较重，没有那种肉本身的腥味，而且肉质比较特殊，吃过几次以后就有点爱上了，这次刚好是 LD</summary>
+        
+      
+    
+    
+    
+    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>记录下 zookeeper 集群迁移和易错点</title>
@@ -131,9 +156,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
     <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -262,9 +287,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
     <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -308,9 +333,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
     <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -341,9 +366,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
     <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -511,38 +536,6 @@
     
     
     <category term="git" scheme="https://nicksxs.me/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>spring event 介绍</title>
-    <link href="https://nicksxs.me/2022/01/30/spring-event-%E4%BB%8B%E7%BB%8D/"/>
-    <id>https://nicksxs.me/2022/01/30/spring-event-%E4%BB%8B%E7%BB%8D/</id>
-    <published>2022-01-30T13:51:03.000Z</published>
-    <updated>2022-01-30T13:51:03.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;spring框架中如果想使用一些一部操作，除了依赖第三方中间件的消息队列，还可以用spring自己的event，简单介绍下使用方法&lt;br&gt;首先我们可以建一个event，继承ApplicationEvent&lt;/p&gt;
-&lt;pre class=&quot;line-numbers</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="Spring" scheme="https://nicksxs.me/categories/Java/Spring/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Spring" scheme="https://nicksxs.me/tags/Spring/"/>
-    
-    <category term="Spring Event" scheme="https://nicksxs.me/tags/Spring-Event/"/>
     
   </entry>
   
