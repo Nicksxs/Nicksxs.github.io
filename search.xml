@@ -3254,6 +3254,62 @@ Input Explanation: The intersected node&#39;s value is 8 (note that this must no
       </tags>
   </entry>
   <entry>
+    <title>Leetcode 234 回文链表(Palindrome Linked List) 题解分析</title>
+    <url>/2020/11/15/Leetcode-234-%E5%9B%9E%E6%96%87%E8%81%94%E8%A1%A8-Palindrome-Linked-List-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h2 id="题目介绍"><a href="#题目介绍" class="headerlink" title="题目介绍"></a>题目介绍</h2><p>Given a singly linked list, determine if it is a palindrome.<br>给定一个单向链表，判断是否是回文链表</p>
+<h3 id="例一-Example-1"><a href="#例一-Example-1" class="headerlink" title="例一 Example 1:"></a>例一 Example 1:</h3><p>Input: 1-&gt;2<br>Output: false</p>
+<h3 id="例二-Example-2"><a href="#例二-Example-2" class="headerlink" title="例二 Example 2:"></a>例二 Example 2:</h3><p>Input: 1-&gt;2-&gt;2-&gt;1<br>Output: true</p>
+<h3 id="挑战下自己"><a href="#挑战下自己" class="headerlink" title="挑战下自己"></a>挑战下自己</h3><p>Follow up:<br>Could you do it in O(n) time and O(1) space?</p>
+<h2 id="简要分析"><a href="#简要分析" class="headerlink" title="简要分析"></a>简要分析</h2><p>首先这是个单向链表，如果是双向的就可以一个从头到尾，一个从尾到头，显然那样就没啥意思了，然后想过要不找到中点，然后用一个栈，把前一半塞进栈里，但是这种其实也比较麻烦，比如长度是奇偶数，然后如何找到中点，这倒是可以借助于双指针，还是比较麻烦，再想一想，回文链表，就跟最开始的一样，链表只有单向的，我用个栈不就可以逆向了么，先把链表整个塞进栈里，然后在一个个 pop 出来跟链表从头开始比较，全对上了就是回文了</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * Definition for singly-linked list.
+ * public class ListNode &#123;
+ *     int val;
+ *     ListNode next;
+ *     ListNode() &#123;&#125;
+ *     ListNode(int val) &#123; this.val = val; &#125;
+ *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;
+ * &#125;
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span><span class="token class-name">ListNode</span> head<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token class-name">ListNode</span> tail <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        <span class="token class-name">LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 这里就是一个循环，将所有元素依次压入栈</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>tail <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tail<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            tail <span class="token operator">=</span> tail<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 在逐个 pop 出来，其实这个出来的顺序就等于链表从尾到头遍历，同时跟链表从头到尾遍历进行逐对对比</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>stack<span class="token punctuation">.</span><span class="token function">peekFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> head<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                stack<span class="token punctuation">.</span><span class="token function">pollFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                head <span class="token operator">=</span> head<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      <categories>
+        <category>Java</category>
+        <category>leetcode</category>
+        <category>Linked List</category>
+        <category>java</category>
+        <category>Linked List</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>java</tag>
+        <tag>题解</tag>
+        <tag>Linked List</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Leetcode 2 Add Two Numbers 题解分析</title>
     <url>/2020/10/11/Leetcode-2-Add-Two-Numbers-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p>又 roll 到了一个以前做过的题，不过现在用 Java 也来写一下，是 easy 级别的，所以就简单说下</p>
@@ -3312,62 +3368,6 @@ Output: [8,9,9,9,0,0,0,1]<span aria-hidden="true" class="line-numbers-rows"><spa
         <tag>java</tag>
         <tag>题解</tag>
         <tag>linked list</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Leetcode 234 回文链表(Palindrome Linked List) 题解分析</title>
-    <url>/2020/11/15/Leetcode-234-%E5%9B%9E%E6%96%87%E8%81%94%E8%A1%A8-Palindrome-Linked-List-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h2 id="题目介绍"><a href="#题目介绍" class="headerlink" title="题目介绍"></a>题目介绍</h2><p>Given a singly linked list, determine if it is a palindrome.<br>给定一个单向链表，判断是否是回文链表</p>
-<h3 id="例一-Example-1"><a href="#例一-Example-1" class="headerlink" title="例一 Example 1:"></a>例一 Example 1:</h3><p>Input: 1-&gt;2<br>Output: false</p>
-<h3 id="例二-Example-2"><a href="#例二-Example-2" class="headerlink" title="例二 Example 2:"></a>例二 Example 2:</h3><p>Input: 1-&gt;2-&gt;2-&gt;1<br>Output: true</p>
-<h3 id="挑战下自己"><a href="#挑战下自己" class="headerlink" title="挑战下自己"></a>挑战下自己</h3><p>Follow up:<br>Could you do it in O(n) time and O(1) space?</p>
-<h2 id="简要分析"><a href="#简要分析" class="headerlink" title="简要分析"></a>简要分析</h2><p>首先这是个单向链表，如果是双向的就可以一个从头到尾，一个从尾到头，显然那样就没啥意思了，然后想过要不找到中点，然后用一个栈，把前一半塞进栈里，但是这种其实也比较麻烦，比如长度是奇偶数，然后如何找到中点，这倒是可以借助于双指针，还是比较麻烦，再想一想，回文链表，就跟最开始的一样，链表只有单向的，我用个栈不就可以逆向了么，先把链表整个塞进栈里，然后在一个个 pop 出来跟链表从头开始比较，全对上了就是回文了</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
- * Definition for singly-linked list.
- * public class ListNode &#123;
- *     int val;
- *     ListNode next;
- *     ListNode() &#123;&#125;
- *     ListNode(int val) &#123; this.val = val; &#125;
- *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;
- * &#125;
- */</span>
-<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span><span class="token class-name">ListNode</span> head<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token class-name">ListNode</span> tail <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        <span class="token class-name">LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// 这里就是一个循环，将所有元素依次压入栈</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>tail <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tail<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            tail <span class="token operator">=</span> tail<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token comment">// 在逐个 pop 出来，其实这个出来的顺序就等于链表从尾到头遍历，同时跟链表从头到尾遍历进行逐对对比</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>stack<span class="token punctuation">.</span><span class="token function">peekFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> head<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                stack<span class="token punctuation">.</span><span class="token function">pollFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                head <span class="token operator">=</span> head<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      <categories>
-        <category>Java</category>
-        <category>leetcode</category>
-        <category>Linked List</category>
-        <category>java</category>
-        <category>Linked List</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>java</tag>
-        <tag>题解</tag>
-        <tag>Linked List</tag>
       </tags>
   </entry>
   <entry>
@@ -5437,68 +5437,6 @@ int zslRandomLevel(void) &#123;
       </tags>
   </entry>
   <entry>
-    <title>redis数据结构介绍五-第五部分 对象</title>
-    <url>/2020/01/20/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%94/</url>
-    <content><![CDATA[<p>前面说了这么些数据结构，其实大家对于 redis 最初的印象应该就是个 key-value 的缓存，类似于 memcache，redis 其实也是个 key-value，key 还是一样的字符串，或者说就是用 redis 自己的动态字符串实现，但是 value 其实就是前面说的那些数据结构，差不多快说完了，还有个 quicklist 后面还有一篇，这里先介绍下 redis 对于这些不同类型的 value 是怎么实现的，首先看下 redisObject 的源码头文件</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;* The actual Redis Object *&#x2F;
-#define OBJ_STRING 0    &#x2F;* String object. *&#x2F;
-#define OBJ_LIST 1      &#x2F;* List object. *&#x2F;
-#define OBJ_SET 2       &#x2F;* Set object. *&#x2F;
-#define OBJ_ZSET 3      &#x2F;* Sorted set object. *&#x2F;
-#define OBJ_HASH 4      &#x2F;* Hash object. *&#x2F;
-&#x2F;*
- * Objects encoding. Some kind of objects like Strings and Hashes can be
- * internally represented in multiple ways. The &#39;encoding&#39; field of the object
- * is set to one of this fields for this object. *&#x2F;
-#define OBJ_ENCODING_RAW 0     &#x2F;* Raw representation *&#x2F;
-#define OBJ_ENCODING_INT 1     &#x2F;* Encoded as integer *&#x2F;
-#define OBJ_ENCODING_HT 2      &#x2F;* Encoded as hash table *&#x2F;
-#define OBJ_ENCODING_ZIPMAP 3  &#x2F;* Encoded as zipmap *&#x2F;
-#define OBJ_ENCODING_LINKEDLIST 4 &#x2F;* No longer used: old list encoding. *&#x2F;
-#define OBJ_ENCODING_ZIPLIST 5 &#x2F;* Encoded as ziplist *&#x2F;
-#define OBJ_ENCODING_INTSET 6  &#x2F;* Encoded as intset *&#x2F;
-#define OBJ_ENCODING_SKIPLIST 7  &#x2F;* Encoded as skiplist *&#x2F;
-#define OBJ_ENCODING_EMBSTR 8  &#x2F;* Embedded sds string encoding *&#x2F;
-#define OBJ_ENCODING_QUICKLIST 9 &#x2F;* Encoded as linked list of ziplists *&#x2F;
-#define OBJ_ENCODING_STREAM 10 &#x2F;* Encoded as a radix tree of listpacks *&#x2F;
-
-#define LRU_BITS 24
-#define LRU_CLOCK_MAX ((1&lt;&lt;LRU_BITS)-1) &#x2F;* Max value of obj-&gt;lru *&#x2F;
-#define LRU_CLOCK_RESOLUTION 1000 &#x2F;* LRU clock resolution in ms *&#x2F;
-
-#define OBJ_SHARED_REFCOUNT INT_MAX
-typedef struct redisObject &#123;
-    unsigned type:4;
-    unsigned encoding:4;
-    unsigned lru:LRU_BITS; &#x2F;* LRU time (relative to global lru_clock) or
-                            * LFU data (least significant 8 bits frequency
-                            * and most significant 16 bits access time). *&#x2F;
-    int refcount;
-    void *ptr;
-&#125; robj;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>主体结构就是这个 redisObject，</p>
-<ul>
-<li>type： 字段表示对象的类型，它对应的就是 redis 的对外暴露的，或者说用户可以使用的五种类型，OBJ_STRING, OBJ_LIST, OBJ_SET, OBJ_ZSET, OBJ_HASH</li>
-<li>encoding： 字段表示这个对象在 redis 内部的编码方式，由OBJ_ENCODING_开头的 11 种</li>
-<li>lru: 做LRU替换算法用，占24个bit</li>
-<li>refcount: 引用计数。它允许robj对象在某些情况下被共享。</li>
-<li>ptr: 指向底层实现数据结构的指针<br>当 type 是 OBJ_STRING 时，表示类型是个 string，它的编码方式 encoding 可能有 OBJ_ENCODING_RAW，OBJ_ENCODING_INT，OBJ_ENCODING_EMBSTR 三种<br>当 type 是 OBJ_LIST 时，表示类型是 list，它的编码方式 encoding 是 OBJ_ENCODING_QUICKLIST，对于早一些的版本，2.2这种可能还会使用 OBJ_ENCODING_ZIPLIST，OBJ_ENCODING_LINKEDLIST<br>当 type 是 OBJ_SET 时，是个集合，但是得看具体元素的类型，有可能使用整数集合，OBJ_ENCODING_INTSET, 如果元素不全是整型或者数量超过一定限制，那么编码就是 OBJ_ENCODING_HT hash table 了<br>当 type 是 OBJ_ZSET 时，是个有序集合，它底层有可能使用的是 OBJ_ENCODING_ZIPLIST 或者 OBJ_ENCODING_SKIPLIST<br>当 type 是 OBJ_HASH 时，一开始也是 OBJ_ENCODING_ZIPLIST，然后当数据量大于 hash_max_ziplist_entries 时会转成 OBJ_ENCODING_HT</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Redis</category>
-        <category>数据结构</category>
-        <category>C</category>
-        <category>源码</category>
-        <category>Redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-        <tag>数据结构</tag>
-        <tag>源码</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>redis数据结构介绍六 快表</title>
     <url>/2020/01/22/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E5%85%AD/</url>
     <content><![CDATA[<p>这应该是 redis 系列的最后一篇了，讲下快表，其实最前面讲的链表在早先的 redis 版本中也作为 list 的数据结构使用过，但是单纯的链表的缺陷之前也说了，插入便利，但是空间利用率低，并且不能进行二分查找等，检索效率低，ziplist 压缩表的产生也是同理，希望获得更好的性能，包括存储空间和访问性能等，原来我也不懂这个快表要怎么快，然后明白了一个道理，其实并没有什么银弹，只是大牛们会在适合的时候使用最适合的数据结构来实现性能的最大化，这里面有一招就是不同数据结构的组合调整，比如 Java 中的 HashMap，在链表节点数大于 8 时会转变成红黑树，以此提高访问效率，不费话了，回到快表，quicklist，这个数据结构主要使用在 list 类型中，如果我说其实这个 quicklist 就是个链表，可能大家不太会相信，但是事实上的确可以认为 quicklist 是个双向链表，看下代码</p>
@@ -5701,6 +5639,68 @@ REDIS_STATIC void __quicklistInsertNode(quicklist *quicklist,
     quicklist-&gt;len++;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>前面第一步先根据插入的是头还是尾选择不同的 push 函数，quicklistPushHead 或者 quicklistPushTail，举例分析下从头插入的 quicklistPushHead，先判断当前的 quicklistNode 节点还能不能允许再往 ziplist 里添加元素，如果可以就添加，如果不允许就新建一个 quicklistNode，然后调用 _quicklistInsertNodeBefore 将节点插进去，具体插入quicklist节点的操作类似链表的插入。</p>
+]]></content>
+      <categories>
+        <category>Redis</category>
+        <category>数据结构</category>
+        <category>C</category>
+        <category>源码</category>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+        <tag>数据结构</tag>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis数据结构介绍五-第五部分 对象</title>
+    <url>/2020/01/20/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D%E4%BA%94/</url>
+    <content><![CDATA[<p>前面说了这么些数据结构，其实大家对于 redis 最初的印象应该就是个 key-value 的缓存，类似于 memcache，redis 其实也是个 key-value，key 还是一样的字符串，或者说就是用 redis 自己的动态字符串实现，但是 value 其实就是前面说的那些数据结构，差不多快说完了，还有个 quicklist 后面还有一篇，这里先介绍下 redis 对于这些不同类型的 value 是怎么实现的，首先看下 redisObject 的源码头文件</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;* The actual Redis Object *&#x2F;
+#define OBJ_STRING 0    &#x2F;* String object. *&#x2F;
+#define OBJ_LIST 1      &#x2F;* List object. *&#x2F;
+#define OBJ_SET 2       &#x2F;* Set object. *&#x2F;
+#define OBJ_ZSET 3      &#x2F;* Sorted set object. *&#x2F;
+#define OBJ_HASH 4      &#x2F;* Hash object. *&#x2F;
+&#x2F;*
+ * Objects encoding. Some kind of objects like Strings and Hashes can be
+ * internally represented in multiple ways. The &#39;encoding&#39; field of the object
+ * is set to one of this fields for this object. *&#x2F;
+#define OBJ_ENCODING_RAW 0     &#x2F;* Raw representation *&#x2F;
+#define OBJ_ENCODING_INT 1     &#x2F;* Encoded as integer *&#x2F;
+#define OBJ_ENCODING_HT 2      &#x2F;* Encoded as hash table *&#x2F;
+#define OBJ_ENCODING_ZIPMAP 3  &#x2F;* Encoded as zipmap *&#x2F;
+#define OBJ_ENCODING_LINKEDLIST 4 &#x2F;* No longer used: old list encoding. *&#x2F;
+#define OBJ_ENCODING_ZIPLIST 5 &#x2F;* Encoded as ziplist *&#x2F;
+#define OBJ_ENCODING_INTSET 6  &#x2F;* Encoded as intset *&#x2F;
+#define OBJ_ENCODING_SKIPLIST 7  &#x2F;* Encoded as skiplist *&#x2F;
+#define OBJ_ENCODING_EMBSTR 8  &#x2F;* Embedded sds string encoding *&#x2F;
+#define OBJ_ENCODING_QUICKLIST 9 &#x2F;* Encoded as linked list of ziplists *&#x2F;
+#define OBJ_ENCODING_STREAM 10 &#x2F;* Encoded as a radix tree of listpacks *&#x2F;
+
+#define LRU_BITS 24
+#define LRU_CLOCK_MAX ((1&lt;&lt;LRU_BITS)-1) &#x2F;* Max value of obj-&gt;lru *&#x2F;
+#define LRU_CLOCK_RESOLUTION 1000 &#x2F;* LRU clock resolution in ms *&#x2F;
+
+#define OBJ_SHARED_REFCOUNT INT_MAX
+typedef struct redisObject &#123;
+    unsigned type:4;
+    unsigned encoding:4;
+    unsigned lru:LRU_BITS; &#x2F;* LRU time (relative to global lru_clock) or
+                            * LFU data (least significant 8 bits frequency
+                            * and most significant 16 bits access time). *&#x2F;
+    int refcount;
+    void *ptr;
+&#125; robj;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>主体结构就是这个 redisObject，</p>
+<ul>
+<li>type： 字段表示对象的类型，它对应的就是 redis 的对外暴露的，或者说用户可以使用的五种类型，OBJ_STRING, OBJ_LIST, OBJ_SET, OBJ_ZSET, OBJ_HASH</li>
+<li>encoding： 字段表示这个对象在 redis 内部的编码方式，由OBJ_ENCODING_开头的 11 种</li>
+<li>lru: 做LRU替换算法用，占24个bit</li>
+<li>refcount: 引用计数。它允许robj对象在某些情况下被共享。</li>
+<li>ptr: 指向底层实现数据结构的指针<br>当 type 是 OBJ_STRING 时，表示类型是个 string，它的编码方式 encoding 可能有 OBJ_ENCODING_RAW，OBJ_ENCODING_INT，OBJ_ENCODING_EMBSTR 三种<br>当 type 是 OBJ_LIST 时，表示类型是 list，它的编码方式 encoding 是 OBJ_ENCODING_QUICKLIST，对于早一些的版本，2.2这种可能还会使用 OBJ_ENCODING_ZIPLIST，OBJ_ENCODING_LINKEDLIST<br>当 type 是 OBJ_SET 时，是个集合，但是得看具体元素的类型，有可能使用整数集合，OBJ_ENCODING_INTSET, 如果元素不全是整型或者数量超过一定限制，那么编码就是 OBJ_ENCODING_HT hash table 了<br>当 type 是 OBJ_ZSET 时，是个有序集合，它底层有可能使用的是 OBJ_ENCODING_ZIPLIST 或者 OBJ_ENCODING_SKIPLIST<br>当 type 是 OBJ_HASH 时，一开始也是 OBJ_ENCODING_ZIPLIST，然后当数据量大于 hash_max_ziplist_entries 时会转成 OBJ_ENCODING_HT</li>
+</ul>
 ]]></content>
       <categories>
         <category>Redis</category>
@@ -7323,6 +7323,19 @@ user3:
       </tags>
   </entry>
   <entry>
+    <title>上次的其他 外行聊国足</title>
+    <url>/2022/03/06/%E4%B8%8A%E6%AC%A1%E7%9A%84%E5%85%B6%E4%BB%96-%E5%A4%96%E8%A1%8C%E8%81%8A%E5%9B%BD%E8%B6%B3/</url>
+    <content><![CDATA[<p>上次本来想在换车牌后面聊下这个话题，为啥要聊这个话题呢，也很简单，在地铁上看到一对猜测是情侣或者比较关系好的男女同学在聊，因为是这位男同学是大学学的工科，然后自己爱好设计绘画相关的，可能还以此赚了点钱，在地铁上讨论男的要不要好好努力把大学课程完成好，大致的观点是没必要，本来就不适合，这一段我就不说了，恋爱人的嘴，信你个鬼。<br>后面男的说在家里又跟他爹吵了关于男足的，估计是那次输了越南，实话说我不是个足球迷，对各方面技术相关也不熟，只是对包括这个人的解释和网上一些观点的看法，纯主观，这次地铁上这位说的大概意思是足球这个训练什么的很难的，要想赢越南也很难的，不是我们能嘴炮的；在网上看到一个赞同数很多的一个回答，说什么中国是个体育弱国，但是由于有一些乒乓球，跳水等小众项目比较厉害，让民众给误解了，首先我先来反驳下这个偷换概念的观点，第一所谓的体育弱国，跟我们觉得足球不应该这么差没半毛钱关系，因为体育弱国，我们的足球本来就不是顶尖的，也并不是去跟顶尖的球队去争，以足球为例，跟巴西，阿根廷，英国，德国，西班牙，意大利，法国这些足球强国，去比较，我相信没有一个足球迷会这么去做对比，因为我们足球历史最高排名是 1998 年的 37 名，最差是 100 名，把能数出来的强队都数完，估计都还不会到 37，所以根本没有跟强队去做对比，第二体育弱国，我们的体育投入是在逐年降低吗，我们是因战乱没法好好训练踢球？还是这帮傻逼就不争气，前面也说了我们足球世界排名最高 37，最低 100，那么前阵子我们输的越南是第几，目前我们的排名 77 名，越南 92 名，看明白了么，轮排名我们都不至于输越南，然后就是这个排名，这也是我想回应那位地铁上的兄弟，我觉得除了造核弹这种高精尖技术，绝大部分包含足球这类运动，遵循类二八原则，比如满分是 100 分，从 80 提到 90 分或者 90 分提到 100 分非常难，30 分提到 40 分，50 分提到 60 分我觉得都是可以凭后天努力达成的，基本不受天赋限制，这里可以以篮球来类比下，相对足球的确篮球没有那么火，或者行业市值没法比，但是也算是相对大众了，中国在篮球方面相对比较好一点，在 08 年奥运会冲进过八强，那也不是唯一的巅峰，但是我说这个其实是想说明两方面的事情，第一，像篮球一样，状态是有起起伏伏，排名也会变动，但是我觉得至少能维持一个相对稳定的总体排名和持平或者上升的趋势，这恰恰是我们这种所谓的“体育弱国”应该走的路线，第二就是去支持我的类二八原则的，可以看到我们的篮球这两年也很垃圾，排名跌到 29 了，那问题我觉得跟足球是一样的，就是不能脚踏实地，如斯科拉说的，中国篮球太缺少竞争，打得好不好都是这些人打，打输了还是照样拿钱，相对足球，篮球的技术我还是懂一些的，对比 08 年的中国男篮，的确像姚明跟王治郅这样的天赋型+努力型球员少了以后竞争力下降在所难免，但是去对比下基本功，传球，投篮，罚球稳定性，也完全不是一个水平的，这些就是我说的，可以通过努力训练拿 80 分的，只要拿到 80 分，甚至只要拿到 60 分，我觉得应该就还算对得起球迷了，就像 NBA 里球队也会有核心球员的更替，战绩起起伏伏，但是基本功这东西，防守积极性，我觉得不随核心球员的变化而变化，就像姚明这样的天赋，其实他应该还有一些先天缺陷，大脚趾较长等，但是他从 CBA 到 NBA，在 NBA 适应并且打成顶尖中锋，离不开刻苦训练，任何的成功都不是纯天赋的，必须要付出足够的努力。<br>说回足球，如果像前面那么洗地（体育弱国），那能给我维持住一个稳定的排名我也能接受，问题是我们的经济物质资源比 2000 年前应该有了质的变化，身体素质也越来越好，即使是体育弱国，这么继续走下坡路，半死不活的，不觉得是打了自己的脸么。足球也需要基本功，基本的体能，力量这些，看看现在这些国足运动员的体型，对比下女足，说实话，如果男足这些运动员都练得不错的体脂率，耐力等，成绩即使不好，也不会比现在更差。<br>纯主观吐槽，勿喷。</p>
+]]></content>
+      <categories>
+        <category>生活</category>
+        <category>运动</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>介绍一下 RocketMQ</title>
     <url>/2020/06/21/%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B-RocketMQ/</url>
     <content><![CDATA[<p>说起消息队列一般Web后端做过一段时间开发的肯定会用过，在前司的时候用的是改良版的 NSQ，有点像 NOSQL 的简写版🙄，其实是个go 语言写的消息队列，<a href="https://github.com/nsqio/nsq">nsq</a> 看代码提交感觉最近更新的不是很勤，不过因为前司有专门的中间件团队，所以还是挺好用的，而且中间件团队的大牛也很厉害，一次都没碰到过丢消息之类的错误，然后现在公司用的是 RocketMQ，本着总还是要了解下的，并且消息队列也是服务端开发中一个很重要的中间件，因为不太有不需要用消息队列的后端团队了吧，原来对 nsq 也不是特别了解原理，就打算了解下 RocketMQ。</p>
@@ -7392,16 +7405,23 @@ user3:
       </tags>
   </entry>
   <entry>
-    <title>上次的其他 外行聊国足</title>
-    <url>/2022/03/06/%E4%B8%8A%E6%AC%A1%E7%9A%84%E5%85%B6%E4%BB%96-%E5%A4%96%E8%A1%8C%E8%81%8A%E5%9B%BD%E8%B6%B3/</url>
-    <content><![CDATA[<p>上次本来想在换车牌后面聊下这个话题，为啥要聊这个话题呢，也很简单，在地铁上看到一对猜测是情侣或者比较关系好的男女同学在聊，因为是这位男同学是大学学的工科，然后自己爱好设计绘画相关的，可能还以此赚了点钱，在地铁上讨论男的要不要好好努力把大学课程完成好，大致的观点是没必要，本来就不适合，这一段我就不说了，恋爱人的嘴，信你个鬼。<br>后面男的说在家里又跟他爹吵了关于男足的，估计是那次输了越南，实话说我不是个足球迷，对各方面技术相关也不熟，只是对包括这个人的解释和网上一些观点的看法，纯主观，这次地铁上这位说的大概意思是足球这个训练什么的很难的，要想赢越南也很难的，不是我们能嘴炮的；在网上看到一个赞同数很多的一个回答，说什么中国是个体育弱国，但是由于有一些乒乓球，跳水等小众项目比较厉害，让民众给误解了，首先我先来反驳下这个偷换概念的观点，第一所谓的体育弱国，跟我们觉得足球不应该这么差没半毛钱关系，因为体育弱国，我们的足球本来就不是顶尖的，也并不是去跟顶尖的球队去争，以足球为例，跟巴西，阿根廷，英国，德国，西班牙，意大利，法国这些足球强国，去比较，我相信没有一个足球迷会这么去做对比，因为我们足球历史最高排名是 1998 年的 37 名，最差是 100 名，把能数出来的强队都数完，估计都还不会到 37，所以根本没有跟强队去做对比，第二体育弱国，我们的体育投入是在逐年降低吗，我们是因战乱没法好好训练踢球？还是这帮傻逼就不争气，前面也说了我们足球世界排名最高 37，最低 100，那么前阵子我们输的越南是第几，目前我们的排名 77 名，越南 92 名，看明白了么，轮排名我们都不至于输越南，然后就是这个排名，这也是我想回应那位地铁上的兄弟，我觉得除了造核弹这种高精尖技术，绝大部分包含足球这类运动，遵循类二八原则，比如满分是 100 分，从 80 提到 90 分或者 90 分提到 100 分非常难，30 分提到 40 分，50 分提到 60 分我觉得都是可以凭后天努力达成的，基本不受天赋限制，这里可以以篮球来类比下，相对足球的确篮球没有那么火，或者行业市值没法比，但是也算是相对大众了，中国在篮球方面相对比较好一点，在 08 年奥运会冲进过八强，那也不是唯一的巅峰，但是我说这个其实是想说明两方面的事情，第一，像篮球一样，状态是有起起伏伏，排名也会变动，但是我觉得至少能维持一个相对稳定的总体排名和持平或者上升的趋势，这恰恰是我们这种所谓的“体育弱国”应该走的路线，第二就是去支持我的类二八原则的，可以看到我们的篮球这两年也很垃圾，排名跌到 29 了，那问题我觉得跟足球是一样的，就是不能脚踏实地，如斯科拉说的，中国篮球太缺少竞争，打得好不好都是这些人打，打输了还是照样拿钱，相对足球，篮球的技术我还是懂一些的，对比 08 年的中国男篮，的确像姚明跟王治郅这样的天赋型+努力型球员少了以后竞争力下降在所难免，但是去对比下基本功，传球，投篮，罚球稳定性，也完全不是一个水平的，这些就是我说的，可以通过努力训练拿 80 分的，只要拿到 80 分，甚至只要拿到 60 分，我觉得应该就还算对得起球迷了，就像 NBA 里球队也会有核心球员的更替，战绩起起伏伏，但是基本功这东西，防守积极性，我觉得不随核心球员的变化而变化，就像姚明这样的天赋，其实他应该还有一些先天缺陷，大脚趾较长等，但是他从 CBA 到 NBA，在 NBA 适应并且打成顶尖中锋，离不开刻苦训练，任何的成功都不是纯天赋的，必须要付出足够的努力。<br>说回足球，如果像前面那么洗地（体育弱国），那能给我维持住一个稳定的排名我也能接受，问题是我们的经济物质资源比 2000 年前应该有了质的变化，身体素质也越来越好，即使是体育弱国，这么继续走下坡路，半死不活的，不觉得是打了自己的脸么。足球也需要基本功，基本的体能，力量这些，看看现在这些国足运动员的体型，对比下女足，说实话，如果男足这些运动员都练得不错的体脂率，耐力等，成绩即使不好，也不会比现在更差。<br>纯主观吐槽，勿喷。</p>
+    <title>从丁仲礼被美国制裁聊点啥</title>
+    <url>/2020/12/20/%E4%BB%8E%E4%B8%81%E4%BB%B2%E7%A4%BC%E8%A2%AB%E7%BE%8E%E5%9B%BD%E5%88%B6%E8%A3%81%E8%81%8A%E7%82%B9%E5%95%A5/</url>
+    <content><![CDATA[<p>几年前看了柴静的《穹顶之下》觉得这个记者调查得很深入，挺有水平，然后再看到了她跟丁仲礼的采访，其实没看完整，也没试着去理解，就觉得环境问题挺严重的，为啥柴静这个对面的这位好像对这个很不屑的样子，最近因为丁仲礼上了美国制裁名单，B 站又有人把这个视频发了出来，就完整看了下，就觉得自己挺惭愧的，就抱着对柴静的好感而没来由的否定了丁老的看法和说法，所以人也需要不断地学习，改正之前错误的观点，当然不是说我现在说的就是百分百正确，只是个人的一些浅显的见解</p>
+<p>先聊聊这个事情，整体看下来我的一些理解，IPCC给中国的方案其实是个很大的陷阱，它里面有几个隐藏的点是容易被我们外行忽略的，第一点是基数，首先发达国家目前（指2010年采访或者IPCC方案时间）的人均碳排放量已经是远高于发展中国家的了，这也就导致了所谓的发达国家承诺减排80%是个非常有诚意的承诺其实就是忽悠；第二点是碳排放是个累计过程，从1900年开始到2050年，或者说到2010年，发达国家已经排的量是远超过发展中国家的，这是非常不公平的；第三点其实是通过前两点推导出来的，也就是即使发达国家这么有诚意地说减排80%，扒开这层虚伪的外衣，其实是给他们11亿人分走了48%的碳排放量，留给发展中国家55亿人口的只剩下了52%；第四点，人是否因为国家的发达与否而应受到不平等待遇，如果按国家维度，丁老说的，摩纳哥要跟中国分同样的排放量么，中国人还算不算人；第五点，这点算是我自己想的，也可能是柴静屁股决定脑袋想不到的点，她作为一个物质生活条件已经足够好了，那么对于那些生活在物质条件平均线以下的，他们是否能像城里人那样有空调地暖，洗澡有热水器浴霸，上下班能开车，这些其实都直接或者间接地导致了碳排放；他们有没有改善物质生活条件地权利呢，并且再说回来，其实丁老也给了我们觉得合理地方案，我们保证不管发达国家不管减排多少，我们都不会超过他们的80%，我觉得这是真正的诚意，而不是接着减排80%的噱头来忽悠人，也是像丁老这样的专家才能看破这个陷阱，碳排放权其实就是发展权，就是人权，中国人就不是人了么，或者说站在贫困线以下的人民是否有改善物质条件的权利，而不是说像柴静这样，只是管她自己，可能觉得小孩因为空气污染导致身体不好，所以做了穹顶之下这个纪录片，想去改善这个事情，空气污染不是说对的，只是每个国家都有这个过程，如果不发展，哪里有资源去让人活得好，活得好了是前提，然后再去各方面都改善。</p>
+<p>对于这个问题其实更想说的是人的认知偏差，之前总觉得美帝是更自由民主，公平啥的，或者说觉得美帝啥都好，有种无脑愤青的感觉，外国的月亮比较圆，但是经历了像川普当选美国总统以来的各种魔幻操作，还有对于疫情的种种不可思议的美国民众的反应，其实更让人明白第一是外国的月亮没比较圆，第二是事情总是没那么简单粗暴非黑即白，美国不像原先设想地那么领先优秀，但是的确有很多方面是全球领先的，天朝也有体制所带来的优势，不可妄自菲薄，也不能忙不自大，还是要多学习知识，提升认知水平。</p>
 ]]></content>
       <categories>
         <category>生活</category>
-        <category>运动</category>
+        <category>吐槽</category>
+        <category>疫情</category>
+        <category>美国</category>
       </categories>
       <tags>
         <tag>生活</tag>
+        <tag>吐槽</tag>
+        <tag>疫情</tag>
+        <tag>美国</tag>
       </tags>
   </entry>
   <entry>
@@ -7427,26 +7447,6 @@ user3:
       <tags>
         <tag>ssh</tag>
         <tag>端口转发</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>从丁仲礼被美国制裁聊点啥</title>
-    <url>/2020/12/20/%E4%BB%8E%E4%B8%81%E4%BB%B2%E7%A4%BC%E8%A2%AB%E7%BE%8E%E5%9B%BD%E5%88%B6%E8%A3%81%E8%81%8A%E7%82%B9%E5%95%A5/</url>
-    <content><![CDATA[<p>几年前看了柴静的《穹顶之下》觉得这个记者调查得很深入，挺有水平，然后再看到了她跟丁仲礼的采访，其实没看完整，也没试着去理解，就觉得环境问题挺严重的，为啥柴静这个对面的这位好像对这个很不屑的样子，最近因为丁仲礼上了美国制裁名单，B 站又有人把这个视频发了出来，就完整看了下，就觉得自己挺惭愧的，就抱着对柴静的好感而没来由的否定了丁老的看法和说法，所以人也需要不断地学习，改正之前错误的观点，当然不是说我现在说的就是百分百正确，只是个人的一些浅显的见解</p>
-<p>先聊聊这个事情，整体看下来我的一些理解，IPCC给中国的方案其实是个很大的陷阱，它里面有几个隐藏的点是容易被我们外行忽略的，第一点是基数，首先发达国家目前（指2010年采访或者IPCC方案时间）的人均碳排放量已经是远高于发展中国家的了，这也就导致了所谓的发达国家承诺减排80%是个非常有诚意的承诺其实就是忽悠；第二点是碳排放是个累计过程，从1900年开始到2050年，或者说到2010年，发达国家已经排的量是远超过发展中国家的，这是非常不公平的；第三点其实是通过前两点推导出来的，也就是即使发达国家这么有诚意地说减排80%，扒开这层虚伪的外衣，其实是给他们11亿人分走了48%的碳排放量，留给发展中国家55亿人口的只剩下了52%；第四点，人是否因为国家的发达与否而应受到不平等待遇，如果按国家维度，丁老说的，摩纳哥要跟中国分同样的排放量么，中国人还算不算人；第五点，这点算是我自己想的，也可能是柴静屁股决定脑袋想不到的点，她作为一个物质生活条件已经足够好了，那么对于那些生活在物质条件平均线以下的，他们是否能像城里人那样有空调地暖，洗澡有热水器浴霸，上下班能开车，这些其实都直接或者间接地导致了碳排放；他们有没有改善物质生活条件地权利呢，并且再说回来，其实丁老也给了我们觉得合理地方案，我们保证不管发达国家不管减排多少，我们都不会超过他们的80%，我觉得这是真正的诚意，而不是接着减排80%的噱头来忽悠人，也是像丁老这样的专家才能看破这个陷阱，碳排放权其实就是发展权，就是人权，中国人就不是人了么，或者说站在贫困线以下的人民是否有改善物质条件的权利，而不是说像柴静这样，只是管她自己，可能觉得小孩因为空气污染导致身体不好，所以做了穹顶之下这个纪录片，想去改善这个事情，空气污染不是说对的，只是每个国家都有这个过程，如果不发展，哪里有资源去让人活得好，活得好了是前提，然后再去各方面都改善。</p>
-<p>对于这个问题其实更想说的是人的认知偏差，之前总觉得美帝是更自由民主，公平啥的，或者说觉得美帝啥都好，有种无脑愤青的感觉，外国的月亮比较圆，但是经历了像川普当选美国总统以来的各种魔幻操作，还有对于疫情的种种不可思议的美国民众的反应，其实更让人明白第一是外国的月亮没比较圆，第二是事情总是没那么简单粗暴非黑即白，美国不像原先设想地那么领先优秀，但是的确有很多方面是全球领先的，天朝也有体制所带来的优势，不可妄自菲薄，也不能忙不自大，还是要多学习知识，提升认知水平。</p>
-]]></content>
-      <categories>
-        <category>生活</category>
-        <category>吐槽</category>
-        <category>疫情</category>
-        <category>美国</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
-        <tag>吐槽</tag>
-        <tag>疫情</tag>
-        <tag>美国</tag>
       </tags>
   </entry>
   <entry>
@@ -7773,7 +7773,7 @@ user3:
   <entry>
     <title>是何原因竟让两人深夜奔袭十公里</title>
     <url>/2022/06/05/%E6%98%AF%E4%BD%95%E5%8E%9F%E5%9B%A0%E7%AB%9F%E8%AE%A9%E4%B8%A4%E4%BA%BA%E6%B7%B1%E5%A4%9C%E5%A5%94%E8%A2%AD%E5%8D%81%E5%85%AC%E9%87%8C/</url>
-    <content><![CDATA[<p>偶尔来个标题党，不过也是一次比较神奇的经历<br>上周五下班后跟 LD 约好去吃牛蛙，某个朋友好像对这类都不太能接受，我以前小时候也不常吃，但是这类其实都是口味比较重，没有那种肉本身的腥味，而且肉质比较特殊，吃过几次以后就有点爱上了，这次刚好是 LD 买的新店开业券，比较优惠（我们俩都是有点勤俭持家的<del>，想着小电驴还有三格电，这家店又有点远，骑车单趟大概要 10 公里左右，有点担心，LD 说应该可以的，就一起骑了过去（跟她轮换着骑电驴和共享单车），结果大概离吃牛蛙的店还有一辆公里的时候，电量就报警了，只有最后一个红色的了，一共是五格，最后一格是红色的，提示我们该充电了，这样子是真的有点慌了，之前开了几个月都是还有一两格电的时候就充电了，没有试验过究竟这最后一格电能开多远，总之先到了再说。<br>这家牛蛙没想到还挺热闹的，我们到那已经快八点了，还有十几个排队的，有个人还想插队（向来是不惯着这种，一边切</del>），旁边刚好是有些商店就逛了下，就跟常规的商业中心差不多，开业的比较早也算是这一边比较核心的商业综合体了，各种品牌都有，而且还有彩票售卖点的，只是不太理解现在的彩票都是兑图案的，而且要 10 块钱一张，我的概念里还是以前 2 块钱一张的双色球，偶尔能中个五块十块的。排队还剩四五个的时候我们就去门口坐着等了，又等了大概二十分钟才排到我们，靠近我们等的里面的位置，好像好几个小女生在那还叫了外卖奶茶，然后各种拍照，小朋友的生活还是丰富多彩的，我们到了就点了蒜蓉的，没有点传说中紫苏的，菜单上画了 N 个🌶，LD 还是想体验下说下次人多点可以试试，我们俩吃怕太辣了吃不消，口味还是不错的，这家貌似是 LD 闺蜜推荐的，口碑有保证。两个人光吃一个蛙锅就差不多了，本来还想再点个其他的，后面实在吃不下了就没点，吃完还是惯例点了个奶茶，不过是真的不好找，太大了。<br>本来是就回个家的事了，结果就因为前面铺垫的小电驴已经只有一格电了，标题的深夜奔袭十公里就出现了，这个电驴估计续航也虚标挺严重的，电量也是这样，骑的时候显示只有一格电，关掉再开起来又有三格，然后我们回去骑了没一公里就没电了，这下是真的完球了，觉得车子也比较新，直接停外面也不放心，就开始了深夜的十公里推电驴奔袭，LD 看我太累还帮我中间推了一段，虽然是跑过十公里的，但是推着个没电的电驴，还是着实不容易的，LD 也是陪我推着车走，中间好几次说我们把电驴停着打车回去，把电池带回去充满了明天再过来骑车，可能是心态已经转变了，这应该算是一次很特殊的体验，从我们吃完出来大概十点，到最后我们推到小区，大概是过了两个小时的样子，说句深夜也不太过分，把这次这么推车看成了一种意志力的考验，很多事情也都是怕坚持，或者说怕不能坚持，想走得远，没有持续的努力坚持肯定是不行的，所以还是坚持着把车推回来（好吧，我其实主要是怕车被偷，毕竟刚来杭州上学没多久就被偷了自行车留下了阴影），中间感谢 LD，跟我轮着推了一段路，有些下坡的时候还在那坐着用脚蹬一下，离家里大概还有一公里的时候，有个骑电瓶车的大叔还停下来问我们是车破了还是没电了，应该是出于好意吧，最后快到的时候真的非常渴，买了2.5 升的水被我一口气喝了大半瓶，奶茶已经不能起到解渴的作用了，本来以为这样能消耗很多，结果第二天一称还重了，（我的称一定有问题 233</p>
+    <content><![CDATA[<p>偶尔来个标题党，不过也是一次比较神奇的经历<br>上周五下班后跟 LD 约好去吃牛蛙，某个朋友好像对这类都不太能接受，我以前小时候也不常吃，但是这类其实都是口味比较重，没有那种肉本身的腥味，而且肉质比较特殊，吃过几次以后就有点爱上了，这次刚好是 LD 买的新店开业券，比较优惠（我们俩都是有点勤俭持家的，想着小电驴还有三格电，这家店又有点远，骑车单趟大概要 10 公里左右，有点担心，LD 说应该可以的，就一起骑了过去（跟她轮换着骑电驴和共享单车），结果大概离吃牛蛙的店还有一辆公里的时候，电量就报警了，只有最后一个红色的了，一共是五格，最后一格是红色的，提示我们该充电了，这样子是真的有点慌了，之前开了几个月都是还有一两格电的时候就充电了，没有试验过究竟这最后一格电能开多远，总之先到了再说。<br>这家牛蛙没想到还挺热闹的，我们到那已经快八点了，还有十几个排队的，有个人还想插队（向来是不惯着这种，一边去），旁边刚好是有些商店就逛了下，就跟常规的商业中心差不多，开业的比较早也算是这一边比较核心的商业综合体了，各种品牌都有，而且还有彩票售卖点的，只是不太理解现在的彩票都是兑图案的，而且要 10 块钱一张，我的概念里还是以前 2 块钱一张的双色球，偶尔能中个五块十块的。排队还剩四五个的时候我们就去门口坐着等了，又等了大概二十分钟才排到我们，靠近我们等的里面的位置，好像好几个小女生在那还叫了外卖奶茶，然后各种拍照，小朋友的生活还是丰富多彩的，我们到了就点了蒜蓉的，没有点传说中紫苏的，菜单上画了 N 个🌶，LD 还是想体验下说下次人多点可以试试，我们俩吃怕太辣了吃不消，口味还是不错的，这家貌似是 LD 闺蜜推荐的，口碑有保证。两个人光吃一个蛙锅就差不多了，本来还想再点个其他的，后面实在吃不下了就没点，吃完还是惯例点了个奶茶，不过是真的不好找，太大了。<br>本来是就回个家的事了，结果就因为前面铺垫的小电驴已经只有一格电了，标题的深夜奔袭十公里就出现了，这个电驴估计续航也虚标挺严重的，电量也是这样，骑的时候显示只有一格电，关掉再开起来又有三格，然后我们回去骑了没一公里就没电了，这下是真的完球了，觉得车子也比较新，直接停外面也不放心，就开始了深夜的十公里推电驴奔袭，LD 看我太累还帮我中间推了一段，虽然是跑过十公里的，但是推着个没电的电驴，还是着实不容易的，LD 也是陪我推着车走，中间好几次说我们把电驴停着打车回去，把电池带回去充满了明天再过来骑车，可能是心态已经转变了，这应该算是一次很特殊的体验，从我们吃完出来大概十点，到最后我们推到小区，大概是过了两个小时的样子，说句深夜也不太过分，把这次这么推车看成了一种意志力的考验，很多事情也都是怕坚持，或者说怕不能坚持，想走得远，没有持续的努力坚持肯定是不行的，所以还是坚持着把车推回来（好吧，我其实主要是怕车被偷，毕竟刚来杭州上学没多久就被偷了自行车留下了阴影），中间感谢 LD，跟我轮着推了一段路，有些下坡的时候还在那坐着用脚蹬一下，离家里大概还有一公里的时候，有个骑电瓶车的大叔还停下来问我们是车破了还是没电了，应该是出于好意吧，最后快到的时候真的非常渴，买了2.5 升的水被我一口气喝了大半瓶，奶茶已经不能起到解渴的作用了，本来以为这样能消耗很多，结果第二天一称还重了，（我的称一定有问题 233</p>
 ]]></content>
       <categories>
         <category>生活</category>
