@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-06-11T12:38:07.000Z</updated>
+  <updated>2022-06-19T13:51:15.893Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,40 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Leetcode 698 划分为k个相等的子集 ( Partition to K Equal Sum Subsets *Medium* ) 题解分析</title>
+    <link href="https://nicksxs.me/2022/06/19/Leetcode-698-%E5%88%92%E5%88%86%E4%B8%BAk%E4%B8%AA%E7%9B%B8%E7%AD%89%E7%9A%84%E5%AD%90%E9%9B%86-Partition-to-K-Equal-Sum-Subsets-Medium-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
+    <id>https://nicksxs.me/2022/06/19/Leetcode-698-%E5%88%92%E5%88%86%E4%B8%BAk%E4%B8%AA%E7%9B%B8%E7%AD%89%E7%9A%84%E5%AD%90%E9%9B%86-Partition-to-K-Equal-Sum-Subsets-Medium-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
+    <published>2022-06-19T13:15:52.000Z</published>
+    <updated>2022-06-19T13:51:15.893Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;Given an integer array &lt;code&gt;nums&lt;/code&gt; and an integer</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
+    
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>dubbo 客户端配置的一个重要知识点</title>
     <link href="https://nicksxs.me/2022/06/11/dubbo-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E4%B8%80%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
     <id>https://nicksxs.me/2022/06/11/dubbo-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E4%B8%80%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9/</id>
     <published>2022-06-11T12:38:07.000Z</published>
-    <updated>2022-06-11T12:38:07.000Z</updated>
+    <updated>2022-06-11T13:40:37.525Z</updated>
     
     
       
@@ -50,7 +79,7 @@
     <link href="https://nicksxs.me/2022/06/05/%E6%98%AF%E4%BD%95%E5%8E%9F%E5%9B%A0%E7%AB%9F%E8%AE%A9%E4%B8%A4%E4%BA%BA%E6%B7%B1%E5%A4%9C%E5%A5%94%E8%A2%AD%E5%8D%81%E5%85%AC%E9%87%8C/"/>
     <id>https://nicksxs.me/2022/06/05/%E6%98%AF%E4%BD%95%E5%8E%9F%E5%9B%A0%E7%AB%9F%E8%AE%A9%E4%B8%A4%E4%BA%BA%E6%B7%B1%E5%A4%9C%E5%A5%94%E8%A2%AD%E5%8D%81%E5%85%AC%E9%87%8C/</id>
     <published>2022-06-05T14:01:39.000Z</published>
-    <updated>2022-06-05T14:01:39.000Z</updated>
+    <updated>2022-06-05T14:09:40.421Z</updated>
     
     
       
@@ -75,7 +104,7 @@
     <link href="https://nicksxs.me/2022/05/29/%E8%AE%B0%E5%BD%95%E4%B8%8B-zookeeper-%E9%9B%86%E7%BE%A4%E8%BF%81%E7%A7%BB/"/>
     <id>https://nicksxs.me/2022/05/29/%E8%AE%B0%E5%BD%95%E4%B8%8B-zookeeper-%E9%9B%86%E7%BE%A4%E8%BF%81%E7%A7%BB/</id>
     <published>2022-05-29T12:45:35.000Z</published>
-    <updated>2022-05-29T12:45:35.000Z</updated>
+    <updated>2022-05-29T12:47:58.537Z</updated>
     
     
       
@@ -101,7 +130,7 @@
     <link href="https://nicksxs.me/2022/05/22/%E9%97%B2%E8%AF%9D%E7%AF%87-%E4%B9%9F%E7%AE%97%E7%A2%B0%E5%88%B0%E4%BA%86%E4%B8%BA%E8%80%81%E4%B8%8D%E5%B0%8A%E5%92%8C%E5%9D%8F%E4%BA%BA%E5%8F%98%E8%80%81%E4%BA%86%E7%9A%84%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B/"/>
     <id>https://nicksxs.me/2022/05/22/%E9%97%B2%E8%AF%9D%E7%AF%87-%E4%B9%9F%E7%AE%97%E7%A2%B0%E5%88%B0%E4%BA%86%E4%B8%BA%E8%80%81%E4%B8%8D%E5%B0%8A%E5%92%8C%E5%9D%8F%E4%BA%BA%E5%8F%98%E8%80%81%E4%BA%86%E7%9A%84%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B/</id>
     <published>2022-05-22T12:43:50.000Z</published>
-    <updated>2022-05-22T12:43:50.000Z</updated>
+    <updated>2022-05-30T08:01:03.116Z</updated>
     
     
       
@@ -126,7 +155,7 @@
     <link href="https://nicksxs.me/2022/05/15/%E8%AE%B0%E5%BD%95%E4%B8%8B-Java-Lambda-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%AB%98%E6%95%88%E6%93%8D%E4%BD%9C/"/>
     <id>https://nicksxs.me/2022/05/15/%E8%AE%B0%E5%BD%95%E4%B8%8B-Java-Lambda-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%AB%98%E6%95%88%E6%93%8D%E4%BD%9C/</id>
     <published>2022-05-15T12:32:19.000Z</published>
-    <updated>2022-05-15T12:32:19.000Z</updated>
+    <updated>2022-05-15T12:35:29.830Z</updated>
     
     
       
@@ -154,7 +183,7 @@
     <link href="https://nicksxs.me/2022/05/08/%E9%97%B2%E8%AF%9D%E7%AF%87-%E8%B7%AF%E9%81%87%E7%A5%9E%E9%80%BB%E8%BE%91%E9%AA%91%E8%BD%A6%E5%B8%A6%E5%A8%83%E7%88%B9/"/>
     <id>https://nicksxs.me/2022/05/08/%E9%97%B2%E8%AF%9D%E7%AF%87-%E8%B7%AF%E9%81%87%E7%A5%9E%E9%80%BB%E8%BE%91%E9%AA%91%E8%BD%A6%E5%B8%A6%E5%A8%83%E7%88%B9/</id>
     <published>2022-05-08T09:46:35.000Z</published>
-    <updated>2022-05-08T09:46:35.000Z</updated>
+    <updated>2022-05-08T09:48:39.930Z</updated>
     
     
     <summary type="html">周末吃完中饭去买菜，没想到碰到这个神（zhi）奇（zhang）大哥带着两个娃</summary>
@@ -173,7 +202,7 @@
     <link href="https://nicksxs.me/2022/05/01/Leetcode-1115-%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0-FooBar-Print-FooBar-Alternately-Medium-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/05/01/Leetcode-1115-%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0-FooBar-Print-FooBar-Alternately-Medium-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2022-05-01T14:11:31.000Z</published>
-    <updated>2022-05-01T14:11:31.000Z</updated>
+    <updated>2022-05-01T14:15:10.930Z</updated>
     
     
     <summary type="html">无聊随机了道并发题，还是比较明显的用信号量就可以解决的题，不过第一次做还是有点不适应，要加油多练练</summary>
@@ -200,7 +229,7 @@
     <link href="https://nicksxs.me/2022/04/24/%E5%B1%AF%E8%8F%9C%E6%83%8A%E9%AD%82%E8%AE%B0/"/>
     <id>https://nicksxs.me/2022/04/24/%E5%B1%AF%E8%8F%9C%E6%83%8A%E9%AD%82%E8%AE%B0/</id>
     <published>2022-04-24T13:43:45.000Z</published>
-    <updated>2022-04-24T13:43:45.000Z</updated>
+    <updated>2022-04-24T13:43:45.333Z</updated>
     
     
       
@@ -227,7 +256,7 @@
     <link href="https://nicksxs.me/2022/04/17/nginx-%E6%97%A5%E5%BF%97%E5%B0%8F%E8%AE%B0/"/>
     <id>https://nicksxs.me/2022/04/17/nginx-%E6%97%A5%E5%BF%97%E5%B0%8F%E8%AE%B0/</id>
     <published>2022-04-17T08:54:18.000Z</published>
-    <updated>2022-04-17T08:54:18.000Z</updated>
+    <updated>2022-04-17T08:54:18.296Z</updated>
     
     
       
@@ -256,7 +285,7 @@
     <link href="https://nicksxs.me/2022/04/10/%E9%9A%BE%E5%BE%97%E7%9A%84%E5%A4%A7%E6%89%AB%E9%99%A4/"/>
     <id>https://nicksxs.me/2022/04/10/%E9%9A%BE%E5%BE%97%E7%9A%84%E5%A4%A7%E6%89%AB%E9%99%A4/</id>
     <published>2022-04-10T14:05:58.000Z</published>
-    <updated>2022-04-10T14:05:58.000Z</updated>
+    <updated>2022-04-10T14:05:58.779Z</updated>
     
     
     <summary type="html">为了应对房东的视察，周末做了一次难得的大扫除</summary>
@@ -277,7 +306,7 @@
     <link href="https://nicksxs.me/2022/04/02/Dubbo-%E4%BD%BF%E7%94%A8%E7%9A%84%E5%87%A0%E4%B8%AA%E8%AE%B0%E5%BF%86%E7%82%B9/"/>
     <id>https://nicksxs.me/2022/04/02/Dubbo-%E4%BD%BF%E7%94%A8%E7%9A%84%E5%87%A0%E4%B8%AA%E8%AE%B0%E5%BF%86%E7%82%B9/</id>
     <published>2022-04-02T06:58:59.000Z</published>
-    <updated>2022-04-02T06:58:59.000Z</updated>
+    <updated>2022-06-11T12:36:48.968Z</updated>
     
     
       
@@ -311,7 +340,7 @@
     <link href="https://nicksxs.me/2022/03/27/Leetcode-4-%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0-Median-of-Two-Sorted-Arrays-Hard-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/03/27/Leetcode-4-%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0-Median-of-Two-Sorted-Arrays-Hard-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2022-03-27T07:15:14.000Z</published>
-    <updated>2022-03-27T07:15:14.000Z</updated>
+    <updated>2022-03-27T07:15:14.654Z</updated>
     
     
     <summary type="html">给定两个大小分别为 `m` 和 `n` 的正序（从小到大）数组 `nums1` 和 `nums2`。请你找出并返回这两个正序数组的 **中位数** 。</summary>
@@ -338,7 +367,7 @@
     <link href="https://nicksxs.me/2022/03/20/%E7%BB%99%E5%B0%8F%E7%94%B5%E9%A9%B4%E4%B8%8A%E7%89%8C/"/>
     <id>https://nicksxs.me/2022/03/20/%E7%BB%99%E5%B0%8F%E7%94%B5%E9%A9%B4%E4%B8%8A%E7%89%8C/</id>
     <published>2022-03-20T12:41:53.000Z</published>
-    <updated>2022-03-20T12:41:53.000Z</updated>
+    <updated>2022-03-20T12:44:47.309Z</updated>
     
     
     <summary type="html">三八节活动的时候下决心买了个小电驴，说说上牌的经历</summary>
@@ -357,7 +386,7 @@
     <link href="https://nicksxs.me/2022/03/13/Leetcode-83-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-Remove-Duplicates-from-Sorted-List-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/03/13/Leetcode-83-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-Remove-Duplicates-from-Sorted-List-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2022-03-13T07:51:42.000Z</published>
-    <updated>2022-03-13T07:51:42.000Z</updated>
+    <updated>2022-06-11T14:45:11.085Z</updated>
     
     
     <summary type="html">给定一个已排序的链表的头 `head` ， 删除所有重复的元素，使每个元素只出现一次 。返回 已排序的链表 。</summary>
@@ -384,7 +413,7 @@
     <link href="https://nicksxs.me/2022/03/07/Leetcode-349-%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86-Intersection-of-Two-Arrays-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/03/07/Leetcode-349-%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86-Intersection-of-Two-Arrays-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2022-03-07T06:02:22.000Z</published>
-    <updated>2022-03-07T06:02:22.000Z</updated>
+    <updated>2022-03-07T06:02:22.528Z</updated>
     
     
       
@@ -417,7 +446,7 @@
     <link href="https://nicksxs.me/2022/03/06/%E4%B8%8A%E6%AC%A1%E7%9A%84%E5%85%B6%E4%BB%96-%E5%A4%96%E8%A1%8C%E8%81%8A%E5%9B%BD%E8%B6%B3/"/>
     <id>https://nicksxs.me/2022/03/06/%E4%B8%8A%E6%AC%A1%E7%9A%84%E5%85%B6%E4%BB%96-%E5%A4%96%E8%A1%8C%E8%81%8A%E5%9B%BD%E8%B6%B3/</id>
     <published>2022-03-06T13:00:17.000Z</published>
-    <updated>2022-03-06T13:00:17.000Z</updated>
+    <updated>2022-03-06T13:02:38.441Z</updated>
     
     
       
@@ -444,7 +473,7 @@
     <link href="https://nicksxs.me/2022/02/27/Disruptor-%E7%B3%BB%E5%88%97%E4%BA%8C/"/>
     <id>https://nicksxs.me/2022/02/27/Disruptor-%E7%B3%BB%E5%88%97%E4%BA%8C/</id>
     <published>2022-02-27T13:45:04.000Z</published>
-    <updated>2022-02-27T13:45:04.000Z</updated>
+    <updated>2022-06-11T14:45:11.159Z</updated>
     
     
       
@@ -471,7 +500,7 @@
     <link href="https://nicksxs.me/2022/02/20/%E8%81%8A%E8%81%8A%E8%BF%99%E6%AC%A1%E6%8D%A2%E8%BD%A6%E7%89%8C%E5%8F%8A%E5%85%B6%E4%BB%96/"/>
     <id>https://nicksxs.me/2022/02/20/%E8%81%8A%E8%81%8A%E8%BF%99%E6%AC%A1%E6%8D%A2%E8%BD%A6%E7%89%8C%E5%8F%8A%E5%85%B6%E4%BB%96/</id>
     <published>2022-02-20T13:59:01.000Z</published>
-    <updated>2022-02-20T13:59:01.000Z</updated>
+    <updated>2022-02-20T13:59:01.233Z</updated>
     
     
       
@@ -498,7 +527,7 @@
     <link href="https://nicksxs.me/2022/02/13/Disruptor-%E7%B3%BB%E5%88%97%E4%B8%80/"/>
     <id>https://nicksxs.me/2022/02/13/Disruptor-%E7%B3%BB%E5%88%97%E4%B8%80/</id>
     <published>2022-02-13T13:16:03.000Z</published>
-    <updated>2022-02-13T13:16:03.000Z</updated>
+    <updated>2022-06-11T14:45:11.120Z</updated>
     
     
       
@@ -517,34 +546,6 @@
     <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
     <category term="Disruptor" scheme="https://nicksxs.me/tags/Disruptor/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分享记录一下一个 scp 操作方法</title>
-    <link href="https://nicksxs.me/2022/02/06/%E5%88%86%E4%BA%AB%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B%E4%B8%80%E4%B8%AA-scp-%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95/"/>
-    <id>https://nicksxs.me/2022/02/06/%E5%88%86%E4%BA%AB%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B%E4%B8%80%E4%B8%AA-scp-%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95/</id>
-    <published>2022-02-06T13:43:26.000Z</published>
-    <updated>2022-02-06T13:43:26.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;scp 是个在服务器之间拷贝文件的一个常用命令，有时候有个场景是比如我们需要拷贝一些带有共同前缀的文件，但是有一个问题是比如我们有使用 zsh 的话，会出现一个报错，&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-bash&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="shell" scheme="https://nicksxs.me/categories/shell/"/>
-    
-    <category term="小技巧" scheme="https://nicksxs.me/categories/shell/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="scp" scheme="https://nicksxs.me/tags/scp/"/>
     
   </entry>
   
