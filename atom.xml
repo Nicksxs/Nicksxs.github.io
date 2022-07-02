@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-06-26T12:58:18.013Z</updated>
+  <updated>2022-07-02T14:39:54.618Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode 20 有效的括号 ( Valid Parentheses *Easy* ) 题解分析</title>
+    <link href="https://nicksxs.me/2022/07/02/Leetcode-20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7-Valid-Parentheses-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
+    <id>https://nicksxs.me/2022/07/02/Leetcode-20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7-Valid-Parentheses-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
+    <published>2022-07-02T14:39:54.000Z</published>
+    <updated>2022-07-02T14:39:54.618Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;Given a string &lt;code&gt;s&lt;/code&gt; containing just the characters</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
+    
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>聊聊我的远程工作体验</title>
@@ -519,33 +548,6 @@
     <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
     <category term="Disruptor" scheme="https://nicksxs.me/tags/Disruptor/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊聊这次换车牌及其他</title>
-    <link href="https://nicksxs.me/2022/02/20/%E8%81%8A%E8%81%8A%E8%BF%99%E6%AC%A1%E6%8D%A2%E8%BD%A6%E7%89%8C%E5%8F%8A%E5%85%B6%E4%BB%96/"/>
-    <id>https://nicksxs.me/2022/02/20/%E8%81%8A%E8%81%8A%E8%BF%99%E6%AC%A1%E6%8D%A2%E8%BD%A6%E7%89%8C%E5%8F%8A%E5%85%B6%E4%BB%96/</id>
-    <published>2022-02-20T13:59:01.000Z</published>
-    <updated>2022-02-20T13:59:01.233Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;去年 8 月份运气比较好，摇到了车牌，本来其实应该很早就开始摇的，前面第一次换工作没注意社保断缴了一个月，也是大意失荆州，后面到了 17</summary>
-        
-      
-    
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-    <category term="换车牌" scheme="https://nicksxs.me/tags/%E6%8D%A2%E8%BD%A6%E7%89%8C/"/>
     
   </entry>
   
