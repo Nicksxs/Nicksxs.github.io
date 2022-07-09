@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-07-02T14:39:54.618Z</updated>
+  <updated>2022-07-09T15:58:30.140Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mybatis 的 foreach 使用的注意点</title>
+    <link href="https://nicksxs.me/2022/07/09/mybatis-%E7%9A%84-foreach-%E4%BD%BF%E7%94%A8%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9/"/>
+    <id>https://nicksxs.me/2022/07/09/mybatis-%E7%9A%84-foreach-%E4%BD%BF%E7%94%A8%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9/</id>
+    <published>2022-07-09T15:58:29.000Z</published>
+    <updated>2022-07-09T15:58:30.140Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;mybatis 在作为轻量级 orm 框架，如果要使用类似于 in 查询的语句，除了直接替换字符串，还可以使用 foreach 标签&lt;br&gt;在mybatis的 dtd 文件中可以看到可以配置这些字段，&lt;/p&gt;
+&lt;pre class=&quot;line-numbers</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Leetcode 20 有效的括号 ( Valid Parentheses *Easy* ) 题解分析</title>
@@ -521,33 +543,6 @@
     
     
     <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Disruptor 系列二</title>
-    <link href="https://nicksxs.me/2022/02/27/Disruptor-%E7%B3%BB%E5%88%97%E4%BA%8C/"/>
-    <id>https://nicksxs.me/2022/02/27/Disruptor-%E7%B3%BB%E5%88%97%E4%BA%8C/</id>
-    <published>2022-02-27T13:45:04.000Z</published>
-    <updated>2022-06-11T14:45:11.159Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这里开始慢慢深入的讲一下 disruptor，首先是 &lt;code&gt;lock free&lt;/code&gt; , 相比于前面介绍的两个阻塞队列，&lt;br&gt;disruptor 本身是不直接使用锁的，因为本身的设计是单个线程去生产，通过 cas</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Disruptor" scheme="https://nicksxs.me/tags/Disruptor/"/>
     
   </entry>
   
