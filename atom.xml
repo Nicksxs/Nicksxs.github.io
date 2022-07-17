@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-07-10T06:50:40.776Z</updated>
+  <updated>2022-07-17T11:38:42.178Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《长安的荔枝》读后感</title>
+    <link href="https://nicksxs.me/2022/07/17/%E3%80%8A%E9%95%BF%E5%AE%89%E7%9A%84%E8%8D%94%E6%9E%9D%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    <id>https://nicksxs.me/2022/07/17/%E3%80%8A%E9%95%BF%E5%AE%89%E7%9A%84%E8%8D%94%E6%9E%9D%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</id>
+    <published>2022-07-17T11:35:03.000Z</published>
+    <updated>2022-07-17T11:38:42.178Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;断断续续地看完了马伯庸老师的《长安的荔枝》，一开始是看这本书在排行榜排得很高，又是马伯庸的，之前看过他的《古董局中局》，还是很有意思的，而且正好是比较短的，不过前后也拖了蛮久才看完，看完后读了下马老师自己写的后记，就特别有感触。&lt;br&gt;整个故事是围绕一个上林署监事李善德被委</summary>
+        
+      
+    
+    
+    
+    <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    
+    <category term="生活" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+    <category term="读后感" scheme="https://nicksxs.me/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>mybatis 的 foreach 使用的注意点</title>
@@ -528,33 +557,6 @@
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
     <category term="Intersection of Two Arrays" scheme="https://nicksxs.me/tags/Intersection-of-Two-Arrays/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>上次的其他 外行聊国足</title>
-    <link href="https://nicksxs.me/2022/03/06/%E4%B8%8A%E6%AC%A1%E7%9A%84%E5%85%B6%E4%BB%96-%E5%A4%96%E8%A1%8C%E8%81%8A%E5%9B%BD%E8%B6%B3/"/>
-    <id>https://nicksxs.me/2022/03/06/%E4%B8%8A%E6%AC%A1%E7%9A%84%E5%85%B6%E4%BB%96-%E5%A4%96%E8%A1%8C%E8%81%8A%E5%9B%BD%E8%B6%B3/</id>
-    <published>2022-03-06T13:00:17.000Z</published>
-    <updated>2022-03-06T13:02:38.441Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上次本来想在换车牌后面聊下这个话题，为啥要聊这个话题呢，也很简单，在地铁上看到一对猜测是情侣或者比较关系好的男女同学在聊，因为是这位男同学是大学学的工科，然后自己爱好设计绘画相关的，可能还以此赚了点钱，在地铁上讨论男的要不要好好努力把大学课程完成好，大致的观点是没必要，本来</summary>
-        
-      
-    
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    <category term="运动" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E8%BF%90%E5%8A%A8/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
