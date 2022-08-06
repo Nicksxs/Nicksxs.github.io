@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-07-31T11:16:33.987Z</updated>
+  <updated>2022-08-06T14:33:25.491Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode 16 最接近的三数之和 ( 3Sum Closest *Medium* ) 题解分析</title>
+    <link href="https://nicksxs.me/2022/08/06/Leetcode-16-%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C-3Sum-Closest-Medium-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
+    <id>https://nicksxs.me/2022/08/06/Leetcode-16-%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C-3Sum-Closest-Medium-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
+    <published>2022-08-06T14:33:25.000Z</published>
+    <updated>2022-08-06T14:33:25.491Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;Given an integer array &lt;code&gt;nums&lt;/code&gt; of length</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
+    
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    
+    <category term="3Sum Closest" scheme="https://nicksxs.me/tags/3Sum-Closest/"/>
+    
+  </entry>
   
   <entry>
     <title>聊一下 SpringBoot 设置非 web 应用的方法</title>
@@ -56,7 +89,7 @@
     <link href="https://nicksxs.me/2022/07/22/Leetcode-1260-%E4%BA%8C%E7%BB%B4%E7%BD%91%E6%A0%BC%E8%BF%81%E7%A7%BB-Shift-2D-Grid-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/07/22/Leetcode-1260-%E4%BA%8C%E7%BB%B4%E7%BD%91%E6%A0%BC%E8%BF%81%E7%A7%BB-Shift-2D-Grid-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2022-07-22T14:16:21.000Z</published>
-    <updated>2022-07-22T14:16:21.351Z</updated>
+    <updated>2022-08-06T14:32:37.102Z</updated>
     
     
       
@@ -69,6 +102,18 @@
     
     
     
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
+    
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    
+    <category term="Shift 2D Grid" scheme="https://nicksxs.me/tags/Shift-2D-Grid/"/>
     
   </entry>
   
@@ -534,25 +579,6 @@
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
     <category term="Median of Two Sorted Arrays" scheme="https://nicksxs.me/tags/Median-of-Two-Sorted-Arrays/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>给小电驴上牌</title>
-    <link href="https://nicksxs.me/2022/03/20/%E7%BB%99%E5%B0%8F%E7%94%B5%E9%A9%B4%E4%B8%8A%E7%89%8C/"/>
-    <id>https://nicksxs.me/2022/03/20/%E7%BB%99%E5%B0%8F%E7%94%B5%E9%A9%B4%E4%B8%8A%E7%89%8C/</id>
-    <published>2022-03-20T12:41:53.000Z</published>
-    <updated>2022-03-20T12:44:47.309Z</updated>
-    
-    
-    <summary type="html">三八节活动的时候下决心买了个小电驴，说说上牌的经历</summary>
-    
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
