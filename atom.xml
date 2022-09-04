@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-08-23T14:14:29.790Z</updated>
+  <updated>2022-09-04T13:08:27.253Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Apollo 如何获取当前环境</title>
+    <link href="https://nicksxs.me/2022/09/04/Apollo-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83/"/>
+    <id>https://nicksxs.me/2022/09/04/Apollo-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83/</id>
+    <published>2022-09-04T13:08:27.000Z</published>
+    <updated>2022-09-04T13:08:27.253Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在用 &lt;a href=&quot;https://github.com/apolloconfig/apollo&quot;&gt;Apollo&lt;/a&gt; 作为配置中心的过程中才到过几个坑，这边记录下，因为运行 java</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Apollo" scheme="https://nicksxs.me/tags/Apollo/"/>
+    
+    <category term="environment" scheme="https://nicksxs.me/tags/environment/"/>
+    
+  </entry>
   
   <entry>
     <title>Leetcode 885 螺旋矩阵 III ( Spiral Matrix III *Medium* ) 题解分析</title>
@@ -557,35 +586,6 @@
     <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
     <category term="囤物资" scheme="https://nicksxs.me/tags/%E5%9B%A4%E7%89%A9%E8%B5%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nginx 日志小记</title>
-    <link href="https://nicksxs.me/2022/04/17/nginx-%E6%97%A5%E5%BF%97%E5%B0%8F%E8%AE%B0/"/>
-    <id>https://nicksxs.me/2022/04/17/nginx-%E6%97%A5%E5%BF%97%E5%B0%8F%E8%AE%B0/</id>
-    <published>2022-04-17T08:54:18.000Z</published>
-    <updated>2022-08-21T12:44:49.834Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;nginx 默认的日志有特定的格式，我们也可以自定义，&lt;/p&gt;
-&lt;p&gt;默认的格式是预定义的 combined&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-bash&quot; data-language=&quot;bash&quot;&gt;&lt;code</summary>
-        
-      
-    
-    
-    
-    <category term="nginx" scheme="https://nicksxs.me/categories/nginx/"/>
-    
-    
-    <category term="nginx" scheme="https://nicksxs.me/tags/nginx/"/>
-    
-    <category term="日志" scheme="https://nicksxs.me/tags/%E6%97%A5%E5%BF%97/"/>
     
   </entry>
   
