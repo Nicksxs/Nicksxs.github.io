@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-09-18T13:15:12.307Z</updated>
+  <updated>2022-09-25T13:17:28.584Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Disruptor 系列三</title>
+    <link href="https://nicksxs.me/2022/09/25/Disruptor-%E7%B3%BB%E5%88%97%E4%B8%89/"/>
+    <id>https://nicksxs.me/2022/09/25/Disruptor-%E7%B3%BB%E5%88%97%E4%B8%89/</id>
+    <published>2022-09-25T13:17:28.000Z</published>
+    <updated>2022-09-25T13:17:28.584Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;原来一直有点被误导，&lt;br&gt;gatingSequences用来标识每个 processer 的操作位点，但是怎么记录更新有点搞不清楚&lt;br&gt;其实问题在于 gatingSequences 是个 Sequence 数组，首先要看下怎么加进去的，&lt;br&gt;可以看到是在</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Disruptor" scheme="https://nicksxs.me/tags/Disruptor/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Apollo 客户端启动过程分析</title>
     <link href="https://nicksxs.me/2022/09/18/Apollo-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/09/18/Apollo-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/</id>
     <published>2022-09-18T13:15:12.000Z</published>
-    <updated>2022-09-18T13:15:12.307Z</updated>
+    <updated>2022-09-18T13:15:12.000Z</updated>
     
     
       
@@ -49,7 +76,7 @@
     <link href="https://nicksxs.me/2022/09/11/Leetcode-1862-%E5%90%91%E4%B8%8B%E5%8F%96%E6%95%B4%E6%95%B0%E5%AF%B9%E5%92%8C-Sum-of-Floored-Pairs-Hard-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/09/11/Leetcode-1862-%E5%90%91%E4%B8%8B%E5%8F%96%E6%95%B4%E6%95%B0%E5%AF%B9%E5%92%8C-Sum-of-Floored-Pairs-Hard-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2022-09-11T14:28:00.000Z</published>
-    <updated>2022-09-11T14:28:00.901Z</updated>
+    <updated>2022-09-11T14:28:00.000Z</updated>
     
     
       
@@ -80,7 +107,7 @@
     <link href="https://nicksxs.me/2022/09/04/Apollo-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83/"/>
     <id>https://nicksxs.me/2022/09/04/Apollo-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83/</id>
     <published>2022-09-04T13:08:27.000Z</published>
-    <updated>2022-09-04T13:08:27.253Z</updated>
+    <updated>2022-09-04T13:08:27.000Z</updated>
     
     
       
@@ -109,7 +136,7 @@
     <link href="https://nicksxs.me/2022/08/23/Leetcode-885-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5-III-Spiral-Matrix-III-Medium-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/08/23/Leetcode-885-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5-III-Spiral-Matrix-III-Medium-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2022-08-23T14:14:29.000Z</published>
-    <updated>2022-08-23T14:14:29.790Z</updated>
+    <updated>2022-08-23T14:14:29.000Z</updated>
     
     
       
@@ -140,7 +167,7 @@
     <link href="https://nicksxs.me/2022/08/21/%E4%B8%80%E4%B8%AA-nginx-%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BF%86%E7%82%B9/"/>
     <id>https://nicksxs.me/2022/08/21/%E4%B8%80%E4%B8%AA-nginx-%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BF%86%E7%82%B9/</id>
     <published>2022-08-21T12:46:13.000Z</published>
-    <updated>2022-08-22T09:44:19.270Z</updated>
+    <updated>2022-08-22T09:44:19.000Z</updated>
     
     
       
@@ -165,7 +192,7 @@
     <link href="https://nicksxs.me/2022/08/14/Leetcode-278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC-First-Bad-Version-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/08/14/Leetcode-278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC-First-Bad-Version-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2022-08-14T11:45:35.000Z</published>
-    <updated>2022-08-14T11:45:35.072Z</updated>
+    <updated>2022-08-14T11:45:35.000Z</updated>
     
     
       
@@ -198,7 +225,7 @@
     <link href="https://nicksxs.me/2022/08/06/Leetcode-16-%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C-3Sum-Closest-Medium-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/08/06/Leetcode-16-%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C-3Sum-Closest-Medium-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2022-08-06T14:33:25.000Z</published>
-    <updated>2022-08-06T14:33:25.491Z</updated>
+    <updated>2022-08-06T14:33:25.000Z</updated>
     
     
       
@@ -231,7 +258,7 @@
     <link href="https://nicksxs.me/2022/07/31/%E8%81%8A%E4%B8%80%E4%B8%8B-SpringBoot-%E8%AE%BE%E7%BD%AE%E9%9D%9E-web-%E5%BA%94%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/"/>
     <id>https://nicksxs.me/2022/07/31/%E8%81%8A%E4%B8%80%E4%B8%8B-SpringBoot-%E8%AE%BE%E7%BD%AE%E9%9D%9E-web-%E5%BA%94%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/</id>
     <published>2022-07-31T11:16:33.000Z</published>
-    <updated>2022-08-22T09:27:44.983Z</updated>
+    <updated>2022-08-22T09:27:44.000Z</updated>
     
     
       
@@ -266,7 +293,7 @@
     <link href="https://nicksxs.me/2022/07/22/Leetcode-1260-%E4%BA%8C%E7%BB%B4%E7%BD%91%E6%A0%BC%E8%BF%81%E7%A7%BB-Shift-2D-Grid-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/07/22/Leetcode-1260-%E4%BA%8C%E7%BB%B4%E7%BD%91%E6%A0%BC%E8%BF%81%E7%A7%BB-Shift-2D-Grid-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2022-07-22T14:16:21.000Z</published>
-    <updated>2022-08-06T14:32:37.102Z</updated>
+    <updated>2022-08-06T14:32:37.000Z</updated>
     
     
       
@@ -299,7 +326,7 @@
     <link href="https://nicksxs.me/2022/07/17/%E3%80%8A%E9%95%BF%E5%AE%89%E7%9A%84%E8%8D%94%E6%9E%9D%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
     <id>https://nicksxs.me/2022/07/17/%E3%80%8A%E9%95%BF%E5%AE%89%E7%9A%84%E8%8D%94%E6%9E%9D%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</id>
     <published>2022-07-17T11:35:03.000Z</published>
-    <updated>2022-07-17T11:38:42.178Z</updated>
+    <updated>2022-07-17T11:38:42.000Z</updated>
     
     
       
@@ -328,7 +355,7 @@
     <link href="https://nicksxs.me/2022/07/09/mybatis-%E7%9A%84-foreach-%E4%BD%BF%E7%94%A8%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9/"/>
     <id>https://nicksxs.me/2022/07/09/mybatis-%E7%9A%84-foreach-%E4%BD%BF%E7%94%A8%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9/</id>
     <published>2022-07-09T15:58:29.000Z</published>
-    <updated>2022-07-10T06:50:40.776Z</updated>
+    <updated>2022-07-10T06:50:40.000Z</updated>
     
     
       
@@ -362,7 +389,7 @@
     <link href="https://nicksxs.me/2022/07/02/Leetcode-20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7-Valid-Parentheses-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/07/02/Leetcode-20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7-Valid-Parentheses-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2022-07-02T14:39:54.000Z</published>
-    <updated>2022-07-02T14:39:54.618Z</updated>
+    <updated>2022-07-02T14:39:54.000Z</updated>
     
     
       
@@ -391,7 +418,7 @@
     <link href="https://nicksxs.me/2022/06/26/%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E8%BF%9C%E7%A8%8B%E5%B7%A5%E4%BD%9C%E4%BD%93%E9%AA%8C/"/>
     <id>https://nicksxs.me/2022/06/26/%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E8%BF%9C%E7%A8%8B%E5%B7%A5%E4%BD%9C%E4%BD%93%E9%AA%8C/</id>
     <published>2022-06-26T12:58:17.000Z</published>
-    <updated>2022-06-26T12:58:18.013Z</updated>
+    <updated>2022-06-26T12:58:18.000Z</updated>
     
     
       
@@ -418,7 +445,7 @@
     <link href="https://nicksxs.me/2022/06/19/Leetcode-698-%E5%88%92%E5%88%86%E4%B8%BAk%E4%B8%AA%E7%9B%B8%E7%AD%89%E7%9A%84%E5%AD%90%E9%9B%86-Partition-to-K-Equal-Sum-Subsets-Medium-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2022/06/19/Leetcode-698-%E5%88%92%E5%88%86%E4%B8%BAk%E4%B8%AA%E7%9B%B8%E7%AD%89%E7%9A%84%E5%AD%90%E9%9B%86-Partition-to-K-Equal-Sum-Subsets-Medium-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
     <published>2022-06-19T13:15:52.000Z</published>
-    <updated>2022-06-19T13:51:15.893Z</updated>
+    <updated>2022-06-19T13:51:15.000Z</updated>
     
     
       
@@ -447,7 +474,7 @@
     <link href="https://nicksxs.me/2022/06/11/dubbo-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E4%B8%80%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
     <id>https://nicksxs.me/2022/06/11/dubbo-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E4%B8%80%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9/</id>
     <published>2022-06-11T12:38:07.000Z</published>
-    <updated>2022-06-11T13:40:37.525Z</updated>
+    <updated>2022-06-11T13:40:37.000Z</updated>
     
     
       
@@ -476,7 +503,7 @@
     <link href="https://nicksxs.me/2022/06/05/%E6%98%AF%E4%BD%95%E5%8E%9F%E5%9B%A0%E7%AB%9F%E8%AE%A9%E4%B8%A4%E4%BA%BA%E6%B7%B1%E5%A4%9C%E5%A5%94%E8%A2%AD%E5%8D%81%E5%85%AC%E9%87%8C/"/>
     <id>https://nicksxs.me/2022/06/05/%E6%98%AF%E4%BD%95%E5%8E%9F%E5%9B%A0%E7%AB%9F%E8%AE%A9%E4%B8%A4%E4%BA%BA%E6%B7%B1%E5%A4%9C%E5%A5%94%E8%A2%AD%E5%8D%81%E5%85%AC%E9%87%8C/</id>
     <published>2022-06-05T14:01:39.000Z</published>
-    <updated>2022-06-05T14:09:40.421Z</updated>
+    <updated>2022-06-05T14:09:40.000Z</updated>
     
     
       
@@ -501,7 +528,7 @@
     <link href="https://nicksxs.me/2022/05/29/%E8%AE%B0%E5%BD%95%E4%B8%8B-zookeeper-%E9%9B%86%E7%BE%A4%E8%BF%81%E7%A7%BB/"/>
     <id>https://nicksxs.me/2022/05/29/%E8%AE%B0%E5%BD%95%E4%B8%8B-zookeeper-%E9%9B%86%E7%BE%A4%E8%BF%81%E7%A7%BB/</id>
     <published>2022-05-29T12:45:35.000Z</published>
-    <updated>2022-05-29T12:47:58.537Z</updated>
+    <updated>2022-05-29T12:47:58.000Z</updated>
     
     
       
@@ -527,7 +554,7 @@
     <link href="https://nicksxs.me/2022/05/22/%E9%97%B2%E8%AF%9D%E7%AF%87-%E4%B9%9F%E7%AE%97%E7%A2%B0%E5%88%B0%E4%BA%86%E4%B8%BA%E8%80%81%E4%B8%8D%E5%B0%8A%E5%92%8C%E5%9D%8F%E4%BA%BA%E5%8F%98%E8%80%81%E4%BA%86%E7%9A%84%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B/"/>
     <id>https://nicksxs.me/2022/05/22/%E9%97%B2%E8%AF%9D%E7%AF%87-%E4%B9%9F%E7%AE%97%E7%A2%B0%E5%88%B0%E4%BA%86%E4%B8%BA%E8%80%81%E4%B8%8D%E5%B0%8A%E5%92%8C%E5%9D%8F%E4%BA%BA%E5%8F%98%E8%80%81%E4%BA%86%E7%9A%84%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B/</id>
     <published>2022-05-22T12:43:50.000Z</published>
-    <updated>2022-05-30T08:01:03.116Z</updated>
+    <updated>2022-05-30T08:01:03.000Z</updated>
     
     
       
@@ -552,7 +579,7 @@
     <link href="https://nicksxs.me/2022/05/15/%E8%AE%B0%E5%BD%95%E4%B8%8B-Java-Lambda-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%AB%98%E6%95%88%E6%93%8D%E4%BD%9C/"/>
     <id>https://nicksxs.me/2022/05/15/%E8%AE%B0%E5%BD%95%E4%B8%8B-Java-Lambda-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%AB%98%E6%95%88%E6%93%8D%E4%BD%9C/</id>
     <published>2022-05-15T12:32:19.000Z</published>
-    <updated>2022-05-15T12:35:29.830Z</updated>
+    <updated>2022-05-15T12:35:29.000Z</updated>
     
     
       
@@ -572,25 +599,6 @@
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="stream" scheme="https://nicksxs.me/tags/stream/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>闲话篇-路遇神逻辑骑车带娃爹</title>
-    <link href="https://nicksxs.me/2022/05/08/%E9%97%B2%E8%AF%9D%E7%AF%87-%E8%B7%AF%E9%81%87%E7%A5%9E%E9%80%BB%E8%BE%91%E9%AA%91%E8%BD%A6%E5%B8%A6%E5%A8%83%E7%88%B9/"/>
-    <id>https://nicksxs.me/2022/05/08/%E9%97%B2%E8%AF%9D%E7%AF%87-%E8%B7%AF%E9%81%87%E7%A5%9E%E9%80%BB%E8%BE%91%E9%AA%91%E8%BD%A6%E5%B8%A6%E5%A8%83%E7%88%B9/</id>
-    <published>2022-05-08T09:46:35.000Z</published>
-    <updated>2022-05-08T09:48:39.930Z</updated>
-    
-    
-    <summary type="html">周末吃完中饭去买菜，没想到碰到这个神（zhi）奇（zhang）大哥带着两个娃</summary>
-    
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
