@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-10-02T12:14:13.869Z</updated>
+  <updated>2022-10-09T11:21:11.077Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一个容器中 dubbo 注册的小知识点</title>
+    <link href="https://nicksxs.me/2022/10/09/%E8%AE%B0%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8%E4%B8%AD-dubbo-%E6%B3%A8%E5%86%8C%E7%9A%84%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+    <id>https://nicksxs.me/2022/10/09/%E8%AE%B0%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8%E4%B8%AD-dubbo-%E6%B3%A8%E5%86%8C%E7%9A%84%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9/</id>
+    <published>2022-10-09T11:19:57.000Z</published>
+    <updated>2022-10-09T11:21:11.077Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在目前环境下使用容器部署Java应用还是挺普遍的，但是有一些问题也是随之而来需要解决的，比如容器中应用的dubbo注册，在比较早的版本的dubbo中，就是简单地获取网卡的ip地址。&lt;br&gt;具体代码在这个方法里</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    
+    
+    <category term="dubbo" scheme="https://nicksxs.me/tags/dubbo/"/>
+    
+  </entry>
   
   <entry>
     <title>Leetcode 747 至少是其他数字两倍的最大数 ( Largest Number At Least Twice of Others *Easy* ) 题解分析</title>
@@ -577,31 +602,6 @@
     
     
     <category term="zookeeper" scheme="https://nicksxs.me/tags/zookeeper/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>闲话篇-也算碰到了为老不尊和坏人变老了的典型案例</title>
-    <link href="https://nicksxs.me/2022/05/22/%E9%97%B2%E8%AF%9D%E7%AF%87-%E4%B9%9F%E7%AE%97%E7%A2%B0%E5%88%B0%E4%BA%86%E4%B8%BA%E8%80%81%E4%B8%8D%E5%B0%8A%E5%92%8C%E5%9D%8F%E4%BA%BA%E5%8F%98%E8%80%81%E4%BA%86%E7%9A%84%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B/"/>
-    <id>https://nicksxs.me/2022/05/22/%E9%97%B2%E8%AF%9D%E7%AF%87-%E4%B9%9F%E7%AE%97%E7%A2%B0%E5%88%B0%E4%BA%86%E4%B8%BA%E8%80%81%E4%B8%8D%E5%B0%8A%E5%92%8C%E5%9D%8F%E4%BA%BA%E5%8F%98%E8%80%81%E4%BA%86%E7%9A%84%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B/</id>
-    <published>2022-05-22T12:43:50.000Z</published>
-    <updated>2022-05-30T08:01:03.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在目前的房子也差不多租了四五年了，楼下邻居换了两拨了，我们这栋楼装修了不知道多少次，因为是学区的原因，房子交易的频率还是比较高的，不过比较神奇的我们对门的没换过，而且一直也没什么交集（除了后面说的水管爆裂），就进出的时候偶尔看到应该是住着一对老夫妻，感觉年纪也有个七八十了。</summary>
-        
-      
-    
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
