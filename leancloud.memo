@@ -181,4 +181,5 @@
 {"title":"Apollo 客户端启动过程分析","url":"/2022/09/18/Apollo-客户端启动过程分析/"},
 {"title":"Disruptor 系列三","url":"/2022/09/25/Disruptor-系列三/"},
 {"title":"Leetcode 747 至少是其他数字两倍的最大数 ( Largest Number At Least Twice of Others *Easy* ) 题解分析","url":"/2022/10/02/Leetcode-747-至少是其他数字两倍的最大数-Largest-Number-At-Least-Twice-of-Others-Easy-题解分析/"},
+{"title":"记一个容器中 dubbo 注册的小知识点","url":"/2022/10/09/记一个容器中-dubbo-注册的小知识点/"},
 ]
