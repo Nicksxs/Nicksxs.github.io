@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-10-09T11:21:11.077Z</updated>
+  <updated>2022-10-16T13:35:42.050Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记录下 phpunit 的入门使用方法</title>
+    <link href="https://nicksxs.me/2022/10/16/%E8%AE%B0%E5%BD%95%E4%B8%8B-phpunit-%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"/>
+    <id>https://nicksxs.me/2022/10/16/%E8%AE%B0%E5%BD%95%E4%B8%8B-phpunit-%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</id>
+    <published>2022-10-16T13:34:44.000Z</published>
+    <updated>2022-10-16T13:35:42.050Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这周开始打算写个比较简单的php工具包，然后顺带学习使用下php的单元测试，通过phpunit还是比较方便的，首先就&lt;code&gt;composer require phpunit/phpunit&lt;/code&gt;&lt;br&gt;安装下 &lt;code&gt;phpunit&lt;/code&gt;,</summary>
+        
+      
+    
+    
+    
+    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
+    
+    
+    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
+    
+  </entry>
   
   <entry>
     <title>记一个容器中 dubbo 注册的小知识点</title>
@@ -576,32 +601,6 @@
     
     
     <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记录下 zookeeper 集群迁移和易错点</title>
-    <link href="https://nicksxs.me/2022/05/29/%E8%AE%B0%E5%BD%95%E4%B8%8B-zookeeper-%E9%9B%86%E7%BE%A4%E8%BF%81%E7%A7%BB/"/>
-    <id>https://nicksxs.me/2022/05/29/%E8%AE%B0%E5%BD%95%E4%B8%8B-zookeeper-%E9%9B%86%E7%BE%A4%E8%BF%81%E7%A7%BB/</id>
-    <published>2022-05-29T12:45:35.000Z</published>
-    <updated>2022-05-29T12:47:58.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前阵子做了zk 的集群升级迁移，大概情况是原来是一个三节点的 zk 集群（最小可用&lt;br&gt;大概是&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-bash&quot; data-language=&quot;bash&quot;&gt;&lt;code</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
-    
-    
-    <category term="zookeeper" scheme="https://nicksxs.me/tags/zookeeper/"/>
     
   </entry>
   
