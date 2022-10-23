@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-10-16T13:35:42.050Z</updated>
+  <updated>2022-10-23T11:46:10.938Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记录下 phpunit 的入门使用方法之setUp和tearDown</title>
+    <link href="https://nicksxs.me/2022/10/23/%E8%AE%B0%E5%BD%95%E4%B8%8B-phpunit-%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E4%B9%8BsetUp%E5%92%8CtearDown/"/>
+    <id>https://nicksxs.me/2022/10/23/%E8%AE%B0%E5%BD%95%E4%B8%8B-phpunit-%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E4%B9%8BsetUp%E5%92%8CtearDown/</id>
+    <published>2022-10-23T11:44:53.000Z</published>
+    <updated>2022-10-23T11:46:10.938Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;可能是太久没写单测了，写个单测发现不符合预期，后来验证下才反应过来&lt;br&gt;我们来看下demo&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-php&quot; data-language=&quot;php&quot;&gt;&lt;code</summary>
+        
+      
+    
+    
+    
+    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
+    
+    
+    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
+    
+  </entry>
   
   <entry>
     <title>记录下 phpunit 的入门使用方法</title>
@@ -576,31 +602,6 @@
     <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
     <category term="Dubbo" scheme="https://nicksxs.me/tags/Dubbo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>是何原因竟让两人深夜奔袭十公里</title>
-    <link href="https://nicksxs.me/2022/06/05/%E6%98%AF%E4%BD%95%E5%8E%9F%E5%9B%A0%E7%AB%9F%E8%AE%A9%E4%B8%A4%E4%BA%BA%E6%B7%B1%E5%A4%9C%E5%A5%94%E8%A2%AD%E5%8D%81%E5%85%AC%E9%87%8C/"/>
-    <id>https://nicksxs.me/2022/06/05/%E6%98%AF%E4%BD%95%E5%8E%9F%E5%9B%A0%E7%AB%9F%E8%AE%A9%E4%B8%A4%E4%BA%BA%E6%B7%B1%E5%A4%9C%E5%A5%94%E8%A2%AD%E5%8D%81%E5%85%AC%E9%87%8C/</id>
-    <published>2022-06-05T14:01:39.000Z</published>
-    <updated>2022-06-05T14:09:40.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;偶尔来个标题党，不过也是一次比较神奇的经历&lt;br&gt;上周五下班后跟 LD 约好去吃牛蛙，某个朋友好像对这类都不太能接受，我以前小时候也不常吃，但是这类其实都是口味比较重，没有那种肉本身的腥味，而且肉质比较特殊，吃过几次以后就有点爱上了，这次刚好是 LD</summary>
-        
-      
-    
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
