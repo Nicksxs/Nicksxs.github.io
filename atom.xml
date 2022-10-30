@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-10-23T11:46:10.938Z</updated>
+  <updated>2022-10-30T13:18:27.876Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记录下 redis 的一些使用方法</title>
+    <link href="https://nicksxs.me/2022/10/30/%E8%AE%B0%E5%BD%95%E4%B8%8B-redis-%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"/>
+    <id>https://nicksxs.me/2022/10/30/%E8%AE%B0%E5%BD%95%E4%B8%8B-redis-%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</id>
+    <published>2022-10-30T13:17:41.000Z</published>
+    <updated>2022-10-30T13:18:27.876Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;虽然说之前讲解过一些redis源码相关的，但是说实话，redis的各种使用其实有时候有点生疏，或者在一些特定的使用场景中，一些使用方法还是需要学习和记录的&lt;/p&gt;
+&lt;h3 id=&quot;获取所有数据&quot;&gt;&lt;a href=&quot;#获取所有数据&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="redis" scheme="https://nicksxs.me/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
+    
+  </entry>
   
   <entry>
     <title>记录下 phpunit 的入门使用方法之setUp和tearDown</title>
@@ -573,35 +599,6 @@
     <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>dubbo 客户端配置的一个重要知识点</title>
-    <link href="https://nicksxs.me/2022/06/11/dubbo-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E4%B8%80%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
-    <id>https://nicksxs.me/2022/06/11/dubbo-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E4%B8%80%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9/</id>
-    <published>2022-06-11T12:38:07.000Z</published>
-    <updated>2022-06-11T13:40:37.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在配置项目中其实会留着比较多的问题，由于不同的项目没有比较统一的规划和框架模板，一般都是只有创建者会比较了解（可能也不了解），譬如前阵子在配置一个 springboot + dubbo 的项目，发现了dubbo</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="Dubbo" scheme="https://nicksxs.me/categories/Java/Dubbo/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Dubbo" scheme="https://nicksxs.me/tags/Dubbo/"/>
     
   </entry>
   
