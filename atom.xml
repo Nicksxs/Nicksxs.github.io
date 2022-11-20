@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-11-13T13:30:53.537Z</updated>
+  <updated>2022-11-20T13:16:13.020Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>powershell 初体验二</title>
+    <link href="https://nicksxs.me/2022/11/20/powershell-%E5%88%9D%E4%BD%93%E9%AA%8C%E4%BA%8C/"/>
+    <id>https://nicksxs.me/2022/11/20/powershell-%E5%88%9D%E4%BD%93%E9%AA%8C%E4%BA%8C/</id>
+    <published>2022-11-20T13:15:44.000Z</published>
+    <updated>2022-11-20T13:16:13.020Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;powershell创建数组也很方便&lt;br&gt;可以这样&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-powershell&quot; data-language=&quot;powershell&quot;&gt;&lt;code</summary>
+        
+      
+    
+    
+    
+    <category term="语言" scheme="https://nicksxs.me/categories/%E8%AF%AD%E8%A8%80/"/>
+    
+    
+    <category term="powershell" scheme="https://nicksxs.me/tags/powershell/"/>
+    
+  </entry>
   
   <entry>
     <title>powershell 初体验</title>
@@ -565,35 +591,6 @@
     <category term="Mysql" scheme="https://nicksxs.me/tags/Mysql/"/>
     
     <category term="Mybatis" scheme="https://nicksxs.me/tags/Mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode 20 有效的括号 ( Valid Parentheses *Easy* ) 题解分析</title>
-    <link href="https://nicksxs.me/2022/07/02/Leetcode-20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7-Valid-Parentheses-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
-    <id>https://nicksxs.me/2022/07/02/Leetcode-20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7-Valid-Parentheses-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
-    <published>2022-07-02T14:39:54.000Z</published>
-    <updated>2022-07-02T14:39:54.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;Given a string &lt;code&gt;s&lt;/code&gt; containing just the characters</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
-    
-    
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
   </entry>
   
