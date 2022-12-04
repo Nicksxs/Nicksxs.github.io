@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-11-27T11:47:52.627Z</updated>
+  <updated>2022-12-04T12:36:15.824Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mybatis是如何初始化mapper的</title>
+    <link href="https://nicksxs.me/2022/12/04/mybatis%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96mapper%E7%9A%84/"/>
+    <id>https://nicksxs.me/2022/12/04/mybatis%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96mapper%E7%9A%84/</id>
+    <published>2022-12-04T12:36:54.000Z</published>
+    <updated>2022-12-04T12:36:15.824Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前一篇讲了mybatis的初始化使用，如果我第一次看到这个使用入门文档，比较会产生疑惑的是配置了mapper，怎么就能通过&lt;code&gt;selectOne&lt;/code&gt;跟语句id就能执行sql了，那么第一个问题，就是mapper是怎么被解析的，存在哪里，怎么被拿出来的&lt;/p&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="Mybatis" scheme="https://nicksxs.me/categories/Java/Mybatis/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Mysql" scheme="https://nicksxs.me/tags/Mysql/"/>
+    
+    <category term="Mybatis" scheme="https://nicksxs.me/tags/Mybatis/"/>
+    
+  </entry>
   
   <entry>
     <title>mybatis系列-入门篇</title>
@@ -561,35 +592,6 @@
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
     <category term="Shift 2D Grid" scheme="https://nicksxs.me/tags/Shift-2D-Grid/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《长安的荔枝》读后感</title>
-    <link href="https://nicksxs.me/2022/07/17/%E3%80%8A%E9%95%BF%E5%AE%89%E7%9A%84%E8%8D%94%E6%9E%9D%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
-    <id>https://nicksxs.me/2022/07/17/%E3%80%8A%E9%95%BF%E5%AE%89%E7%9A%84%E8%8D%94%E6%9E%9D%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</id>
-    <published>2022-07-17T11:35:03.000Z</published>
-    <updated>2022-07-17T11:38:42.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;断断续续地看完了马伯庸老师的《长安的荔枝》，一开始是看这本书在排行榜排得很高，又是马伯庸的，之前看过他的《古董局中局》，还是很有意思的，而且正好是比较短的，不过前后也拖了蛮久才看完，看完后读了下马老师自己写的后记，就特别有感触。&lt;br&gt;整个故事是围绕一个上林署监事李善德被委</summary>
-        
-      
-    
-    
-    
-    <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-    <category term="读后感" scheme="https://nicksxs.me/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
     
   </entry>
   
