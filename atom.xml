@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2022-12-11T12:50:29.996Z</updated>
+  <updated>2022-12-18T13:42:38.883Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mybatis系列-第一条sql的更多细节</title>
+    <link href="https://nicksxs.me/2022/12/18/mybatis%E7%B3%BB%E5%88%97-%E7%AC%AC%E4%B8%80%E6%9D%A1sql%E7%9A%84%E6%9B%B4%E5%A4%9A%E7%BB%86%E8%8A%82/"/>
+    <id>https://nicksxs.me/2022/12/18/mybatis%E7%B3%BB%E5%88%97-%E7%AC%AC%E4%B8%80%E6%9D%A1sql%E7%9A%84%E6%9B%B4%E5%A4%9A%E7%BB%86%E8%8A%82/</id>
+    <published>2022-12-18T13:42:38.000Z</published>
+    <updated>2022-12-18T13:42:38.883Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;执行细节&lt;br&gt;首先设置了默认的&lt;code&gt;languageDriver&lt;/code&gt;&lt;br&gt;&lt;code&gt;org/mybatis/mybatis/3.5.11/mybatis-3.5.11-sources.jar!/org/apache/ibatis/session/Con</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="Mybatis" scheme="https://nicksxs.me/categories/Java/Mybatis/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Mysql" scheme="https://nicksxs.me/tags/Mysql/"/>
+    
+    <category term="Mybatis" scheme="https://nicksxs.me/tags/Mybatis/"/>
+    
+  </entry>
   
   <entry>
     <title>mybatis系列-第一条sql的细节</title>
@@ -555,41 +586,6 @@
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
     <category term="3Sum Closest" scheme="https://nicksxs.me/tags/3Sum-Closest/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊一下 SpringBoot 设置非 web 应用的方法</title>
-    <link href="https://nicksxs.me/2022/07/31/%E8%81%8A%E4%B8%80%E4%B8%8B-SpringBoot-%E8%AE%BE%E7%BD%AE%E9%9D%9E-web-%E5%BA%94%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/"/>
-    <id>https://nicksxs.me/2022/07/31/%E8%81%8A%E4%B8%80%E4%B8%8B-SpringBoot-%E8%AE%BE%E7%BD%AE%E9%9D%9E-web-%E5%BA%94%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/</id>
-    <published>2022-07-31T11:16:33.000Z</published>
-    <updated>2022-08-22T09:27:44.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;寻找原因&quot;&gt;&lt;a href=&quot;#寻找原因&quot; class=&quot;headerlink&quot; title=&quot;寻找原因&quot;&gt;&lt;/a&gt;寻找原因&lt;/h3&gt;&lt;p&gt;这次碰到一个比较奇怪的问题，应该统一发布脚本统一给应用启动参数传了个</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Spring" scheme="https://nicksxs.me/tags/Spring/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-    <category term="自动装配" scheme="https://nicksxs.me/tags/%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/"/>
-    
-    <category term="AutoConfiguration" scheme="https://nicksxs.me/tags/AutoConfiguration/"/>
     
   </entry>
   
