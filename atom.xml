@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-01-15T05:45:18.002Z</updated>
+  <updated>2023-01-22T13:14:21.370Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Headscale初体验以及踩坑记</title>
+    <link href="https://nicksxs.me/2023/01/22/Headscale%E5%88%9D%E4%BD%93%E9%AA%8C%E4%BB%A5%E5%8F%8A%E8%B8%A9%E5%9D%91%E8%AE%B0/"/>
+    <id>https://nicksxs.me/2023/01/22/Headscale%E5%88%9D%E4%BD%93%E9%AA%8C%E4%BB%A5%E5%8F%8A%E8%B8%A9%E5%9D%91%E8%AE%B0/</id>
+    <published>2023-01-22T13:14:21.000Z</published>
+    <updated>2023-01-22T13:14:21.370Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近或者说很久以前就想着能够把几个散装服务器以及家里的网络连起来，譬如一些remote desktop的访问，之前搞了下frp，因为家里电脑没怎么注意安全性就被搞了一下，所以还是想用相对更安全的方式，比如限定ip和端口进行访问，但是感觉ip也不固定就比较难搞，后来看到了</summary>
+        
+      
+    
+    
+    
+    <category term="headscale" scheme="https://nicksxs.me/categories/headscale/"/>
+    
+    
+    <category term="headscale" scheme="https://nicksxs.me/tags/headscale/"/>
+    
+  </entry>
   
   <entry>
     <title>2022 年终总结</title>
@@ -552,35 +577,6 @@
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Apollo 如何获取当前环境</title>
-    <link href="https://nicksxs.me/2022/09/04/Apollo-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83/"/>
-    <id>https://nicksxs.me/2022/09/04/Apollo-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83/</id>
-    <published>2022-09-04T13:08:27.000Z</published>
-    <updated>2022-09-04T13:08:27.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在用 &lt;a href=&quot;https://github.com/apolloconfig/apollo&quot;&gt;Apollo&lt;/a&gt; 作为配置中心的过程中才到过几个坑，这边记录下，因为运行 java</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Apollo" scheme="https://nicksxs.me/tags/Apollo/"/>
-    
-    <category term="environment" scheme="https://nicksxs.me/tags/environment/"/>
     
   </entry>
   
