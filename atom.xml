@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-01-22T13:14:21.370Z</updated>
+  <updated>2023-01-29T13:28:24.095Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分享一次比较诡异的 Windows 下 U盘无法退出的经历</title>
+    <link href="https://nicksxs.me/2023/01/29/%E5%88%86%E4%BA%AB%E4%B8%80%E6%AC%A1%E6%AF%94%E8%BE%83%E8%AF%A1%E5%BC%82%E7%9A%84-Windows-%E4%B8%8B-U%E7%9B%98%E6%97%A0%E6%B3%95%E9%80%80%E5%87%BA%E7%9A%84%E7%BB%8F%E5%8E%86/"/>
+    <id>https://nicksxs.me/2023/01/29/%E5%88%86%E4%BA%AB%E4%B8%80%E6%AC%A1%E6%AF%94%E8%BE%83%E8%AF%A1%E5%BC%82%E7%9A%84-Windows-%E4%B8%8B-U%E7%9B%98%E6%97%A0%E6%B3%95%E9%80%80%E5%87%BA%E7%9A%84%E7%BB%8F%E5%8E%86/</id>
+    <published>2023-01-29T13:26:03.000Z</published>
+    <updated>2023-01-29T13:28:24.095Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;作为一个 Windows 的老用户，并且也算是 Windows 系统的半个粉丝，但是秉承一贯的优缺点都应该说的原则，Windows 系统有一点缺点是真的挺难受，相信 Windows 用过比较久的都会经历过，就是</summary>
+        
+      
+    
+    
+    
+    <category term="Windows" scheme="https://nicksxs.me/categories/Windows/"/>
+    
+    <category term="小技巧" scheme="https://nicksxs.me/categories/Windows/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="Windows" scheme="https://nicksxs.me/tags/Windows/"/>
+    
+  </entry>
   
   <entry>
     <title>Headscale初体验以及踩坑记</title>
@@ -546,37 +573,6 @@
     <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
     <category term="Apollo" scheme="https://nicksxs.me/tags/Apollo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode 1862 向下取整数对和 ( Sum of Floored Pairs *Hard* ) 题解分析</title>
-    <link href="https://nicksxs.me/2022/09/11/Leetcode-1862-%E5%90%91%E4%B8%8B%E5%8F%96%E6%95%B4%E6%95%B0%E5%AF%B9%E5%92%8C-Sum-of-Floored-Pairs-Hard-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
-    <id>https://nicksxs.me/2022/09/11/Leetcode-1862-%E5%90%91%E4%B8%8B%E5%8F%96%E6%95%B4%E6%95%B0%E5%AF%B9%E5%92%8C-Sum-of-Floored-Pairs-Hard-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
-    <published>2022-09-11T14:28:00.000Z</published>
-    <updated>2022-09-11T14:28:00.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;Given an integer array &lt;code&gt;nums&lt;/code&gt;, return the sum of</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
-    
-    
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
   </entry>
   
