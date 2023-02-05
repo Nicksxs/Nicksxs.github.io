@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-01-29T13:28:24.095Z</updated>
+  <updated>2023-02-05T13:59:03.220Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分享一次折腾老旧笔记本的体验</title>
+    <link href="https://nicksxs.me/2023/02/05/%E5%88%86%E4%BA%AB%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%80%81%E6%97%A7%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%9A%84%E4%BD%93%E9%AA%8C/"/>
+    <id>https://nicksxs.me/2023/02/05/%E5%88%86%E4%BA%AB%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%80%81%E6%97%A7%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%9A%84%E4%BD%93%E9%AA%8C/</id>
+    <published>2023-02-05T13:57:31.000Z</published>
+    <updated>2023-02-05T13:59:03.220Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上大学的时候买了第一个笔记本，是联想的小y，y460，配置应该是 i5+2g 内存，500g 硬盘，ati 5650</summary>
+        
+      
+    
+    
+    
+    <category term="Windows" scheme="https://nicksxs.me/categories/Windows/"/>
+    
+    <category term="小技巧" scheme="https://nicksxs.me/categories/Windows/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="Windows" scheme="https://nicksxs.me/tags/Windows/"/>
+    
+  </entry>
   
   <entry>
     <title>分享一次比较诡异的 Windows 下 U盘无法退出的经历</title>
@@ -545,34 +572,6 @@
     <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
     <category term="Disruptor" scheme="https://nicksxs.me/tags/Disruptor/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Apollo 客户端启动过程分析</title>
-    <link href="https://nicksxs.me/2022/09/18/Apollo-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/"/>
-    <id>https://nicksxs.me/2022/09/18/Apollo-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/</id>
-    <published>2022-09-18T13:15:12.000Z</published>
-    <updated>2022-09-18T13:15:12.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;入口是可以在 springboot 的启动类上打上&lt;code&gt;EnableApolloConfig &lt;/code&gt;注解&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-java&quot; data-language=&quot;java&quot;&gt;&lt;code</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Apollo" scheme="https://nicksxs.me/tags/Apollo/"/>
     
   </entry>
   
