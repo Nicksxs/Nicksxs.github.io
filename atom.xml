@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-02-05T13:59:03.220Z</updated>
+  <updated>2023-02-12T13:57:03.682Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分享一次折腾老旧笔记本的体验-续篇</title>
+    <link href="https://nicksxs.me/2023/02/12/%E5%88%86%E4%BA%AB%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%80%81%E6%97%A7%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%9A%84%E4%BD%93%E9%AA%8C-%E7%BB%AD%E7%AF%87/"/>
+    <id>https://nicksxs.me/2023/02/12/%E5%88%86%E4%BA%AB%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%80%81%E6%97%A7%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%9A%84%E4%BD%93%E9%AA%8C-%E7%BB%AD%E7%AF%87/</id>
+    <published>2023-02-12T13:57:03.000Z</published>
+    <updated>2023-02-12T13:57:03.682Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;接着上一篇的折腾记，因为这周又尝试了一些新的措施和方法，想继续记录分享下，上周的整体情况大概是 Ubuntu 系统能进去了，但是 Windows 进不去，PE 也进不去，Windows 启动盘也进不去，因为我的机器加过一个 msata 的固态，Windows 是装在</summary>
+        
+      
+    
+    
+    
+    <category term="Windows" scheme="https://nicksxs.me/categories/Windows/"/>
+    
+    <category term="小技巧" scheme="https://nicksxs.me/categories/Windows/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="Windows" scheme="https://nicksxs.me/tags/Windows/"/>
+    
+  </entry>
   
   <entry>
     <title>分享一次折腾老旧笔记本的体验</title>
@@ -545,33 +572,6 @@
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Disruptor 系列三</title>
-    <link href="https://nicksxs.me/2022/09/25/Disruptor-%E7%B3%BB%E5%88%97%E4%B8%89/"/>
-    <id>https://nicksxs.me/2022/09/25/Disruptor-%E7%B3%BB%E5%88%97%E4%B8%89/</id>
-    <published>2022-09-25T13:17:28.000Z</published>
-    <updated>2022-09-25T13:17:28.584Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;原来一直有点被误导，&lt;br&gt;gatingSequences用来标识每个 processer 的操作位点，但是怎么记录更新有点搞不清楚&lt;br&gt;其实问题在于 gatingSequences 是个 Sequence 数组，首先要看下怎么加进去的，&lt;br&gt;可以看到是在</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Disruptor" scheme="https://nicksxs.me/tags/Disruptor/"/>
     
   </entry>
   
