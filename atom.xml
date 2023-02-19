@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-02-12T13:57:03.682Z</updated>
+  <updated>2023-02-19T14:03:12.780Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mybatis系列-connection连接池解析</title>
+    <link href="https://nicksxs.me/2023/02/19/mybatis%E7%B3%BB%E5%88%97-connection%E8%BF%9E%E6%8E%A5%E6%B1%A0%E8%A7%A3%E6%9E%90/"/>
+    <id>https://nicksxs.me/2023/02/19/mybatis%E7%B3%BB%E5%88%97-connection%E8%BF%9E%E6%8E%A5%E6%B1%A0%E8%A7%A3%E6%9E%90/</id>
+    <published>2023-02-19T14:02:28.000Z</published>
+    <updated>2023-02-19T14:03:12.780Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;连接池主要是两个逻辑，首先是获取连接的逻辑，结合代码来讲一讲&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-java&quot; data-language=&quot;java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="Mybatis" scheme="https://nicksxs.me/categories/Java/Mybatis/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Mysql" scheme="https://nicksxs.me/tags/Mysql/"/>
+    
+    <category term="Mybatis" scheme="https://nicksxs.me/tags/Mybatis/"/>
+    
+  </entry>
   
   <entry>
     <title>分享一次折腾老旧笔记本的体验-续篇</title>
@@ -541,37 +573,6 @@
     
     
     <category term="dubbo" scheme="https://nicksxs.me/tags/dubbo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode 747 至少是其他数字两倍的最大数 ( Largest Number At Least Twice of Others *Easy* ) 题解分析</title>
-    <link href="https://nicksxs.me/2022/10/02/Leetcode-747-%E8%87%B3%E5%B0%91%E6%98%AF%E5%85%B6%E4%BB%96%E6%95%B0%E5%AD%97%E4%B8%A4%E5%80%8D%E7%9A%84%E6%9C%80%E5%A4%A7%E6%95%B0-Largest-Number-At-Least-Twice-of-Others-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
-    <id>https://nicksxs.me/2022/10/02/Leetcode-747-%E8%87%B3%E5%B0%91%E6%98%AF%E5%85%B6%E4%BB%96%E6%95%B0%E5%AD%97%E4%B8%A4%E5%80%8D%E7%9A%84%E6%9C%80%E5%A4%A7%E6%95%B0-Largest-Number-At-Least-Twice-of-Others-Easy-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
-    <published>2022-10-02T12:14:13.000Z</published>
-    <updated>2022-10-02T12:14:13.869Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;题目介绍&quot;&gt;&lt;a href=&quot;#题目介绍&quot; class=&quot;headerlink&quot; title=&quot;题目介绍&quot;&gt;&lt;/a&gt;题目介绍&lt;/h3&gt;&lt;p&gt;You are given an integer array &lt;code&gt;nums&lt;/code&gt; where the</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
-    
-    
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
   </entry>
   
