@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-03-05T11:58:14.438Z</updated>
+  <updated>2023-03-05T14:34:00.032Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>小工周记一</title>
+    <link href="https://nicksxs.me/2023/03/05/%E5%B0%8F%E5%B7%A5%E5%91%A8%E8%AE%B0%E4%B8%80/"/>
+    <id>https://nicksxs.me/2023/03/05/%E5%B0%8F%E5%B7%A5%E5%91%A8%E8%AE%B0%E4%B8%80/</id>
+    <published>2023-03-05T14:34:00.000Z</published>
+    <updated>2023-03-05T14:34:00.032Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;开始修老房子又可以更新这个&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+    <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+    <category term="运动" scheme="https://nicksxs.me/tags/%E8%BF%90%E5%8A%A8/"/>
+    
+    <category term="减肥" scheme="https://nicksxs.me/tags/%E5%87%8F%E8%82%A5/"/>
+    
+    <category term="跑步" scheme="https://nicksxs.me/tags/%E8%B7%91%E6%AD%A5/"/>
+    
+    <category term="干活" scheme="https://nicksxs.me/tags/%E5%B9%B2%E6%B4%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>分享一次折腾老旧笔记本的体验-续续篇</title>
@@ -541,31 +576,6 @@
         
     <summary type="html">&lt;p&gt;可能是太久没写单测了，写个单测发现不符合预期，后来验证下才反应过来&lt;br&gt;我们来看下demo&lt;/p&gt;
 &lt;pre class=&quot;line-numbers language-php&quot; data-language=&quot;php&quot;&gt;&lt;code</summary>
-        
-      
-    
-    
-    
-    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
-    
-    
-    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记录下 phpunit 的入门使用方法</title>
-    <link href="https://nicksxs.me/2022/10/16/%E8%AE%B0%E5%BD%95%E4%B8%8B-phpunit-%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"/>
-    <id>https://nicksxs.me/2022/10/16/%E8%AE%B0%E5%BD%95%E4%B8%8B-phpunit-%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</id>
-    <published>2022-10-16T13:34:44.000Z</published>
-    <updated>2022-10-16T13:35:42.050Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这周开始打算写个比较简单的php工具包，然后顺带学习使用下php的单元测试，通过phpunit还是比较方便的，首先就&lt;code&gt;composer require phpunit/phpunit&lt;/code&gt;&lt;br&gt;安装下 &lt;code&gt;phpunit&lt;/code&gt;,</summary>
         
       
     
