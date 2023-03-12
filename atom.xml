@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-03-05T14:34:00.032Z</updated>
+  <updated>2023-03-12T13:35:21.790Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mybatis系列-sql 类的简单使用</title>
+    <link href="https://nicksxs.me/2023/03/12/mybatis%E7%B3%BB%E5%88%97-sql-%E7%B1%BB%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"/>
+    <id>https://nicksxs.me/2023/03/12/mybatis%E7%B3%BB%E5%88%97-sql-%E7%B1%BB%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</id>
+    <published>2023-03-12T13:35:21.000Z</published>
+    <updated>2023-03-12T13:35:21.790Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;mybatis 还有个比较有趣的功能，就是使用 SQL 类升成 sql，有点类似于 hibernate 或者像 php 的 laravel 框架等的，就是把sql 这种放在 xml 里或者代码里直接写 sql 用对象的形式&lt;/p&gt;
+&lt;h3 id=&quot;select语句&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="Mybatis" scheme="https://nicksxs.me/categories/Java/Mybatis/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Mysql" scheme="https://nicksxs.me/tags/Mysql/"/>
+    
+    <category term="Mybatis" scheme="https://nicksxs.me/tags/Mybatis/"/>
+    
+  </entry>
   
   <entry>
     <title>小工周记一</title>
@@ -559,32 +591,6 @@
     
     
     <category term="redis" scheme="https://nicksxs.me/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记录下 phpunit 的入门使用方法之setUp和tearDown</title>
-    <link href="https://nicksxs.me/2022/10/23/%E8%AE%B0%E5%BD%95%E4%B8%8B-phpunit-%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E4%B9%8BsetUp%E5%92%8CtearDown/"/>
-    <id>https://nicksxs.me/2022/10/23/%E8%AE%B0%E5%BD%95%E4%B8%8B-phpunit-%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E4%B9%8BsetUp%E5%92%8CtearDown/</id>
-    <published>2022-10-23T11:44:53.000Z</published>
-    <updated>2022-10-23T11:46:10.938Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;可能是太久没写单测了，写个单测发现不符合预期，后来验证下才反应过来&lt;br&gt;我们来看下demo&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-php&quot; data-language=&quot;php&quot;&gt;&lt;code</summary>
-        
-      
-    
-    
-    
-    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
-    
-    
-    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
     
   </entry>
   
