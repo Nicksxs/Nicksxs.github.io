@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-03-19T13:52:39.375Z</updated>
+  <updated>2023-03-26T13:20:12.229Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ssh 小技巧-端口转发</title>
+    <link href="https://nicksxs.me/2023/03/26/ssh-%E5%B0%8F%E6%8A%80%E5%B7%A7-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"/>
+    <id>https://nicksxs.me/2023/03/26/ssh-%E5%B0%8F%E6%8A%80%E5%B7%A7-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</id>
+    <published>2023-03-26T13:19:30.000Z</published>
+    <updated>2023-03-26T13:20:12.229Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我们在使用 ssh 连接的使用有一个很好用功能，就是端口转发，而且使用的方式也很多样，比如我们经常用 vscode 来做远程开发的话，一般远程连接就可以基于 ssh，前面也介绍过 vscode 的端口转发，并且可以配置到 .ssh&amp;#x2F;config</summary>
+        
+      
+    
+    
+    
+    <category term="ssh" scheme="https://nicksxs.me/categories/ssh/"/>
+    
+    <category term="技巧" scheme="https://nicksxs.me/categories/ssh/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="ssh" scheme="https://nicksxs.me/tags/ssh/"/>
+    
+    <category term="端口转发" scheme="https://nicksxs.me/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"/>
+    
+  </entry>
   
   <entry>
     <title>mybatis系列-sql 类的简要分析</title>
@@ -572,31 +601,6 @@
     
     
     <category term="powershell" scheme="https://nicksxs.me/tags/powershell/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊一下关于怎么陪伴学习</title>
-    <link href="https://nicksxs.me/2022/11/06/%E8%81%8A%E4%B8%80%E4%B8%8B%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E9%99%AA%E4%BC%B4%E5%AD%A6%E4%B9%A0/"/>
-    <id>https://nicksxs.me/2022/11/06/%E8%81%8A%E4%B8%80%E4%B8%8B%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E9%99%AA%E4%BC%B4%E5%AD%A6%E4%B9%A0/</id>
-    <published>2022-11-06T13:55:54.000Z</published>
-    <updated>2022-11-06T13:56:38.301Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这是一次开车过程中结合网上的一些微博想到的，开车是之前LD买了车后，陪领导练车，其实在一开始练车的时候，我们已经是找了相对很空的封闭路段，路上基本很少有车，偶尔有一辆车，但是LD还是很害怕，车速还只有十几的时候，还很远的对面来车的时候就觉得很慌了，这个时候如果以常理肯定会说</summary>
-        
-      
-    
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
