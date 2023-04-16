@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-04-09T13:20:54.302Z</updated>
+  <updated>2023-04-16T13:46:43.300Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>dnsmasq的一个使用注意点</title>
+    <link href="https://nicksxs.me/2023/04/16/dnsmasq%E7%9A%84%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E7%82%B9/"/>
+    <id>https://nicksxs.me/2023/04/16/dnsmasq%E7%9A%84%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E7%82%B9/</id>
+    <published>2023-04-16T13:42:29.000Z</published>
+    <updated>2023-04-16T13:46:43.300Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在本地使用了 valet 做 php 的开发环境，因为可以指定自定义域名和证书，碰巧最近公司的网络环境比较糟糕，就想要在自定义 dns 上下点功夫，本来我们经常要在 dns 那配置个内部的 dns 地址，就想是不是可以通过 dnsmasq</summary>
+        
+      
+    
+    
+    
+    <category term="dns" scheme="https://nicksxs.me/categories/dns/"/>
+    
+    
+    <category term="dnsmasq" scheme="https://nicksxs.me/tags/dnsmasq/"/>
+    
+  </entry>
   
   <entry>
     <title>解决 网络文件夹目前是以其他用户名和密码进行映射的 问题</title>
@@ -552,37 +577,6 @@
         
         
     <summary type="html">&lt;p&gt;先补充两个点，&lt;br&gt;第一是前面我们说了&lt;br&gt;使用&lt;code&gt;org.apache.ibatis.builder.xml.XMLConfigBuilder&lt;/code&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="Mybatis" scheme="https://nicksxs.me/categories/Java/Mybatis/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Mysql" scheme="https://nicksxs.me/tags/Mysql/"/>
-    
-    <category term="Mybatis" scheme="https://nicksxs.me/tags/Mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mybatis系列-mybatis是如何初始化mapper的</title>
-    <link href="https://nicksxs.me/2022/12/04/mybatis%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96mapper%E7%9A%84/"/>
-    <id>https://nicksxs.me/2022/12/04/mybatis%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96mapper%E7%9A%84/</id>
-    <published>2022-12-04T12:36:54.000Z</published>
-    <updated>2022-12-11T12:43:45.338Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前一篇讲了mybatis的初始化使用，如果我第一次看到这个使用入门文档，比较会产生疑惑的是配置了mapper，怎么就能通过&lt;code&gt;selectOne&lt;/code&gt;跟语句id就能执行sql了，那么第一个问题，就是mapper是怎么被解析的，存在哪里，怎么被拿出来的&lt;/p&gt;</summary>
         
       
     
