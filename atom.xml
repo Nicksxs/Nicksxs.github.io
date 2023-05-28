@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-05-21T15:50:25.822Z</updated>
+  <updated>2023-05-28T13:24:11.567Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记录一次折腾自组 nas 的失败经历-续续篇</title>
+    <link href="https://nicksxs.me/2023/05/28/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%87%AA%E7%BB%84-nas-%E7%9A%84%E5%A4%B1%E8%B4%A5%E7%BB%8F%E5%8E%86-%E7%BB%AD%E7%BB%AD%E7%AF%87/"/>
+    <id>https://nicksxs.me/2023/05/28/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%87%AA%E7%BB%84-nas-%E7%9A%84%E5%A4%B1%E8%B4%A5%E7%BB%8F%E5%8E%86-%E7%BB%AD%E7%BB%AD%E7%AF%87/</id>
+    <published>2023-05-28T13:24:11.000Z</published>
+    <updated>2023-05-28T13:24:11.567Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前这个机器已经算是跑起来了，虽然不是很完善也不是最佳实践，不过这篇可能也不算是失败经历了，因为最后成功跑起来了，在没法装最新版的 exsi 的情况下，并且我后面买的华硕 z370 主板点不亮，所以我也有点死心就直接用Windows 下装 vmware</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>记录下把小米路由器 4A 千兆版刷成 openwrt 的过程</title>
@@ -538,33 +559,6 @@
     
     
     <category term="headscale" scheme="https://nicksxs.me/tags/headscale/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2022 年终总结</title>
-    <link href="https://nicksxs.me/2023/01/15/2022-%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
-    <id>https://nicksxs.me/2023/01/15/2022-%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</id>
-    <published>2023-01-15T05:45:17.000Z</published>
-    <updated>2023-01-15T05:45:18.002Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;一年又一年，时间匆匆，这一年过得不太容易，很多事情都是来得猝不及防，很多规划也照例是没有完成，今年更多了一些，又是比较丧的一篇总结</summary>
-    
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    <category term="年终总结" scheme="https://nicksxs.me/categories/%E7%94%9F%E6%B4%BB/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
-    
-    
-    <category term="生活" scheme="https://nicksxs.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-    <category term="年终总结" scheme="https://nicksxs.me/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
-    
-    <category term="2022" scheme="https://nicksxs.me/tags/2022/"/>
-    
-    <category term="2023" scheme="https://nicksxs.me/tags/2023/"/>
     
   </entry>
   
