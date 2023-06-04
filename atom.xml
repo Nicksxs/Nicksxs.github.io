@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-05-28T13:24:11.567Z</updated>
+  <updated>2023-06-04T13:58:40.169Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>win 下 vmware 虚拟机搭建黑裙 nas 的小思路</title>
+    <link href="https://nicksxs.me/2023/06/04/win-%E4%B8%8B-vmware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA%E9%BB%91%E8%A3%99-nas-%E7%9A%84%E5%B0%8F%E6%80%9D%E8%B7%AF/"/>
+    <id>https://nicksxs.me/2023/06/04/win-%E4%B8%8B-vmware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA%E9%BB%91%E8%A3%99-nas-%E7%9A%84%E5%B0%8F%E6%80%9D%E8%B7%AF/</id>
+    <published>2023-06-04T13:58:17.000Z</published>
+    <updated>2023-06-04T13:58:40.169Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上次说 nas 的方案我是在 win10 下使用vmware workstation 搭建的黑裙虚拟机，采用 sata 物理磁盘直通的方式，算是跑通了黑裙的基础使用模式，但是后来发现的一个问题是之前没考虑到的，我买了不带 f 的处理器就是为了核显能做硬解，但是因为 cpu</summary>
+        
+      
+    
+    
+    
+    <category term="nas" scheme="https://nicksxs.me/categories/nas/"/>
+    
+    
+    <category term="nas" scheme="https://nicksxs.me/tags/nas/"/>
+    
+  </entry>
+  
+  <entry>
     <title>记录一次折腾自组 nas 的失败经历-续续篇</title>
     <link href="https://nicksxs.me/2023/05/28/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%87%AA%E7%BB%84-nas-%E7%9A%84%E5%A4%B1%E8%B4%A5%E7%BB%8F%E5%8E%86-%E7%BB%AD%E7%BB%AD%E7%AF%87/"/>
     <id>https://nicksxs.me/2023/05/28/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%87%AA%E7%BB%84-nas-%E7%9A%84%E5%A4%B1%E8%B4%A5%E7%BB%8F%E5%8E%86-%E7%BB%AD%E7%BB%AD%E7%AF%87/</id>
     <published>2023-05-28T13:24:11.000Z</published>
-    <updated>2023-05-28T13:24:11.567Z</updated>
+    <updated>2023-06-04T13:58:31.894Z</updated>
     
     
       
@@ -34,6 +59,10 @@
     
     
     
+    <category term="nas" scheme="https://nicksxs.me/categories/nas/"/>
+    
+    
+    <category term="nas" scheme="https://nicksxs.me/tags/nas/"/>
     
   </entry>
   
@@ -303,7 +332,7 @@
     <link href="https://nicksxs.me/2023/03/19/mybatis%E7%B3%BB%E5%88%97-sql-%E7%B1%BB%E7%9A%84%E7%AE%80%E8%A6%81%E5%88%86%E6%9E%90/"/>
     <id>https://nicksxs.me/2023/03/19/mybatis%E7%B3%BB%E5%88%97-sql-%E7%B1%BB%E7%9A%84%E7%AE%80%E8%A6%81%E5%88%86%E6%9E%90/</id>
     <published>2023-03-19T13:51:27.000Z</published>
-    <updated>2023-03-19T13:52:39.375Z</updated>
+    <updated>2023-06-04T13:21:36.263Z</updated>
     
     
       
@@ -534,31 +563,6 @@
     
     
     <category term="Windows" scheme="https://nicksxs.me/tags/Windows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Headscale初体验以及踩坑记</title>
-    <link href="https://nicksxs.me/2023/01/22/Headscale%E5%88%9D%E4%BD%93%E9%AA%8C%E4%BB%A5%E5%8F%8A%E8%B8%A9%E5%9D%91%E8%AE%B0/"/>
-    <id>https://nicksxs.me/2023/01/22/Headscale%E5%88%9D%E4%BD%93%E9%AA%8C%E4%BB%A5%E5%8F%8A%E8%B8%A9%E5%9D%91%E8%AE%B0/</id>
-    <published>2023-01-22T13:14:21.000Z</published>
-    <updated>2023-01-22T13:14:21.370Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近或者说很久以前就想着能够把几个散装服务器以及家里的网络连起来，譬如一些remote desktop的访问，之前搞了下frp，因为家里电脑没怎么注意安全性就被搞了一下，所以还是想用相对更安全的方式，比如限定ip和端口进行访问，但是感觉ip也不固定就比较难搞，后来看到了</summary>
-        
-      
-    
-    
-    
-    <category term="headscale" scheme="https://nicksxs.me/categories/headscale/"/>
-    
-    
-    <category term="headscale" scheme="https://nicksxs.me/tags/headscale/"/>
     
   </entry>
   
