@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-06-04T13:58:40.169Z</updated>
+  <updated>2023-06-11T15:20:31.366Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mybatis系列-foreach 解析</title>
+    <link href="https://nicksxs.me/2023/06/11/mybatis%E7%B3%BB%E5%88%97-foreach-%E8%A7%A3%E6%9E%90/"/>
+    <id>https://nicksxs.me/2023/06/11/mybatis%E7%B3%BB%E5%88%97-foreach-%E8%A7%A3%E6%9E%90/</id>
+    <published>2023-06-11T15:20:31.000Z</published>
+    <updated>2023-06-11T15:20:31.366Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在 org.apache.ibatis.builder.xml.XMLConfigBuilder#parseConfiguration 中进行配置解析，其中这一行就是解析 mappers&lt;/p&gt;
+&lt;pre class=&quot;line-numbers</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="Mybatis" scheme="https://nicksxs.me/categories/Java/Mybatis/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Mysql" scheme="https://nicksxs.me/tags/Mysql/"/>
+    
+    <category term="Mybatis" scheme="https://nicksxs.me/tags/Mybatis/"/>
+    
+  </entry>
   
   <entry>
     <title>win 下 vmware 虚拟机搭建黑裙 nas 的小思路</title>
@@ -525,33 +557,6 @@
         
         
     <summary type="html">&lt;p&gt;上大学的时候买了第一个笔记本，是联想的小y，y460，配置应该是 i5+2g 内存，500g 硬盘，ati 5650</summary>
-        
-      
-    
-    
-    
-    <category term="Windows" scheme="https://nicksxs.me/categories/Windows/"/>
-    
-    <category term="小技巧" scheme="https://nicksxs.me/categories/Windows/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="Windows" scheme="https://nicksxs.me/tags/Windows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分享一次比较诡异的 Windows 下 U盘无法退出的经历</title>
-    <link href="https://nicksxs.me/2023/01/29/%E5%88%86%E4%BA%AB%E4%B8%80%E6%AC%A1%E6%AF%94%E8%BE%83%E8%AF%A1%E5%BC%82%E7%9A%84-Windows-%E4%B8%8B-U%E7%9B%98%E6%97%A0%E6%B3%95%E9%80%80%E5%87%BA%E7%9A%84%E7%BB%8F%E5%8E%86/"/>
-    <id>https://nicksxs.me/2023/01/29/%E5%88%86%E4%BA%AB%E4%B8%80%E6%AC%A1%E6%AF%94%E8%BE%83%E8%AF%A1%E5%BC%82%E7%9A%84-Windows-%E4%B8%8B-U%E7%9B%98%E6%97%A0%E6%B3%95%E9%80%80%E5%87%BA%E7%9A%84%E7%BB%8F%E5%8E%86/</id>
-    <published>2023-01-29T13:26:03.000Z</published>
-    <updated>2023-01-29T13:28:24.095Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;作为一个 Windows 的老用户，并且也算是 Windows 系统的半个粉丝，但是秉承一贯的优缺点都应该说的原则，Windows 系统有一点缺点是真的挺难受，相信 Windows 用过比较久的都会经历过，就是</summary>
         
       
     
