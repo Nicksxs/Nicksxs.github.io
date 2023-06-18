@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-06-11T15:49:15.301Z</updated>
+  <updated>2023-06-18T13:15:24.573Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记录一次折腾自组 nas 的失败经历-续续续篇</title>
+    <link href="https://nicksxs.me/2023/06/18/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%87%AA%E7%BB%84-nas-%E7%9A%84%E5%A4%B1%E8%B4%A5%E7%BB%8F%E5%8E%86-%E7%BB%AD%E7%BB%AD%E7%BB%AD%E7%AF%87/"/>
+    <id>https://nicksxs.me/2023/06/18/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%87%AA%E7%BB%84-nas-%E7%9A%84%E5%A4%B1%E8%B4%A5%E7%BB%8F%E5%8E%86-%E7%BB%AD%E7%BB%AD%E7%BB%AD%E7%AF%87/</id>
+    <published>2023-06-18T13:15:07.000Z</published>
+    <updated>2023-06-18T13:15:24.573Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近在搞 nas 的时候又翻了个很大的错误，因为前面说了正在用的技嘉的 z370m, 这个主板是跟 cpu 一起买的，如果是只是用在 Windows 环境，没什么扩展要求，或者只用 6 个sata盘位，用一个 ssd</summary>
+        
+      
+    
+    
+    
+    <category term="nas" scheme="https://nicksxs.me/categories/nas/"/>
+    
+    
+    <category term="nas" scheme="https://nicksxs.me/tags/nas/"/>
+    
+  </entry>
   
   <entry>
     <title>mybatis系列-foreach 解析</title>
@@ -530,33 +555,6 @@
         
         
     <summary type="html">&lt;p&gt;接着上一篇的折腾记，因为这周又尝试了一些新的措施和方法，想继续记录分享下，上周的整体情况大概是 Ubuntu 系统能进去了，但是 Windows 进不去，PE 也进不去，Windows 启动盘也进不去，因为我的机器加过一个 msata 的固态，Windows 是装在</summary>
-        
-      
-    
-    
-    
-    <category term="Windows" scheme="https://nicksxs.me/categories/Windows/"/>
-    
-    <category term="小技巧" scheme="https://nicksxs.me/categories/Windows/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="Windows" scheme="https://nicksxs.me/tags/Windows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分享一次折腾老旧笔记本的体验</title>
-    <link href="https://nicksxs.me/2023/02/05/%E5%88%86%E4%BA%AB%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%80%81%E6%97%A7%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%9A%84%E4%BD%93%E9%AA%8C/"/>
-    <id>https://nicksxs.me/2023/02/05/%E5%88%86%E4%BA%AB%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%80%81%E6%97%A7%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%9A%84%E4%BD%93%E9%AA%8C/</id>
-    <published>2023-02-05T13:57:31.000Z</published>
-    <updated>2023-02-05T13:59:03.220Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上大学的时候买了第一个笔记本，是联想的小y，y460，配置应该是 i5+2g 内存，500g 硬盘，ati 5650</summary>
         
       
     
