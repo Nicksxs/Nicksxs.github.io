@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-07-16T13:29:08.754Z</updated>
+  <updated>2023-07-23T13:40:37.203Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《寻羊历险记》读后感</title>
+    <link href="https://nicksxs.me/2023/07/23/%E3%80%8A%E5%AF%BB%E7%BE%8A%E5%8E%86%E9%99%A9%E8%AE%B0%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    <id>https://nicksxs.me/2023/07/23/%E3%80%8A%E5%AF%BB%E7%BE%8A%E5%8E%86%E9%99%A9%E8%AE%B0%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</id>
+    <published>2023-07-23T13:40:37.000Z</published>
+    <updated>2023-07-23T13:40:37.203Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;  最近本来是在读《舞舞舞》，然后看到有介绍说，这个跟《寻羊历险记》是有情节上的关联，所以就先去看了《寻羊历险记》，《寻羊历险记》也是村上春树的第一本成规模的长篇小说，也可以认为是《舞舞舞》的前篇。&lt;br&gt; </summary>
+        
+      
+    
+    
+    
+    <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    
+    <category term="生活" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+    <category term="读后感" scheme="https://nicksxs.me/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>关于 npe 的一个小记忆点</title>
@@ -505,38 +532,6 @@
         
     <summary type="html">&lt;p&gt;上次就比较简单的讲了使用，这块也比较简单，因为封装得不是很复杂，首先我们从 select 作为入口来看看，这个具体的实现，&lt;/p&gt;
 &lt;pre class=&quot;line-numbers language-java&quot; data-language=&quot;java&quot;&gt;&lt;code</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="Mybatis" scheme="https://nicksxs.me/categories/Java/Mybatis/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Mysql" scheme="https://nicksxs.me/tags/Mysql/"/>
-    
-    <category term="Mybatis" scheme="https://nicksxs.me/tags/Mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mybatis系列-sql 类的简单使用</title>
-    <link href="https://nicksxs.me/2023/03/12/mybatis%E7%B3%BB%E5%88%97-sql-%E7%B1%BB%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"/>
-    <id>https://nicksxs.me/2023/03/12/mybatis%E7%B3%BB%E5%88%97-sql-%E7%B1%BB%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</id>
-    <published>2023-03-12T13:35:21.000Z</published>
-    <updated>2023-03-13T06:05:45.488Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;mybatis 还有个比较有趣的功能，就是使用 SQL 类生成 sql，有点类似于 hibernate 或者像 php 的 laravel 框架等的，就是把sql 这种放在 xml 里或者代码里直接写 sql 用对象的形式&lt;/p&gt;
-&lt;h3 id=&quot;select语句&quot;&gt;&lt;a</summary>
         
       
     
