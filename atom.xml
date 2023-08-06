@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-07-29T07:43:53.648Z</updated>
+  <updated>2023-08-06T13:17:46.005Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>springboot 获取 web 应用中所有的接口 url</title>
+    <link href="https://nicksxs.me/2023/08/06/springboot-%E8%8E%B7%E5%8F%96-web-%E5%BA%94%E7%94%A8%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84%E6%8E%A5%E5%8F%A3-url/"/>
+    <id>https://nicksxs.me/2023/08/06/springboot-%E8%8E%B7%E5%8F%96-web-%E5%BA%94%E7%94%A8%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84%E6%8E%A5%E5%8F%A3-url/</id>
+    <published>2023-08-06T13:16:36.000Z</published>
+    <updated>2023-08-06T13:17:46.005Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近有个小需求，要把我们一个 springboot 应用的 request mapping 给导出来，这么说已经是转化过了的，应该是要整理这个应用所有的接口路径，比如我有一个 api.baidu1.com</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
+    
+  </entry>
   
   <entry>
     <title>java 中发起 http 请求时证书问题解决记录</title>
@@ -498,35 +527,6 @@
         
     <summary type="html">&lt;p&gt;最近一次推送博客，发现报了个错推不上去，&lt;/p&gt;
 &lt;pre class=&quot;line-numbers language-bash&quot; data-language=&quot;bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;WARNING: REMOTE HOST</summary>
-        
-      
-    
-    
-    
-    <category term="ssh" scheme="https://nicksxs.me/categories/ssh/"/>
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/ssh/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="ssh" scheme="https://nicksxs.me/tags/ssh/"/>
-    
-    <category term="端口转发" scheme="https://nicksxs.me/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ssh 小技巧-端口转发</title>
-    <link href="https://nicksxs.me/2023/03/26/ssh-%E5%B0%8F%E6%8A%80%E5%B7%A7-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"/>
-    <id>https://nicksxs.me/2023/03/26/ssh-%E5%B0%8F%E6%8A%80%E5%B7%A7-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</id>
-    <published>2023-03-26T13:19:30.000Z</published>
-    <updated>2023-03-26T13:55:22.979Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们在使用 ssh 连接的使用有一个很好用功能，就是端口转发，而且使用的方式也很多样，比如我们经常用 vscode 来做远程开发的话，一般远程连接就可以基于 ssh，前面也介绍过 vscode 的端口转发，并且可以配置到 .ssh&amp;#x2F;config</summary>
         
       
     
