@@ -230,4 +230,5 @@
 {"title":"springboot mappings 注册逻辑","url":"/2023/08/13/springboot-mappings-注册逻辑/"},
 {"title":"springboot web server 启动逻辑 - Java - SpringBoot","url":"/2023/08/20/springboot-web-server-启动逻辑/"},
 {"title":"springboot web server 启动逻辑","url":"/2023/08/20/springboot-web-server-启动逻辑/"},
+{"title":"springboot 请求响应处理流程","url":"/2023/08/27/springboot-请求响应处理流程/"},
 ]

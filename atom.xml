@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-08-27T14:47:19.154Z</updated>
+  <updated>2023-09-03T13:29:12.447Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>springboot 处理请求的小分支-跳转 &amp; cookie</title>
+    <link href="https://nicksxs.me/2023/09/03/springboot-%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E7%9A%84%E5%B0%8F%E5%88%86%E6%94%AF-%E8%B7%B3%E8%BD%AC-cookie/"/>
+    <id>https://nicksxs.me/2023/09/03/springboot-%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E7%9A%84%E5%B0%8F%E5%88%86%E6%94%AF-%E8%B7%B3%E8%BD%AC-cookie/</id>
+    <published>2023-09-03T13:29:12.000Z</published>
+    <updated>2023-09-03T13:29:12.447Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;首先是跳转，应该说设置状态，其中跳转是其中一个状态，&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-java&quot; data-language=&quot;java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
+    
+  </entry>
   
   <entry>
     <title>springboot 请求响应处理流程</title>
@@ -521,31 +551,6 @@
     
     
     <category term="wsl" scheme="https://nicksxs.me/tags/wsl/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>dnsmasq的一个使用注意点</title>
-    <link href="https://nicksxs.me/2023/04/16/dnsmasq%E7%9A%84%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E7%82%B9/"/>
-    <id>https://nicksxs.me/2023/04/16/dnsmasq%E7%9A%84%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E7%82%B9/</id>
-    <published>2023-04-16T13:42:29.000Z</published>
-    <updated>2023-04-16T13:46:43.300Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在本地使用了 valet 做 php 的开发环境，因为可以指定自定义域名和证书，碰巧最近公司的网络环境比较糟糕，就想要在自定义 dns 上下点功夫，本来我们经常要在 dns 那配置个内部的 dns 地址，就想是不是可以通过 dnsmasq</summary>
-        
-      
-    
-    
-    
-    <category term="dns" scheme="https://nicksxs.me/categories/dns/"/>
-    
-    
-    <category term="dnsmasq" scheme="https://nicksxs.me/tags/dnsmasq/"/>
     
   </entry>
   
