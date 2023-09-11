@@ -232,4 +232,5 @@
 {"title":"springboot web server 启动逻辑","url":"/2023/08/20/springboot-web-server-启动逻辑/"},
 {"title":"springboot 请求响应处理流程","url":"/2023/08/27/springboot-请求响应处理流程/"},
 {"title":"springboot 处理请求的小分支-跳转 & cookie","url":"/2023/09/03/springboot-处理请求的小分支-跳转-cookie/"},
+{"title":"Tomcat 系列篇一-介绍下 connector","url":"/2023/09/10/Tomcat-系列篇一-介绍下-connector/"},
 ]
