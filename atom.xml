@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-09-16T07:24:08.607Z</updated>
+  <updated>2023-09-24T13:36:43.402Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Tomcat 系列篇三-介绍下 Coyote</title>
+    <link href="https://nicksxs.me/2023/09/24/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E4%B8%89-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Coyote/"/>
+    <id>https://nicksxs.me/2023/09/24/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E4%B8%89-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Coyote/</id>
+    <published>2023-09-24T13:36:43.000Z</published>
+    <updated>2023-09-24T13:36:43.402Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前面介绍了 connector，这里边还有个很重要的概念是 Coyote，真正将前面的 connector 跟后面的 container</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
+    
+    <category term="Tomcat" scheme="https://nicksxs.me/categories/Java/SpringBoot/Tomcat/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
+    
+  </entry>
   
   <entry>
     <title>Tomcat 系列篇二-介绍下整体架构</title>
@@ -534,31 +567,6 @@
         
         
     <summary type="html">&lt;p&gt;上次记录了前面的一些失败经验，最重要的点还没提到，先发一下配置单&lt;br&gt;cpu i7-8700k&lt;br&gt;主板 技嘉 z370m-ds3h&lt;br&gt;内存 光威 ddr4-3200Mhz&lt;br&gt;硬盘 京东京造 512g&lt;br&gt;散热 利民 PA120&lt;br&gt;电源 先马平头哥额定</summary>
-        
-      
-    
-    
-    
-    <category term="nas" scheme="https://nicksxs.me/categories/nas/"/>
-    
-    
-    <category term="nas" scheme="https://nicksxs.me/tags/nas/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记录一次折腾自组 nas 的失败经历</title>
-    <link href="https://nicksxs.me/2023/05/07/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%87%AA%E7%BB%84-nas-%E7%9A%84%E5%A4%B1%E8%B4%A5%E7%BB%8F%E5%8E%86/"/>
-    <id>https://nicksxs.me/2023/05/07/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%87%AA%E7%BB%84-nas-%E7%9A%84%E5%A4%B1%E8%B4%A5%E7%BB%8F%E5%8E%86/</id>
-    <published>2023-05-07T12:27:17.000Z</published>
-    <updated>2023-05-15T01:47:56.652Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;鉴于现在市面上的成品 nas 对于我来说要不就是太贵了，要不就是便宜的盘位少，性能比较差，很多 nas 主打还有用 docker 什么的，但是性能对于我个人比较特殊的使用方式来说还是不太够用的，比如现在比较性能好的 nas 像绿联新出的</summary>
         
       
     
