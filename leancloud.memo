@@ -234,4 +234,5 @@
 {"title":"springboot 处理请求的小分支-跳转 & cookie","url":"/2023/09/03/springboot-处理请求的小分支-跳转-cookie/"},
 {"title":"Tomcat 系列篇一-介绍下 connector","url":"/2023/09/10/Tomcat-系列篇一-介绍下-connector/"},
 {"title":"Tomcat 系列篇二-介绍下整体架构","url":"/2023/09/16/Tomcat-系列篇二-介绍下-Engine/"},
+{"title":"Tomcat 系列篇三-介绍下 Coyote","url":"/2023/09/24/Tomcat-系列篇三-介绍下-Coyote/"},
 ]
