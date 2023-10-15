@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-10-07T08:04:46.198Z</updated>
+  <updated>2023-10-15T12:14:55.934Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊聊对 FunctionalInterface 注解的一些理解</title>
+    <link href="https://nicksxs.me/2023/10/15/%E8%81%8A%E8%81%8A%E5%AF%B9-FunctionalInterface-%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/"/>
+    <id>https://nicksxs.me/2023/10/15/%E8%81%8A%E8%81%8A%E5%AF%B9-FunctionalInterface-%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/</id>
+    <published>2023-10-15T12:13:42.000Z</published>
+    <updated>2023-10-15T12:14:55.934Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在看 Tomcat 代码过程中碰到了一个小问题，可以用代码来举例讲一下&lt;br&gt;先定义一个简单的接口&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-java&quot; data-language=&quot;java&quot;&gt;&lt;code</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="stream" scheme="https://nicksxs.me/tags/stream/"/>
+    
+  </entry>
   
   <entry>
     <title>Tomcat 系列篇五-介绍下 Service 启动过程</title>
@@ -560,31 +588,6 @@
         
         
     <summary type="html">&lt;p&gt;上次说 nas 的方案我是在 win10 下使用vmware workstation 搭建的黑裙虚拟机，采用 sata 物理磁盘直通的方式，算是跑通了黑裙的基础使用模式，但是后来发现的一个问题是之前没考虑到的，我买了不带 f 的处理器就是为了核显能做硬解，但是因为 cpu</summary>
-        
-      
-    
-    
-    
-    <category term="nas" scheme="https://nicksxs.me/categories/nas/"/>
-    
-    
-    <category term="nas" scheme="https://nicksxs.me/tags/nas/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记录一次折腾自组 nas 的失败经历-续续篇</title>
-    <link href="https://nicksxs.me/2023/05/28/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%87%AA%E7%BB%84-nas-%E7%9A%84%E5%A4%B1%E8%B4%A5%E7%BB%8F%E5%8E%86-%E7%BB%AD%E7%BB%AD%E7%AF%87/"/>
-    <id>https://nicksxs.me/2023/05/28/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%87%AA%E7%BB%84-nas-%E7%9A%84%E5%A4%B1%E8%B4%A5%E7%BB%8F%E5%8E%86-%E7%BB%AD%E7%BB%AD%E7%AF%87/</id>
-    <published>2023-05-28T13:24:11.000Z</published>
-    <updated>2023-06-04T13:58:31.894Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前这个机器已经算是跑起来了，虽然不是很完善也不是最佳实践，不过这篇可能也不算是失败经历了，因为最后成功跑起来了，在没法装最新版的 exsi 的情况下，并且我后面买的华硕 z370 主板点不亮，所以我也有点死心就直接用Windows 下装 vmware</summary>
         
       
     
