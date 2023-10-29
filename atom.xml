@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-10-21T12:30:32.759Z</updated>
+  <updated>2023-10-29T11:27:03.414Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Tomcat 系列篇七-介绍下 Filter 注册逻辑</title>
+    <link href="https://nicksxs.me/2023/10/29/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E4%B8%83-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Filter-%E6%B3%A8%E5%86%8C%E9%80%BB%E8%BE%91/"/>
+    <id>https://nicksxs.me/2023/10/29/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E4%B8%83-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Filter-%E6%B3%A8%E5%86%8C%E9%80%BB%E8%BE%91/</id>
+    <published>2023-10-29T11:27:03.000Z</published>
+    <updated>2023-10-29T11:27:03.414Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在&lt;br&gt;org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext#createWebServer 的时候会调用&lt;/p&gt;
+&lt;pre class=&quot;line-numbers</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
+    
+    <category term="Tomcat" scheme="https://nicksxs.me/categories/Java/SpringBoot/Tomcat/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
+    
+  </entry>
   
   <entry>
     <title>Tomcat 系列篇六-介绍下 Lifecycle</title>
@@ -573,38 +607,6 @@
     
     
     <category term="nas" scheme="https://nicksxs.me/tags/nas/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mybatis系列-foreach 解析</title>
-    <link href="https://nicksxs.me/2023/06/11/mybatis%E7%B3%BB%E5%88%97-foreach-%E8%A7%A3%E6%9E%90/"/>
-    <id>https://nicksxs.me/2023/06/11/mybatis%E7%B3%BB%E5%88%97-foreach-%E8%A7%A3%E6%9E%90/</id>
-    <published>2023-06-11T15:20:31.000Z</published>
-    <updated>2023-06-11T15:49:15.301Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在 org.apache.ibatis.builder.xml.XMLConfigBuilder#parseConfiguration 中进行配置解析，其中这一行就是解析 mappers&lt;/p&gt;
-&lt;pre class=&quot;line-numbers</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="Mybatis" scheme="https://nicksxs.me/categories/Java/Mybatis/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Mysql" scheme="https://nicksxs.me/tags/Mysql/"/>
-    
-    <category term="Mybatis" scheme="https://nicksxs.me/tags/Mybatis/"/>
     
   </entry>
   
