@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-10-29T11:27:03.414Z</updated>
+  <updated>2023-11-05T11:38:56.345Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Tomcat 系列篇八-介绍下 Tomcat 里的线程池用处</title>
+    <link href="https://nicksxs.me/2023/11/05/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%85%AB-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Tomcat-%E9%87%8C%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%94%A8%E5%A4%84/"/>
+    <id>https://nicksxs.me/2023/11/05/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%85%AB-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Tomcat-%E9%87%8C%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%94%A8%E5%A4%84/</id>
+    <published>2023-11-05T11:38:56.000Z</published>
+    <updated>2023-11-05T11:38:56.345Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;线程池在 Tomcat 中也是非常重要的工具，这里我们简单介绍下 Tomcat 中的线程池，在 container 的启动过程中&lt;br&gt;org.apache.catalina.core.ContainerBase#initInternal&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
+    
+    <category term="Tomcat" scheme="https://nicksxs.me/categories/Java/SpringBoot/Tomcat/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
+    
+  </entry>
   
   <entry>
     <title>Tomcat 系列篇七-介绍下 Filter 注册逻辑</title>
@@ -55,7 +89,7 @@
     <link href="https://nicksxs.me/2023/10/21/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%85%AD-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Lifecycle/"/>
     <id>https://nicksxs.me/2023/10/21/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%85%AD-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Lifecycle/</id>
     <published>2023-10-21T12:30:32.000Z</published>
-    <updated>2023-10-21T12:30:32.759Z</updated>
+    <updated>2023-11-05T11:09:18.860Z</updated>
     
     
       
@@ -582,31 +616,6 @@
     <category term="Spring" scheme="https://nicksxs.me/tags/Spring/"/>
     
     <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记录一次折腾自组 nas 的失败经历-续续续篇</title>
-    <link href="https://nicksxs.me/2023/06/18/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%87%AA%E7%BB%84-nas-%E7%9A%84%E5%A4%B1%E8%B4%A5%E7%BB%8F%E5%8E%86-%E7%BB%AD%E7%BB%AD%E7%BB%AD%E7%AF%87/"/>
-    <id>https://nicksxs.me/2023/06/18/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%8A%98%E8%85%BE%E8%87%AA%E7%BB%84-nas-%E7%9A%84%E5%A4%B1%E8%B4%A5%E7%BB%8F%E5%8E%86-%E7%BB%AD%E7%BB%AD%E7%BB%AD%E7%AF%87/</id>
-    <published>2023-06-18T13:15:07.000Z</published>
-    <updated>2023-06-18T13:18:25.108Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近在搞 nas 的时候又翻了个很大的错误，因为前面说了正在用的技嘉的 z370m, 这个主板是跟 cpu 一起买的，如果是只是用在 Windows 环境，没什么扩展要求，或者只用 6 个sata盘位，用一个 ssd</summary>
-        
-      
-    
-    
-    
-    <category term="nas" scheme="https://nicksxs.me/categories/nas/"/>
-    
-    
-    <category term="nas" scheme="https://nicksxs.me/tags/nas/"/>
     
   </entry>
   
