@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-11-05T11:38:56.345Z</updated>
+  <updated>2023-11-12T12:19:58.559Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记录下一次服务器迁移</title>
+    <link href="https://nicksxs.me/2023/11/12/%E8%AE%B0%E5%BD%95%E4%B8%8B%E4%B8%80%E6%AC%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%81%E7%A7%BB/"/>
+    <id>https://nicksxs.me/2023/11/12/%E8%AE%B0%E5%BD%95%E4%B8%8B%E4%B8%80%E6%AC%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%81%E7%A7%BB/</id>
+    <published>2023-11-12T12:19:00.000Z</published>
+    <updated>2023-11-12T12:19:58.559Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;因为服务器续费即使是这次双十一还是太贵了，之前在 tx 买的三年 2c4g 3m 的一台服务器，原来价格是三年 800+，现在续费三年要</summary>
+        
+      
+    
+    
+    
+    <category term="与服务器" scheme="https://nicksxs.me/categories/%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    
+    <category term="云服务器" scheme="https://nicksxs.me/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>Tomcat 系列篇八-介绍下 Tomcat 里的线程池用处</title>
@@ -585,37 +610,6 @@
     
     
     <category term="nas" scheme="https://nicksxs.me/tags/nas/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>spring boot中的 http 接口返回 json 形式的小注意点</title>
-    <link href="https://nicksxs.me/2023/06/25/spring-boot%E4%B8%AD%E7%9A%84-http-%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E-json-%E5%BD%A2%E5%BC%8F%E7%9A%84%E5%B0%8F%E6%B3%A8%E6%84%8F%E7%82%B9/"/>
-    <id>https://nicksxs.me/2023/06/25/spring-boot%E4%B8%AD%E7%9A%84-http-%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E-json-%E5%BD%A2%E5%BC%8F%E7%9A%84%E5%B0%8F%E6%B3%A8%E6%84%8F%E7%82%B9/</id>
-    <published>2023-06-25T14:33:49.000Z</published>
-    <updated>2023-06-25T14:33:49.100Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这个可能是个很简单的点，不过之前碰到了就记录下，我们常规的应用都是使用统一的请求响应转换器去处理请求和响应返回，但是对于有文件上传或者返回的是文件的情况，一般都是不使用统一的处理，但是在响应返回的时候可能会存在这样的情况，如果文件正常被处理那就返回文件，如果处理异常需要给前</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Spring" scheme="https://nicksxs.me/tags/Spring/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
     
   </entry>
   
