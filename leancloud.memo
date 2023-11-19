@@ -241,4 +241,5 @@
 {"title":"Tomcat 系列篇六-介绍下 Lifecycle","url":"/2023/10/21/Tomcat-系列篇六-介绍下-Lifecycle/"},
 {"title":"Tomcat 系列篇七-介绍下 Filter 注册逻辑","url":"/2023/10/29/Tomcat-系列篇七-介绍下-Filter-注册逻辑/"},
 {"title":"Tomcat 系列篇八-介绍下 Tomcat 里的线程池用处","url":"/2023/11/05/Tomcat-系列篇八-介绍下-Tomcat-里的线程池用处/"},
+{"title":"记录下一次服务器迁移","url":"/2023/11/12/记录下一次服务器迁移/"},
 ]
