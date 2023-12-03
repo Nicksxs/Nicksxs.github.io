@@ -243,4 +243,5 @@
 {"title":"Tomcat 系列篇八-介绍下 Tomcat 里的线程池用处","url":"/2023/11/05/Tomcat-系列篇八-介绍下-Tomcat-里的线程池用处/"},
 {"title":"记录下一次服务器迁移","url":"/2023/11/12/记录下一次服务器迁移/"},
 {"title":"Tomcat 系列篇九-介绍下 Tomcat 里的 ContainerBase","url":"/2023/11/19/Tomcat-系列篇九-介绍下-Tomcat-里的-ContainerBase/"},
+{"title":"Tomcat 系列篇十-介绍下 Tomcat 里的 Mapper 作用","url":"/2023/11/26/Tomcat-系列篇十-介绍下-Tomcat-里的-Mapper-作用/"},
 ]
