@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-12-03T11:54:34.680Z</updated>
+  <updated>2023-12-10T12:28:28.303Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Tomcat 系列篇十一-介绍下 Tomcat 里的后台处理和热加载</title>
+    <link href="https://nicksxs.me/2023/12/10/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%8D%81%E4%B8%80-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Tomcat-%E9%87%8C%E7%9A%84%E5%90%8E%E5%8F%B0%E5%A4%84%E7%90%86%E5%92%8C%E7%83%AD%E5%8A%A0%E8%BD%BD/"/>
+    <id>https://nicksxs.me/2023/12/10/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%8D%81%E4%B8%80-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Tomcat-%E9%87%8C%E7%9A%84%E5%90%8E%E5%8F%B0%E5%A4%84%E7%90%86%E5%92%8C%E7%83%AD%E5%8A%A0%E8%BD%BD/</id>
+    <published>2023-12-10T12:28:28.000Z</published>
+    <updated>2023-12-10T12:28:28.303Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这部分其实之前在讲线程池的时候也有点带到了， 主要是在这个类里&lt;br&gt;&lt;code&gt;org.apache.catalina.core.ContainerBase.ContainerBackgroundProcessor&lt;/code&gt;&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
+    
+    <category term="Tomcat" scheme="https://nicksxs.me/categories/Java/SpringBoot/Tomcat/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
+    
+    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
+    
+  </entry>
   
   <entry>
     <title>Windows 莫名重启问题解决</title>
@@ -601,33 +635,6 @@
     
     
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《寻羊历险记》读后感</title>
-    <link href="https://nicksxs.me/2023/07/23/%E3%80%8A%E5%AF%BB%E7%BE%8A%E5%8E%86%E9%99%A9%E8%AE%B0%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
-    <id>https://nicksxs.me/2023/07/23/%E3%80%8A%E5%AF%BB%E7%BE%8A%E5%8E%86%E9%99%A9%E8%AE%B0%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</id>
-    <published>2023-07-23T13:40:37.000Z</published>
-    <updated>2023-07-23T13:40:37.203Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;  最近本来是在读《舞舞舞》，然后看到有介绍说，这个跟《寻羊历险记》是有情节上的关联，所以就先去看了《寻羊历险记》，《寻羊历险记》也是村上春树的第一本成规模的长篇小说，也可以认为是《舞舞舞》的前篇。&lt;br&gt; </summary>
-        
-      
-    
-    
-    
-    <category term="读后感" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
-    
-    <category term="生活" scheme="https://nicksxs.me/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-    <category term="读后感" scheme="https://nicksxs.me/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
     
   </entry>
   
