@@ -245,4 +245,6 @@
 {"title":"Tomcat 系列篇九-介绍下 Tomcat 里的 ContainerBase","url":"/2023/11/19/Tomcat-系列篇九-介绍下-Tomcat-里的-ContainerBase/"},
 {"title":"Tomcat 系列篇十-介绍下 Tomcat 里的 Mapper 作用","url":"/2023/11/26/Tomcat-系列篇十-介绍下-Tomcat-里的-Mapper-作用/"},
 {"title":"Windows 莫名重启问题解决","url":"/2023/12/03/Windows-莫名重启问题解决/"},
+{"title":"Tomcat 系列篇十一-介绍下 Tomcat 里的后台处理和热加载","url":"/2023/12/10/Tomcat-系列篇十一-介绍下-Tomcat-里的后台处理和热加载/"},
+{"title":"Tomcat 系列篇十二-番外介绍下 Tomcat 的上传文件限制","url":"/2023/12/17/Tomcat-系列篇十二-番外介绍下-Tomcat-的上传文件限制/"},
 ]
