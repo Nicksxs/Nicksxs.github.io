@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2023-12-24T12:48:08.804Z</updated>
+  <updated>2023-12-31T13:52:02.249Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>php 的调试方法-查看调用堆栈</title>
+    <link href="https://nicksxs.me/2023/12/31/php-%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95-%E6%9F%A5%E7%9C%8B%E8%B0%83%E7%94%A8%E5%A0%86%E6%A0%88/"/>
+    <id>https://nicksxs.me/2023/12/31/php-%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95-%E6%9F%A5%E7%9C%8B%E8%B0%83%E7%94%A8%E5%A0%86%E6%A0%88/</id>
+    <published>2023-12-31T13:49:36.000Z</published>
+    <updated>2023-12-31T13:52:02.249Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;php 代码调试里的神器就是 &lt;code&gt;echo 111;exit;&lt;/code&gt;  但是对于使用了接口和继承比较多的话，有时候比较难找，可能定位到了一段代码但是不知道怎么调用过来的，这时候就可以用这个方法&lt;/p&gt;
+&lt;p&gt;总结下来有三种，&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
+    
+    
+    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
+    
+  </entry>
   
   <entry>
     <title>阿里云 rds 主从延迟排查</title>
@@ -597,35 +624,6 @@
         
         
     <summary type="html">&lt;p&gt;springboot 的一个方便之处就是集成了 web server 进去，接着上一篇继续来看下这个 web server 的启动过程&lt;br&gt;这边是基于 springboot 的 2.2.9.RELEASE 版本，整个 springboot</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>springboot mappings 注册逻辑</title>
-    <link href="https://nicksxs.me/2023/08/13/springboot-mappings-%E6%B3%A8%E5%86%8C%E9%80%BB%E8%BE%91/"/>
-    <id>https://nicksxs.me/2023/08/13/springboot-mappings-%E6%B3%A8%E5%86%8C%E9%80%BB%E8%BE%91/</id>
-    <published>2023-08-13T12:38:31.000Z</published>
-    <updated>2023-08-13T12:39:57.156Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前面讲了怎么获取 mapping url，继续说下这些mappings 是怎么注册进去的，&lt;br&gt;来看下这个 &lt;code&gt;RequestMappingHandlerMapping&lt;/code&gt; 的继承关系&lt;br&gt;&lt;img</summary>
         
       
     
