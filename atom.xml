@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-01-07T14:30:23.263Z</updated>
+  <updated>2024-01-21T07:22:30.416Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,18 +17,100 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Leetcode 25 Reverse Nodes in k-Group 题解分析-再解分析</title>
+    <link href="https://nicksxs.me/2024/01/21/Leetcode-25-Reverse-Nodes-in-k-Group-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
+    <id>https://nicksxs.me/2024/01/21/Leetcode-25-Reverse-Nodes-in-k-Group-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
+    <published>2024-01-21T07:09:47.000Z</published>
+    <updated>2024-01-21T07:22:30.416Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上一次主要是给了一个解题方案，没有具体讲解，这次又做到了就来看下几种方案，链表转置一直是我比较疑惑的问题，特别是边界处理，而这个问题要把难度加大了&lt;br&gt;我先讲一下我一开始的思路和解题方法，首先就是写一个转置方法，就处理 k</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
+    
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>聊一下 Java 的日志系列三</title>
+    <link href="https://nicksxs.me/2024/01/21/%E8%81%8A%E4%B8%80%E4%B8%8B-Java-%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E5%88%97%E4%B8%89/"/>
+    <id>https://nicksxs.me/2024/01/21/%E8%81%8A%E4%B8%80%E4%B8%8B-Java-%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E5%88%97%E4%B8%89/</id>
+    <published>2024-01-21T02:52:44.000Z</published>
+    <updated>2024-01-21T02:52:44.047Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上周因为一些事情没有更新在这里，是因为新电脑还没到，手头没有把移动硬盘里的 time machine 恢复出来的机器，所以单独更了一篇在新建的一个 cloudflare page 服务上，总体体验还可以，就是有个小点后面可以讲一下，继续完善下 Java</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>聊一下 Java 的日志系列二</title>
+    <link href="https://nicksxs.me/2024/01/14/%E8%81%8A%E4%B8%80%E4%B8%8B-Java-%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E5%88%97%E4%BA%8C/"/>
+    <id>https://nicksxs.me/2024/01/14/%E8%81%8A%E4%B8%80%E4%B8%8B-Java-%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E5%88%97%E4%BA%8C/</id>
+    <published>2024-01-14T13:26:53.000Z</published>
+    <updated>2024-01-21T03:32:56.186Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;log 初始化过程，首先是在启动类里会获取 logger&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>聊一下 Java 的日志系列一</title>
     <link href="https://nicksxs.me/2024/01/07/%E8%81%8A%E4%B8%80%E4%B8%8B-Java-%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E5%88%97%E4%B8%80/"/>
     <id>https://nicksxs.me/2024/01/07/%E8%81%8A%E4%B8%80%E4%B8%8B-Java-%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E5%88%97%E4%B8%80/</id>
     <published>2024-01-07T14:30:23.000Z</published>
-    <updated>2024-01-07T14:30:23.263Z</updated>
+    <updated>2024-01-21T02:51:15.352Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;我们在使用 Java 的日志库的时候，比如我们现在项目在用的 logback，可以配置滚动策略，简单介绍下启动逻辑&lt;br&gt;这里我们定义的是 </summary>
+    <summary type="html">&lt;p&gt;我们在使用 Java 的日志库的时候，比如我们现在项目在用的</summary>
         
       
     
@@ -139,7 +221,7 @@
         
         
     <summary type="html">&lt;p&gt;这部分其实之前在讲线程池的时候也有点带到了， 主要是在这个类里&lt;br&gt;&lt;code&gt;org.apache.catalina.core.ContainerBase.ContainerBackgroundProcessor&lt;/code&gt;&lt;/p&gt;
-&lt;pre</summary>
+&lt;figure</summary>
         
       
     
@@ -233,7 +315,7 @@
         
         
     <summary type="html">&lt;p&gt;前面介绍过 Tomcat 的层次结构，&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-markup&quot; data-language=&quot;markup&quot;&gt;&lt;code class=&quot;language-markup&quot;&gt;&lt;span</summary>
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
         
       
     
@@ -292,7 +374,7 @@
         
         
     <summary type="html">&lt;p&gt;线程池在 Tomcat 中也是非常重要的工具，这里我们简单介绍下 Tomcat 中的线程池，在 container 的启动过程中&lt;br&gt;org.apache.catalina.core.ContainerBase#initInternal&lt;/p&gt;
-&lt;pre</summary>
+&lt;figure</summary>
         
       
     
@@ -326,7 +408,7 @@
         
         
     <summary type="html">&lt;p&gt;在&lt;br&gt;org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext#createWebServer 的时候会调用&lt;/p&gt;
-&lt;pre class=&quot;line-numbers</summary>
+&lt;figure class=&quot;highlight</summary>
         
       
     
@@ -393,7 +475,7 @@
         
         
     <summary type="html">&lt;p&gt;在看 Tomcat 代码过程中碰到了一个小问题，可以用代码来举例讲一下&lt;br&gt;先定义一个简单的接口&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-java&quot; data-language=&quot;java&quot;&gt;&lt;code</summary>
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
         
       
     
@@ -421,7 +503,7 @@
         
         
     <summary type="html">&lt;p&gt;这里开始介绍下 Service 的启动过程，Tomcat 的启动过程中&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-java&quot; data-language=&quot;java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span</summary>
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
         
       
     
@@ -455,7 +537,7 @@
         
         
     <summary type="html">&lt;p&gt;valve 是 Tomcat 架构中比较重要的一个组成部分，&lt;br&gt;之前说到  &lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-java&quot; data-language=&quot;java&quot;&gt;&lt;code</summary>
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
         
       
     
@@ -522,7 +604,7 @@
         
         
     <summary type="html">&lt;p&gt;前面那一篇感觉上来的有点突兀，还是应该按照架构去慢慢解析，所以这里回归下我们整体的 Tomcat 架构，这里我们通过一个 Tomcat 的配置文件来看看&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-markup&quot;</summary>
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
         
       
     
@@ -538,99 +620,6 @@
     <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
     <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Tomcat 系列篇一-介绍下 connector</title>
-    <link href="https://nicksxs.me/2023/09/10/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E4%B8%80-%E4%BB%8B%E7%BB%8D%E4%B8%8B-connector/"/>
-    <id>https://nicksxs.me/2023/09/10/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E4%B8%80-%E4%BB%8B%E7%BB%8D%E4%B8%8B-connector/</id>
-    <published>2023-09-10T13:30:22.000Z</published>
-    <updated>2023-09-11T00:23:37.251Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;tomcat的主体架构里，connector 作为核心的连接器&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    <category term="Tomcat" scheme="https://nicksxs.me/categories/Java/SpringBoot/Tomcat/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>springboot 处理请求的小分支-跳转 &amp; cookie</title>
-    <link href="https://nicksxs.me/2023/09/03/springboot-%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E7%9A%84%E5%B0%8F%E5%88%86%E6%94%AF-%E8%B7%B3%E8%BD%AC-cookie/"/>
-    <id>https://nicksxs.me/2023/09/03/springboot-%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E7%9A%84%E5%B0%8F%E5%88%86%E6%94%AF-%E8%B7%B3%E8%BD%AC-cookie/</id>
-    <published>2023-09-03T13:29:12.000Z</published>
-    <updated>2023-09-03T13:29:12.447Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;首先是跳转，应该说设置状态，其中跳转是其中一个状态，&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-java&quot; data-language=&quot;java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>springboot 请求响应处理流程</title>
-    <link href="https://nicksxs.me/2023/08/27/springboot-%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/"/>
-    <id>https://nicksxs.me/2023/08/27/springboot-%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/</id>
-    <published>2023-08-27T14:47:19.000Z</published>
-    <updated>2023-09-05T09:19:33.385Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Tomcat 会把请求委托到&lt;br&gt;&lt;code&gt;org.springframework.web.servlet.DispatcherServlet#doService&lt;/code&gt;  &lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-java&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
     <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
     
