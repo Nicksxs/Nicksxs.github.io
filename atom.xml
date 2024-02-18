@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-02-11T11:52:10.080Z</updated>
+  <updated>2024-02-18T10:47:52.382Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java 线程池系列-第二篇</title>
+    <link href="https://nicksxs.me/2024/02/18/Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%B3%BB%E5%88%97-%E7%AC%AC%E4%BA%8C%E7%AF%87/"/>
+    <id>https://nicksxs.me/2024/02/18/Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%B3%BB%E5%88%97-%E7%AC%AC%E4%BA%8C%E7%AF%87/</id>
+    <published>2024-02-18T10:47:52.000Z</published>
+    <updated>2024-02-18T10:47:52.382Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;介绍了线程池的目的和实现概述，以及如何初始化的，我们就来开始看看线程池最重要的执行过程&lt;br&gt;老规矩，还是先把注释翻译下，这个对理解逻辑其实非常重要，后面可以循着注释的逻辑来看代码&lt;br&gt;第一步，如果是少于核心线程数的线程正在运行，那么尝试去开启一个新线程，并把提交的命令&lt;</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>Java 线程池系列-第一篇</title>
@@ -569,40 +594,6 @@
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="stream" scheme="https://nicksxs.me/tags/stream/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Tomcat 系列篇五-介绍下 Service 启动过程</title>
-    <link href="https://nicksxs.me/2023/10/07/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%9B%9B-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Service-%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/"/>
-    <id>https://nicksxs.me/2023/10/07/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%9B%9B-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Service-%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</id>
-    <published>2023-10-07T08:03:56.000Z</published>
-    <updated>2023-10-07T08:04:46.198Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这里开始介绍下 Service 的启动过程，Tomcat 的启动过程中&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    <category term="Tomcat" scheme="https://nicksxs.me/categories/Java/SpringBoot/Tomcat/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
     
   </entry>
   
