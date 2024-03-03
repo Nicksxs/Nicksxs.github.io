@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-02-24T15:09:57.350Z</updated>
+  <updated>2024-03-03T14:14:39.743Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java 线程池系列-第四篇</title>
+    <link href="https://nicksxs.me/2024/03/03/Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%B3%BB%E5%88%97-%E7%AC%AC%E5%9B%9B%E7%AF%87/"/>
+    <id>https://nicksxs.me/2024/03/03/Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%B3%BB%E5%88%97-%E7%AC%AC%E5%9B%9B%E7%AF%87/</id>
+    <published>2024-03-03T14:14:39.000Z</published>
+    <updated>2024-03-03T14:14:39.743Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这一篇主要补充两个内容，第一部分就是获取任务的逻辑&lt;br&gt;首先是状态判断，如果是停止了，SHUTDOWN或更大的了，就需要减小工作线程数量&lt;br&gt;并返回 null，使得工作线程 worker 退出，然后再判断线程数量和超时，同样如果超过了就会返回</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>Java 线程池系列-第三篇</title>
@@ -541,39 +566,6 @@
         
     <summary type="html">&lt;p&gt;在&lt;br&gt;org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext#createWebServer 的时候会调用&lt;/p&gt;
 &lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    <category term="Tomcat" scheme="https://nicksxs.me/categories/Java/SpringBoot/Tomcat/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Tomcat 系列篇六-介绍下 Lifecycle</title>
-    <link href="https://nicksxs.me/2023/10/21/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%85%AD-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Lifecycle/"/>
-    <id>https://nicksxs.me/2023/10/21/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%85%AD-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Lifecycle/</id>
-    <published>2023-10-21T12:30:32.000Z</published>
-    <updated>2023-11-05T11:09:18.860Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Tomcat 中的很多组件都是继承了LifecycleBase这个抽象类的，包括之前讲过的 connector，server，service，context，host 这些组件都是，我们先来看下接口&lt;br&gt;主体是分为两部分，第一部分是定义状态时间，如</summary>
         
       
     
