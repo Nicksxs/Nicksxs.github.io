@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-03-17T12:54:57.993Z</updated>
+  <updated>2024-03-24T12:52:27.450Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>用 ollama 本地运行谷歌开源大模型 Gemma</title>
+    <link href="https://nicksxs.me/2024/03/24/%E7%94%A8-ollama-%E6%9C%AC%E5%9C%B0%E8%BF%90%E8%A1%8C%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://nicksxs.me/2024/03/24/%E7%94%A8-ollama-%E6%9C%AC%E5%9C%B0%E8%BF%90%E8%A1%8C%E5%A4%A7%E6%A8%A1%E5%9E%8B/</id>
+    <published>2024-03-24T12:51:05.000Z</published>
+    <updated>2024-03-24T12:52:27.450Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;原先在 23 年初的时候调研过一些国产的大模型，包括复旦开源的 MOSS 和清华的 ChatGLM，那时候还是早期版本，需要在 Linux 上，并且有比较好的显卡，而且一般来讲都得是 N 卡，过程中需要安装</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>Java 线程池系列-实战篇</title>
@@ -216,9 +241,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
     <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -247,9 +272,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
     <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -541,31 +566,6 @@
     <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
     
     <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记录下一次服务器迁移</title>
-    <link href="https://nicksxs.me/2023/11/12/%E8%AE%B0%E5%BD%95%E4%B8%8B%E4%B8%80%E6%AC%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%81%E7%A7%BB/"/>
-    <id>https://nicksxs.me/2023/11/12/%E8%AE%B0%E5%BD%95%E4%B8%8B%E4%B8%80%E6%AC%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%81%E7%A7%BB/</id>
-    <published>2023-11-12T12:19:00.000Z</published>
-    <updated>2023-11-12T12:19:58.559Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;因为服务器续费即使是这次双十一还是太贵了，之前在 tx 买的三年 2c4g 3m 的一台服务器，原来价格是三年 800+，现在续费三年要</summary>
-        
-      
-    
-    
-    
-    <category term="与服务器" scheme="https://nicksxs.me/categories/%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    
-    
-    <category term="云服务器" scheme="https://nicksxs.me/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
   </entry>
   
