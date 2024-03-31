@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-03-24T13:02:44.422Z</updated>
+  <updated>2024-03-31T11:41:50.151Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>折腾记-给玩客云刷上Armbian</title>
+    <link href="https://nicksxs.me/2024/03/31/%E6%8A%98%E8%85%BE%E8%AE%B0-%E7%BB%99%E7%8E%A9%E5%AE%A2%E4%BA%91%E5%88%B7%E4%B8%8AArmbian/"/>
+    <id>https://nicksxs.me/2024/03/31/%E6%8A%98%E8%85%BE%E8%AE%B0-%E7%BB%99%E7%8E%A9%E5%AE%A2%E4%BA%91%E5%88%B7%E4%B8%8AArmbian/</id>
+    <published>2024-03-31T11:41:50.000Z</published>
+    <updated>2024-03-31T11:41:50.151Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前买来玩客云作为轻nas使用，但是由于只能外接硬盘，并且是usb2.0的接口，使用体验不是特别好，并且前期作为老母鸡还能兑换视频会员这种，后面取消了就不怎么使用了，前阵子玩客云停止提供服务了，所以就想可以折腾下，比如Armbian这样的，可以作为轻量服务器使用，功耗也比较</summary>
+        
+      
+    
+    
+    
+    <category term="折腾" scheme="https://nicksxs.me/categories/%E6%8A%98%E8%85%BE/"/>
+    
+    
+    <category term="折腾" scheme="https://nicksxs.me/tags/%E6%8A%98%E8%85%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>用 ollama 本地运行谷歌开源大模型 Gemma</title>
@@ -241,9 +266,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -272,9 +297,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -515,40 +540,6 @@
         
         
     <summary type="html">&lt;p&gt;Mapper 顾名思义是作一个映射作用，在 Tomcat 中会根据域名找到 host 组件，再根据 uri 可以找到对应的 context 和 wrapper 组件，但是对于当前这个环境 (Springboot) 会有一点小区别&lt;br&gt;之前说到&lt;br&gt;请求会经过</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    <category term="Tomcat" scheme="https://nicksxs.me/categories/Java/SpringBoot/Tomcat/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Tomcat 系列篇九-介绍下 Tomcat 里的 ContainerBase</title>
-    <link href="https://nicksxs.me/2023/11/19/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E4%B9%9D-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Tomcat-%E9%87%8C%E7%9A%84-ContainerBase/"/>
-    <id>https://nicksxs.me/2023/11/19/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E4%B9%9D-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Tomcat-%E9%87%8C%E7%9A%84-ContainerBase/</id>
-    <published>2023-11-19T13:15:56.000Z</published>
-    <updated>2023-11-19T13:16:29.095Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前面介绍过 Tomcat 的层次结构，&lt;/p&gt;
-&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
         
       
     
