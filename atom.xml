@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-03-31T11:41:50.151Z</updated>
+  <updated>2024-04-07T12:36:45.844Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Headscale渐入佳境-路由设置</title>
+    <link href="https://nicksxs.me/2024/04/07/Headscale%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83-%E8%B7%AF%E7%94%B1%E8%AE%BE%E7%BD%AE/"/>
+    <id>https://nicksxs.me/2024/04/07/Headscale%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83-%E8%B7%AF%E7%94%B1%E8%AE%BE%E7%BD%AE/</id>
+    <published>2024-04-07T12:36:45.000Z</published>
+    <updated>2024-04-07T12:36:45.844Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;code&gt;headscale&lt;/code&gt; 在前面两篇&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="headscale" scheme="https://nicksxs.me/categories/headscale/"/>
+    
+    
+    <category term="headscale" scheme="https://nicksxs.me/tags/headscale/"/>
+    
+  </entry>
   
   <entry>
     <title>折腾记-给玩客云刷上Armbian</title>
@@ -524,39 +549,6 @@
     
     
     <category term="Windows" scheme="https://nicksxs.me/tags/Windows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Tomcat 系列篇十-介绍下 Tomcat 里的 Mapper 作用</title>
-    <link href="https://nicksxs.me/2023/11/26/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%8D%81-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Tomcat-%E9%87%8C%E7%9A%84-Mapper-%E4%BD%9C%E7%94%A8/"/>
-    <id>https://nicksxs.me/2023/11/26/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%8D%81-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Tomcat-%E9%87%8C%E7%9A%84-Mapper-%E4%BD%9C%E7%94%A8/</id>
-    <published>2023-11-26T11:02:21.000Z</published>
-    <updated>2023-11-26T11:02:21.316Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Mapper 顾名思义是作一个映射作用，在 Tomcat 中会根据域名找到 host 组件，再根据 uri 可以找到对应的 context 和 wrapper 组件，但是对于当前这个环境 (Springboot) 会有一点小区别&lt;br&gt;之前说到&lt;br&gt;请求会经过</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    <category term="Tomcat" scheme="https://nicksxs.me/categories/Java/SpringBoot/Tomcat/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
     
   </entry>
   
