@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-04-07T12:36:45.844Z</updated>
+  <updated>2024-04-14T11:45:29.648Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Headscale下篇-自定义中转derper</title>
+    <link href="https://nicksxs.me/2024/04/14/Headscale%E4%B8%8B%E7%AF%87-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E8%BD%ACderper/"/>
+    <id>https://nicksxs.me/2024/04/14/Headscale%E4%B8%8B%E7%AF%87-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E8%BD%ACderper/</id>
+    <published>2024-04-14T11:45:29.000Z</published>
+    <updated>2024-04-14T11:45:29.648Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;derper是 tailscale 已经开源的 tailscale 中转服务，可以进行自己搭建，不然就是使用 tailscale 提供的 derper</summary>
+        
+      
+    
+    
+    
+    <category term="headscale" scheme="https://nicksxs.me/categories/headscale/"/>
+    
+    
+    <category term="headscale" scheme="https://nicksxs.me/tags/headscale/"/>
+    
+  </entry>
   
   <entry>
     <title>Headscale渐入佳境-路由设置</title>
@@ -522,33 +547,6 @@
     <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
     
     <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Windows 莫名重启问题解决</title>
-    <link href="https://nicksxs.me/2023/12/03/Windows-%E8%8E%AB%E5%90%8D%E9%87%8D%E5%90%AF%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
-    <id>https://nicksxs.me/2023/12/03/Windows-%E8%8E%AB%E5%90%8D%E9%87%8D%E5%90%AF%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</id>
-    <published>2023-12-03T11:54:34.000Z</published>
-    <updated>2023-12-03T11:54:34.680Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前在 Windows 里用 vmware workstation 搭了个黑裙，然后硬盘直通，硬盘跑着倒还好，但是宿主机 Windows 隔一段时间就会重启，就去搜索了下，发现其实 Windows 里的事件查看器就有点像是 Linux 系统里的 dmesg 或者</summary>
-        
-      
-    
-    
-    
-    <category term="Windows" scheme="https://nicksxs.me/categories/Windows/"/>
-    
-    <category term="小技巧" scheme="https://nicksxs.me/categories/Windows/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="Windows" scheme="https://nicksxs.me/tags/Windows/"/>
     
   </entry>
   
