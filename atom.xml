@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-04-14T11:45:29.648Z</updated>
+  <updated>2024-04-21T14:00:56.800Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学习下LlamaIndex-初始篇</title>
+    <link href="https://nicksxs.me/2024/04/21/%E5%AD%A6%E4%B9%A0%E4%B8%8BLlamaIndex-%E5%88%9D%E5%A7%8B%E7%AF%87/"/>
+    <id>https://nicksxs.me/2024/04/21/%E5%AD%A6%E4%B9%A0%E4%B8%8BLlamaIndex-%E5%88%9D%E5%A7%8B%E7%AF%87/</id>
+    <published>2024-04-21T14:00:56.000Z</published>
+    <updated>2024-04-21T14:00:56.800Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;LlamaIndex 是目前比较新的大模型RAG框架，RAG是指 检索增强生成 (Retrieval-Augmented Generation, RAG)是指在利用大语言模型回答问题之前，先从外部知识库检索相关信息。RAG</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>Headscale下篇-自定义中转derper</title>
@@ -316,9 +341,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -347,9 +372,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -496,40 +521,6 @@
         
         
     <summary type="html">&lt;p&gt;最近同学在把 springboot 升级到 2.x</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/categories/Java/SpringBoot/"/>
-    
-    <category term="Tomcat" scheme="https://nicksxs.me/categories/Java/SpringBoot/Tomcat/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Tomcat" scheme="https://nicksxs.me/tags/Tomcat/"/>
-    
-    <category term="SpringBoot" scheme="https://nicksxs.me/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Tomcat 系列篇十一-介绍下 Tomcat 里的后台处理和热加载</title>
-    <link href="https://nicksxs.me/2023/12/10/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%8D%81%E4%B8%80-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Tomcat-%E9%87%8C%E7%9A%84%E5%90%8E%E5%8F%B0%E5%A4%84%E7%90%86%E5%92%8C%E7%83%AD%E5%8A%A0%E8%BD%BD/"/>
-    <id>https://nicksxs.me/2023/12/10/Tomcat-%E7%B3%BB%E5%88%97%E7%AF%87%E5%8D%81%E4%B8%80-%E4%BB%8B%E7%BB%8D%E4%B8%8B-Tomcat-%E9%87%8C%E7%9A%84%E5%90%8E%E5%8F%B0%E5%A4%84%E7%90%86%E5%92%8C%E7%83%AD%E5%8A%A0%E8%BD%BD/</id>
-    <published>2023-12-10T12:28:28.000Z</published>
-    <updated>2023-12-10T12:28:28.303Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这部分其实之前在讲线程池的时候也有点带到了， 主要是在这个类里&lt;br&gt;&lt;code&gt;org.apache.catalina.core.ContainerBase.ContainerBackgroundProcessor&lt;/code&gt;&lt;/p&gt;
-&lt;figure</summary>
         
       
     
