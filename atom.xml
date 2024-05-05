@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-04-28T12:37:08.961Z</updated>
+  <updated>2024-05-05T14:23:42.858Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>折腾记-讲一下iptables的一个小问题</title>
+    <link href="https://nicksxs.me/2024/05/05/%E6%8A%98%E8%85%BE%E8%AE%B0-%E8%AE%B2%E4%B8%80%E4%B8%8Biptables%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E9%97%AE%E9%A2%98/"/>
+    <id>https://nicksxs.me/2024/05/05/%E6%8A%98%E8%85%BE%E8%AE%B0-%E8%AE%B2%E4%B8%80%E4%B8%8Biptables%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E9%97%AE%E9%A2%98/</id>
+    <published>2024-05-05T14:23:42.000Z</published>
+    <updated>2024-05-05T14:23:42.858Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;很早之前就有用过iptables，那时候是早期版本的Ubuntu系统，配置防火墙的时候，是挺复杂的，就是在reject之前添加accept规则，并且当时很多网上资料都是在后续添加就行，这个其实在当时是有问题的，所以比较印象深刻。&lt;br&gt;这次碰到的问题是对iptables的概</summary>
+        
+      
+    
+    
+    
+    <category term="折腾" scheme="https://nicksxs.me/categories/%E6%8A%98%E8%85%BE/"/>
+    
+    
+    <category term="折腾" scheme="https://nicksxs.me/tags/%E6%8A%98%E8%85%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>折腾记-给玩客云装上casaos</title>
@@ -366,9 +391,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -397,9 +422,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -505,31 +530,6 @@
     
     
     <category term="php" scheme="https://nicksxs.me/tags/php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>阿里云 rds 主从延迟排查</title>
-    <link href="https://nicksxs.me/2023/12/24/%E9%98%BF%E9%87%8C%E4%BA%91-rds-%E4%B8%BB%E4%BB%8E%E5%BB%B6%E8%BF%9F%E6%8E%92%E6%9F%A5/"/>
-    <id>https://nicksxs.me/2023/12/24/%E9%98%BF%E9%87%8C%E4%BA%91-rds-%E4%B8%BB%E4%BB%8E%E5%BB%B6%E8%BF%9F%E6%8E%92%E6%9F%A5/</id>
-    <published>2023-12-24T12:48:08.000Z</published>
-    <updated>2023-12-24T12:48:08.804Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;昨天同学问我是不是数据库主从延迟有点高，可能有一分多钟，然后我就去看了rds 的监控，发现主实例上的监控显示的延迟才 1.2 秒，而且是最高 1.2 秒，感觉这样的话应该就没啥问题，然后同学跟我说他加了日志，大致的逻辑是主库数据落库以后就会发一条 mq</summary>
-        
-      
-    
-    
-    
-    <category term="Mysql" scheme="https://nicksxs.me/categories/Mysql/"/>
-    
-    
-    <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
     
   </entry>
   
