@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-05-05T14:23:42.858Z</updated>
+  <updated>2024-05-06T07:32:20.800Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode 31 Next Permutation 题解分析</title>
+    <link href="https://nicksxs.me/2024/05/06/Leetcode-31-Next-Permutation-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
+    <id>https://nicksxs.me/2024/05/06/Leetcode-31-Next-Permutation-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
+    <published>2024-05-06T07:32:20.000Z</published>
+    <updated>2024-05-06T07:32:20.800Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这题的题目介绍有一定的误导性，没有把字典序说明白，虽然的确是常规意义的字典序，但是题目介绍给的序列顺序反而会让人觉得那样不对&lt;br&gt;这里我们逐步深入地来讲这个题，也类似于找规律&lt;br&gt;注意：这里的递减递增序列都是从前往后看的&lt;br&gt;字典序可以就当查字典，或者默认的字符串排序</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
+    
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
+    
+  </entry>
   
   <entry>
     <title>折腾记-讲一下iptables的一个小问题</title>
@@ -391,9 +422,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
     <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -422,9 +453,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
     <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -503,33 +534,6 @@
     
     
     <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>php 的调试方法-查看调用堆栈</title>
-    <link href="https://nicksxs.me/2023/12/31/php-%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95-%E6%9F%A5%E7%9C%8B%E8%B0%83%E7%94%A8%E5%A0%86%E6%A0%88/"/>
-    <id>https://nicksxs.me/2023/12/31/php-%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95-%E6%9F%A5%E7%9C%8B%E8%B0%83%E7%94%A8%E5%A0%86%E6%A0%88/</id>
-    <published>2023-12-31T13:49:36.000Z</published>
-    <updated>2023-12-31T13:52:02.249Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;php 代码调试里的神器就是 &lt;code&gt;echo 111;exit;&lt;/code&gt;  但是对于使用了接口和继承比较多的话，有时候比较难找，可能定位到了一段代码但是不知道怎么调用过来的，这时候就可以用这个方法&lt;/p&gt;
-&lt;p&gt;总结下来有三种，&lt;/p&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
-    
-    
-    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
     
   </entry>
   
