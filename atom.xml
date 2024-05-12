@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-05-06T07:32:20.800Z</updated>
+  <updated>2024-05-12T15:30:44.115Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>远程桌面工具rustdesk的私有化部署</title>
+    <link href="https://nicksxs.me/2024/05/12/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%B7%A5%E5%85%B7rustdesk%E7%9A%84%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
+    <id>https://nicksxs.me/2024/05/12/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%B7%A5%E5%85%B7rustdesk%E7%9A%84%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/</id>
+    <published>2024-05-12T15:30:44.000Z</published>
+    <updated>2024-05-12T15:30:44.115Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近因为利用rustdesk远程操作诈骗太多，所以rustdesk官方直接关闭了国内的公有服务，相对其他比如teamviewer来说，rustdesk还是个比较不错的选择，性能考量也过得去，相对来说在双方都是mac的情况下，不付费的体验来说，比自带的vnc好了很多，vnc目</summary>
+        
+      
+    
+    
+    
+    <category term="工具" scheme="https://nicksxs.me/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="工具" scheme="https://nicksxs.me/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>Leetcode 31 Next Permutation 题解分析</title>
@@ -500,31 +525,6 @@
         
     <summary type="html">&lt;p&gt;log 初始化过程，首先是在启动类里会获取 logger&lt;/p&gt;
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊一下 Java 的日志系列一</title>
-    <link href="https://nicksxs.me/2024/01/07/%E8%81%8A%E4%B8%80%E4%B8%8B-Java-%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E5%88%97%E4%B8%80/"/>
-    <id>https://nicksxs.me/2024/01/07/%E8%81%8A%E4%B8%80%E4%B8%8B-Java-%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E5%88%97%E4%B8%80/</id>
-    <published>2024-01-07T14:30:23.000Z</published>
-    <updated>2024-01-22T08:05:23.637Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们在使用 Java 的日志库的时候，比如我们现在项目在用的</summary>
         
       
     
