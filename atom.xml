@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-05-19T14:34:19.669Z</updated>
+  <updated>2024-05-26T15:32:56.056Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Headscale渐入佳境补充篇-自定义中转derper的证书问题</title>
+    <link href="https://nicksxs.me/2024/05/26/Headscale%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83%E8%A1%A5%E5%85%85%E7%AF%87-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E8%BD%ACderper%E7%9A%84%E8%AF%81%E4%B9%A6%E9%97%AE%E9%A2%98/"/>
+    <id>https://nicksxs.me/2024/05/26/Headscale%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83%E8%A1%A5%E5%85%85%E7%AF%87-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E8%BD%ACderper%E7%9A%84%E8%AF%81%E4%B9%A6%E9%97%AE%E9%A2%98/</id>
+    <published>2024-05-26T15:32:56.000Z</published>
+    <updated>2024-05-26T15:32:56.056Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前自定义部署的derper在Mac端和Windows使用时没啥问题，但是在我想作为网关的Armbian小机器上一直会报 “x509: certificate signed by unknown</summary>
+        
+      
+    
+    
+    
+    <category term="headscale" scheme="https://nicksxs.me/categories/headscale/"/>
+    
+    
+    <category term="headscale" scheme="https://nicksxs.me/tags/headscale/"/>
+    
+  </entry>
   
   <entry>
     <title>远程桌面工具rustdesk的私有化部署-mac锁定问题</title>
@@ -89,9 +114,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -472,9 +497,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -503,36 +528,11 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊一下 Java 的日志系列三</title>
-    <link href="https://nicksxs.me/2024/01/21/%E8%81%8A%E4%B8%80%E4%B8%8B-Java-%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E5%88%97%E4%B8%89/"/>
-    <id>https://nicksxs.me/2024/01/21/%E8%81%8A%E4%B8%80%E4%B8%8B-Java-%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E5%88%97%E4%B8%89/</id>
-    <published>2024-01-21T02:52:44.000Z</published>
-    <updated>2024-01-21T02:52:44.047Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上周因为一些事情没有更新在这里，是因为新电脑还没到，手头没有把移动硬盘里的 time machine 恢复出来的机器，所以单独更了一篇在新建的一个 cloudflare page 服务上，总体体验还可以，就是有个小点后面可以讲一下，继续完善下 Java</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
   </entry>
   
