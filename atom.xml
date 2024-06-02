@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-05-26T15:32:56.056Z</updated>
+  <updated>2024-06-02T15:32:28.739Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>给局域网中的Ubuntu固定下ip</title>
+    <link href="https://nicksxs.me/2024/06/02/%E7%BB%99%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%AD%E7%9A%84Ubuntu%E5%9B%BA%E5%AE%9A%E4%B8%8Bip/"/>
+    <id>https://nicksxs.me/2024/06/02/%E7%BB%99%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%AD%E7%9A%84Ubuntu%E5%9B%BA%E5%AE%9A%E4%B8%8Bip/</id>
+    <published>2024-06-02T15:32:18.000Z</published>
+    <updated>2024-06-02T15:32:28.739Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;将一个小点，在局域网中包括类似于homelab的或者仅仅只是搭一个用来当实验环境的，在局域网内机器比较少的时候大部分DHCP会给分配相同的ip，但是这不是一定的，当机器比较多，并且上下线比较频繁时就会出现ip地址变动，这对于一些使用场景比较讨厌，所以我想把ip固定下来，先简</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="https://nicksxs.me/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="https://nicksxs.me/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>Headscale渐入佳境补充篇-自定义中转derper的证书问题</title>
@@ -114,9 +139,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
     <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -497,40 +522,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
     <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
-    <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode 25 Reverse Nodes in k-Group 题解分析-再解分析</title>
-    <link href="https://nicksxs.me/2024/01/21/Leetcode-25-Reverse-Nodes-in-k-Group-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/"/>
-    <id>https://nicksxs.me/2024/01/21/Leetcode-25-Reverse-Nodes-in-k-Group-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</id>
-    <published>2024-01-21T07:09:47.000Z</published>
-    <updated>2024-01-21T07:22:30.416Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上一次主要是给了一个解题方案，没有具体讲解，这次又做到了就来看下几种方案，链表转置一直是我比较疑惑的问题，特别是边界处理，而这个问题要把难度加大了&lt;br&gt;我先讲一下我一开始的思路和解题方法，首先就是写一个转置方法，就处理 k</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
-    
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
