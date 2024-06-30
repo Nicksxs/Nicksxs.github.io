@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-06-23T15:12:40.321Z</updated>
+  <updated>2024-06-30T14:18:06.043Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>介绍一下Java的BiFunction</title>
+    <link href="https://nicksxs.me/2024/06/30/%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8BJava%E7%9A%84BiFunction/"/>
+    <id>https://nicksxs.me/2024/06/30/%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8BJava%E7%9A%84BiFunction/</id>
+    <published>2024-06-30T14:17:35.000Z</published>
+    <updated>2024-06-30T14:18:06.043Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;java的函数式接口是java8引入的很重要的特性，也让日常代码有了比较大的风格转变&lt;br&gt;这里介绍下BiFunction，&lt;br&gt;BiFunction的代码很短&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="stream" scheme="https://nicksxs.me/tags/stream/"/>
+    
+  </entry>
   
   <entry>
     <title>向量数据库学习-介绍一下HNSW算法</title>
@@ -215,9 +243,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -487,31 +515,6 @@
         
         
     <summary type="html">&lt;p&gt;第三篇我们要来讲下 Worker 这个“打工人”，线程池里实际在干活的同学&lt;br&gt;Worker 实现了 Runnable 接口，所以在前面介绍的 &lt;code&gt;addWorker&lt;/code&gt; 中&lt;br&gt;线程启动其实就调用了下面的 run 方法，而 run</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java 线程池系列-第二篇</title>
-    <link href="https://nicksxs.me/2024/02/18/Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%B3%BB%E5%88%97-%E7%AC%AC%E4%BA%8C%E7%AF%87/"/>
-    <id>https://nicksxs.me/2024/02/18/Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%B3%BB%E5%88%97-%E7%AC%AC%E4%BA%8C%E7%AF%87/</id>
-    <published>2024-02-18T10:47:52.000Z</published>
-    <updated>2024-02-18T10:47:52.382Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;介绍了线程池的目的和实现概述，以及如何初始化的，我们就来开始看看线程池最重要的执行过程&lt;br&gt;老规矩，还是先把注释翻译下，这个对理解逻辑其实非常重要，后面可以循着注释的逻辑来看代码&lt;br&gt;第一步，如果是少于核心线程数的线程正在运行，那么尝试去开启一个新线程，并把提交的命令&lt;</summary>
         
       
     
