@@ -280,4 +280,5 @@
 {"title":"介绍一下Java的BiFunction","url":"/2024/06/30/介绍一下Java的BiFunction/"},
 {"title":"聊一下 Spring 的 SmartLifecycle 使用","url":"/2024/07/07/聊一下-Spring-的-SmarLifecycle-使用/"},
 {"title":"聊一下 Linux 中 dmesg 跟 journal 的差别","url":"/2024/07/14/聊一下-Linux-中-dmesg-跟-journal-的差别/"},
+{"title":"向量数据库 Milvus 安装初体验","url":"/2024/07/21/向量数据库-Milvus-安装初体验/"},
 ]
