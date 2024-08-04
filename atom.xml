@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-07-28T08:41:03.283Z</updated>
+  <updated>2024-08-04T09:49:14.683Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>使用milvus和towhee实现简陋版的以图搜图</title>
+    <link href="https://nicksxs.me/2024/08/04/%E4%BD%BF%E7%94%A8milvus%E5%92%8Ctowhee%E5%AE%9E%E7%8E%B0%E7%AE%80%E9%99%8B%E7%89%88%E7%9A%84%E4%BB%A5%E5%9B%BE%E6%90%9C%E5%9B%BE/"/>
+    <id>https://nicksxs.me/2024/08/04/%E4%BD%BF%E7%94%A8milvus%E5%92%8Ctowhee%E5%AE%9E%E7%8E%B0%E7%AE%80%E9%99%8B%E7%89%88%E7%9A%84%E4%BB%A5%E5%9B%BE%E6%90%9C%E5%9B%BE/</id>
+    <published>2024-08-04T09:49:14.000Z</published>
+    <updated>2024-08-04T09:49:14.683Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上次我们尝试用 &lt;code&gt;towhee&lt;/code&gt; 跟 &lt;code&gt;milvus&lt;/code&gt; 实现了图片的向量化，那么顺势我们就能在这个基础上实现以图搜图&lt;br&gt;首先我们找一些图片，&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="算法" scheme="https://nicksxs.me/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="算法" scheme="https://nicksxs.me/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>尝试下图片向量化</title>
     <link href="https://nicksxs.me/2024/07/28/%E5%B0%9D%E8%AF%95%E4%B8%8B%E5%9B%BE%E7%89%87%E5%90%91%E9%87%8F%E5%8C%96/"/>
     <id>https://nicksxs.me/2024/07/28/%E5%B0%9D%E8%AF%95%E4%B8%8B%E5%9B%BE%E7%89%87%E5%90%91%E9%87%8F%E5%8C%96/</id>
     <published>2024-07-28T08:41:03.000Z</published>
-    <updated>2024-07-28T08:41:03.283Z</updated>
+    <updated>2024-08-04T09:48:43.528Z</updated>
     
     
       
@@ -499,31 +524,6 @@
     
     
     <category term="折腾" scheme="https://nicksxs.me/tags/%E6%8A%98%E8%85%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>用 ollama 本地运行谷歌开源大模型 Gemma</title>
-    <link href="https://nicksxs.me/2024/03/24/%E7%94%A8-ollama-%E6%9C%AC%E5%9C%B0%E8%BF%90%E8%A1%8C%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
-    <id>https://nicksxs.me/2024/03/24/%E7%94%A8-ollama-%E6%9C%AC%E5%9C%B0%E8%BF%90%E8%A1%8C%E5%A4%A7%E6%A8%A1%E5%9E%8B/</id>
-    <published>2024-03-24T12:51:05.000Z</published>
-    <updated>2024-03-24T13:02:44.422Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;原先在 23 年初的时候调研过一些国产的大模型，包括复旦开源的 MOSS 和清华的 ChatGLM，那时候还是早期版本，需要在 Linux 上，并且有比较好的显卡，而且一般来讲都得是 N 卡，过程中需要安装</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
