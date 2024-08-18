@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-08-11T11:11:12.194Z</updated>
+  <updated>2024-08-18T05:21:57.716Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>体验下Java 21的虚拟线程-协程</title>
+    <link href="https://nicksxs.me/2024/08/18/%E4%BD%93%E9%AA%8C%E4%B8%8BJava-21%E7%9A%84%E8%99%9A%E6%8B%9F%E7%BA%BF%E7%A8%8B-%E5%8D%8F%E7%A8%8B/"/>
+    <id>https://nicksxs.me/2024/08/18/%E4%BD%93%E9%AA%8C%E4%B8%8BJava-21%E7%9A%84%E8%99%9A%E6%8B%9F%E7%BA%BF%E7%A8%8B-%E5%8D%8F%E7%A8%8B/</id>
+    <published>2024-08-18T05:21:57.000Z</published>
+    <updated>2024-08-18T05:21:57.716Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Java在后续版本中添加了虚拟线程，也是类似于php跟go的协程，对应操作系统的线程是在线程基础上模拟了一层子线程的逻辑，因为减少了操作系统的线程上下文切换开销，能够在常规业务场景带了比较大的性能提升，但也并非银弹，不能包治百病&lt;br&gt;首先安装下jdk 21 版本，需要用</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>一个经典的fastjson反序列化问题记录</title>
@@ -395,9 +420,9 @@
     <category term="leetcode" scheme="https://nicksxs.me/categories/Java/leetcode/"/>
     
     
-    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
-    
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="leetcode" scheme="https://nicksxs.me/tags/leetcode/"/>
     
     <category term="题解" scheme="https://nicksxs.me/tags/%E9%A2%98%E8%A7%A3/"/>
     
@@ -491,31 +516,6 @@
         
         
     <summary type="html">&lt;p&gt;derper是 tailscale 已经开源的 tailscale 中转服务，可以进行自己搭建，不然就是使用 tailscale 提供的 derper</summary>
-        
-      
-    
-    
-    
-    <category term="headscale" scheme="https://nicksxs.me/categories/headscale/"/>
-    
-    
-    <category term="headscale" scheme="https://nicksxs.me/tags/headscale/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Headscale渐入佳境-路由设置</title>
-    <link href="https://nicksxs.me/2024/04/07/Headscale%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83-%E8%B7%AF%E7%94%B1%E8%AE%BE%E7%BD%AE/"/>
-    <id>https://nicksxs.me/2024/04/07/Headscale%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83-%E8%B7%AF%E7%94%B1%E8%AE%BE%E7%BD%AE/</id>
-    <published>2024-04-07T12:36:45.000Z</published>
-    <updated>2024-04-07T12:36:45.844Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;code&gt;headscale&lt;/code&gt; 在前面两篇&lt;a</summary>
         
       
     
