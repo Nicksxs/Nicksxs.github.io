@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-08-18T05:21:57.716Z</updated>
+  <updated>2024-08-27T14:18:12.435Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊下apollo配置中心的接入</title>
+    <link href="https://nicksxs.me/2024/08/25/%E8%81%8A%E4%B8%8Bapollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E7%9A%84%E6%8E%A5%E5%85%A5/"/>
+    <id>https://nicksxs.me/2024/08/25/%E8%81%8A%E4%B8%8Bapollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E7%9A%84%E6%8E%A5%E5%85%A5/</id>
+    <published>2024-08-25T14:17:48.000Z</published>
+    <updated>2024-08-27T14:18:12.435Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;很多技术栈在优化过程中都会有更便捷的接入方式，或者接入demo，这次想拿apollo来对比一些例如向量数据库的部署方式，对我说的就是milvus，&lt;br&gt;apollo如果生产环境部署完全不推荐用这种方式，但是如果为了做个实验，研究下源码还是很方便的，当然前提是有docker</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Apollo" scheme="https://nicksxs.me/tags/Apollo/"/>
+    
+  </entry>
   
   <entry>
     <title>体验下Java 21的虚拟线程-协程</title>
@@ -500,31 +527,6 @@
     
     
     <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Headscale下篇-自定义中转derper</title>
-    <link href="https://nicksxs.me/2024/04/14/Headscale%E4%B8%8B%E7%AF%87-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E8%BD%ACderper/"/>
-    <id>https://nicksxs.me/2024/04/14/Headscale%E4%B8%8B%E7%AF%87-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E8%BD%ACderper/</id>
-    <published>2024-04-14T11:45:29.000Z</published>
-    <updated>2024-04-14T11:45:29.648Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;derper是 tailscale 已经开源的 tailscale 中转服务，可以进行自己搭建，不然就是使用 tailscale 提供的 derper</summary>
-        
-      
-    
-    
-    
-    <category term="headscale" scheme="https://nicksxs.me/categories/headscale/"/>
-    
-    
-    <category term="headscale" scheme="https://nicksxs.me/tags/headscale/"/>
     
   </entry>
   
