@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-08-27T14:18:12.435Z</updated>
+  <updated>2024-09-01T01:02:51.406Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>一个Java类型的小问题记录</title>
+    <link href="https://nicksxs.me/2024/09/01/%E4%B8%80%E4%B8%AAJava%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    <id>https://nicksxs.me/2024/09/01/%E4%B8%80%E4%B8%AAJava%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</id>
+    <published>2024-09-01T01:00:09.000Z</published>
+    <updated>2024-09-01T01:02:51.406Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近发现一个小问题，感觉挺有意思，我们来看下代码&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>聊下apollo配置中心的接入</title>
     <link href="https://nicksxs.me/2024/08/25/%E8%81%8A%E4%B8%8Bapollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E7%9A%84%E6%8E%A5%E5%85%A5/"/>
     <id>https://nicksxs.me/2024/08/25/%E8%81%8A%E4%B8%8Bapollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E7%9A%84%E6%8E%A5%E5%85%A5/</id>
     <published>2024-08-25T14:17:48.000Z</published>
-    <updated>2024-08-27T14:18:12.435Z</updated>
+    <updated>2024-08-31T06:23:55.929Z</updated>
     
     
       
@@ -502,31 +528,6 @@
     
     
     <category term="折腾" scheme="https://nicksxs.me/tags/%E6%8A%98%E8%85%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学习下LlamaIndex-初始篇</title>
-    <link href="https://nicksxs.me/2024/04/21/%E5%AD%A6%E4%B9%A0%E4%B8%8BLlamaIndex-%E5%88%9D%E5%A7%8B%E7%AF%87/"/>
-    <id>https://nicksxs.me/2024/04/21/%E5%AD%A6%E4%B9%A0%E4%B8%8BLlamaIndex-%E5%88%9D%E5%A7%8B%E7%AF%87/</id>
-    <published>2024-04-21T14:00:56.000Z</published>
-    <updated>2024-04-21T14:00:56.800Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;LlamaIndex 是目前比较新的大模型RAG框架，RAG是指 检索增强生成 (Retrieval-Augmented Generation, RAG)是指在利用大语言模型回答问题之前，先从外部知识库检索相关信息。RAG</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
