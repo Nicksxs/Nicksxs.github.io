@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-09-01T01:02:51.406Z</updated>
+  <updated>2024-09-08T08:44:48.505Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>用netty实现一个简单的http server</title>
+    <link href="https://nicksxs.me/2024/09/08/%E7%94%A8netty%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84http-server/"/>
+    <id>https://nicksxs.me/2024/09/08/%E7%94%A8netty%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84http-server/</id>
+    <published>2024-09-08T08:43:58.000Z</published>
+    <updated>2024-09-08T08:44:48.505Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;netty是java网络框架中非常有名，因为它把各种网络类型，阻塞非阻塞的都做了上层的抽象，非常值得学习，这边就先以一个简单的http server来做下实践，&lt;br&gt;主体的server代码&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>一个Java类型的小问题记录</title>
@@ -494,31 +520,6 @@
         
         
     <summary type="html">&lt;p&gt;很早之前就有用过iptables，那时候是早期版本的Ubuntu系统，配置防火墙的时候，是挺复杂的，就是在reject之前添加accept规则，并且当时很多网上资料都是在后续添加就行，这个其实在当时是有问题的，所以比较印象深刻。&lt;br&gt;这次碰到的问题是对iptables的概</summary>
-        
-      
-    
-    
-    
-    <category term="折腾" scheme="https://nicksxs.me/categories/%E6%8A%98%E8%85%BE/"/>
-    
-    
-    <category term="折腾" scheme="https://nicksxs.me/tags/%E6%8A%98%E8%85%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>折腾记-给玩客云装上casaos</title>
-    <link href="https://nicksxs.me/2024/04/28/%E6%8A%98%E8%85%BE%E8%AE%B0-%E7%BB%99%E7%8E%A9%E5%AE%A2%E4%BA%91%E8%A3%85%E4%B8%8Acasaos/"/>
-    <id>https://nicksxs.me/2024/04/28/%E6%8A%98%E8%85%BE%E8%AE%B0-%E7%BB%99%E7%8E%A9%E5%AE%A2%E4%BA%91%E8%A3%85%E4%B8%8Acasaos/</id>
-    <published>2024-04-28T12:37:08.000Z</published>
-    <updated>2024-04-28T12:37:08.961Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;玩客云-casaos&quot;&gt;&lt;a href=&quot;#玩客云-casaos&quot; class=&quot;headerlink&quot; title=&quot;玩客云 casaos&quot;&gt;&lt;/a&gt;玩客云</summary>
         
       
     
