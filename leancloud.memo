@@ -287,4 +287,5 @@
 {"title":"体验下Java 21的虚拟线程-协程","url":"/2024/08/18/体验下Java-21的虚拟线程-协程/"},
 {"title":"聊下apollo配置中心的接入","url":"/2024/08/25/聊下apollo配置中心的接入/"},
 {"title":"一个Java类型的小问题记录","url":"/2024/09/01/一个Java类型的小问题记录/"},
+{"title":"用netty实现一个简单的http server","url":"/2024/09/08/用netty实现一个简单的http-server/"},
 ]
