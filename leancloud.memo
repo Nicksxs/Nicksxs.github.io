@@ -288,4 +288,5 @@
 {"title":"聊下apollo配置中心的接入","url":"/2024/08/25/聊下apollo配置中心的接入/"},
 {"title":"一个Java类型的小问题记录","url":"/2024/09/01/一个Java类型的小问题记录/"},
 {"title":"用netty实现一个简单的http server","url":"/2024/09/08/用netty实现一个简单的http-server/"},
+{"title":"用netty实现一个简单的http server-深入理解下","url":"/2024/09/15/用netty实现一个简单的http-server-深入理解下/"},
 ]
