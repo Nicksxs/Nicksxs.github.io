@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-09-22T07:10:14.824Z</updated>
+  <updated>2024-09-28T10:17:27.947Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>小技巧-用iptables统计网速占用</title>
+    <link href="https://nicksxs.me/2024/09/28/%E5%B0%8F%E6%8A%80%E5%B7%A7-%E7%94%A8iptables%E7%BB%9F%E8%AE%A1%E7%BD%91%E9%80%9F%E5%8D%A0%E7%94%A8/"/>
+    <id>https://nicksxs.me/2024/09/28/%E5%B0%8F%E6%8A%80%E5%B7%A7-%E7%94%A8iptables%E7%BB%9F%E8%AE%A1%E7%BD%91%E9%80%9F%E5%8D%A0%E7%94%A8/</id>
+    <published>2024-09-28T10:16:35.000Z</published>
+    <updated>2024-09-28T10:17:27.947Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;目前我在家里用的路由器是个装了ImmortalWrt的NX30 Pro路由器，由于内存只有256兆，默认没带网速统计和限制网速的插件，对于网络速度限制就有点困难，刚好这次网上找到了一个可以用iptables统计网速的脚本，简单记录下&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="小技巧" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
   
   <entry>
     <title>小技巧之-安卓终端工具Termux访问手机文件</title>
@@ -489,31 +515,6 @@
         
         
     <summary type="html">&lt;p&gt;上次分享了rustdesk如何私有化部署，但是在实际使用中存在一个小问题，就是如果被连接端是mac的话，在mac进入超时自动锁定或者被主动锁定之后，连接就会进入一个“已连接，等待画面传输”的状态，但实际后续并不会传输画面，而是继续卡在这个无法实际连接的状态&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="工具" scheme="https://nicksxs.me/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-    <category term="工具" scheme="https://nicksxs.me/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>远程桌面工具rustdesk的私有化部署</title>
-    <link href="https://nicksxs.me/2024/05/12/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%B7%A5%E5%85%B7rustdesk%E7%9A%84%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
-    <id>https://nicksxs.me/2024/05/12/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%B7%A5%E5%85%B7rustdesk%E7%9A%84%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/</id>
-    <published>2024-05-12T15:30:44.000Z</published>
-    <updated>2024-05-12T15:30:44.115Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近因为利用rustdesk远程操作诈骗太多，所以rustdesk官方直接关闭了国内的公有服务，相对其他比如teamviewer来说，rustdesk还是个比较不错的选择，性能考量也过得去，相对来说在双方都是mac的情况下，不付费的体验来说，比自带的vnc好了很多，vnc目</summary>
         
       
     
