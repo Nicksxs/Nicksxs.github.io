@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-10-06T13:42:37.286Z</updated>
+  <updated>2024-10-13T08:45:51.253Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>不一劳永逸的临时docker镜像拉取解决办法</title>
+    <link href="https://nicksxs.me/2024/10/13/%E4%B8%8D%E4%B8%80%E5%8A%B3%E6%B0%B8%E9%80%B8%E7%9A%84%E4%B8%B4%E6%97%B6docker%E9%95%9C%E5%83%8F%E6%8B%89%E5%8F%96%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
+    <id>https://nicksxs.me/2024/10/13/%E4%B8%8D%E4%B8%80%E5%8A%B3%E6%B0%B8%E9%80%B8%E7%9A%84%E4%B8%B4%E6%97%B6docker%E9%95%9C%E5%83%8F%E6%8B%89%E5%8F%96%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</id>
+    <published>2024-10-13T08:43:46.000Z</published>
+    <updated>2024-10-13T08:45:51.253Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;docker镜像拉取目前是个大问题，前阵子出现了比较大规模的封禁，导致很多原有的方案无法使用，其中包括阿里云的私有镜像地址，导致我折腾了半天&lt;br&gt;本来是可以在</summary>
+        
+      
+    
+    
+    
+    <category term="Docker" scheme="https://nicksxs.me/categories/Docker/"/>
+    
+    
+    <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>基于Caddy的快速反向代理</title>
@@ -500,31 +525,6 @@
     
     
     <category term="linux" scheme="https://nicksxs.me/tags/linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Headscale渐入佳境补充篇-自定义中转derper的证书问题</title>
-    <link href="https://nicksxs.me/2024/05/26/Headscale%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83%E8%A1%A5%E5%85%85%E7%AF%87-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E8%BD%ACderper%E7%9A%84%E8%AF%81%E4%B9%A6%E9%97%AE%E9%A2%98/"/>
-    <id>https://nicksxs.me/2024/05/26/Headscale%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83%E8%A1%A5%E5%85%85%E7%AF%87-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E8%BD%ACderper%E7%9A%84%E8%AF%81%E4%B9%A6%E9%97%AE%E9%A2%98/</id>
-    <published>2024-05-26T15:32:56.000Z</published>
-    <updated>2024-05-26T15:32:56.056Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前自定义部署的derper在Mac端和Windows使用时没啥问题，但是在我想作为网关的Armbian小机器上一直会报 “x509: certificate signed by unknown</summary>
-        
-      
-    
-    
-    
-    <category term="headscale" scheme="https://nicksxs.me/categories/headscale/"/>
-    
-    
-    <category term="headscale" scheme="https://nicksxs.me/tags/headscale/"/>
     
   </entry>
   

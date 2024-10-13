@@ -291,4 +291,5 @@
 {"title":"用netty实现一个简单的http server-深入理解下","url":"/2024/09/15/用netty实现一个简单的http-server-深入理解下/"},
 {"title":"小技巧之-安卓终端工具Termux访问手机文件","url":"/2024/09/22/小技巧之-安卓终端工具Termux访问手机文件/"},
 {"title":"小技巧-用iptables统计网速占用","url":"/2024/09/28/小技巧-用iptables统计网速占用/"},
+{"title":"基于Caddy的快速反向代理","url":"/2024/10/06/基于Caddy的快速反向代理/"},
 ]
