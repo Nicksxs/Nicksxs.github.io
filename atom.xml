@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-10-13T08:45:51.253Z</updated>
+  <updated>2024-10-20T08:09:24.915Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Headscale渐入佳境补充篇-自定义中转derper使用反向代理</title>
+    <link href="https://nicksxs.me/2024/10/20/Headscale%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83%E8%A1%A5%E5%85%85%E7%AF%87-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E8%BD%ACderper%E4%BD%BF%E7%94%A8%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
+    <id>https://nicksxs.me/2024/10/20/Headscale%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83%E8%A1%A5%E5%85%85%E7%AF%87-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E8%BD%ACderper%E4%BD%BF%E7%94%A8%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</id>
+    <published>2024-10-20T08:09:24.000Z</published>
+    <updated>2024-10-20T08:09:24.915Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前在使用headscale的自建derper中转的时候，因为使用了acme管理的证书，虽然acme会自动续期，但是由于证书要做转换，没办法很方便的自动更新derper中映射的证书，因为最近在尝试迁移服务器，就在寻找是否有新的方法，正好就结合前面使用的&lt;code&gt;caddy</summary>
+        
+      
+    
+    
+    
+    <category term="headscale" scheme="https://nicksxs.me/categories/headscale/"/>
+    
+    
+    <category term="headscale" scheme="https://nicksxs.me/tags/headscale/"/>
+    
+  </entry>
   
   <entry>
     <title>不一劳永逸的临时docker镜像拉取解决办法</title>
@@ -500,31 +525,6 @@
     
     
     <category term="算法" scheme="https://nicksxs.me/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>给局域网中的Ubuntu固定下ip</title>
-    <link href="https://nicksxs.me/2024/06/02/%E7%BB%99%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%AD%E7%9A%84Ubuntu%E5%9B%BA%E5%AE%9A%E4%B8%8Bip/"/>
-    <id>https://nicksxs.me/2024/06/02/%E7%BB%99%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%AD%E7%9A%84Ubuntu%E5%9B%BA%E5%AE%9A%E4%B8%8Bip/</id>
-    <published>2024-06-02T15:32:18.000Z</published>
-    <updated>2024-06-02T15:32:28.739Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;将一个小点，在局域网中包括类似于homelab的或者仅仅只是搭一个用来当实验环境的，在局域网内机器比较少的时候大部分DHCP会给分配相同的ip，但是这不是一定的，当机器比较多，并且上下线比较频繁时就会出现ip地址变动，这对于一些使用场景比较讨厌，所以我想把ip固定下来，先简</summary>
-        
-      
-    
-    
-    
-    <category term="linux" scheme="https://nicksxs.me/categories/linux/"/>
-    
-    
-    <category term="linux" scheme="https://nicksxs.me/tags/linux/"/>
     
   </entry>
   
