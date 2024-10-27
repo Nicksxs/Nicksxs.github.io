@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-10-20T08:09:24.915Z</updated>
+  <updated>2024-10-27T13:05:19.842Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git小技巧之git stash</title>
+    <link href="https://nicksxs.me/2024/10/27/git%E5%B0%8F%E6%8A%80%E5%B7%A7%E4%B9%8Bgit-stash/"/>
+    <id>https://nicksxs.me/2024/10/27/git%E5%B0%8F%E6%8A%80%E5%B7%A7%E4%B9%8Bgit-stash/</id>
+    <published>2024-10-27T13:05:19.000Z</published>
+    <updated>2024-10-27T13:05:19.842Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我们日常开发包括我自用的小工具也在用git管理&lt;br&gt;在使用git的过程中经常有个场景是我在A分支上开发了一部分，临时需要切换到B分支，又不想先把这部分代码提交，因为还没开发完，&lt;br&gt;这是用&lt;code&gt;git</summary>
+        
+      
+    
+    
+    
+    <category term="git" scheme="https://nicksxs.me/categories/git/"/>
+    
+    <category term="技巧" scheme="https://nicksxs.me/categories/git/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="git" scheme="https://nicksxs.me/tags/git/"/>
+    
+  </entry>
   
   <entry>
     <title>Headscale渐入佳境补充篇-自定义中转derper使用反向代理</title>
@@ -500,31 +527,6 @@
     
     
     <category term="openwrt" scheme="https://nicksxs.me/tags/openwrt/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>向量数据库学习基础之跳表</title>
-    <link href="https://nicksxs.me/2024/06/16/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%B7%B3%E8%A1%A8/"/>
-    <id>https://nicksxs.me/2024/06/16/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%B7%B3%E8%A1%A8/</id>
-    <published>2024-06-16T14:30:37.000Z</published>
-    <updated>2024-06-16T14:30:37.102Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在学习向量数据库的时候，发现检索的算法 &lt;code&gt;HNSW&lt;/code&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="算法" scheme="https://nicksxs.me/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="算法" scheme="https://nicksxs.me/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
