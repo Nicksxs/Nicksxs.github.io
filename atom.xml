@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-12-15T14:13:07.226Z</updated>
+  <updated>2024-12-22T12:55:12.199Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java的agent初体验</title>
+    <link href="https://nicksxs.me/2024/12/22/java%E7%9A%84agent%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
+    <id>https://nicksxs.me/2024/12/22/java%E7%9A%84agent%E5%88%9D%E4%BD%93%E9%AA%8C/</id>
+    <published>2024-12-22T12:44:37.000Z</published>
+    <updated>2024-12-22T12:55:12.199Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前在用到arthas就想到过可以研究下java的agent，这里算是个初入门&lt;br&gt;首先我们有个应用，需要挂上agent来探测一些事情&lt;br&gt;比如就是简单的主方法&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    
+    <category term="技巧" scheme="https://nicksxs.me/categories/java/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>grep命令小技巧-统计行数</title>
@@ -496,31 +524,6 @@
         
         
     <summary type="html">&lt;p&gt;上次我们尝试用 &lt;code&gt;towhee&lt;/code&gt; 跟 &lt;code&gt;milvus&lt;/code&gt; 实现了图片的向量化，那么顺势我们就能在这个基础上实现以图搜图&lt;br&gt;首先我们找一些图片，&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="算法" scheme="https://nicksxs.me/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="算法" scheme="https://nicksxs.me/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>尝试下图片向量化</title>
-    <link href="https://nicksxs.me/2024/07/28/%E5%B0%9D%E8%AF%95%E4%B8%8B%E5%9B%BE%E7%89%87%E5%90%91%E9%87%8F%E5%8C%96/"/>
-    <id>https://nicksxs.me/2024/07/28/%E5%B0%9D%E8%AF%95%E4%B8%8B%E5%9B%BE%E7%89%87%E5%90%91%E9%87%8F%E5%8C%96/</id>
-    <published>2024-07-28T08:41:03.000Z</published>
-    <updated>2024-08-04T09:48:43.528Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前觉得谷歌的以图搜图很厉害，现在似乎这个路径还毕竟清晰了，首先要有图片库，把它们向量化以后存储起来，然后对于目标图片也做向量化，再做检索&lt;br&gt;那么我们先来做重要的这一步，图片的向量化，因为向量化以后就跟图片没关系了，直接用前面讲到的向量的近似搜索就可以做到以图搜图了&lt;b</summary>
         
       
     
