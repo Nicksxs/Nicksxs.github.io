@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2024-12-22T12:55:12.199Z</updated>
+  <updated>2024-12-29T15:29:42.505Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java的agent继续体验</title>
+    <link href="https://nicksxs.me/2024/12/29/java%E7%9A%84agent%E7%BB%A7%E7%BB%AD%E4%BD%93%E9%AA%8C/"/>
+    <id>https://nicksxs.me/2024/12/29/java%E7%9A%84agent%E7%BB%A7%E7%BB%AD%E4%BD%93%E9%AA%8C/</id>
+    <published>2024-12-29T15:29:42.000Z</published>
+    <updated>2024-12-29T15:29:42.505Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在上次的基础上我们可以通过一些方法来获取参数的参数名，以此我们又可以达到类似于切面的功能逻辑，&lt;br&gt;首先我在之前的代码里做一点修改&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    
+    <category term="技巧" scheme="https://nicksxs.me/categories/java/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>java的agent初体验</title>
@@ -508,31 +536,6 @@
     
     
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用milvus和towhee实现简陋版的以图搜图</title>
-    <link href="https://nicksxs.me/2024/08/04/%E4%BD%BF%E7%94%A8milvus%E5%92%8Ctowhee%E5%AE%9E%E7%8E%B0%E7%AE%80%E9%99%8B%E7%89%88%E7%9A%84%E4%BB%A5%E5%9B%BE%E6%90%9C%E5%9B%BE/"/>
-    <id>https://nicksxs.me/2024/08/04/%E4%BD%BF%E7%94%A8milvus%E5%92%8Ctowhee%E5%AE%9E%E7%8E%B0%E7%AE%80%E9%99%8B%E7%89%88%E7%9A%84%E4%BB%A5%E5%9B%BE%E6%90%9C%E5%9B%BE/</id>
-    <published>2024-08-04T09:49:14.000Z</published>
-    <updated>2024-08-04T09:49:14.683Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上次我们尝试用 &lt;code&gt;towhee&lt;/code&gt; 跟 &lt;code&gt;milvus&lt;/code&gt; 实现了图片的向量化，那么顺势我们就能在这个基础上实现以图搜图&lt;br&gt;首先我们找一些图片，&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="算法" scheme="https://nicksxs.me/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="算法" scheme="https://nicksxs.me/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
