@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-01-05T13:04:02.117Z</updated>
+  <updated>2025-01-12T14:59:04.925Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java的字节码工具-javassist体验二</title>
+    <link href="https://nicksxs.me/2025/01/12/java%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81%E5%B7%A5%E5%85%B7-javassist%E4%BD%93%E9%AA%8C%E4%BA%8C/"/>
+    <id>https://nicksxs.me/2025/01/12/java%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81%E5%B7%A5%E5%85%B7-javassist%E4%BD%93%E9%AA%8C%E4%BA%8C/</id>
+    <published>2025-01-12T14:59:04.000Z</published>
+    <updated>2025-01-12T14:59:04.925Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上次说了可以改写类，那进一步的我们可以做一下类似于之前提过的通过字节码来做切面的工作&lt;br&gt;首先我们有一个很简单的类和方法&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    
+    <category term="技巧" scheme="https://nicksxs.me/categories/java/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>java的字节码工具-javassist初体验</title>
@@ -513,31 +541,6 @@
     <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
     <category term="Apollo" scheme="https://nicksxs.me/tags/Apollo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>体验下Java 21的虚拟线程-协程</title>
-    <link href="https://nicksxs.me/2024/08/18/%E4%BD%93%E9%AA%8C%E4%B8%8BJava-21%E7%9A%84%E8%99%9A%E6%8B%9F%E7%BA%BF%E7%A8%8B-%E5%8D%8F%E7%A8%8B/"/>
-    <id>https://nicksxs.me/2024/08/18/%E4%BD%93%E9%AA%8C%E4%B8%8BJava-21%E7%9A%84%E8%99%9A%E6%8B%9F%E7%BA%BF%E7%A8%8B-%E5%8D%8F%E7%A8%8B/</id>
-    <published>2024-08-18T05:21:57.000Z</published>
-    <updated>2024-08-18T05:21:57.716Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Java在后续版本中添加了虚拟线程，也是类似于php跟go的协程，对应操作系统的线程是在线程基础上模拟了一层子线程的逻辑，因为减少了操作系统的线程上下文切换开销，能够在常规业务场景带了比较大的性能提升，但也并非银弹，不能包治百病&lt;br&gt;首先安装下jdk 21 版本，需要用</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
-    
-    
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
   </entry>
   
