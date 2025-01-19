@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-01-12T14:59:04.925Z</updated>
+  <updated>2025-01-19T13:57:50.109Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java的字节码工具-javassist体验三</title>
+    <link href="https://nicksxs.me/2025/01/19/java%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81%E5%B7%A5%E5%85%B7-javassist%E4%BD%93%E9%AA%8C%E4%B8%89/"/>
+    <id>https://nicksxs.me/2025/01/19/java%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81%E5%B7%A5%E5%85%B7-javassist%E4%BD%93%E9%AA%8C%E4%B8%89/</id>
+    <published>2025-01-19T13:57:50.000Z</published>
+    <updated>2025-01-19T13:57:50.109Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇还是javassist的一些使用小技巧，我们可以用javassist来读取java的注解信息&lt;br&gt;首先我们有这样一个注解&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    
+    <category term="技巧" scheme="https://nicksxs.me/categories/java/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>java的字节码工具-javassist体验二</title>
@@ -514,33 +542,6 @@
     
     
     <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聊下apollo配置中心的接入</title>
-    <link href="https://nicksxs.me/2024/08/25/%E8%81%8A%E4%B8%8Bapollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E7%9A%84%E6%8E%A5%E5%85%A5/"/>
-    <id>https://nicksxs.me/2024/08/25/%E8%81%8A%E4%B8%8Bapollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E7%9A%84%E6%8E%A5%E5%85%A5/</id>
-    <published>2024-08-25T14:17:48.000Z</published>
-    <updated>2024-08-31T06:23:55.929Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;很多技术栈在优化过程中都会有更便捷的接入方式，或者接入demo，这次想拿apollo来对比一些例如向量数据库的部署方式，对我说的就是milvus，&lt;br&gt;apollo如果生产环境部署完全不推荐用这种方式，但是如果为了做个实验，研究下源码还是很方便的，当然前提是有docker</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Apollo" scheme="https://nicksxs.me/tags/Apollo/"/>
     
   </entry>
   
