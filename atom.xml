@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-01-19T13:57:50.109Z</updated>
+  <updated>2025-01-26T11:53:37.947Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>systemtap学习记录一</title>
+    <link href="https://nicksxs.me/2025/01/26/systemtap%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E4%B8%80/"/>
+    <id>https://nicksxs.me/2025/01/26/systemtap%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E4%B8%80/</id>
+    <published>2025-01-26T11:53:37.000Z</published>
+    <updated>2025-01-26T11:53:37.947Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前两天拜读了章亦春大佬的关于Dynamic Tracing的文章，觉得对现在碰到的一些问题有了一些新的思考，为了能有所产出就先写一点简单的学习记录&lt;br&gt;首先这个systemtap类似于一个linux系统层面的探针工具，可以让用户去监控系统的各种活动&lt;br&gt;以阿里云的</summary>
+        
+      
+    
+    
+    
+    <category term="系统" scheme="https://nicksxs.me/categories/%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="trace" scheme="https://nicksxs.me/tags/trace/"/>
+    
+  </entry>
   
   <entry>
     <title>java的字节码工具-javassist体验三</title>
@@ -507,32 +532,6 @@
         
     <summary type="html">&lt;p&gt;netty是java网络框架中非常有名，因为它把各种网络类型，阻塞非阻塞的都做了上层的抽象，非常值得学习，这边就先以一个简单的http server来做下实践，&lt;br&gt;主体的server代码&lt;/p&gt;
 &lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一个Java类型的小问题记录</title>
-    <link href="https://nicksxs.me/2024/09/01/%E4%B8%80%E4%B8%AAJava%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
-    <id>https://nicksxs.me/2024/09/01/%E4%B8%80%E4%B8%AAJava%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</id>
-    <published>2024-09-01T01:00:09.000Z</published>
-    <updated>2024-09-01T01:02:51.406Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近发现一个小问题，感觉挺有意思，我们来看下代码&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
         
       
     
