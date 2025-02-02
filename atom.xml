@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-01-26T11:53:37.947Z</updated>
+  <updated>2025-02-02T03:27:16.620Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,47 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊聊一次 brew update 引发的血案-202502更新</title>
+    <link href="https://nicksxs.me/2025/02/02/%E8%81%8A%E8%81%8A%E4%B8%80%E6%AC%A1-brew-update-%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88-202502%E6%9B%B4%E6%96%B0/"/>
+    <id>https://nicksxs.me/2025/02/02/%E8%81%8A%E8%81%8A%E4%B8%80%E6%AC%A1-brew-update-%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88-202502%E6%9B%B4%E6%96%B0/</id>
+    <published>2025-02-02T03:27:16.000Z</published>
+    <updated>2025-02-02T03:27:16.620Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前写了这么一篇标题党，只是这个的确是比较头疼的事情，brew更新了下，php就不能用了，这里面主要是 &lt;code&gt;icu4c&lt;/code&gt; 这个库的更新导致的，比如最近我又碰到了&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="Mac" scheme="https://nicksxs.me/categories/Mac/"/>
+    
+    <category term="PHP" scheme="https://nicksxs.me/categories/Mac/PHP/"/>
+    
+    <category term="Homebrew" scheme="https://nicksxs.me/categories/Mac/Homebrew/"/>
+    
+    <category term="PHP" scheme="https://nicksxs.me/categories/PHP/"/>
+    
+    <category term="icu4c" scheme="https://nicksxs.me/categories/PHP/icu4c/"/>
+    
+    
+    <category term="Mac" scheme="https://nicksxs.me/tags/Mac/"/>
+    
+    <category term="PHP" scheme="https://nicksxs.me/tags/PHP/"/>
+    
+    <category term="Homebrew" scheme="https://nicksxs.me/tags/Homebrew/"/>
+    
+    <category term="icu4c" scheme="https://nicksxs.me/tags/icu4c/"/>
+    
+    <category term="zsh" scheme="https://nicksxs.me/tags/zsh/"/>
+    
+  </entry>
   
   <entry>
     <title>systemtap学习记录一</title>
@@ -506,32 +547,6 @@
         
         
     <summary type="html">&lt;p&gt;上次用netty写的一个玩具http server，发现了一个问题，为啥channelRead0方法会被调用两次，这里我们来研究下&lt;br&gt;我们在收到http请求的时候需要经过的一个必要的过程就是编解码，而这里我们用的是</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>用netty实现一个简单的http server</title>
-    <link href="https://nicksxs.me/2024/09/08/%E7%94%A8netty%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84http-server/"/>
-    <id>https://nicksxs.me/2024/09/08/%E7%94%A8netty%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84http-server/</id>
-    <published>2024-09-08T08:43:58.000Z</published>
-    <updated>2024-09-08T08:44:48.505Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;netty是java网络框架中非常有名，因为它把各种网络类型，阻塞非阻塞的都做了上层的抽象，非常值得学习，这边就先以一个简单的http server来做下实践，&lt;br&gt;主体的server代码&lt;/p&gt;
-&lt;figure class=&quot;highlight</summary>
         
       
     
