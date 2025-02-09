@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-02-02T03:27:16.620Z</updated>
+  <updated>2025-02-09T13:24:15.469Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>解决一个比较奇妙的问题 - leancloud 阅读计数不显示</title>
+    <link href="https://nicksxs.me/2025/02/09/%E8%A7%A3%E5%86%B3%E4%B8%80%E4%B8%AA%E6%AF%94%E8%BE%83%E5%A5%87%E5%A6%99%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>https://nicksxs.me/2025/02/09/%E8%A7%A3%E5%86%B3%E4%B8%80%E4%B8%AA%E6%AF%94%E8%BE%83%E5%A5%87%E5%A6%99%E7%9A%84%E9%97%AE%E9%A2%98/</id>
+    <published>2025-02-09T13:24:15.000Z</published>
+    <updated>2025-02-09T13:24:15.469Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近发现博客上那个阅读次数的功能有点问题，因为是基于leancloud的功能，然后前几天打开了下 leancloud.app</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="https://nicksxs.me/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="https://nicksxs.me/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>聊聊一次 brew update 引发的血案-202502更新</title>
@@ -531,31 +556,6 @@
     
     
     <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>用netty实现一个简单的http server-深入理解下</title>
-    <link href="https://nicksxs.me/2024/09/15/%E7%94%A8netty%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84http-server-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B8%8B/"/>
-    <id>https://nicksxs.me/2024/09/15/%E7%94%A8netty%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84http-server-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B8%8B/</id>
-    <published>2024-09-15T02:52:35.000Z</published>
-    <updated>2024-09-15T02:52:35.628Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上次用netty写的一个玩具http server，发现了一个问题，为啥channelRead0方法会被调用两次，这里我们来研究下&lt;br&gt;我们在收到http请求的时候需要经过的一个必要的过程就是编解码，而这里我们用的是</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
   </entry>
   
