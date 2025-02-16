@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-02-09T13:24:15.469Z</updated>
+  <updated>2025-02-16T13:07:49.835Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mac os 14.x 出现 &#39;xxx 已损坏，无法打开。 你应该将它移到废纸篓。&#39; 解决方法</title>
+    <link href="https://nicksxs.me/2025/02/16/mac-os-14-x-%E5%87%BA%E7%8E%B0-xxx-%E5%B7%B2%E6%8D%9F%E5%9D%8F%EF%BC%8C%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E3%80%82-%E4%BD%A0%E5%BA%94%E8%AF%A5%E5%B0%86%E5%AE%83%E7%A7%BB%E5%88%B0%E5%BA%9F%E7%BA%B8%E7%AF%93%E3%80%82-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
+    <id>https://nicksxs.me/2025/02/16/mac-os-14-x-%E5%87%BA%E7%8E%B0-xxx-%E5%B7%B2%E6%8D%9F%E5%9D%8F%EF%BC%8C%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E3%80%82-%E4%BD%A0%E5%BA%94%E8%AF%A5%E5%B0%86%E5%AE%83%E7%A7%BB%E5%88%B0%E5%BA%9F%E7%BA%B8%E7%AF%93%E3%80%82-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</id>
+    <published>2025-02-16T13:07:49.000Z</published>
+    <updated>2025-02-16T13:07:49.835Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在运行一个python写的小工具的时候碰到了这个问题&lt;br&gt;““Python.framework”已损坏，无法打开。</summary>
+        
+      
+    
+    
+    
+    <category term="mac" scheme="https://nicksxs.me/categories/mac/"/>
+    
+    <category term="技巧" scheme="https://nicksxs.me/categories/mac/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="mac" scheme="https://nicksxs.me/tags/mac/"/>
+    
+  </entry>
   
   <entry>
     <title>解决一个比较奇妙的问题 - leancloud 阅读计数不显示</title>
@@ -522,31 +549,6 @@
         
     <summary type="html">&lt;p&gt;目前我在家里用的路由器是个装了ImmortalWrt的NX30 Pro路由器，由于内存只有256兆，默认没带网速统计和限制网速的插件，对于网络速度限制就有点困难，刚好这次网上找到了一个可以用iptables统计网速的脚本，简单记录下&lt;/p&gt;
 &lt;figure</summary>
-        
-      
-    
-    
-    
-    <category term="小技巧" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>小技巧之-安卓终端工具Termux访问手机文件</title>
-    <link href="https://nicksxs.me/2024/09/22/%E5%B0%8F%E6%8A%80%E5%B7%A7%E4%B9%8B-%E5%AE%89%E5%8D%93%E7%BB%88%E7%AB%AF%E5%B7%A5%E5%85%B7Termux%E8%AE%BF%E9%97%AE%E6%89%8B%E6%9C%BA%E6%96%87%E4%BB%B6/"/>
-    <id>https://nicksxs.me/2024/09/22/%E5%B0%8F%E6%8A%80%E5%B7%A7%E4%B9%8B-%E5%AE%89%E5%8D%93%E7%BB%88%E7%AB%AF%E5%B7%A5%E5%85%B7Termux%E8%AE%BF%E9%97%AE%E6%89%8B%E6%9C%BA%E6%96%87%E4%BB%B6/</id>
-    <published>2024-09-22T07:10:14.000Z</published>
-    <updated>2024-09-22T07:10:14.824Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Termux是安卓下一个终端工具，一开始以为就是一些极客的高端玩具，在安卓下编程用，实际的实用性不太强，直到之前稍微研究了下，还真的是个神器，这个神器的原因在于三方面&lt;br&gt;第一点，它其实不只是个终端工具，而是个类似于iterm2 +</summary>
         
       
     
