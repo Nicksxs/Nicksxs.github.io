@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-02-16T13:07:49.835Z</updated>
+  <updated>2025-02-23T13:14:34.317Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 LM Studio 在本地部署 Deepseek-R1 的蒸馏版大模型</title>
+    <link href="https://nicksxs.me/2025/02/23/%E4%BD%BF%E7%94%A8-LM-Studio-%E5%9C%A8%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2-Deepseek-%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://nicksxs.me/2025/02/23/%E4%BD%BF%E7%94%A8-LM-Studio-%E5%9C%A8%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2-Deepseek-%E5%A4%A7%E6%A8%A1%E5%9E%8B/</id>
+    <published>2025-02-23T13:14:34.000Z</published>
+    <updated>2025-02-23T13:14:34.317Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;deepseek-v3 和 deepseek-r1</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>mac os 14.x 出现 &#39;xxx 已损坏，无法打开。 你应该将它移到废纸篓。&#39; 解决方法</title>
@@ -523,32 +548,6 @@
         
     <summary type="html">&lt;p&gt;首先是安装Caddy，&lt;/p&gt;
 &lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="小技巧" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>小技巧-用iptables统计网速占用</title>
-    <link href="https://nicksxs.me/2024/09/28/%E5%B0%8F%E6%8A%80%E5%B7%A7-%E7%94%A8iptables%E7%BB%9F%E8%AE%A1%E7%BD%91%E9%80%9F%E5%8D%A0%E7%94%A8/"/>
-    <id>https://nicksxs.me/2024/09/28/%E5%B0%8F%E6%8A%80%E5%B7%A7-%E7%94%A8iptables%E7%BB%9F%E8%AE%A1%E7%BD%91%E9%80%9F%E5%8D%A0%E7%94%A8/</id>
-    <published>2024-09-28T10:16:35.000Z</published>
-    <updated>2024-09-28T10:17:27.947Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;目前我在家里用的路由器是个装了ImmortalWrt的NX30 Pro路由器，由于内存只有256兆，默认没带网速统计和限制网速的插件，对于网络速度限制就有点困难，刚好这次网上找到了一个可以用iptables统计网速的脚本，简单记录下&lt;/p&gt;
-&lt;figure</summary>
         
       
     
