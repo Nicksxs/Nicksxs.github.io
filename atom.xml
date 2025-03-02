@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-02-23T13:14:34.317Z</updated>
+  <updated>2025-03-02T14:12:20.442Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>结合本地部署的蒸馏 deepseek 大模型和 Anything LLM 来实现rag功能</title>
+    <link href="https://nicksxs.me/2025/03/02/%E7%BB%93%E5%90%88%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E7%9A%84%E8%92%B8%E9%A6%8Fdeepseek%E6%9D%A5%E5%AE%9E%E7%8E%B0rag%E5%8A%9F%E8%83%BD/"/>
+    <id>https://nicksxs.me/2025/03/02/%E7%BB%93%E5%90%88%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E7%9A%84%E8%92%B8%E9%A6%8Fdeepseek%E6%9D%A5%E5%AE%9E%E7%8E%B0rag%E5%8A%9F%E8%83%BD/</id>
+    <published>2025-03-02T14:12:20.000Z</published>
+    <updated>2025-03-02T14:12:20.442Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前我们用LM Studio 本地部署了 deepseek的蒸馏大模型，虽然肯定无法跟满血版比，但是对于本地的一些小应用还是可以尝试的&lt;br&gt;这边我们就不自己实现了，借助于 Anything LLM来做个尝试&lt;br&gt;首先可以在 &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 LM Studio 在本地部署 Deepseek-R1 的蒸馏版大模型</title>
@@ -531,32 +556,6 @@
     
     
     <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>基于Caddy的快速反向代理</title>
-    <link href="https://nicksxs.me/2024/10/06/%E5%9F%BA%E4%BA%8ECaddy%E7%9A%84%E5%BF%AB%E9%80%9F%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
-    <id>https://nicksxs.me/2024/10/06/%E5%9F%BA%E4%BA%8ECaddy%E7%9A%84%E5%BF%AB%E9%80%9F%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</id>
-    <published>2024-10-06T13:41:57.000Z</published>
-    <updated>2024-10-06T13:42:37.286Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;首先是安装Caddy，&lt;/p&gt;
-&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="小技巧" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
   </entry>
   
