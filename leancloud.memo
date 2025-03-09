@@ -311,4 +311,5 @@
 {"title":"解决一个比较奇妙的问题 - leancloud 阅读计数不显示","url":"/2025/02/09/解决一个比较奇妙的问题/"},
 {"title":"mac os 14.x 出现 'xxx 已损坏，无法打开。 你应该将它移到废纸篓。' 解决方法","url":"/2025/02/16/mac-os-14-x-出现-xxx-已损坏，无法打开。-你应该将它移到废纸篓。-解决方法/"},
 {"title":"使用 LM Studio 在本地部署 Deepseek-R1 的蒸馏版大模型","url":"/2025/02/23/使用-LM-Studio-在本地部署-Deepseek-大模型/"},
+{"title":"结合本地部署的蒸馏 deepseek 大模型和 Anything LLM 来实现rag功能","url":"/2025/03/02/结合本地部署的蒸馏deepseek来实现rag功能/"},
 ]

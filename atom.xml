@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-03-02T14:12:20.442Z</updated>
+  <updated>2025-03-09T13:15:46.765Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 chatbox 来连接火山引擎等api服务来使用Deepseek-R1 全尺寸大模型</title>
+    <link href="https://nicksxs.me/2025/03/09/%E4%BD%BF%E7%94%A8-chatbox-%E6%9D%A5%E8%BF%9E%E6%8E%A5%E7%81%AB%E5%B1%B1%E5%BC%95%E6%93%8E%E7%AD%89api%E6%9C%8D%E5%8A%A1%E6%9D%A5%E4%BD%BF%E7%94%A8Deepseek-R1-%E5%85%A8%E5%B0%BA%E5%AF%B8%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://nicksxs.me/2025/03/09/%E4%BD%BF%E7%94%A8-chatbox-%E6%9D%A5%E8%BF%9E%E6%8E%A5%E7%81%AB%E5%B1%B1%E5%BC%95%E6%93%8E%E7%AD%89api%E6%9C%8D%E5%8A%A1%E6%9D%A5%E4%BD%BF%E7%94%A8Deepseek-R1-%E5%85%A8%E5%B0%BA%E5%AF%B8%E5%A4%A7%E6%A8%A1%E5%9E%8B/</id>
+    <published>2025-03-09T13:15:46.000Z</published>
+    <updated>2025-03-09T13:15:46.765Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;chatbox 是个可以链接大模型api服务的客户端工具，之前我们说的都是使用自己部署的蒸馏模型，如果现在本地使用全尺寸大模型的话，就可以使用像 chatbox 这样的客户端工具&lt;br&gt;首先我们需要下载 chatbox</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>结合本地部署的蒸馏 deepseek 大模型和 Anything LLM 来实现rag功能</title>
@@ -531,31 +556,6 @@
     
     
     <category term="headscale" scheme="https://nicksxs.me/tags/headscale/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>不一劳永逸的临时docker镜像拉取解决办法</title>
-    <link href="https://nicksxs.me/2024/10/13/%E4%B8%8D%E4%B8%80%E5%8A%B3%E6%B0%B8%E9%80%B8%E7%9A%84%E4%B8%B4%E6%97%B6docker%E9%95%9C%E5%83%8F%E6%8B%89%E5%8F%96%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
-    <id>https://nicksxs.me/2024/10/13/%E4%B8%8D%E4%B8%80%E5%8A%B3%E6%B0%B8%E9%80%B8%E7%9A%84%E4%B8%B4%E6%97%B6docker%E9%95%9C%E5%83%8F%E6%8B%89%E5%8F%96%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</id>
-    <published>2024-10-13T08:43:46.000Z</published>
-    <updated>2024-10-13T08:45:51.253Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;docker镜像拉取目前是个大问题，前阵子出现了比较大规模的封禁，导致很多原有的方案无法使用，其中包括阿里云的私有镜像地址，导致我折腾了半天&lt;br&gt;本来是可以在</summary>
-        
-      
-    
-    
-    
-    <category term="Docker" scheme="https://nicksxs.me/categories/Docker/"/>
-    
-    
-    <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
     
   </entry>
   
