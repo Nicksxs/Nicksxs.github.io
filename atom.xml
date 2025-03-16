@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-03-09T13:15:46.765Z</updated>
+  <updated>2025-03-16T13:16:04.364Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java小知识之String.format中的%秘密</title>
+    <link href="https://nicksxs.me/2025/03/16/java%E5%B0%8F%E7%9F%A5%E8%AF%86%E4%B9%8BString-format%E4%B8%AD%E7%9A%84-%E7%A7%98%E5%AF%86/"/>
+    <id>https://nicksxs.me/2025/03/16/java%E5%B0%8F%E7%9F%A5%E8%AF%86%E4%B9%8BString-format%E4%B8%AD%E7%9A%84-%E7%A7%98%E5%AF%86/</id>
+    <published>2025-03-16T13:16:04.000Z</published>
+    <updated>2025-03-16T13:16:04.364Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;String.format是Java中String类非常常用的一个方法，可以帮我们将占位符替换成变量，比如&lt;code&gt;%d&lt;/code&gt;可以作为整型的占位符，&lt;code&gt;%s&lt;/code&gt;可以作为字符串的占位符，但是吧有的时候常用归常用，有的时候碰到问题了还是得学习记录下&lt;</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    
+    <category term="技巧" scheme="https://nicksxs.me/categories/java/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 chatbox 来连接火山引擎等api服务来使用Deepseek-R1 全尺寸大模型</title>
@@ -531,31 +558,6 @@
     
     
     <category term="git" scheme="https://nicksxs.me/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Headscale渐入佳境补充篇-自定义中转derper使用反向代理</title>
-    <link href="https://nicksxs.me/2024/10/20/Headscale%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83%E8%A1%A5%E5%85%85%E7%AF%87-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E8%BD%ACderper%E4%BD%BF%E7%94%A8%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
-    <id>https://nicksxs.me/2024/10/20/Headscale%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83%E8%A1%A5%E5%85%85%E7%AF%87-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E8%BD%ACderper%E4%BD%BF%E7%94%A8%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</id>
-    <published>2024-10-20T08:09:24.000Z</published>
-    <updated>2024-10-20T08:09:24.915Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前在使用headscale的自建derper中转的时候，因为使用了acme管理的证书，虽然acme会自动续期，但是由于证书要做转换，没办法很方便的自动更新derper中映射的证书，因为最近在尝试迁移服务器，就在寻找是否有新的方法，正好就结合前面使用的&lt;code&gt;caddy</summary>
-        
-      
-    
-    
-    
-    <category term="headscale" scheme="https://nicksxs.me/categories/headscale/"/>
-    
-    
-    <category term="headscale" scheme="https://nicksxs.me/tags/headscale/"/>
     
   </entry>
   
