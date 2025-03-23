@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-03-16T13:16:04.364Z</updated>
+  <updated>2025-03-23T14:36:43.413Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>新奇体验-记我的博客图片被恶意盗刷</title>
+    <link href="https://nicksxs.me/2025/03/23/%E6%96%B0%E5%A5%87%E4%BD%93%E9%AA%8C-%E8%AE%B0%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E8%A2%AB%E6%81%B6%E6%84%8F%E7%9B%97%E5%88%B7/"/>
+    <id>https://nicksxs.me/2025/03/23/%E6%96%B0%E5%A5%87%E4%BD%93%E9%AA%8C-%E8%AE%B0%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E8%A2%AB%E6%81%B6%E6%84%8F%E7%9B%97%E5%88%B7/</id>
+    <published>2025-03-23T14:36:43.000Z</published>
+    <updated>2025-03-23T14:36:43.413Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上周四，突然接到腾讯云的电话，当然不是叫我去面试的，是说我账户欠费了，而且一下欠了二十多，因为这个账户我除了包年包月的我都会及时续费，剩下的就是一个放我博客图片的cos对象存储，本来可能一天就几分钱，一年充个十块钱都足够用了，突然一天就欠了二十多还是引起了我的警觉，去看了下</summary>
+        
+      
+    
+    
+    
+    <category term="体验" scheme="https://nicksxs.me/categories/%E4%BD%93%E9%AA%8C/"/>
+    
+    
+    <category term="恶意盗刷" scheme="https://nicksxs.me/tags/%E6%81%B6%E6%84%8F%E7%9B%97%E5%88%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>java小知识之String.format中的%秘密</title>
@@ -520,33 +545,6 @@
         
         
     <summary type="html">&lt;p&gt;上次说的&lt;code&gt;git stash&lt;/code&gt;我觉得是个非常有用的功能，简直是个大杀器，除非不存在需要切换分支的场景，否则在频繁切换的时候，&lt;code&gt;git stash&lt;/code&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="git" scheme="https://nicksxs.me/categories/git/"/>
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/git/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="git" scheme="https://nicksxs.me/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>git小技巧之git stash</title>
-    <link href="https://nicksxs.me/2024/10/27/git%E5%B0%8F%E6%8A%80%E5%B7%A7%E4%B9%8Bgit-stash/"/>
-    <id>https://nicksxs.me/2024/10/27/git%E5%B0%8F%E6%8A%80%E5%B7%A7%E4%B9%8Bgit-stash/</id>
-    <published>2024-10-27T13:05:19.000Z</published>
-    <updated>2024-10-27T13:05:19.842Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们日常开发包括我自用的小工具也在用git管理&lt;br&gt;在使用git的过程中经常有个场景是我在A分支上开发了一部分，临时需要切换到B分支，又不想先把这部分代码提交，因为还没开发完，&lt;br&gt;这是用&lt;code&gt;git</summary>
         
       
     
