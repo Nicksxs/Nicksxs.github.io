@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-04-20T12:47:00.190Z</updated>
+  <updated>2025-04-27T11:52:14.911Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>来介绍个源码阅读理解神器-deepwiki</title>
+    <link href="https://nicksxs.me/2025/04/27/%E6%9D%A5%E4%BB%8B%E7%BB%8D%E4%B8%AA%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%90%86%E8%A7%A3%E7%A5%9E%E5%99%A8-deepwiki/"/>
+    <id>https://nicksxs.me/2025/04/27/%E6%9D%A5%E4%BB%8B%E7%BB%8D%E4%B8%AA%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%90%86%E8%A7%A3%E7%A5%9E%E5%99%A8-deepwiki/</id>
+    <published>2025-04-27T11:52:14.000Z</published>
+    <updated>2025-04-27T11:52:14.911Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上次简单介绍了openmanus的使用，但是它究竟是怎么个原理还是一知半解的，如果想要能比较深入的理解，最直接粗暴的就是阅读源码了，然而对于很多人包括我来说阅读源码不是件简单的事情，有时候会陷入局部细节，不得要领&lt;br&gt;正好这次我发现了有个理解项目的神器，这次不加双引号是因</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>来个openmanus的浅入门</title>
@@ -527,32 +548,6 @@
     
     
     <category term="grep" scheme="https://nicksxs.me/tags/grep/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>tail命令小技巧</title>
-    <link href="https://nicksxs.me/2024/12/08/tail%E5%91%BD%E4%BB%A4%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    <id>https://nicksxs.me/2024/12/08/tail%E5%91%BD%E4%BB%A4%E5%B0%8F%E6%8A%80%E5%B7%A7/</id>
-    <published>2024-12-08T14:15:40.000Z</published>
-    <updated>2024-12-08T14:15:40.018Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们日常在服务器上查看日志的时候用的很多的就是tail命令，使用tail最基本的就是&lt;/p&gt;
-&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="linux" scheme="https://nicksxs.me/tags/linux/"/>
     
   </entry>
   
