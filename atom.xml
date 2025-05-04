@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-04-27T11:52:14.911Z</updated>
+  <updated>2025-05-04T13:56:57.373Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>简单介绍下mcp是什么</title>
+    <link href="https://nicksxs.me/2025/05/04/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%8Bmcp%E6%98%AF%E4%BB%80%E4%B9%88/"/>
+    <id>https://nicksxs.me/2025/05/04/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%8Bmcp%E6%98%AF%E4%BB%80%E4%B9%88/</id>
+    <published>2025-05-04T13:56:57.000Z</published>
+    <updated>2025-05-04T13:56:57.373Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在大模型的演进过程中，mcp是个对于使用者非常有用的一个协议或者说工具，Model Context Protocol (MCP) 是一种专为大型语言模型和 AI 系统设计的通信协议框架，它解决了 AI</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>来介绍个源码阅读理解神器-deepwiki</title>
@@ -522,32 +547,6 @@
     
     
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>grep命令小技巧-统计行数</title>
-    <link href="https://nicksxs.me/2024/12/15/grep%E5%91%BD%E4%BB%A4%E5%B0%8F%E6%8A%80%E5%B7%A7-%E7%BB%9F%E8%AE%A1%E8%A1%8C%E6%95%B0/"/>
-    <id>https://nicksxs.me/2024/12/15/grep%E5%91%BD%E4%BB%A4%E5%B0%8F%E6%8A%80%E5%B7%A7-%E7%BB%9F%E8%AE%A1%E8%A1%8C%E6%95%B0/</id>
-    <published>2024-12-15T14:13:07.000Z</published>
-    <updated>2024-12-15T14:13:07.226Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前在使用grep来匹配内容，想看下匹配的结果数量都是用管道，然后用wc命令的&lt;br&gt;最近看了下似乎没必要这么麻烦&lt;br&gt;grep命令自带了这个功能&lt;br&gt;原来在用grep的时候还有个额外的功能就是看匹配行的前后几行，&lt;br&gt;使用&lt;/p&gt;
-&lt;figure</summary>
-        
-      
-    
-    
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="grep" scheme="https://nicksxs.me/tags/grep/"/>
     
   </entry>
   
