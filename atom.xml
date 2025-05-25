@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-05-18T12:56:34.066Z</updated>
+  <updated>2025-05-25T12:33:03.261Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>介绍个非常好用的工具 pakeplus</title>
+    <link href="https://nicksxs.me/2025/05/25/%E4%BB%8B%E7%BB%8D%E4%B8%AA%E9%9D%9E%E5%B8%B8%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7-pakeplus/"/>
+    <id>https://nicksxs.me/2025/05/25/%E4%BB%8B%E7%BB%8D%E4%B8%AA%E9%9D%9E%E5%B8%B8%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7-pakeplus/</id>
+    <published>2025-05-25T12:33:03.000Z</published>
+    <updated>2025-05-25T12:33:03.261Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;程序员中例如我这样的主要是服务端的其实要开发一款app会面临很多问题，相对便捷的可能是做一个网页版的，套用下组件啥的，网页版的要做成app的话之前比较可行的是通过 Electron ，但是也是学习成本比较大的一件事，现在要介绍的这个pakeplus是基于rust</summary>
+        
+      
+    
+    
+    
+    <category term="工具" scheme="https://nicksxs.me/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="工具" scheme="https://nicksxs.me/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>java中arraylist的sort方法的 ConcurrentModificationException 问题</title>
@@ -504,34 +529,6 @@
         
         
     <summary type="html">&lt;p&gt;上次说了可以改写类，那进一步的我们可以做一下类似于之前提过的通过字节码来做切面的工作&lt;br&gt;首先我们有一个很简单的类和方法&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/java/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java的字节码工具-javassist初体验</title>
-    <link href="https://nicksxs.me/2025/01/05/java%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81%E5%B7%A5%E5%85%B7-javassist%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
-    <id>https://nicksxs.me/2025/01/05/java%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81%E5%B7%A5%E5%85%B7-javassist%E5%88%9D%E4%BD%93%E9%AA%8C/</id>
-    <published>2025-01-05T13:04:02.000Z</published>
-    <updated>2025-01-05T13:04:02.117Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前面那篇在讲agent的时候用到了javassist，我们就来简单讲个demo&lt;br&gt;我想用javassist来创建一个类&lt;/p&gt;
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
         
       
