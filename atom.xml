@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-05-25T12:33:03.261Z</updated>
+  <updated>2025-05-31T16:03:35.675Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>回归本源理解下mysql的 select for update 锁</title>
+    <link href="https://nicksxs.me/2025/06/01/%E5%9B%9E%E5%BD%92%E6%9C%AC%E6%BA%90%E7%90%86%E8%A7%A3%E4%B8%8Bmysql%E7%9A%84for-update%E9%94%81/"/>
+    <id>https://nicksxs.me/2025/06/01/%E5%9B%9E%E5%BD%92%E6%9C%AC%E6%BA%90%E7%90%86%E8%A7%A3%E4%B8%8Bmysql%E7%9A%84for-update%E9%94%81/</id>
+    <published>2025-05-31T16:03:35.000Z</published>
+    <updated>2025-05-31T16:03:35.675Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;很多的业务场景我们会用到锁，包括各种炫酷的分布式锁，但是其实很多情况由于db的可靠性是相对比较高的，所以也可以在适当的情况下使用db来作为锁&lt;br&gt;这里就介绍下比较常用了 select for update 锁&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="msyql" scheme="https://nicksxs.me/categories/msyql/"/>
+    
+    <category term="技巧" scheme="https://nicksxs.me/categories/msyql/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>介绍个非常好用的工具 pakeplus</title>
@@ -501,34 +529,6 @@
         
         
     <summary type="html">&lt;p&gt;这篇还是javassist的一些使用小技巧，我们可以用javassist来读取java的注解信息&lt;br&gt;首先我们有这样一个注解&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/java/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java的字节码工具-javassist体验二</title>
-    <link href="https://nicksxs.me/2025/01/12/java%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81%E5%B7%A5%E5%85%B7-javassist%E4%BD%93%E9%AA%8C%E4%BA%8C/"/>
-    <id>https://nicksxs.me/2025/01/12/java%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81%E5%B7%A5%E5%85%B7-javassist%E4%BD%93%E9%AA%8C%E4%BA%8C/</id>
-    <published>2025-01-12T14:59:04.000Z</published>
-    <updated>2025-01-12T14:59:04.925Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上次说了可以改写类，那进一步的我们可以做一下类似于之前提过的通过字节码来做切面的工作&lt;br&gt;首先我们有一个很简单的类和方法&lt;/p&gt;
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
         
       
