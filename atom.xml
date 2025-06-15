@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-06-08T10:19:24.774Z</updated>
+  <updated>2025-06-15T11:25:23.959Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>解决下idea中maven依赖的cannot download sources问题</title>
+    <link href="https://nicksxs.me/2025/06/15/%E8%A7%A3%E5%86%B3%E4%B8%8Bidea%E4%B8%AD%E4%BE%9D%E8%B5%96%E7%9A%84cannot-download-sources%E9%97%AE%E9%A2%98/"/>
+    <id>https://nicksxs.me/2025/06/15/%E8%A7%A3%E5%86%B3%E4%B8%8Bidea%E4%B8%AD%E4%BE%9D%E8%B5%96%E7%9A%84cannot-download-sources%E9%97%AE%E9%A2%98/</id>
+    <published>2025-06-15T11:25:23.000Z</published>
+    <updated>2025-06-15T11:25:23.959Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;发现一个比较奇怪的问题，在看一个依赖的源码的时候没法下载sources，idea点击的时候报”cannot download sources”&lt;br&gt;可能有点强迫症，看着缩略过的代码比较不舒服，就查了下这个问题的解决方法&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="Maven" scheme="https://nicksxs.me/categories/Java/Maven/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+    <category term="Maven" scheme="https://nicksxs.me/tags/Maven/"/>
+    
+  </entry>
   
   <entry>
     <title>介绍下让bean有序执行的方法</title>
@@ -516,31 +546,6 @@
     <category term="icu4c" scheme="https://nicksxs.me/tags/icu4c/"/>
     
     <category term="zsh" scheme="https://nicksxs.me/tags/zsh/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>systemtap学习记录一</title>
-    <link href="https://nicksxs.me/2025/01/26/systemtap%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E4%B8%80/"/>
-    <id>https://nicksxs.me/2025/01/26/systemtap%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E4%B8%80/</id>
-    <published>2025-01-26T11:53:37.000Z</published>
-    <updated>2025-01-26T11:53:37.947Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前两天拜读了章亦春大佬的关于Dynamic Tracing的文章，觉得对现在碰到的一些问题有了一些新的思考，为了能有所产出就先写一点简单的学习记录&lt;br&gt;首先这个systemtap类似于一个linux系统层面的探针工具，可以让用户去监控系统的各种活动&lt;br&gt;以阿里云的</summary>
-        
-      
-    
-    
-    
-    <category term="系统" scheme="https://nicksxs.me/categories/%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-    <category term="trace" scheme="https://nicksxs.me/tags/trace/"/>
     
   </entry>
   

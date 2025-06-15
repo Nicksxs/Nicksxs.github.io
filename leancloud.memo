@@ -325,4 +325,5 @@
 {"title":"java中arraylist的sort方法的 ConcurrentModificationException 问题","url":"/2025/05/18/java中arraylist的sort方法的问题/"},
 {"title":"介绍个非常好用的工具 pakeplus","url":"/2025/05/25/介绍个非常好用的工具-pakeplus/"},
 {"title":"回归本源理解下mysql的 select for update 锁","url":"/2025/06/01/回归本源理解下mysql的for-update锁/"},
+{"title":"介绍下让bean有序执行的方法","url":"/2025/06/08/介绍下让bean有序执行的方法/"},
 ]
