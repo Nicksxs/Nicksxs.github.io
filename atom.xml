@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-06-22T13:48:18.746Z</updated>
+  <updated>2025-06-29T12:58:53.698Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>体验最新的gemini cli工具来实现一个简单的网页小程序</title>
+    <link href="https://nicksxs.me/2025/06/29/%E4%BD%93%E9%AA%8C%E6%9C%80%E6%96%B0%E7%9A%84gemini-cli%E5%B7%A5%E5%85%B7%E6%9D%A5%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%BD%91%E9%A1%B5%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    <id>https://nicksxs.me/2025/06/29/%E4%BD%93%E9%AA%8C%E6%9C%80%E6%96%B0%E7%9A%84gemini-cli%E5%B7%A5%E5%85%B7%E6%9D%A5%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%BD%91%E9%A1%B5%E5%B0%8F%E7%A8%8B%E5%BA%8F/</id>
+    <published>2025-06-29T12:58:53.000Z</published>
+    <updated>2025-06-29T12:58:53.698Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;谷歌新出了个对标claude code的命令行工具，叫gemini-cli，还是开源的，所以赶紧来体验下，就是前提是有科学上网，要去google的ai studio申请gemini的api key&lt;br&gt;然后在有科学网络的情况下用node</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>解决wsl2中的ubuntu无法通过ssh连接的问题</title>
@@ -506,31 +531,6 @@
     
     
     <category term="mac" scheme="https://nicksxs.me/tags/mac/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>解决一个比较奇妙的问题 - leancloud 阅读计数不显示</title>
-    <link href="https://nicksxs.me/2025/02/09/%E8%A7%A3%E5%86%B3%E4%B8%80%E4%B8%AA%E6%AF%94%E8%BE%83%E5%A5%87%E5%A6%99%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-    <id>https://nicksxs.me/2025/02/09/%E8%A7%A3%E5%86%B3%E4%B8%80%E4%B8%AA%E6%AF%94%E8%BE%83%E5%A5%87%E5%A6%99%E7%9A%84%E9%97%AE%E9%A2%98/</id>
-    <published>2025-02-09T13:24:15.000Z</published>
-    <updated>2025-02-09T13:24:15.469Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近发现博客上那个阅读次数的功能有点问题，因为是基于leancloud的功能，然后前几天打开了下 leancloud.app</summary>
-        
-      
-    
-    
-    
-    <category term="linux" scheme="https://nicksxs.me/categories/linux/"/>
-    
-    
-    <category term="linux" scheme="https://nicksxs.me/tags/linux/"/>
     
   </entry>
   
