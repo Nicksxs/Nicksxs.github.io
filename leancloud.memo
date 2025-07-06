@@ -327,4 +327,6 @@
 {"title":"回归本源理解下mysql的 select for update 锁","url":"/2025/06/01/回归本源理解下mysql的for-update锁/"},
 {"title":"介绍下让bean有序执行的方法","url":"/2025/06/08/介绍下让bean有序执行的方法/"},
 {"title":"解决下idea中maven依赖的cannot download sources问题","url":"/2025/06/15/解决下idea中依赖的cannot-download-sources问题/"},
+{"title":"解决wsl2中的ubuntu无法通过ssh连接的问题","url":"/2025/06/22/解决wsl2中的ubuntu无法通过ssh连接的问题/"},
+{"title":"体验最新的gemini cli工具来实现一个简单的网页小程序","url":"/2025/06/29/体验最新的gemini-cli工具来实现一个简单的网页小程序/"},
 ]
