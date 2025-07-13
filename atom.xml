@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-07-06T13:17:23.397Z</updated>
+  <updated>2025-07-13T11:48:35.062Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>介绍下laravel herd工具</title>
+    <link href="https://nicksxs.me/2025/07/13/%E4%BB%8B%E7%BB%8D%E4%B8%8Blaravel-herd%E5%B7%A5%E5%85%B7/"/>
+    <id>https://nicksxs.me/2025/07/13/%E4%BB%8B%E7%BB%8D%E4%B8%8Blaravel-herd%E5%B7%A5%E5%85%B7/</id>
+    <published>2025-07-13T11:48:35.000Z</published>
+    <updated>2025-07-13T11:48:35.062Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;herd是在使用过了valet之后，又一款laravel出品的好用的工具，之前使用valet可以把laravel应用的本地域名解析和https加密等都处理好，是个非常不错的工具。&lt;br&gt;但是在我的使用场景里还有一个比较头疼的问题就是多版本php的切换，虽然php在大型网站，</summary>
+        
+      
+    
+    
+    
+    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
+    
+    
+    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
+    
+  </entry>
   
   <entry>
     <title>复习下ER图和它的使用方式</title>
@@ -496,31 +521,6 @@
         
         
     <summary type="html">&lt;p&gt;之前我们用LM Studio 本地部署了 deepseek的蒸馏大模型，虽然肯定无法跟满血版比，但是对于本地的一些小应用还是可以尝试的&lt;br&gt;这边我们就不自己实现了，借助于 Anything LLM来做个尝试&lt;br&gt;首先可以在 &lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 LM Studio 在本地部署 Deepseek-R1 的蒸馏版大模型</title>
-    <link href="https://nicksxs.me/2025/02/23/%E4%BD%BF%E7%94%A8-LM-Studio-%E5%9C%A8%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2-Deepseek-%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
-    <id>https://nicksxs.me/2025/02/23/%E4%BD%BF%E7%94%A8-LM-Studio-%E5%9C%A8%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2-Deepseek-%E5%A4%A7%E6%A8%A1%E5%9E%8B/</id>
-    <published>2025-02-23T13:14:34.000Z</published>
-    <updated>2025-02-23T13:14:34.317Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;deepseek-v3 和 deepseek-r1</summary>
         
       
     
