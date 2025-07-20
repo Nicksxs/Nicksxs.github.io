@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-07-13T11:48:35.062Z</updated>
+  <updated>2025-07-20T11:56:39.285Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>千万别升级Chrome-您的扩展程序可能无法使用-教你怎么解决</title>
+    <link href="https://nicksxs.me/2025/07/20/%E5%8D%83%E4%B8%87%E5%88%AB%E5%8D%87%E7%BA%A7Chrome-%E6%82%A8%E7%9A%84%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%8F%AF%E8%83%BD%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8/"/>
+    <id>https://nicksxs.me/2025/07/20/%E5%8D%83%E4%B8%87%E5%88%AB%E5%8D%87%E7%BA%A7Chrome-%E6%82%A8%E7%9A%84%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%8F%AF%E8%83%BD%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8/</id>
+    <published>2025-07-20T11:56:39.000Z</published>
+    <updated>2025-07-20T11:56:39.285Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;允许我小小地标题党一下，后半句是真实情况，最近重启电脑就自动升级了chrome，发现很多必须的扩展程序都不能用了，之前是可以通过设置开启，这次升级到 138.0.7204.158</summary>
+        
+      
+    
+    
+    
+    <category term="技巧" scheme="https://nicksxs.me/categories/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="技巧" scheme="https://nicksxs.me/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
   
   <entry>
     <title>介绍下laravel herd工具</title>
@@ -496,31 +521,6 @@
         
         
     <summary type="html">&lt;p&gt;chatbox 是个可以链接大模型api服务的客户端工具，之前我们说的都是使用自己部署的蒸馏模型，如果现在本地使用全尺寸大模型的话，就可以使用像 chatbox 这样的客户端工具&lt;br&gt;首先我们需要下载 chatbox</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>结合本地部署的蒸馏 deepseek 大模型和 Anything LLM 来实现rag功能</title>
-    <link href="https://nicksxs.me/2025/03/02/%E7%BB%93%E5%90%88%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E7%9A%84%E8%92%B8%E9%A6%8Fdeepseek%E6%9D%A5%E5%AE%9E%E7%8E%B0rag%E5%8A%9F%E8%83%BD/"/>
-    <id>https://nicksxs.me/2025/03/02/%E7%BB%93%E5%90%88%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E7%9A%84%E8%92%B8%E9%A6%8Fdeepseek%E6%9D%A5%E5%AE%9E%E7%8E%B0rag%E5%8A%9F%E8%83%BD/</id>
-    <published>2025-03-02T14:12:20.000Z</published>
-    <updated>2025-03-02T14:12:20.442Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前我们用LM Studio 本地部署了 deepseek的蒸馏大模型，虽然肯定无法跟满血版比，但是对于本地的一些小应用还是可以尝试的&lt;br&gt;这边我们就不自己实现了，借助于 Anything LLM来做个尝试&lt;br&gt;首先可以在 &lt;a</summary>
         
       
     
