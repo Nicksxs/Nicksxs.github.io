@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-07-20T11:56:39.285Z</updated>
+  <updated>2025-07-27T12:24:38.552Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学习下mysql新版本支持的row_number方法</title>
+    <link href="https://nicksxs.me/2025/07/27/%E5%AD%A6%E4%B9%A0%E4%B8%8Bmysql%E6%96%B0%E7%89%88%E6%9C%AC%E6%94%AF%E6%8C%81%E7%9A%84row-number%E6%96%B9%E6%B3%95/"/>
+    <id>https://nicksxs.me/2025/07/27/%E5%AD%A6%E4%B9%A0%E4%B8%8Bmysql%E6%96%B0%E7%89%88%E6%9C%AC%E6%94%AF%E6%8C%81%E7%9A%84row-number%E6%96%B9%E6%B3%95/</id>
+    <published>2025-07-27T12:24:38.000Z</published>
+    <updated>2025-07-27T12:24:38.552Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在实际开发中，我们经常遇到需要在分组内进行排序并获取特定排名记录的需求。比如查找每个班级年龄最大的学生，每个部门薪资最高的员工等。这类问题在MySQL 8.0前后有着截然不同的解决方案。&lt;/p&gt;
+&lt;h2 id=&quot;传统解决方案（MySQL-8-0之前）&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="mysql" scheme="https://nicksxs.me/categories/mysql/"/>
+    
+    
+    <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>千万别升级Chrome-您的扩展程序可能无法使用-教你怎么解决</title>
@@ -505,31 +531,6 @@
     
     
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 chatbox 来连接火山引擎等api服务来使用Deepseek-R1 全尺寸大模型</title>
-    <link href="https://nicksxs.me/2025/03/09/%E4%BD%BF%E7%94%A8-chatbox-%E6%9D%A5%E8%BF%9E%E6%8E%A5%E7%81%AB%E5%B1%B1%E5%BC%95%E6%93%8E%E7%AD%89api%E6%9C%8D%E5%8A%A1%E6%9D%A5%E4%BD%BF%E7%94%A8Deepseek-R1-%E5%85%A8%E5%B0%BA%E5%AF%B8%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
-    <id>https://nicksxs.me/2025/03/09/%E4%BD%BF%E7%94%A8-chatbox-%E6%9D%A5%E8%BF%9E%E6%8E%A5%E7%81%AB%E5%B1%B1%E5%BC%95%E6%93%8E%E7%AD%89api%E6%9C%8D%E5%8A%A1%E6%9D%A5%E4%BD%BF%E7%94%A8Deepseek-R1-%E5%85%A8%E5%B0%BA%E5%AF%B8%E5%A4%A7%E6%A8%A1%E5%9E%8B/</id>
-    <published>2025-03-09T13:15:46.000Z</published>
-    <updated>2025-03-30T07:48:49.796Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;chatbox 是个可以链接大模型api服务的客户端工具，之前我们说的都是使用自己部署的蒸馏模型，如果现在本地使用全尺寸大模型的话，就可以使用像 chatbox 这样的客户端工具&lt;br&gt;首先我们需要下载 chatbox</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
