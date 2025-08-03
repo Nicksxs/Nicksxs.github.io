@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-07-27T12:24:38.552Z</updated>
+  <updated>2025-08-03T12:40:30.537Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学习下n8n的搭建和使用</title>
+    <link href="https://nicksxs.me/2025/08/03/%E5%AD%A6%E4%B9%A0%E4%B8%8Bn8n%E7%9A%84%E6%90%AD%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
+    <id>https://nicksxs.me/2025/08/03/%E5%AD%A6%E4%B9%A0%E4%B8%8Bn8n%E7%9A%84%E6%90%AD%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/</id>
+    <published>2025-08-03T12:40:30.000Z</published>
+    <updated>2025-08-03T12:40:30.537Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;开始研究学习下现在比较流行的工作流画布，用官方的话就是&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Flexible AI workflow automation&lt;br&gt;for technical</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>学习下mysql新版本支持的row_number方法</title>
@@ -504,33 +531,6 @@
     
     
     <category term="恶意盗刷" scheme="https://nicksxs.me/tags/%E6%81%B6%E6%84%8F%E7%9B%97%E5%88%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java小知识之String.format中的%秘密</title>
-    <link href="https://nicksxs.me/2025/03/16/java%E5%B0%8F%E7%9F%A5%E8%AF%86%E4%B9%8BString-format%E4%B8%AD%E7%9A%84-%E7%A7%98%E5%AF%86/"/>
-    <id>https://nicksxs.me/2025/03/16/java%E5%B0%8F%E7%9F%A5%E8%AF%86%E4%B9%8BString-format%E4%B8%AD%E7%9A%84-%E7%A7%98%E5%AF%86/</id>
-    <published>2025-03-16T13:16:04.000Z</published>
-    <updated>2025-03-16T13:16:04.364Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;String.format是Java中String类非常常用的一个方法，可以帮我们将占位符替换成变量，比如&lt;code&gt;%d&lt;/code&gt;可以作为整型的占位符，&lt;code&gt;%s&lt;/code&gt;可以作为字符串的占位符，但是吧有的时候常用归常用，有的时候碰到问题了还是得学习记录下&lt;</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/java/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
   </entry>
   
