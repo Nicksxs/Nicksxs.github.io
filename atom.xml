@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-08-16T15:08:27.248Z</updated>
+  <updated>2025-08-24T15:18:00.228Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>真正适合spring ai的使用方式</title>
+    <link href="https://nicksxs.me/2025/08/24/%E7%9C%9F%E6%AD%A3%E9%80%82%E5%90%88spring-ai%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/"/>
+    <id>https://nicksxs.me/2025/08/24/%E7%9C%9F%E6%AD%A3%E9%80%82%E5%90%88spring-ai%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/</id>
+    <published>2025-08-24T15:18:00.000Z</published>
+    <updated>2025-08-24T15:18:00.228Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上周被spring-ai调用模型api这个折腾的有点难受，这周又试了下用deepseek官方的api，但结果还是一样，不确定是啥原因，请求会一直卡着&lt;br&gt;后来想着本地有ollama，那是不是可以直接用ollama来调本地模型&lt;br&gt;这里我们用一个非常基础很小的模型&lt;/p&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
+  
+  <entry>
     <title>差点忘了还有spring ai这个包</title>
     <link href="https://nicksxs.me/2025/08/16/%E5%B7%AE%E7%82%B9%E5%BF%98%E4%BA%86%E8%BF%98%E6%9C%89springb-ai%E8%BF%99%E4%B8%AA%E5%8C%85/"/>
     <id>https://nicksxs.me/2025/08/16/%E5%B7%AE%E7%82%B9%E5%BF%98%E4%BA%86%E8%BF%98%E6%9C%89springb-ai%E8%BF%99%E4%B8%AA%E5%8C%85/</id>
     <published>2025-08-16T15:08:27.000Z</published>
-    <updated>2025-08-16T15:08:27.248Z</updated>
+    <updated>2025-08-16T15:09:29.139Z</updated>
     
     
       
@@ -503,31 +528,6 @@
     
     
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于Termux中的shell命令的历史记录问题</title>
-    <link href="https://nicksxs.me/2025/04/06/%E5%85%B3%E4%BA%8ETermux%E4%B8%AD%E7%9A%84shell%E5%91%BD%E4%BB%A4%E7%9A%84%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95%E9%97%AE%E9%A2%98/"/>
-    <id>https://nicksxs.me/2025/04/06/%E5%85%B3%E4%BA%8ETermux%E4%B8%AD%E7%9A%84shell%E5%91%BD%E4%BB%A4%E7%9A%84%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95%E9%97%AE%E9%A2%98/</id>
-    <published>2025-04-06T14:06:34.000Z</published>
-    <updated>2025-04-06T14:06:34.793Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前发现Termux在安卓手机中是个比较厉害的神器，就相当于一个随身携带的小型服务器，伴随着现在手机性能的逐渐强大，有些手机可能已经比很多个人用的云服务器还要强大很多，只是有着散热和电量的限制，但是充当一下临时的使用还是很不错的&lt;br&gt;记得之前提过，在用rustdesk的时</summary>
-        
-      
-    
-    
-    
-    <category term="小技巧" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
   </entry>
   
