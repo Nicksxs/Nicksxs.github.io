@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-08-24T15:18:00.228Z</updated>
+  <updated>2025-08-30T14:13:18.669Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>体验openai开源的gpt-oss模型</title>
+    <link href="https://nicksxs.me/2025/08/30/%E4%BD%93%E9%AA%8Copenai%E5%BC%80%E6%BA%90%E7%9A%84gpt-oss%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://nicksxs.me/2025/08/30/%E4%BD%93%E9%AA%8Copenai%E5%BC%80%E6%BA%90%E7%9A%84gpt-oss%E6%A8%A1%E5%9E%8B/</id>
+    <published>2025-08-30T14:13:18.000Z</published>
+    <updated>2025-08-30T14:13:18.669Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;openai终于履行诺言开源了自家模型，只不过不是像deepseek那样把最新最好的开源出来，而是专门调了一大一小两个模型来开源，当然也有一些技术亮点&lt;br&gt;刚好我本地是18g内存的mbp，勉强可以跑20b大小的，这次开源的有20b跟200b感觉尺寸上还是比较取巧的，20b</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>真正适合spring ai的使用方式</title>
@@ -503,31 +528,6 @@
     
     
     <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于arthas的一个比较有用的使用方式</title>
-    <link href="https://nicksxs.me/2025/04/13/%E5%85%B3%E4%BA%8Earthas%E7%9A%84%E4%B8%80%E4%B8%AA%E6%AF%94%E8%BE%83%E6%9C%89%E7%94%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/"/>
-    <id>https://nicksxs.me/2025/04/13/%E5%85%B3%E4%BA%8Earthas%E7%9A%84%E4%B8%80%E4%B8%AA%E6%AF%94%E8%BE%83%E6%9C%89%E7%94%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/</id>
-    <published>2025-04-13T12:23:53.000Z</published>
-    <updated>2025-04-13T12:23:53.799Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;arthas是阿里开源的一个非常好用的java诊断工具，提供了很多很好用的命令，这里讲一个最近使用到的&lt;br&gt;就是将arthas挂载上我们的springboot应用，然后调用其中的方法，这样能够在如果没加日志已经看不到函数返回时更方便的排查问题&lt;br&gt;首先举个例子，我们有个</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
-    
-    
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
   </entry>
   
