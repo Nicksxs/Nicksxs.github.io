@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-09-07T10:55:20.746Z</updated>
+  <updated>2025-09-13T13:29:54.155Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>怎么让claude code用国内的模型</title>
+    <link href="https://nicksxs.me/2025/09/13/%E6%80%8E%E4%B9%88%E8%AE%A9claude-code%E7%94%A8%E5%9B%BD%E5%86%85%E7%9A%84%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://nicksxs.me/2025/09/13/%E6%80%8E%E4%B9%88%E8%AE%A9claude-code%E7%94%A8%E5%9B%BD%E5%86%85%E7%9A%84%E6%A8%A1%E5%9E%8B/</id>
+    <published>2025-09-13T13:29:54.000Z</published>
+    <updated>2025-09-13T13:29:54.155Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前体验过gemini code这个工具，谷歌还算比较友好，有token，有网络就可以用，claude</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>用gpt-oss零改动实现一个todo应用</title>
@@ -507,27 +532,6 @@
     
     
     <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>来介绍个源码阅读理解神器-deepwiki</title>
-    <link href="https://nicksxs.me/2025/04/27/%E6%9D%A5%E4%BB%8B%E7%BB%8D%E4%B8%AA%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%90%86%E8%A7%A3%E7%A5%9E%E5%99%A8-deepwiki/"/>
-    <id>https://nicksxs.me/2025/04/27/%E6%9D%A5%E4%BB%8B%E7%BB%8D%E4%B8%AA%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%90%86%E8%A7%A3%E7%A5%9E%E5%99%A8-deepwiki/</id>
-    <published>2025-04-27T11:52:14.000Z</published>
-    <updated>2025-04-27T11:52:14.911Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上次简单介绍了openmanus的使用，但是它究竟是怎么个原理还是一知半解的，如果想要能比较深入的理解，最直接粗暴的就是阅读源码了，然而对于很多人包括我来说阅读源码不是件简单的事情，有时候会陷入局部细节，不得要领&lt;br&gt;正好这次我发现了有个理解项目的神器，这次不加双引号是因</summary>
-        
-      
-    
-    
-    
     
   </entry>
   
