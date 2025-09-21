@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-09-13T13:29:54.155Z</updated>
+  <updated>2025-09-21T13:58:37.755Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>通过显卡来给gpt-oss做个加速</title>
+    <link href="https://nicksxs.me/2025/09/21/%E9%80%9A%E8%BF%87%E6%98%BE%E5%8D%A1%E6%9D%A5%E7%BB%99gpt-oss%E5%81%9A%E4%B8%AA%E5%8A%A0%E9%80%9F/"/>
+    <id>https://nicksxs.me/2025/09/21/%E9%80%9A%E8%BF%87%E6%98%BE%E5%8D%A1%E6%9D%A5%E7%BB%99gpt-oss%E5%81%9A%E4%B8%AA%E5%8A%A0%E9%80%9F/</id>
+    <published>2025-09-21T13:58:37.000Z</published>
+    <updated>2025-09-21T13:58:37.755Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前在我的MacBookPro里使用gpt-oss，因为总的内存只有18g，加上系统本身和各种后台程序的占用，剩下的一般就一半左右，然后这个模型大小就有13g左右，运行起来是很吃力的&lt;br&gt;正好我这有个服役比较久的windows笔记本，带有3060显卡，只是显存是6g的，想</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>怎么让claude code用国内的模型</title>
@@ -507,31 +532,6 @@
     
     
     <category term="恶意盗刷" scheme="https://nicksxs.me/tags/%E6%81%B6%E6%84%8F%E7%9B%97%E5%88%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>简单介绍下mcp是什么</title>
-    <link href="https://nicksxs.me/2025/05/04/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%8Bmcp%E6%98%AF%E4%BB%80%E4%B9%88/"/>
-    <id>https://nicksxs.me/2025/05/04/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%8Bmcp%E6%98%AF%E4%BB%80%E4%B9%88/</id>
-    <published>2025-05-04T13:56:57.000Z</published>
-    <updated>2025-05-04T13:56:57.373Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在大模型的演进过程中，mcp是个对于使用者非常有用的一个协议或者说工具，Model Context Protocol (MCP) 是一种专为大型语言模型和 AI 系统设计的通信协议框架，它解决了 AI</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
