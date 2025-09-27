@@ -340,4 +340,5 @@
 {"title":"体验openai开源的gpt-oss模型","url":"/2025/08/30/体验openai开源的gpt-oss模型/"},
 {"title":"用gpt-oss零改动实现一个todo应用","url":"/2025/09/07/用gpt-oss零改动实现一个todo应用/"},
 {"title":"怎么让claude code用国内的模型","url":"/2025/09/13/怎么让claude-code用国内的模型/"},
+{"title":"通过显卡来给gpt-oss做个加速","url":"/2025/09/21/通过显卡来给gpt-oss做个加速/"},
 ]

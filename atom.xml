@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-09-21T13:58:37.755Z</updated>
+  <updated>2025-09-27T11:07:03.058Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>怎么给wsl占用的硬盘空间做下瘦身</title>
+    <link href="https://nicksxs.me/2025/09/27/%E6%80%8E%E4%B9%88%E7%BB%99wsl%E5%8D%A0%E7%94%A8%E7%9A%84%E7%A1%AC%E7%9B%98%E7%A9%BA%E9%97%B4%E5%81%9A%E4%B8%8B%E7%98%A6%E8%BA%AB/"/>
+    <id>https://nicksxs.me/2025/09/27/%E6%80%8E%E4%B9%88%E7%BB%99wsl%E5%8D%A0%E7%94%A8%E7%9A%84%E7%A1%AC%E7%9B%98%E7%A9%BA%E9%97%B4%E5%81%9A%E4%B8%8B%E7%98%A6%E8%BA%AB/</id>
+    <published>2025-09-27T11:05:51.000Z</published>
+    <updated>2025-09-27T11:07:03.058Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;wsl出来这些年感觉在windows里使用linux，或者ubuntu真的是方便了很多，不用搞虚拟机这些&lt;br&gt;但是也有一些明显的问题，首先就是默认它是在C盘中安装，长久使用占用的空间就会越来越大，而且对于一些临时使用占用空间后，即使删除了文件，windows并不会对已经扩</summary>
+        
+      
+    
+    
+    
+    <category term="wsl" scheme="https://nicksxs.me/categories/wsl/"/>
+    
+    
+    <category term="wsl" scheme="https://nicksxs.me/tags/wsl/"/>
+    
+  </entry>
   
   <entry>
     <title>通过显卡来给gpt-oss做个加速</title>
@@ -507,31 +532,6 @@
     
     
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用rclone来当临时图床</title>
-    <link href="https://nicksxs.me/2025/05/11/%E4%BD%BF%E7%94%A8rclone%E6%9D%A5%E5%BD%93%E4%B8%B4%E6%97%B6%E5%9B%BE%E5%BA%8A/"/>
-    <id>https://nicksxs.me/2025/05/11/%E4%BD%BF%E7%94%A8rclone%E6%9D%A5%E5%BD%93%E4%B8%B4%E6%97%B6%E5%9B%BE%E5%BA%8A/</id>
-    <published>2025-05-11T13:28:17.000Z</published>
-    <updated>2025-05-11T13:28:17.573Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;鉴于用upic配置r2存储的图床失败后，目前的方式退化了一下，直接使用rclone作为临时替代&lt;br&gt;但是也才了个小坑，因为rclone在做copy的时候是不管bucket是否存在的，直接会调用 CreateBucket</summary>
-        
-      
-    
-    
-    
-    <category term="体验" scheme="https://nicksxs.me/categories/%E4%BD%93%E9%AA%8C/"/>
-    
-    
-    <category term="恶意盗刷" scheme="https://nicksxs.me/tags/%E6%81%B6%E6%84%8F%E7%9B%97%E5%88%B7/"/>
     
   </entry>
   
