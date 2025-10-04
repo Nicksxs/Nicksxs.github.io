@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-09-27T11:07:03.058Z</updated>
+  <updated>2025-10-04T14:50:43.938Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学习下用Google的agent开发工具Agent Development Kit</title>
+    <link href="https://nicksxs.me/2025/10/04/%E5%AD%A6%E4%B9%A0%E4%B8%8B%E7%94%A8Google%E7%9A%84agent%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7Agent-Development-Kit/"/>
+    <id>https://nicksxs.me/2025/10/04/%E5%AD%A6%E4%B9%A0%E4%B8%8B%E7%94%A8Google%E7%9A%84agent%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7Agent-Development-Kit/</id>
+    <published>2025-10-04T14:50:43.000Z</published>
+    <updated>2025-10-04T14:50:43.938Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;学习下用Google的agent开发工具Agent Development Kit简称 ADK，看着名字就不一般，冲着JDK的地位去的哈哈&lt;br&gt;首先我们安装下pom包&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>怎么给wsl占用的硬盘空间做下瘦身</title>
@@ -504,34 +526,6 @@
     
     
     <category term="工具" scheme="https://nicksxs.me/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java中arraylist的sort方法的 ConcurrentModificationException 问题</title>
-    <link href="https://nicksxs.me/2025/05/18/java%E4%B8%ADarraylist%E7%9A%84sort%E6%96%B9%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-    <id>https://nicksxs.me/2025/05/18/java%E4%B8%ADarraylist%E7%9A%84sort%E6%96%B9%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/</id>
-    <published>2025-05-18T12:56:34.000Z</published>
-    <updated>2025-05-18T12:56:34.066Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近写代码的时候碰到个问题，&lt;br&gt;比如我们有一个对象列表，对象中有个排序字段，比如时间或者索性就有个序号&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/java/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
   </entry>
   
