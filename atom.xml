@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-10-04T14:50:43.938Z</updated>
+  <updated>2025-10-12T12:03:15.437Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>将claude用的更有效一些的小窍门</title>
+    <link href="https://nicksxs.me/2025/10/12/%E5%B0%86claude%E7%94%A8%E7%9A%84%E6%9B%B4%E6%9C%89%E6%95%88%E4%B8%80%E4%BA%9B%E7%9A%84%E5%B0%8F%E7%AA%8D%E9%97%A8/"/>
+    <id>https://nicksxs.me/2025/10/12/%E5%B0%86claude%E7%94%A8%E7%9A%84%E6%9B%B4%E6%9C%89%E6%95%88%E4%B8%80%E4%BA%9B%E7%9A%84%E5%B0%8F%E7%AA%8D%E9%97%A8/</id>
+    <published>2025-10-12T12:03:15.000Z</published>
+    <updated>2025-10-12T12:03:15.437Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;claude的模型现在在写代码这块还是比较权威的，只是也别小瞧了本身它的通用能力&lt;br&gt;我们打开类似于gpt，claude经常是以文本形式的提问，再得到文本形式的回答，但是对于我们程序员来说，还有一些用途其实是可以更有效的&lt;br&gt;比如我们可以让claude帮我们画图&lt;br&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
+  
+  <entry>
     <title>学习下用Google的agent开发工具Agent Development Kit</title>
     <link href="https://nicksxs.me/2025/10/04/%E5%AD%A6%E4%B9%A0%E4%B8%8B%E7%94%A8Google%E7%9A%84agent%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7Agent-Development-Kit/"/>
     <id>https://nicksxs.me/2025/10/04/%E5%AD%A6%E4%B9%A0%E4%B8%8B%E7%94%A8Google%E7%9A%84agent%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7Agent-Development-Kit/</id>
     <published>2025-10-04T14:50:43.000Z</published>
-    <updated>2025-10-04T14:50:43.938Z</updated>
+    <updated>2025-10-12T12:02:33.355Z</updated>
     
     
       
@@ -35,6 +60,10 @@
     
     
     
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
@@ -501,31 +530,6 @@
     
     
     <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>介绍个非常好用的工具 pakeplus</title>
-    <link href="https://nicksxs.me/2025/05/25/%E4%BB%8B%E7%BB%8D%E4%B8%AA%E9%9D%9E%E5%B8%B8%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7-pakeplus/"/>
-    <id>https://nicksxs.me/2025/05/25/%E4%BB%8B%E7%BB%8D%E4%B8%AA%E9%9D%9E%E5%B8%B8%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7-pakeplus/</id>
-    <published>2025-05-25T12:33:03.000Z</published>
-    <updated>2025-05-25T12:33:03.261Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;程序员中例如我这样的主要是服务端的其实要开发一款app会面临很多问题，相对便捷的可能是做一个网页版的，套用下组件啥的，网页版的要做成app的话之前比较可行的是通过 Electron ，但是也是学习成本比较大的一件事，现在要介绍的这个pakeplus是基于rust</summary>
-        
-      
-    
-    
-    
-    <category term="工具" scheme="https://nicksxs.me/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-    <category term="工具" scheme="https://nicksxs.me/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   

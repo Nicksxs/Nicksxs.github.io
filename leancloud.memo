@@ -341,4 +341,6 @@
 {"title":"用gpt-oss零改动实现一个todo应用","url":"/2025/09/07/用gpt-oss零改动实现一个todo应用/"},
 {"title":"怎么让claude code用国内的模型","url":"/2025/09/13/怎么让claude-code用国内的模型/"},
 {"title":"通过显卡来给gpt-oss做个加速","url":"/2025/09/21/通过显卡来给gpt-oss做个加速/"},
+{"title":"怎么给wsl占用的硬盘空间做下瘦身","url":"/2025/09/27/怎么给wsl占用的硬盘空间做下瘦身/"},
+{"title":"学习下用Google的agent开发工具Agent Development Kit","url":"/2025/10/04/学习下用Google的agent开发工具Agent-Development-Kit/"},
 ]
