@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-10-12T12:03:15.437Z</updated>
+  <updated>2025-10-18T14:33:49.405Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在claude code中体验下GLM最新模型</title>
+    <link href="https://nicksxs.me/2025/10/18/%E5%9C%A8claude-code%E4%B8%AD%E4%BD%93%E9%AA%8C%E4%B8%8BGLM%E6%9C%80%E6%96%B0%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://nicksxs.me/2025/10/18/%E5%9C%A8claude-code%E4%B8%AD%E4%BD%93%E9%AA%8C%E4%B8%8BGLM%E6%9C%80%E6%96%B0%E6%A8%A1%E5%9E%8B/</id>
+    <published>2025-10-18T14:33:49.000Z</published>
+    <updated>2025-10-18T14:33:49.405Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在很久之前最开始体验国产模型的时候就体验了ChatGLM，那个时候属于国内基本没几家有出大语言模型，但是说实话体验效果的确比较一般&lt;br&gt;但是目前GLM也是国内比较头部的大语言模型了，特别是最新出的GLM4.6，看大佬的评测好像比Deepseek</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>将claude用的更有效一些的小窍门</title>
@@ -502,34 +527,6 @@
     
     
     <category term="java" scheme="https://nicksxs.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>回归本源理解下mysql的 select for update 锁</title>
-    <link href="https://nicksxs.me/2025/06/01/%E5%9B%9E%E5%BD%92%E6%9C%AC%E6%BA%90%E7%90%86%E8%A7%A3%E4%B8%8Bmysql%E7%9A%84for-update%E9%94%81/"/>
-    <id>https://nicksxs.me/2025/06/01/%E5%9B%9E%E5%BD%92%E6%9C%AC%E6%BA%90%E7%90%86%E8%A7%A3%E4%B8%8Bmysql%E7%9A%84for-update%E9%94%81/</id>
-    <published>2025-05-31T16:03:35.000Z</published>
-    <updated>2025-05-31T16:03:35.675Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;很多的业务场景我们会用到锁，包括各种炫酷的分布式锁，但是其实很多情况由于db的可靠性是相对比较高的，所以也可以在适当的情况下使用db来作为锁&lt;br&gt;这里就介绍下比较常用了 select for update 锁&lt;/p&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="msyql" scheme="https://nicksxs.me/categories/msyql/"/>
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/msyql/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
     
   </entry>
   
