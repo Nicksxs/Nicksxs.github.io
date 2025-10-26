@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-10-18T14:33:49.405Z</updated>
+  <updated>2025-10-26T13:48:03.347Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>体验Roo Code代码生成插件</title>
+    <link href="https://nicksxs.me/2025/10/26/%E4%BD%93%E9%AA%8CRoo-Code%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92%E4%BB%B6/"/>
+    <id>https://nicksxs.me/2025/10/26/%E4%BD%93%E9%AA%8CRoo-Code%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92%E4%BB%B6/</id>
+    <published>2025-10-26T13:47:18.000Z</published>
+    <updated>2025-10-26T13:48:03.347Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前在GLM网站看到他们家有适配各种代码生成插件，就先来体验下这个Roo Code&lt;br&gt;这是个在vscode插件市场里可以安装的插件，&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>在claude code中体验下GLM最新模型</title>
@@ -499,34 +524,6 @@
     <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
     <category term="Maven" scheme="https://nicksxs.me/tags/Maven/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>介绍下让bean有序执行的方法</title>
-    <link href="https://nicksxs.me/2025/06/08/%E4%BB%8B%E7%BB%8D%E4%B8%8B%E8%AE%A9bean%E6%9C%89%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%9A%84%E6%96%B9%E6%B3%95/"/>
-    <id>https://nicksxs.me/2025/06/08/%E4%BB%8B%E7%BB%8D%E4%B8%8B%E8%AE%A9bean%E6%9C%89%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%9A%84%E6%96%B9%E6%B3%95/</id>
-    <published>2025-06-08T10:19:24.000Z</published>
-    <updated>2025-06-08T10:19:24.774Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们在用一些设计模式的时候，特别是在java跟spring生态中，有很多基于接口，会有各种不同的实现，此时如果想让实现了同一个接口的一组处理器（bean）能够按顺序处理，会有比较多种方法，这里简单介绍两种实现方式，&lt;br&gt;我们先定义一个接口&lt;/p&gt;
-&lt;figure</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/java/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
     
   </entry>
   
