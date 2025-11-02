@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-10-26T13:48:03.347Z</updated>
+  <updated>2025-11-02T10:49:41.717Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>体验心流助手iflow</title>
+    <link href="https://nicksxs.me/2025/11/02/%E4%BD%93%E9%AA%8C%E5%BF%83%E6%B5%81%E5%8A%A9%E6%89%8Biflow/"/>
+    <id>https://nicksxs.me/2025/11/02/%E4%BD%93%E9%AA%8C%E5%BF%83%E6%B5%81%E5%8A%A9%E6%89%8Biflow/</id>
+    <published>2025-11-02T10:49:41.000Z</published>
+    <updated>2025-11-02T10:49:41.717Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近一直在找这些AI编程助手，想找个cc的八分平替，刚好前阵子在朋友圈看到iflow-cli，据说是可以免费用GLM4.6这些模型，&lt;br&gt;首先安装也很简单&lt;br&gt;使用这行命令就行&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>体验Roo Code代码生成插件</title>
@@ -494,36 +520,6 @@
     
     
     <category term="wsl" scheme="https://nicksxs.me/tags/wsl/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>解决下idea中maven依赖的cannot download sources问题</title>
-    <link href="https://nicksxs.me/2025/06/15/%E8%A7%A3%E5%86%B3%E4%B8%8Bidea%E4%B8%AD%E4%BE%9D%E8%B5%96%E7%9A%84cannot-download-sources%E9%97%AE%E9%A2%98/"/>
-    <id>https://nicksxs.me/2025/06/15/%E8%A7%A3%E5%86%B3%E4%B8%8Bidea%E4%B8%AD%E4%BE%9D%E8%B5%96%E7%9A%84cannot-download-sources%E9%97%AE%E9%A2%98/</id>
-    <published>2025-06-15T11:25:23.000Z</published>
-    <updated>2025-06-15T11:25:23.959Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;发现一个比较奇怪的问题，在看一个依赖的源码的时候没法下载sources，idea点击的时候报”cannot download sources”&lt;br&gt;可能有点强迫症，看着缩略过的代码比较不舒服，就查了下这个问题的解决方法&lt;/p&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="Maven" scheme="https://nicksxs.me/categories/Java/Maven/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="Maven" scheme="https://nicksxs.me/tags/Maven/"/>
     
   </entry>
   
