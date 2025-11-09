@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-11-02T10:49:41.717Z</updated>
+  <updated>2025-11-09T13:07:39.726Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>基于iflow的qwen模型来体验代码生成</title>
+    <link href="https://nicksxs.me/2025/11/09/%E5%9F%BA%E4%BA%8Eiflow%E7%9A%84qwen%E6%A8%A1%E5%9E%8B%E6%9D%A5%E4%BD%93%E9%AA%8C%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/"/>
+    <id>https://nicksxs.me/2025/11/09/%E5%9F%BA%E4%BA%8Eiflow%E7%9A%84qwen%E6%A8%A1%E5%9E%8B%E6%9D%A5%E4%BD%93%E9%AA%8C%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/</id>
+    <published>2025-11-09T13:07:39.000Z</published>
+    <updated>2025-11-09T13:07:39.726Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这里我们用iflow的默认&lt;code&gt;Qwen3-Coder-Plus&lt;/code&gt;模型来生成一个todo应用&lt;br&gt;本次的prompt稍微调整了下&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>体验心流助手iflow</title>
@@ -494,32 +520,6 @@
     
     
     <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>解决wsl2中的ubuntu无法通过ssh连接的问题</title>
-    <link href="https://nicksxs.me/2025/06/22/%E8%A7%A3%E5%86%B3wsl2%E4%B8%AD%E7%9A%84ubuntu%E6%97%A0%E6%B3%95%E9%80%9A%E8%BF%87ssh%E8%BF%9E%E6%8E%A5%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-    <id>https://nicksxs.me/2025/06/22/%E8%A7%A3%E5%86%B3wsl2%E4%B8%AD%E7%9A%84ubuntu%E6%97%A0%E6%B3%95%E9%80%9A%E8%BF%87ssh%E8%BF%9E%E6%8E%A5%E7%9A%84%E9%97%AE%E9%A2%98/</id>
-    <published>2025-06-22T13:48:18.000Z</published>
-    <updated>2025-06-22T13:48:18.746Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前介绍过wsl2的ssh连接问题，但是最近又碰到无法连接的情况，通过一顿查资料&lt;br&gt;发现了个比较特别的方法&lt;br&gt;首先可以通过powershell命令查看目前的端口开放情况&lt;/p&gt;
-&lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="wsl" scheme="https://nicksxs.me/categories/wsl/"/>
-    
-    
-    <category term="wsl" scheme="https://nicksxs.me/tags/wsl/"/>
     
   </entry>
   
