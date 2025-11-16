@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-11-09T13:07:39.726Z</updated>
+  <updated>2025-11-16T11:14:50.053Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>基于iflow的kimi模型来体验代码生成</title>
+    <link href="https://nicksxs.me/2025/11/16/%E5%9F%BA%E4%BA%8Eiflow%E7%9A%84kimi%E6%A8%A1%E5%9E%8B%E6%9D%A5%E4%BD%93%E9%AA%8C%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/"/>
+    <id>https://nicksxs.me/2025/11/16/%E5%9F%BA%E4%BA%8Eiflow%E7%9A%84kimi%E6%A8%A1%E5%9E%8B%E6%9D%A5%E4%BD%93%E9%AA%8C%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/</id>
+    <published>2025-11-16T11:14:42.000Z</published>
+    <updated>2025-11-16T11:14:50.053Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;首先是生成plan&lt;br&gt;&lt;img data-src=&quot;https://img.nicksxs.me/uPic/TcFxPi.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;完整生成完后还是无法运行，多次把问题提给kimi也没有解决&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>基于iflow的qwen模型来体验代码生成</title>
@@ -495,31 +522,6 @@
     
     
     <category term="技巧" scheme="https://nicksxs.me/tags/%E6%8A%80%E5%B7%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>体验最新的gemini cli工具来实现一个简单的网页小程序</title>
-    <link href="https://nicksxs.me/2025/06/29/%E4%BD%93%E9%AA%8C%E6%9C%80%E6%96%B0%E7%9A%84gemini-cli%E5%B7%A5%E5%85%B7%E6%9D%A5%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%BD%91%E9%A1%B5%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
-    <id>https://nicksxs.me/2025/06/29/%E4%BD%93%E9%AA%8C%E6%9C%80%E6%96%B0%E7%9A%84gemini-cli%E5%B7%A5%E5%85%B7%E6%9D%A5%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%BD%91%E9%A1%B5%E5%B0%8F%E7%A8%8B%E5%BA%8F/</id>
-    <published>2025-06-29T12:58:53.000Z</published>
-    <updated>2025-06-29T12:58:53.698Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;谷歌新出了个对标claude code的命令行工具，叫gemini-cli，还是开源的，所以赶紧来体验下，就是前提是有科学上网，要去google的ai studio申请gemini的api key&lt;br&gt;然后在有科学网络的情况下用node</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
