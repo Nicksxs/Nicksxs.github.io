@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-11-16T11:14:50.053Z</updated>
+  <updated>2025-11-23T15:36:25.537Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>来看下google最新力作Antigravity的水平如何</title>
+    <link href="https://nicksxs.me/2025/11/23/%E6%9D%A5%E7%9C%8B%E4%B8%8Bgoogle%E6%9C%80%E6%96%B0%E5%8A%9B%E4%BD%9Cgemini-3-pro%E7%9A%84%E6%B0%B4%E5%B9%B3%E5%A6%82%E4%BD%95/"/>
+    <id>https://nicksxs.me/2025/11/23/%E6%9D%A5%E7%9C%8B%E4%B8%8Bgoogle%E6%9C%80%E6%96%B0%E5%8A%9B%E4%BD%9Cgemini-3-pro%E7%9A%84%E6%B0%B4%E5%B9%B3%E5%A6%82%E4%BD%95/</id>
+    <published>2025-11-23T15:36:25.000Z</published>
+    <updated>2025-11-23T15:36:25.537Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这是一个类似于cursor的智能ide，并且内置了最新的gemini-3-pro&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>基于iflow的kimi模型来体验代码生成</title>
@@ -496,32 +521,6 @@
     
     
     <category term="php" scheme="https://nicksxs.me/tags/php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>复习下ER图和它的使用方式</title>
-    <link href="https://nicksxs.me/2025/07/06/%E5%A4%8D%E4%B9%A0%E4%B8%8BER%E5%9B%BE%E5%92%8C%E5%AE%83%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/"/>
-    <id>https://nicksxs.me/2025/07/06/%E5%A4%8D%E4%B9%A0%E4%B8%8BER%E5%9B%BE%E5%92%8C%E5%AE%83%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/</id>
-    <published>2025-07-06T13:17:23.000Z</published>
-    <updated>2025-07-06T13:17:23.397Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;er图在我们学习数据库的时候是有比较着重的介绍和学习过的，在实际工作中，如果有想对规范的研发流程，那么在技术方案分析设计阶段也需要对系统中涉及到的数据模型用ER图来表示以方便大家理解数据模型的设计和它们之间的关系&lt;br&gt;从维基百科上摘的一个说明和介绍&lt;/p&gt;
-&lt;blockq</summary>
-        
-      
-    
-    
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="技巧" scheme="https://nicksxs.me/tags/%E6%8A%80%E5%B7%A7/"/>
     
   </entry>
   
