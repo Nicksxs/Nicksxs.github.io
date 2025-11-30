@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-11-23T15:36:25.537Z</updated>
+  <updated>2025-11-30T13:53:14.718Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>来看下我装备了5060TI显卡的gpt-oss模型表现</title>
+    <link href="https://nicksxs.me/2025/11/30/%E6%9D%A5%E7%9C%8B%E4%B8%8B%E6%88%91%E8%A3%85%E5%A4%87%E4%BA%865060TI%E6%98%BE%E5%8D%A1%E7%9A%84gpt-oss%E6%A8%A1%E5%9E%8B%E8%A1%A8%E7%8E%B0/"/>
+    <id>https://nicksxs.me/2025/11/30/%E6%9D%A5%E7%9C%8B%E4%B8%8B%E6%88%91%E8%A3%85%E5%A4%87%E4%BA%865060TI%E6%98%BE%E5%8D%A1%E7%9A%84gpt-oss%E6%A8%A1%E5%9E%8B%E8%A1%A8%E7%8E%B0/</id>
+    <published>2025-11-30T13:53:14.000Z</published>
+    <updated>2025-11-30T13:53:14.718Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前在我的3060笔记本上试了有显卡的情况下gpt-oss的表现，只能说勉强可以用，比mbp上是可用了很多，毕竟那玩意除非完全把内存都让给gpt-oss，不然都跑不起来，只是生成速度还是有点感人，差不多就4.66token&amp;#x2F;s,一直觉得能在本地跑个稍微能用点的模型</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>来看下google最新力作Antigravity的水平如何</title>
@@ -496,31 +521,6 @@
     
     
     <category term="技巧" scheme="https://nicksxs.me/tags/%E6%8A%80%E5%B7%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>介绍下laravel herd工具</title>
-    <link href="https://nicksxs.me/2025/07/13/%E4%BB%8B%E7%BB%8D%E4%B8%8Blaravel-herd%E5%B7%A5%E5%85%B7/"/>
-    <id>https://nicksxs.me/2025/07/13/%E4%BB%8B%E7%BB%8D%E4%B8%8Blaravel-herd%E5%B7%A5%E5%85%B7/</id>
-    <published>2025-07-13T11:48:35.000Z</published>
-    <updated>2025-07-13T11:48:35.062Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;herd是在使用过了valet之后，又一款laravel出品的好用的工具，之前使用valet可以把laravel应用的本地域名解析和https加密等都处理好，是个非常不错的工具。&lt;br&gt;但是在我的使用场景里还有一个比较头疼的问题就是多版本php的切换，虽然php在大型网站，</summary>
-        
-      
-    
-    
-    
-    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
-    
-    
-    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
     
   </entry>
   
