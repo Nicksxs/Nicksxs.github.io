@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-12-07T14:31:37.861Z</updated>
+  <updated>2025-12-14T20:34:19.090Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>尝试学习理解下Claude Code的实现原理和细节</title>
+    <link href="https://nicksxs.me/2025/12/14/%E5%B0%9D%E8%AF%95%E5%AD%A6%E4%B9%A0%E7%90%86%E8%A7%A3%E4%B8%8BClaude-Code%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%92%8C%E7%BB%86%E8%8A%82/"/>
+    <id>https://nicksxs.me/2025/12/14/%E5%B0%9D%E8%AF%95%E5%AD%A6%E4%B9%A0%E7%90%86%E8%A7%A3%E4%B8%8BClaude-Code%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%92%8C%E7%BB%86%E8%8A%82/</id>
+    <published>2025-12-14T14:33:08.000Z</published>
+    <updated>2025-12-14T20:34:19.090Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;结合Claude的回答我们来看下Claude Code的实现原理和细节&lt;/p&gt;
+&lt;h3 id=&quot;一、诞生故事-从「听歌小工具」到企业级产品&quot;&gt;&lt;a href=&quot;#一、诞生故事-从「听歌小工具」到企业级产品&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>在Antigravity中对比体验Claude Sonnet 4.5模型</title>
@@ -496,32 +522,6 @@
     
     
     <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学习下mysql新版本支持的row_number方法</title>
-    <link href="https://nicksxs.me/2025/07/27/%E5%AD%A6%E4%B9%A0%E4%B8%8Bmysql%E6%96%B0%E7%89%88%E6%9C%AC%E6%94%AF%E6%8C%81%E7%9A%84row-number%E6%96%B9%E6%B3%95/"/>
-    <id>https://nicksxs.me/2025/07/27/%E5%AD%A6%E4%B9%A0%E4%B8%8Bmysql%E6%96%B0%E7%89%88%E6%9C%AC%E6%94%AF%E6%8C%81%E7%9A%84row-number%E6%96%B9%E6%B3%95/</id>
-    <published>2025-07-27T12:24:38.000Z</published>
-    <updated>2025-07-27T12:24:38.552Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在实际开发中，我们经常遇到需要在分组内进行排序并获取特定排名记录的需求。比如查找每个班级年龄最大的学生，每个部门薪资最高的员工等。这类问题在MySQL 8.0前后有着截然不同的解决方案。&lt;/p&gt;
-&lt;h2 id=&quot;传统解决方案（MySQL-8-0之前）&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="mysql" scheme="https://nicksxs.me/categories/mysql/"/>
-    
-    
-    <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
     
   </entry>
   
