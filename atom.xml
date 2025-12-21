@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-12-14T20:34:19.090Z</updated>
+  <updated>2025-12-21T14:16:35.543Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记录下ffmpeg命令</title>
+    <link href="https://nicksxs.me/2025/12/21/%E8%AE%B0%E5%BD%95%E4%B8%8Bffmpeg%E5%91%BD%E4%BB%A4/"/>
+    <id>https://nicksxs.me/2025/12/21/%E8%AE%B0%E5%BD%95%E4%B8%8Bffmpeg%E5%91%BD%E4%BB%A4/</id>
+    <published>2025-12-21T14:16:35.000Z</published>
+    <updated>2025-12-21T14:16:35.543Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;偶尔会用工具下载网上视频，然后有些下载会是视音频分离的模式，当文件名的开头是”-“的时候，在文件合并的时候就会出现异常&lt;br&gt;因为ffmpeg会将”-“视为命令参数的一部分，所以需要把文件重命名后，手动进行合并&lt;br&gt;命令也比较简单&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="工具" scheme="https://nicksxs.me/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="工具" scheme="https://nicksxs.me/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>尝试学习理解下Claude Code的实现原理和细节</title>
@@ -486,33 +512,6 @@
         
         
     <summary type="html">&lt;p&gt;上次介绍了n8n的安装和简单的工作流搭建，现在我们可以来看下一批免费开源的模板，也许它不能直接为我们所用，但是可以给我们搭建使用过程中提供一些帮助&lt;br&gt;就是这个仓库</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学习下n8n的搭建和使用</title>
-    <link href="https://nicksxs.me/2025/08/03/%E5%AD%A6%E4%B9%A0%E4%B8%8Bn8n%E7%9A%84%E6%90%AD%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
-    <id>https://nicksxs.me/2025/08/03/%E5%AD%A6%E4%B9%A0%E4%B8%8Bn8n%E7%9A%84%E6%90%AD%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/</id>
-    <published>2025-08-03T12:40:30.000Z</published>
-    <updated>2025-08-03T12:40:30.537Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;开始研究学习下现在比较流行的工作流画布，用官方的话就是&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Flexible AI workflow automation&lt;br&gt;for technical</summary>
         
       
     
