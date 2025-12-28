@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-12-21T14:16:35.543Z</updated>
+  <updated>2025-12-28T13:58:34.706Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>重新复习理解下java的类加载器</title>
+    <link href="https://nicksxs.me/2025/12/28/%E9%87%8D%E6%96%B0%E5%A4%8D%E4%B9%A0%E7%90%86%E8%A7%A3%E4%B8%8Bjava%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/"/>
+    <id>https://nicksxs.me/2025/12/28/%E9%87%8D%E6%96%B0%E5%A4%8D%E4%B9%A0%E7%90%86%E8%A7%A3%E4%B8%8Bjava%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</id>
+    <published>2025-12-28T13:58:34.000Z</published>
+    <updated>2025-12-28T13:58:34.706Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前比较粗浅的写过一点类加载器的相关知识，最近因为在看相关的内容，所以打算来复习也简单分享下&lt;br&gt;首先是我们常规用户自定义类的类加载器，&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>记录下ffmpeg命令</title>
@@ -487,31 +513,6 @@
         
         
     <summary type="html">&lt;p&gt;之前经常看一些LLM的工具，类似于ollama，chatbox等等，这些都类似于是个独立工具，真的在代码里使用的话可能没那么方便&lt;br&gt;正好看了下spring有个spring-ai的包，可以来使用试下&lt;br&gt;首先我们要用比较新的jdk版本，比如jdk17，然后需要使用spr</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>介绍一批比较不错的n8n模板</title>
-    <link href="https://nicksxs.me/2025/08/10/%E4%BB%8B%E7%BB%8D%E4%B8%80%E6%89%B9%E6%AF%94%E8%BE%83%E4%B8%8D%E9%94%99%E7%9A%84n8n%E6%A8%A1%E6%9D%BF/"/>
-    <id>https://nicksxs.me/2025/08/10/%E4%BB%8B%E7%BB%8D%E4%B8%80%E6%89%B9%E6%AF%94%E8%BE%83%E4%B8%8D%E9%94%99%E7%9A%84n8n%E6%A8%A1%E6%9D%BF/</id>
-    <published>2025-08-10T12:48:35.000Z</published>
-    <updated>2025-08-10T12:48:35.131Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上次介绍了n8n的安装和简单的工作流搭建，现在我们可以来看下一批免费开源的模板，也许它不能直接为我们所用，但是可以给我们搭建使用过程中提供一些帮助&lt;br&gt;就是这个仓库</summary>
         
       
     
