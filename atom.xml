@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2025-12-28T13:58:34.706Z</updated>
+  <updated>2026-01-03T13:28:50.981Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学习下MDC的机制</title>
+    <link href="https://nicksxs.me/2026/01/03/%E5%AD%A6%E4%B9%A0%E4%B8%8BMDC%E7%9A%84%E6%9C%BA%E5%88%B6/"/>
+    <id>https://nicksxs.me/2026/01/03/%E5%AD%A6%E4%B9%A0%E4%B8%8BMDC%E7%9A%84%E6%9C%BA%E5%88%B6/</id>
+    <published>2026-01-03T13:28:50.000Z</published>
+    <updated>2026-01-03T13:28:50.981Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前在前司的时候研究过一些链路日志相关的，有基于pinpoint，skywalking等中间件的，也有一些基于rpc框架的自研的，不过其中很多相通的逻辑应该是基于MDC来实现的，&lt;code&gt;MDC 全称是 Mapped Diagnostic Context&lt;/code&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>重新复习理解下java的类加载器</title>
@@ -488,31 +513,6 @@
         
         
     <summary type="html">&lt;p&gt;上周被spring-ai调用模型api这个折腾的有点难受，这周又试了下用deepseek官方的api，但结果还是一样，不确定是啥原因，请求会一直卡着&lt;br&gt;后来想着本地有ollama，那是不是可以直接用ollama来调本地模型&lt;br&gt;这里我们用一个非常基础很小的模型&lt;/p&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>差点忘了还有spring ai这个包</title>
-    <link href="https://nicksxs.me/2025/08/16/%E5%B7%AE%E7%82%B9%E5%BF%98%E4%BA%86%E8%BF%98%E6%9C%89springb-ai%E8%BF%99%E4%B8%AA%E5%8C%85/"/>
-    <id>https://nicksxs.me/2025/08/16/%E5%B7%AE%E7%82%B9%E5%BF%98%E4%BA%86%E8%BF%98%E6%9C%89springb-ai%E8%BF%99%E4%B8%AA%E5%8C%85/</id>
-    <published>2025-08-16T15:08:27.000Z</published>
-    <updated>2025-08-16T15:09:29.139Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前经常看一些LLM的工具，类似于ollama，chatbox等等，这些都类似于是个独立工具，真的在代码里使用的话可能没那么方便&lt;br&gt;正好看了下spring有个spring-ai的包，可以来使用试下&lt;br&gt;首先我们要用比较新的jdk版本，比如jdk17，然后需要使用spr</summary>
         
       
     
