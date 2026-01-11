@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-01-03T13:28:50.981Z</updated>
+  <updated>2026-01-11T14:17:24.997Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>体验下nocodb这个神奇的系统</title>
+    <link href="https://nicksxs.me/2026/01/11/%E4%BD%93%E9%AA%8C%E4%B8%8Bnocodb%E8%BF%99%E4%B8%AA%E7%A5%9E%E5%A5%87%E7%9A%84%E7%B3%BB%E7%BB%9F/"/>
+    <id>https://nicksxs.me/2026/01/11/%E4%BD%93%E9%AA%8C%E4%B8%8Bnocodb%E8%BF%99%E4%B8%AA%E7%A5%9E%E5%A5%87%E7%9A%84%E7%B3%BB%E7%BB%9F/</id>
+    <published>2026-01-11T14:16:58.000Z</published>
+    <updated>2026-01-11T14:17:24.997Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前阵子在微博看到一个说nocodb这个工具，一开始以为是类似于飞书的多维表格，那个对于很多办公党来说真的很好用，但是对于我好像没啥吸引力，但是这次看到的介绍是能替代很多db工具，就相当于是个后台系统，可以查看表的数据以及编辑等&lt;br&gt;首先就是很简单的安装，不过需要再支持do</summary>
+        
+      
+    
+    
+    
+    <category term="工具" scheme="https://nicksxs.me/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="工具" scheme="https://nicksxs.me/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>学习下MDC的机制</title>
@@ -488,31 +513,6 @@
         
         
     <summary type="html">&lt;p&gt;openai终于履行诺言开源了自家模型，只不过不是像deepseek那样把最新最好的开源出来，而是专门调了一大一小两个模型来开源，当然也有一些技术亮点&lt;br&gt;刚好我本地是18g内存的mbp，勉强可以跑20b大小的，这次开源的有20b跟200b感觉尺寸上还是比较取巧的，20b</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>真正适合spring ai的使用方式</title>
-    <link href="https://nicksxs.me/2025/08/24/%E7%9C%9F%E6%AD%A3%E9%80%82%E5%90%88spring-ai%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/"/>
-    <id>https://nicksxs.me/2025/08/24/%E7%9C%9F%E6%AD%A3%E9%80%82%E5%90%88spring-ai%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/</id>
-    <published>2025-08-24T15:18:00.000Z</published>
-    <updated>2025-08-24T15:18:00.228Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上周被spring-ai调用模型api这个折腾的有点难受，这周又试了下用deepseek官方的api，但结果还是一样，不确定是啥原因，请求会一直卡着&lt;br&gt;后来想着本地有ollama，那是不是可以直接用ollama来调本地模型&lt;br&gt;这里我们用一个非常基础很小的模型&lt;/p&gt;</summary>
         
       
     
