@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-01-18T13:51:52.768Z</updated>
+  <updated>2026-01-25T13:27:30.818Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学习体验下Koupleless框架-浅析代码</title>
+    <link href="https://nicksxs.me/2026/01/25/%E5%AD%A6%E4%B9%A0%E4%BD%93%E9%AA%8C%E4%B8%8BKoupleless%E6%A1%86%E6%9E%B6-%E6%B5%85%E6%9E%90%E4%BB%A3%E7%A0%81/"/>
+    <id>https://nicksxs.me/2026/01/25/%E5%AD%A6%E4%B9%A0%E4%BD%93%E9%AA%8C%E4%B8%8BKoupleless%E6%A1%86%E6%9E%B6-%E6%B5%85%E6%9E%90%E4%BB%A3%E7%A0%81/</id>
+    <published>2026-01-25T13:27:30.000Z</published>
+    <updated>2026-01-25T13:27:30.818Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上次简单体验了下koupleless框架，可以发现ark模块的加载运行是非常有优势的，&lt;br&gt;这次就来看下这个模块式怎么加载的&lt;br&gt;我们可以通过启动基座使用调试模式，然后打下断点在ArkClient这个类的几个核心方法&lt;br&gt;比如&lt;code&gt;com.alipay.sofa</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>学习体验下Koupleless框架</title>
@@ -488,31 +513,6 @@
         
         
     <summary type="html">&lt;p&gt;之前体验过gemini code这个工具，谷歌还算比较友好，有token，有网络就可以用，claude</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>用gpt-oss零改动实现一个todo应用</title>
-    <link href="https://nicksxs.me/2025/09/07/%E7%94%A8gpt-oss%E9%9B%B6%E6%94%B9%E5%8A%A8%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAtodo%E5%BA%94%E7%94%A8/"/>
-    <id>https://nicksxs.me/2025/09/07/%E7%94%A8gpt-oss%E9%9B%B6%E6%94%B9%E5%8A%A8%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAtodo%E5%BA%94%E7%94%A8/</id>
-    <published>2025-09-07T10:55:20.000Z</published>
-    <updated>2025-09-07T10:55:20.746Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;上次是文字型的，这次我们来写点代码试试，看看效果怎么样首先肯定是比较简单的尝试开始写一个todo应用，主要是看能不能零改动就跑起来用最简单的提示词然后就给出了代码&quot;&gt;&lt;a</summary>
         
       
     
