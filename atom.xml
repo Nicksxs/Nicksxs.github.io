@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-01-25T13:27:30.818Z</updated>
+  <updated>2026-02-01T12:47:57.509Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分享个加速github访问的方法</title>
+    <link href="https://nicksxs.me/2026/02/01/%E5%88%86%E4%BA%AB%E4%B8%AA%E5%8A%A0%E9%80%9Fgithub%E8%AE%BF%E9%97%AE%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+    <id>https://nicksxs.me/2026/02/01/%E5%88%86%E4%BA%AB%E4%B8%AA%E5%8A%A0%E9%80%9Fgithub%E8%AE%BF%E9%97%AE%E7%9A%84%E6%96%B9%E6%B3%95/</id>
+    <published>2026-02-01T12:47:57.000Z</published>
+    <updated>2026-02-01T12:47:57.509Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我们日常在使用github的时候经常会碰到访问比较慢的问题，一方面是github的打开慢，还有就是相关的数据传输很慢，比如从github上clone代码，有时候仓库比较大，经常是clone到一半就卡住了，或者速度几乎跌0了，还有比如是下载一些软件的软件包，特别是这个让人特别</summary>
+        
+      
+    
+    
+    
+    <category term="技巧" scheme="https://nicksxs.me/categories/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
   
   <entry>
     <title>学习体验下Koupleless框架-浅析代码</title>
@@ -488,31 +513,6 @@
         
         
     <summary type="html">&lt;p&gt;之前在我的MacBookPro里使用gpt-oss，因为总的内存只有18g，加上系统本身和各种后台程序的占用，剩下的一般就一半左右，然后这个模型大小就有13g左右，运行起来是很吃力的&lt;br&gt;正好我这有个服役比较久的windows笔记本，带有3060显卡，只是显存是6g的，想</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>怎么让claude code用国内的模型</title>
-    <link href="https://nicksxs.me/2025/09/13/%E6%80%8E%E4%B9%88%E8%AE%A9claude-code%E7%94%A8%E5%9B%BD%E5%86%85%E7%9A%84%E6%A8%A1%E5%9E%8B/"/>
-    <id>https://nicksxs.me/2025/09/13/%E6%80%8E%E4%B9%88%E8%AE%A9claude-code%E7%94%A8%E5%9B%BD%E5%86%85%E7%9A%84%E6%A8%A1%E5%9E%8B/</id>
-    <published>2025-09-13T13:29:54.000Z</published>
-    <updated>2025-09-13T13:29:54.155Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前体验过gemini code这个工具，谷歌还算比较友好，有token，有网络就可以用，claude</summary>
         
       
     
