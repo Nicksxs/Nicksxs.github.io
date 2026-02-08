@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-02-01T12:47:57.509Z</updated>
+  <updated>2026-02-08T12:56:37.315Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>浅析下mysql的索引的基数与可选择性</title>
+    <link href="https://nicksxs.me/2026/02/08/%E6%B5%85%E6%9E%90%E4%B8%8Bmysql%E7%9A%84%E7%B4%A2%E5%BC%95%E7%9A%84%E5%9F%BA%E6%95%B0%E4%B8%8E%E5%8F%AF%E9%80%89%E6%8B%A9%E6%80%A7/"/>
+    <id>https://nicksxs.me/2026/02/08/%E6%B5%85%E6%9E%90%E4%B8%8Bmysql%E7%9A%84%E7%B4%A2%E5%BC%95%E7%9A%84%E5%9F%BA%E6%95%B0%E4%B8%8E%E5%8F%AF%E9%80%89%E6%8B%A9%E6%80%A7/</id>
+    <published>2026-02-08T12:56:37.000Z</published>
+    <updated>2026-02-08T12:56:37.315Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近也看到了一篇文章，结合一些实际的经验来看下索引的基数和可选择性，&lt;br&gt;这个基数指的是啥呢，就是索引我们一直在讲的是要字段值的差异度比较大的那种，因为假如这个字段的所有值都是比如0和1的话，那索引的结构BTree就没办法高效的找到所查询的值，这个基数就是可以作为它差异度</summary>
+        
+      
+    
+    
+    
+    <category term="mysql" scheme="https://nicksxs.me/categories/mysql/"/>
+    
+    
+    <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
+    
+    <category term="索引" scheme="https://nicksxs.me/tags/%E7%B4%A2%E5%BC%95/"/>
+    
+  </entry>
   
   <entry>
     <title>分享个加速github访问的方法</title>
@@ -497,31 +524,6 @@
     
     
     <category term="wsl" scheme="https://nicksxs.me/tags/wsl/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>通过显卡来给gpt-oss做个加速</title>
-    <link href="https://nicksxs.me/2025/09/21/%E9%80%9A%E8%BF%87%E6%98%BE%E5%8D%A1%E6%9D%A5%E7%BB%99gpt-oss%E5%81%9A%E4%B8%AA%E5%8A%A0%E9%80%9F/"/>
-    <id>https://nicksxs.me/2025/09/21/%E9%80%9A%E8%BF%87%E6%98%BE%E5%8D%A1%E6%9D%A5%E7%BB%99gpt-oss%E5%81%9A%E4%B8%AA%E5%8A%A0%E9%80%9F/</id>
-    <published>2025-09-21T13:58:37.000Z</published>
-    <updated>2025-09-21T13:58:37.755Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前在我的MacBookPro里使用gpt-oss，因为总的内存只有18g，加上系统本身和各种后台程序的占用，剩下的一般就一半左右，然后这个模型大小就有13g左右，运行起来是很吃力的&lt;br&gt;正好我这有个服役比较久的windows笔记本，带有3060显卡，只是显存是6g的，想</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
