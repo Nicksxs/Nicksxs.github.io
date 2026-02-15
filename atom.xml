@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-02-08T12:56:37.315Z</updated>
+  <updated>2026-02-15T14:51:13.874Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何开启mysql的optimizer trace</title>
+    <link href="https://nicksxs.me/2026/02/15/%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AFmysql%E7%9A%84optimizer-trace/"/>
+    <id>https://nicksxs.me/2026/02/15/%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AFmysql%E7%9A%84optimizer-trace/</id>
+    <published>2026-02-15T14:51:13.000Z</published>
+    <updated>2026-02-15T14:51:13.874Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我们在使用mysql的索引的时候一般会使用explain来查看执行计划，用来分析索引使用情况等&lt;br&gt;但是经常我们也会质疑，为啥没有用预期的索引，反而使用了另一个或者甚至没使用&lt;br&gt;这样我们就可以开启optimizer</summary>
+        
+      
+    
+    
+    
+    <category term="mysql" scheme="https://nicksxs.me/categories/mysql/"/>
+    
+    
+    <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
+    
+    <category term="索引" scheme="https://nicksxs.me/tags/%E7%B4%A2%E5%BC%95/"/>
+    
+  </entry>
   
   <entry>
     <title>浅析下mysql的索引的基数与可选择性</title>
@@ -499,31 +526,6 @@
     
     
     <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>怎么给wsl占用的硬盘空间做下瘦身</title>
-    <link href="https://nicksxs.me/2025/09/27/%E6%80%8E%E4%B9%88%E7%BB%99wsl%E5%8D%A0%E7%94%A8%E7%9A%84%E7%A1%AC%E7%9B%98%E7%A9%BA%E9%97%B4%E5%81%9A%E4%B8%8B%E7%98%A6%E8%BA%AB/"/>
-    <id>https://nicksxs.me/2025/09/27/%E6%80%8E%E4%B9%88%E7%BB%99wsl%E5%8D%A0%E7%94%A8%E7%9A%84%E7%A1%AC%E7%9B%98%E7%A9%BA%E9%97%B4%E5%81%9A%E4%B8%8B%E7%98%A6%E8%BA%AB/</id>
-    <published>2025-09-27T11:05:51.000Z</published>
-    <updated>2025-09-27T11:07:03.058Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;wsl出来这些年感觉在windows里使用linux，或者ubuntu真的是方便了很多，不用搞虚拟机这些&lt;br&gt;但是也有一些明显的问题，首先就是默认它是在C盘中安装，长久使用占用的空间就会越来越大，而且对于一些临时使用占用空间后，即使删除了文件，windows并不会对已经扩</summary>
-        
-      
-    
-    
-    
-    <category term="wsl" scheme="https://nicksxs.me/categories/wsl/"/>
-    
-    
-    <category term="wsl" scheme="https://nicksxs.me/tags/wsl/"/>
     
   </entry>
   
