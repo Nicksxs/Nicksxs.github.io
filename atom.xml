@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-02-15T14:51:13.874Z</updated>
+  <updated>2026-02-22T14:32:15.909Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何查看mac的路由表和网关等信息</title>
+    <link href="https://nicksxs.me/2026/02/22/%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8Bmac%E7%9A%84%E8%B7%AF%E7%94%B1%E8%A1%A8%E5%92%8C%E7%BD%91%E5%85%B3%E7%AD%89%E4%BF%A1%E6%81%AF/"/>
+    <id>https://nicksxs.me/2026/02/22/%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8Bmac%E7%9A%84%E8%B7%AF%E7%94%B1%E8%A1%A8%E5%92%8C%E7%BD%91%E5%85%B3%E7%AD%89%E4%BF%A1%E6%81%AF/</id>
+    <published>2026-02-22T14:32:15.000Z</published>
+    <updated>2026-02-22T14:32:15.909Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近在研究headscale的多局域网互通，但是因为设备和网络知识不过关，所以还没完全走通，不过对于mac设备的路由和linux的路由这些知识稍微多了一点&lt;br&gt;在mac上可以通过&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="网络" scheme="https://nicksxs.me/categories/%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="网络" scheme="https://nicksxs.me/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
   
   <entry>
     <title>如何开启mysql的optimizer trace</title>
@@ -491,32 +517,6 @@
         
         
     <summary type="html">&lt;p&gt;claude的模型现在在写代码这块还是比较权威的，只是也别小瞧了本身它的通用能力&lt;br&gt;我们打开类似于gpt，claude经常是以文本形式的提问，再得到文本形式的回答，但是对于我们程序员来说，还有一些用途其实是可以更有效的&lt;br&gt;比如我们可以让claude帮我们画图&lt;br&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学习下用Google的agent开发工具Agent Development Kit</title>
-    <link href="https://nicksxs.me/2025/10/04/%E5%AD%A6%E4%B9%A0%E4%B8%8B%E7%94%A8Google%E7%9A%84agent%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7Agent-Development-Kit/"/>
-    <id>https://nicksxs.me/2025/10/04/%E5%AD%A6%E4%B9%A0%E4%B8%8B%E7%94%A8Google%E7%9A%84agent%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7Agent-Development-Kit/</id>
-    <published>2025-10-04T14:50:43.000Z</published>
-    <updated>2025-10-12T12:02:33.355Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;学习下用Google的agent开发工具Agent Development Kit简称 ADK，看着名字就不一般，冲着JDK的地位去的哈哈&lt;br&gt;首先我们安装下pom包&lt;/p&gt;
-&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
         
       
     
