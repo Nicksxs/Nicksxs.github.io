@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-03-01T15:18:45.462Z</updated>
+  <updated>2026-03-08T14:37:19.253Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记录一下迁移服务器需要使用的一些命令</title>
+    <link href="https://nicksxs.me/2026/03/08/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B%E8%BF%81%E7%A7%BB%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4/"/>
+    <id>https://nicksxs.me/2026/03/08/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B%E8%BF%81%E7%A7%BB%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4/</id>
+    <published>2026-03-08T14:37:19.000Z</published>
+    <updated>2026-03-08T14:37:19.253Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前也有迁移过一些服务器，这次也是因为原来的续费太贵了，所以做了下迁移，直接续费1xxx每年，重新买一个99一年，&lt;br&gt;这里主要是两方面，一个是冷备份，我用的是rsync  &lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="与服务器" scheme="https://nicksxs.me/categories/%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    
+    <category term="云服务器" scheme="https://nicksxs.me/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>较早代iPhone更换新iPhone的一些小指南</title>
@@ -492,31 +518,6 @@
         
         
     <summary type="html">&lt;p&gt;之前在GLM网站看到他们家有适配各种代码生成插件，就先来体验下这个Roo Code&lt;br&gt;这是个在vscode插件市场里可以安装的插件，&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在claude code中体验下GLM最新模型</title>
-    <link href="https://nicksxs.me/2025/10/18/%E5%9C%A8claude-code%E4%B8%AD%E4%BD%93%E9%AA%8C%E4%B8%8BGLM%E6%9C%80%E6%96%B0%E6%A8%A1%E5%9E%8B/"/>
-    <id>https://nicksxs.me/2025/10/18/%E5%9C%A8claude-code%E4%B8%AD%E4%BD%93%E9%AA%8C%E4%B8%8BGLM%E6%9C%80%E6%96%B0%E6%A8%A1%E5%9E%8B/</id>
-    <published>2025-10-18T14:33:49.000Z</published>
-    <updated>2025-10-18T14:33:49.405Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在很久之前最开始体验国产模型的时候就体验了ChatGLM，那个时候属于国内基本没几家有出大语言模型，但是说实话体验效果的确比较一般&lt;br&gt;但是目前GLM也是国内比较头部的大语言模型了，特别是最新出的GLM4.6，看大佬的评测好像比Deepseek</summary>
         
       
     
