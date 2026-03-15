@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-03-08T14:37:19.253Z</updated>
+  <updated>2026-03-15T15:48:10.558Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>解答一下关于traefik的一点疑惑</title>
+    <link href="https://nicksxs.me/2026/03/15/%E8%A7%A3%E7%AD%94%E4%B8%80%E4%B8%8B%E5%85%B3%E4%BA%8Etraefik%E7%9A%84%E4%B8%80%E7%82%B9%E7%96%91%E6%83%91/"/>
+    <id>https://nicksxs.me/2026/03/15/%E8%A7%A3%E7%AD%94%E4%B8%80%E4%B8%8B%E5%85%B3%E4%BA%8Etraefik%E7%9A%84%E4%B8%80%E7%82%B9%E7%96%91%E6%83%91/</id>
+    <published>2026-03-15T15:48:10.000Z</published>
+    <updated>2026-03-15T15:48:10.558Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前跟着大佬的脚步用上了traefik，但是对具体的原理不太理解，或者说比较疑惑&lt;br&gt;因为这个具体的配置是在后面服务的docker-compose配置文件的label上的&lt;br&gt;traefik好像没办法直接读到这个配置&lt;br&gt;现在搜索资料好像也没有很明确的介绍，包括官方文</summary>
+        
+      
+    
+    
+    
+    <category term="traefik" scheme="https://nicksxs.me/categories/traefik/"/>
+    
+    
+    <category term="traefik" scheme="https://nicksxs.me/tags/traefik/"/>
+    
+  </entry>
   
   <entry>
     <title>记录一下迁移服务器需要使用的一些命令</title>
@@ -493,31 +518,6 @@
         
     <summary type="html">&lt;p&gt;最近一直在找这些AI编程助手，想找个cc的八分平替，刚好前阵子在朋友圈看到iflow-cli，据说是可以免费用GLM4.6这些模型，&lt;br&gt;首先安装也很简单&lt;br&gt;使用这行命令就行&lt;/p&gt;
 &lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>体验Roo Code代码生成插件</title>
-    <link href="https://nicksxs.me/2025/10/26/%E4%BD%93%E9%AA%8CRoo-Code%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92%E4%BB%B6/"/>
-    <id>https://nicksxs.me/2025/10/26/%E4%BD%93%E9%AA%8CRoo-Code%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92%E4%BB%B6/</id>
-    <published>2025-10-26T13:47:18.000Z</published>
-    <updated>2025-10-26T13:48:03.347Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前在GLM网站看到他们家有适配各种代码生成插件，就先来体验下这个Roo Code&lt;br&gt;这是个在vscode插件市场里可以安装的插件，&lt;br&gt;&lt;img</summary>
         
       
     
