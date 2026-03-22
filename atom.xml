@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-03-15T15:48:10.558Z</updated>
+  <updated>2026-03-22T13:35:04.130Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一些架构师知识点的记录</title>
+    <link href="https://nicksxs.me/2026/03/22/%E4%B8%80%E4%BA%9B%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9%E7%9A%84%E8%AE%B0%E5%BD%95/"/>
+    <id>https://nicksxs.me/2026/03/22/%E4%B8%80%E4%BA%9B%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9%E7%9A%84%E8%AE%B0%E5%BD%95/</id>
+    <published>2026-03-22T13:35:04.000Z</published>
+    <updated>2026-03-22T13:35:04.130Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;SDN-软件定义网络&quot;&gt;&lt;a href=&quot;#SDN-软件定义网络&quot; class=&quot;headerlink&quot; title=&quot;SDN 软件定义网络&quot;&gt;&lt;/a&gt;SDN 软件定义网络&lt;/h2&gt;&lt;p&gt;SDN（Software Defined</summary>
+        
+      
+    
+    
+    
+    <category term="系统架构师" scheme="https://nicksxs.me/categories/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%B8%88/"/>
+    
+    
+    <category term="系统架构师" scheme="https://nicksxs.me/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%B8%88/"/>
+    
+  </entry>
   
   <entry>
     <title>解答一下关于traefik的一点疑惑</title>
@@ -492,32 +517,6 @@
         
     <summary type="html">&lt;p&gt;这里我们用iflow的默认&lt;code&gt;Qwen3-Coder-Plus&lt;/code&gt;模型来生成一个todo应用&lt;br&gt;本次的prompt稍微调整了下&lt;/p&gt;
 &lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>体验心流助手iflow</title>
-    <link href="https://nicksxs.me/2025/11/02/%E4%BD%93%E9%AA%8C%E5%BF%83%E6%B5%81%E5%8A%A9%E6%89%8Biflow/"/>
-    <id>https://nicksxs.me/2025/11/02/%E4%BD%93%E9%AA%8C%E5%BF%83%E6%B5%81%E5%8A%A9%E6%89%8Biflow/</id>
-    <published>2025-11-02T10:49:41.000Z</published>
-    <updated>2025-11-02T10:49:41.717Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近一直在找这些AI编程助手，想找个cc的八分平替，刚好前阵子在朋友圈看到iflow-cli，据说是可以免费用GLM4.6这些模型，&lt;br&gt;首先安装也很简单&lt;br&gt;使用这行命令就行&lt;/p&gt;
-&lt;figure class=&quot;highlight</summary>
         
       
     
