@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-03-22T13:35:04.130Z</updated>
+  <updated>2026-03-29T13:01:28.044Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学习下git的worktree</title>
+    <link href="https://nicksxs.me/2026/03/29/%E5%AD%A6%E4%B9%A0%E4%B8%8Bgit%E7%9A%84worktree/"/>
+    <id>https://nicksxs.me/2026/03/29/%E5%AD%A6%E4%B9%A0%E4%B8%8Bgit%E7%9A%84worktree/</id>
+    <published>2026-03-29T13:01:28.000Z</published>
+    <updated>2026-03-29T13:01:28.044Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我们在开发中还是有挺多时候会需要经常切换分支，比如在项目A的过程中突然要修个bug，或者想去看看另一个分支的代码逻辑是怎么样的等等&lt;br&gt;如果频繁的切换分支，那要不就是经常git</summary>
+        
+      
+    
+    
+    
+    <category term="git" scheme="https://nicksxs.me/categories/git/"/>
+    
+    <category term="技巧" scheme="https://nicksxs.me/categories/git/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="git" scheme="https://nicksxs.me/tags/git/"/>
+    
+  </entry>
   
   <entry>
     <title>一些架构师知识点的记录</title>
@@ -491,32 +518,6 @@
     <summary type="html">&lt;p&gt;首先是生成plan&lt;br&gt;&lt;img data-src=&quot;https://img.nicksxs.me/uPic/TcFxPi.png&quot;&gt;&lt;/p&gt;
 &lt;p&gt;完整生成完后还是无法运行，多次把问题提给kimi也没有解决&lt;/p&gt;
 &lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>基于iflow的qwen模型来体验代码生成</title>
-    <link href="https://nicksxs.me/2025/11/09/%E5%9F%BA%E4%BA%8Eiflow%E7%9A%84qwen%E6%A8%A1%E5%9E%8B%E6%9D%A5%E4%BD%93%E9%AA%8C%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/"/>
-    <id>https://nicksxs.me/2025/11/09/%E5%9F%BA%E4%BA%8Eiflow%E7%9A%84qwen%E6%A8%A1%E5%9E%8B%E6%9D%A5%E4%BD%93%E9%AA%8C%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/</id>
-    <published>2025-11-09T13:07:39.000Z</published>
-    <updated>2025-11-09T13:07:39.726Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这里我们用iflow的默认&lt;code&gt;Qwen3-Coder-Plus&lt;/code&gt;模型来生成一个todo应用&lt;br&gt;本次的prompt稍微调整了下&lt;/p&gt;
-&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
         
       
     
