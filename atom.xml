@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-03-29T13:01:28.044Z</updated>
+  <updated>2026-04-05T14:11:22.513Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>体验下微软开源的Markdown转换工具Markitdown</title>
+    <link href="https://nicksxs.me/2026/04/05/%E4%BD%93%E9%AA%8C%E4%B8%8B%E5%BE%AE%E8%BD%AF%E5%BC%80%E6%BA%90%E7%9A%84Markdown%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7Markitdown/"/>
+    <id>https://nicksxs.me/2026/04/05/%E4%BD%93%E9%AA%8C%E4%B8%8B%E5%BE%AE%E8%BD%AF%E5%BC%80%E6%BA%90%E7%9A%84Markdown%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7Markitdown/</id>
+    <published>2026-04-05T14:11:22.000Z</published>
+    <updated>2026-04-05T14:11:22.513Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这个工具的来源是看到了大神的个人知识库的文章，比之以前可能都是以rag的形式，现在是通过直接让大模型学习提取原始知识文档，来给自己做个人知识库的索引和整理，那么有一个前提是大模型更擅长的文档格式是纯文本的，或者说就是以Markdown的形式，因为既有段落格式，又是相对纯文本</summary>
+        
+      
+    
+    
+    
+    <category term="markdown" scheme="https://nicksxs.me/categories/markdown/"/>
+    
+    
+    <category term="markdown" scheme="https://nicksxs.me/tags/markdown/"/>
+    
+  </entry>
   
   <entry>
     <title>学习下git的worktree</title>
@@ -491,33 +516,6 @@
         
         
     <summary type="html">&lt;p&gt;这是一个类似于cursor的智能ide，并且内置了最新的gemini-3-pro&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>基于iflow的kimi模型来体验代码生成</title>
-    <link href="https://nicksxs.me/2025/11/16/%E5%9F%BA%E4%BA%8Eiflow%E7%9A%84kimi%E6%A8%A1%E5%9E%8B%E6%9D%A5%E4%BD%93%E9%AA%8C%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/"/>
-    <id>https://nicksxs.me/2025/11/16/%E5%9F%BA%E4%BA%8Eiflow%E7%9A%84kimi%E6%A8%A1%E5%9E%8B%E6%9D%A5%E4%BD%93%E9%AA%8C%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/</id>
-    <published>2025-11-16T11:14:42.000Z</published>
-    <updated>2025-11-16T11:14:50.053Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;首先是生成plan&lt;br&gt;&lt;img data-src=&quot;https://img.nicksxs.me/uPic/TcFxPi.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;完整生成完后还是无法运行，多次把问题提给kimi也没有解决&lt;/p&gt;
-&lt;figure class=&quot;highlight</summary>
         
       
     
