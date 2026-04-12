@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-04-05T14:11:22.513Z</updated>
+  <updated>2026-04-12T14:20:48.458Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学习下大神的知识库</title>
+    <link href="https://nicksxs.me/2026/04/12/%E5%AD%A6%E4%B9%A0%E4%B8%8B%E5%A4%A7%E7%A5%9E%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/"/>
+    <id>https://nicksxs.me/2026/04/12/%E5%AD%A6%E4%B9%A0%E4%B8%8B%E5%A4%A7%E7%A5%9E%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/</id>
+    <published>2026-04-12T14:20:48.000Z</published>
+    <updated>2026-04-12T14:20:48.458Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上次把pdf文档转成了markdown，这次就来试下把文档进行具体的整理学习&lt;br&gt;创建我的wiki目录，然后在目录下创建raw目录，用于存放原始的文档，最好是转成了markdown的，&lt;br&gt;方便模型读取，当然模型是多模态的，并且土豪可以无视&lt;br&gt;然后使用claude在</summary>
+        
+      
+    
+    
+    
+    <category term="markdown" scheme="https://nicksxs.me/categories/markdown/"/>
+    
+    
+    <category term="markdown" scheme="https://nicksxs.me/tags/markdown/"/>
+    
+  </entry>
   
   <entry>
     <title>体验下微软开源的Markdown转换工具Markitdown</title>
@@ -491,31 +516,6 @@
         
         
     <summary type="html">&lt;p&gt;之前在我的3060笔记本上试了有显卡的情况下gpt-oss的表现，只能说勉强可以用，比mbp上是可用了很多，毕竟那玩意除非完全把内存都让给gpt-oss，不然都跑不起来，只是生成速度还是有点感人，差不多就4.66token&amp;#x2F;s,一直觉得能在本地跑个稍微能用点的模型</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>来看下google最新力作Antigravity的水平如何</title>
-    <link href="https://nicksxs.me/2025/11/23/%E6%9D%A5%E7%9C%8B%E4%B8%8Bgoogle%E6%9C%80%E6%96%B0%E5%8A%9B%E4%BD%9Cgemini-3-pro%E7%9A%84%E6%B0%B4%E5%B9%B3%E5%A6%82%E4%BD%95/"/>
-    <id>https://nicksxs.me/2025/11/23/%E6%9D%A5%E7%9C%8B%E4%B8%8Bgoogle%E6%9C%80%E6%96%B0%E5%8A%9B%E4%BD%9Cgemini-3-pro%E7%9A%84%E6%B0%B4%E5%B9%B3%E5%A6%82%E4%BD%95/</id>
-    <published>2025-11-23T15:36:25.000Z</published>
-    <updated>2025-11-23T15:36:25.537Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这是一个类似于cursor的智能ide，并且内置了最新的gemini-3-pro&lt;br&gt;&lt;img</summary>
         
       
     
