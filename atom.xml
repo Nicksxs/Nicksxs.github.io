@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-04-12T14:20:48.458Z</updated>
+  <updated>2026-04-19T14:04:00.320Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>开始尝试使用obsidian作为笔记软件</title>
+    <link href="https://nicksxs.me/2026/04/19/%E5%BC%80%E5%A7%8B%E5%B0%9D%E8%AF%95%E4%BD%BF%E7%94%A8obsidian%E4%BD%9C%E4%B8%BA%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6/"/>
+    <id>https://nicksxs.me/2026/04/19/%E5%BC%80%E5%A7%8B%E5%B0%9D%E8%AF%95%E4%BD%BF%E7%94%A8obsidian%E4%BD%9C%E4%B8%BA%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6/</id>
+    <published>2026-04-19T14:04:00.000Z</published>
+    <updated>2026-04-19T14:04:00.320Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前看到Karpathy这个wiki知识库提到了使用Obsidian作为笔记软件，因为Obsidian存储笔记的格式就是markdown&lt;br&gt;Obsidian的使用方式和别的笔记系统还是有比较大差别的，我们只需要指定一个笔记目录，就可以往里存放笔记了&lt;br&gt;它的语法整体就</summary>
+        
+      
+    
+    
+    
+    <category term="markdown" scheme="https://nicksxs.me/categories/markdown/"/>
+    
+    
+    <category term="markdown" scheme="https://nicksxs.me/tags/markdown/"/>
+    
+    <category term="Obsidian" scheme="https://nicksxs.me/tags/Obsidian/"/>
+    
+  </entry>
   
   <entry>
     <title>学习下大神的知识库</title>
@@ -491,31 +518,6 @@
         
     <summary type="html">&lt;p&gt;之前使用了Antigravity的gemini pro 3模型，发现它似乎对语义理解有点跑偏，正好再来对比下我们的常胜将军 Claude Sonnet 4.5 模型&lt;br&gt;我们还是用的同样的简短prompt&lt;/p&gt;
 &lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>来看下我装备了5060TI显卡的gpt-oss模型表现</title>
-    <link href="https://nicksxs.me/2025/11/30/%E6%9D%A5%E7%9C%8B%E4%B8%8B%E6%88%91%E8%A3%85%E5%A4%87%E4%BA%865060TI%E6%98%BE%E5%8D%A1%E7%9A%84gpt-oss%E6%A8%A1%E5%9E%8B%E8%A1%A8%E7%8E%B0/"/>
-    <id>https://nicksxs.me/2025/11/30/%E6%9D%A5%E7%9C%8B%E4%B8%8B%E6%88%91%E8%A3%85%E5%A4%87%E4%BA%865060TI%E6%98%BE%E5%8D%A1%E7%9A%84gpt-oss%E6%A8%A1%E5%9E%8B%E8%A1%A8%E7%8E%B0/</id>
-    <published>2025-11-30T13:53:14.000Z</published>
-    <updated>2025-11-30T13:53:14.718Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前在我的3060笔记本上试了有显卡的情况下gpt-oss的表现，只能说勉强可以用，比mbp上是可用了很多，毕竟那玩意除非完全把内存都让给gpt-oss，不然都跑不起来，只是生成速度还是有点感人，差不多就4.66token&amp;#x2F;s,一直觉得能在本地跑个稍微能用点的模型</summary>
         
       
     
