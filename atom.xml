@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-04-19T14:04:00.320Z</updated>
+  <updated>2026-04-26T12:42:21.665Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>结合Obsidian的cli的一体化体验</title>
+    <link href="https://nicksxs.me/2026/04/26/%E7%BB%93%E5%90%88Obsidian%E7%9A%84cli%E7%9A%84%E4%B8%80%E4%BD%93%E5%8C%96%E4%BD%93%E9%AA%8C/"/>
+    <id>https://nicksxs.me/2026/04/26/%E7%BB%93%E5%90%88Obsidian%E7%9A%84cli%E7%9A%84%E4%B8%80%E4%BD%93%E5%8C%96%E4%BD%93%E9%AA%8C/</id>
+    <published>2026-04-26T12:42:21.000Z</published>
+    <updated>2026-04-26T12:42:21.665Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上次是开始使用了Obsidian，之前也听说了Obsidian也推出了cli命令行工具，这次就来体验下，主要是为了能在例如claude</summary>
+        
+      
+    
+    
+    
+    <category term="markdown" scheme="https://nicksxs.me/categories/markdown/"/>
+    
+    
+    <category term="markdown" scheme="https://nicksxs.me/tags/markdown/"/>
+    
+    <category term="Obsidian" scheme="https://nicksxs.me/tags/Obsidian/"/>
+    
+  </entry>
   
   <entry>
     <title>开始尝试使用obsidian作为笔记软件</title>
@@ -492,32 +519,6 @@
         
     <summary type="html">&lt;p&gt;结合Claude的回答我们来看下Claude Code的实现原理和细节&lt;/p&gt;
 &lt;h3 id=&quot;一、诞生故事-从「听歌小工具」到企业级产品&quot;&gt;&lt;a href=&quot;#一、诞生故事-从「听歌小工具」到企业级产品&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在Antigravity中对比体验Claude Sonnet 4.5模型</title>
-    <link href="https://nicksxs.me/2025/12/07/%E5%9C%A8Antigravity%E4%B8%AD%E5%AF%B9%E6%AF%94%E4%BD%93%E9%AA%8CClaude-Sonnet-4-5%E6%A8%A1%E5%9E%8B/"/>
-    <id>https://nicksxs.me/2025/12/07/%E5%9C%A8Antigravity%E4%B8%AD%E5%AF%B9%E6%AF%94%E4%BD%93%E9%AA%8CClaude-Sonnet-4-5%E6%A8%A1%E5%9E%8B/</id>
-    <published>2025-12-07T14:31:37.000Z</published>
-    <updated>2025-12-07T14:31:37.861Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前使用了Antigravity的gemini pro 3模型，发现它似乎对语义理解有点跑偏，正好再来对比下我们的常胜将军 Claude Sonnet 4.5 模型&lt;br&gt;我们还是用的同样的简短prompt&lt;/p&gt;
-&lt;figure class=&quot;highlight</summary>
         
       
     
