@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-05-10T15:27:52.568Z</updated>
+  <updated>2026-05-17T13:56:17.824Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用php的inotify扩展来监听文件变更</title>
+    <link href="https://nicksxs.me/2026/05/17/%E4%BD%BF%E7%94%A8php%E7%9A%84inotify%E6%89%A9%E5%B1%95%E6%9D%A5%E7%9B%91%E5%90%AC%E6%96%87%E4%BB%B6%E5%8F%98%E6%9B%B4/"/>
+    <id>https://nicksxs.me/2026/05/17/%E4%BD%BF%E7%94%A8php%E7%9A%84inotify%E6%89%A9%E5%B1%95%E6%9D%A5%E7%9B%91%E5%90%AC%E6%96%87%E4%BB%B6%E5%8F%98%E6%9B%B4/</id>
+    <published>2026-05-17T13:55:51.000Z</published>
+    <updated>2026-05-17T13:56:17.824Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;偶尔下载一些视频媒体的时候会想要对它进行压缩来缩小占用空间，&lt;br&gt;但是如果每次等下载完再去用软件压缩会比较麻烦&lt;br&gt;这里就找到了inotify扩展，可以监听文件变更&lt;br&gt;这里其实想吹一下小米的mimo2.5模型，因为要装php扩展，&lt;br&gt;我的是php7.4，网上搜了</summary>
+        
+      
+    
+    
+    
+    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
+    
+    
+    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
+    
+  </entry>
   
   <entry>
     <title>一些设计模式的记忆点</title>
@@ -500,32 +525,6 @@
         
         
     <summary type="html">&lt;p&gt;之前在前司的时候研究过一些链路日志相关的，有基于pinpoint，skywalking等中间件的，也有一些基于rpc框架的自研的，不过其中很多相通的逻辑应该是基于MDC来实现的，&lt;code&gt;MDC 全称是 Mapped Diagnostic Context&lt;/code&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>重新复习理解下java的类加载器</title>
-    <link href="https://nicksxs.me/2025/12/28/%E9%87%8D%E6%96%B0%E5%A4%8D%E4%B9%A0%E7%90%86%E8%A7%A3%E4%B8%8Bjava%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/"/>
-    <id>https://nicksxs.me/2025/12/28/%E9%87%8D%E6%96%B0%E5%A4%8D%E4%B9%A0%E7%90%86%E8%A7%A3%E4%B8%8Bjava%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</id>
-    <published>2025-12-28T13:58:34.000Z</published>
-    <updated>2025-12-28T13:58:34.706Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前比较粗浅的写过一点类加载器的相关知识，最近因为在看相关的内容，所以打算来复习也简单分享下&lt;br&gt;首先是我们常规用户自定义类的类加载器，&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
         
       
     
