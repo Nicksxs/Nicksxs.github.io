@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-05-17T13:56:17.824Z</updated>
+  <updated>2026-05-24T13:07:23.545Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>最近使用vibe coding的一些感悟</title>
+    <link href="https://nicksxs.me/2026/05/24/%E6%9C%80%E8%BF%91%E4%BD%BF%E7%94%A8vibe-coding%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/"/>
+    <id>https://nicksxs.me/2026/05/24/%E6%9C%80%E8%BF%91%E4%BD%BF%E7%94%A8vibe-coding%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/</id>
+    <published>2026-05-24T13:07:23.000Z</published>
+    <updated>2026-05-24T13:07:23.545Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;一段时间都有在用大模型来辅助编程，不过现在很多都叫成vibe coding了，连胡彦斌都在vibe coding了，&lt;br&gt;现在是个全民皆可做软件开发的时代，包括像之前那个小猫补光灯，有的人的想法是说点子不重要了&lt;br&gt;我自己想的有点不一样，vibe</summary>
+        
+      
+    
+    
+    
+    <category term="llm" scheme="https://nicksxs.me/categories/llm/"/>
+    
+    
+    <category term="llm" scheme="https://nicksxs.me/tags/llm/"/>
+    
+  </entry>
   
   <entry>
     <title>使用php的inotify扩展来监听文件变更</title>
@@ -509,31 +534,6 @@
     
     
     <category term="工具" scheme="https://nicksxs.me/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学习下MDC的机制</title>
-    <link href="https://nicksxs.me/2026/01/03/%E5%AD%A6%E4%B9%A0%E4%B8%8BMDC%E7%9A%84%E6%9C%BA%E5%88%B6/"/>
-    <id>https://nicksxs.me/2026/01/03/%E5%AD%A6%E4%B9%A0%E4%B8%8BMDC%E7%9A%84%E6%9C%BA%E5%88%B6/</id>
-    <published>2026-01-03T13:28:50.000Z</published>
-    <updated>2026-01-03T13:28:50.981Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前在前司的时候研究过一些链路日志相关的，有基于pinpoint，skywalking等中间件的，也有一些基于rpc框架的自研的，不过其中很多相通的逻辑应该是基于MDC来实现的，&lt;code&gt;MDC 全称是 Mapped Diagnostic Context&lt;/code&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
   </entry>
   
