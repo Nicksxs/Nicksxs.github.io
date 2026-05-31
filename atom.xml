@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-05-24T13:07:23.545Z</updated>
+  <updated>2026-05-31T14:07:27.859Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>看看目前本地能跑什么模型,使用llama.cpp</title>
+    <link href="https://nicksxs.me/2026/05/31/%E7%9C%8B%E7%9C%8B%E7%9B%AE%E5%89%8D%E6%9C%AC%E5%9C%B0%E8%83%BD%E8%B7%91%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B-%E4%BD%BF%E7%94%A8llama-cpp/"/>
+    <id>https://nicksxs.me/2026/05/31/%E7%9C%8B%E7%9C%8B%E7%9B%AE%E5%89%8D%E6%9C%AC%E5%9C%B0%E8%83%BD%E8%B7%91%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B-%E4%BD%BF%E7%94%A8llama-cpp/</id>
+    <published>2026-05-31T14:07:14.000Z</published>
+    <updated>2026-05-31T14:07:27.859Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;除了购买各种订阅和api服务，还有一种选择就是本地运行模型，但是这个一般来讲还是只能运行一些参数量比较小的，&lt;br&gt;随着开源权重模型的发展，这个方向也在慢慢的改变，当然差距肯定是有的，只是本地我们可以用来做些辅助工作&lt;br&gt;之前很多情况下一般都只是能作为玩具，并且由于oll</summary>
+        
+      
+    
+    
+    
+    <category term="llm" scheme="https://nicksxs.me/categories/llm/"/>
+    
+    
+    <category term="llm" scheme="https://nicksxs.me/tags/llm/"/>
+    
+  </entry>
   
   <entry>
     <title>最近使用vibe coding的一些感悟</title>
@@ -509,31 +534,6 @@
     
     
     <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>体验下nocodb这个神奇的系统</title>
-    <link href="https://nicksxs.me/2026/01/11/%E4%BD%93%E9%AA%8C%E4%B8%8Bnocodb%E8%BF%99%E4%B8%AA%E7%A5%9E%E5%A5%87%E7%9A%84%E7%B3%BB%E7%BB%9F/"/>
-    <id>https://nicksxs.me/2026/01/11/%E4%BD%93%E9%AA%8C%E4%B8%8Bnocodb%E8%BF%99%E4%B8%AA%E7%A5%9E%E5%A5%87%E7%9A%84%E7%B3%BB%E7%BB%9F/</id>
-    <published>2026-01-11T14:16:58.000Z</published>
-    <updated>2026-01-11T14:17:24.997Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前阵子在微博看到一个说nocodb这个工具，一开始以为是类似于飞书的多维表格，那个对于很多办公党来说真的很好用，但是对于我好像没啥吸引力，但是这次看到的介绍是能替代很多db工具，就相当于是个后台系统，可以查看表的数据以及编辑等&lt;br&gt;首先就是很简单的安装，不过需要再支持do</summary>
-        
-      
-    
-    
-    
-    <category term="工具" scheme="https://nicksxs.me/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-    <category term="工具" scheme="https://nicksxs.me/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
