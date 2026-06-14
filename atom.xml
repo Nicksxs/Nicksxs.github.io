@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-06-07T14:21:03.025Z</updated>
+  <updated>2026-06-14T13:45:45.944Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于github拉取下载加速的另一个方式</title>
+    <link href="https://nicksxs.me/2026/06/14/%E5%85%B3%E4%BA%8Egithub%E6%8B%89%E5%8F%96%E4%B8%8B%E8%BD%BD%E5%8A%A0%E9%80%9F%E7%9A%84%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%96%B9%E5%BC%8F/"/>
+    <id>https://nicksxs.me/2026/06/14/%E5%85%B3%E4%BA%8Egithub%E6%8B%89%E5%8F%96%E4%B8%8B%E8%BD%BD%E5%8A%A0%E9%80%9F%E7%9A%84%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%96%B9%E5%BC%8F/</id>
+    <published>2026-06-14T13:45:35.000Z</published>
+    <updated>2026-06-14T13:45:45.944Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天在尝试使用llama.cpp在mac下本地运行大模型的时候发现拉取llama.cpp的仓库还是比较慢，这点真的是挺难受，可能我们在玩一项技术的时候，有一大半时间都在克服这个问题，&lt;br&gt;这个方式也是谷歌搜到的，就是走 &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="llm" scheme="https://nicksxs.me/categories/llm/"/>
+    
+    
+    <category term="llm" scheme="https://nicksxs.me/tags/llm/"/>
+    
+  </entry>
   
   <entry>
     <title>关于适合什么模型,推荐下llmfit</title>
@@ -509,31 +534,6 @@
     
     
     <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学习体验下Koupleless框架-浅析代码</title>
-    <link href="https://nicksxs.me/2026/01/25/%E5%AD%A6%E4%B9%A0%E4%BD%93%E9%AA%8C%E4%B8%8BKoupleless%E6%A1%86%E6%9E%B6-%E6%B5%85%E6%9E%90%E4%BB%A3%E7%A0%81/"/>
-    <id>https://nicksxs.me/2026/01/25/%E5%AD%A6%E4%B9%A0%E4%BD%93%E9%AA%8C%E4%B8%8BKoupleless%E6%A1%86%E6%9E%B6-%E6%B5%85%E6%9E%90%E4%BB%A3%E7%A0%81/</id>
-    <published>2026-01-25T13:27:30.000Z</published>
-    <updated>2026-01-25T13:27:30.818Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上次简单体验了下koupleless框架，可以发现ark模块的加载运行是非常有优势的，&lt;br&gt;这次就来看下这个模块式怎么加载的&lt;br&gt;我们可以通过启动基座使用调试模式，然后打下断点在ArkClient这个类的几个核心方法&lt;br&gt;比如&lt;code&gt;com.alipay.sofa</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
   </entry>
   
