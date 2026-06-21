@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-06-14T13:45:45.944Z</updated>
+  <updated>2026-06-21T12:42:27.396Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>浅析一下jpeg图片格式及其来源</title>
+    <link href="https://nicksxs.me/2026/06/21/%E6%B5%85%E6%9E%90%E4%B8%80%E4%B8%8B%E5%90%84%E7%B1%BB%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%85%B6%E6%9D%A5%E6%BA%90/"/>
+    <id>https://nicksxs.me/2026/06/21/%E6%B5%85%E6%9E%90%E4%B8%80%E4%B8%8B%E5%90%84%E7%B1%BB%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%85%B6%E6%9D%A5%E6%BA%90/</id>
+    <published>2026-06-21T12:42:27.000Z</published>
+    <updated>2026-06-21T12:42:27.396Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;JPEG-是怎么压缩图片的？&quot;&gt;&lt;a href=&quot;#JPEG-是怎么压缩图片的？&quot; class=&quot;headerlink&quot; title=&quot;JPEG 是怎么压缩图片的？&quot;&gt;&lt;/a&gt;JPEG 是怎么压缩图片的？&lt;/h1&gt;&lt;p&gt;JPEG</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>关于github拉取下载加速的另一个方式</title>
@@ -509,31 +530,6 @@
     <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
     
     <category term="索引" scheme="https://nicksxs.me/tags/%E7%B4%A2%E5%BC%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分享个加速github访问的方法</title>
-    <link href="https://nicksxs.me/2026/02/01/%E5%88%86%E4%BA%AB%E4%B8%AA%E5%8A%A0%E9%80%9Fgithub%E8%AE%BF%E9%97%AE%E7%9A%84%E6%96%B9%E6%B3%95/"/>
-    <id>https://nicksxs.me/2026/02/01/%E5%88%86%E4%BA%AB%E4%B8%AA%E5%8A%A0%E9%80%9Fgithub%E8%AE%BF%E9%97%AE%E7%9A%84%E6%96%B9%E6%B3%95/</id>
-    <published>2026-02-01T12:47:57.000Z</published>
-    <updated>2026-02-01T12:47:57.509Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们日常在使用github的时候经常会碰到访问比较慢的问题，一方面是github的打开慢，还有就是相关的数据传输很慢，比如从github上clone代码，有时候仓库比较大，经常是clone到一半就卡住了，或者速度几乎跌0了，还有比如是下载一些软件的软件包，特别是这个让人特别</summary>
-        
-      
-    
-    
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
   </entry>
   
