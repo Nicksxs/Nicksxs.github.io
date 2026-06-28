@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-06-21T12:42:27.396Z</updated>
+  <updated>2026-06-28T14:18:00.382Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从 app.test 到小锁：valet 本地 HTTPS 的完整链路</title>
+    <link href="https://nicksxs.me/2026/06/28/%E4%BB%8E-app-test-%E5%88%B0%E5%B0%8F%E9%94%81%EF%BC%9A%E6%9C%AC%E5%9C%B0-HTTPS-%E7%9A%84%E5%AE%8C%E6%95%B4%E9%93%BE%E8%B7%AF/"/>
+    <id>https://nicksxs.me/2026/06/28/%E4%BB%8E-app-test-%E5%88%B0%E5%B0%8F%E9%94%81%EF%BC%9A%E6%9C%AC%E5%9C%B0-HTTPS-%E7%9A%84%E5%AE%8C%E6%95%B4%E9%93%BE%E8%B7%AF/</id>
+    <published>2026-06-28T14:18:00.000Z</published>
+    <updated>2026-06-28T14:18:00.382Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前在用到valet的时候就觉得这个工具很厉害，因为本地部署很多时候都是比较费劲的，也比较简陋，就直接localhost启动下，但是有时候需要验一下回调的，就需要有域名跟https，当然之前也没想明白的是在本地其实用本地的地址也是可以的，意思就是如果回调地址没限制必须要域名</summary>
+        
+      
+    
+    
+    
+    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
+    
+    
+    <category term="nginx" scheme="https://nicksxs.me/tags/nginx/"/>
+    
+    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
+    
+    <category term="valet" scheme="https://nicksxs.me/tags/valet/"/>
+    
+    <category term="https" scheme="https://nicksxs.me/tags/https/"/>
+    
+  </entry>
   
   <entry>
     <title>浅析一下jpeg图片格式及其来源</title>
@@ -492,33 +523,6 @@
         
         
     <summary type="html">&lt;p&gt;我们在使用mysql的索引的时候一般会使用explain来查看执行计划，用来分析索引使用情况等&lt;br&gt;但是经常我们也会质疑，为啥没有用预期的索引，反而使用了另一个或者甚至没使用&lt;br&gt;这样我们就可以开启optimizer</summary>
-        
-      
-    
-    
-    
-    <category term="mysql" scheme="https://nicksxs.me/categories/mysql/"/>
-    
-    
-    <category term="mysql" scheme="https://nicksxs.me/tags/mysql/"/>
-    
-    <category term="索引" scheme="https://nicksxs.me/tags/%E7%B4%A2%E5%BC%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>浅析下mysql的索引的基数与可选择性</title>
-    <link href="https://nicksxs.me/2026/02/08/%E6%B5%85%E6%9E%90%E4%B8%8Bmysql%E7%9A%84%E7%B4%A2%E5%BC%95%E7%9A%84%E5%9F%BA%E6%95%B0%E4%B8%8E%E5%8F%AF%E9%80%89%E6%8B%A9%E6%80%A7/"/>
-    <id>https://nicksxs.me/2026/02/08/%E6%B5%85%E6%9E%90%E4%B8%8Bmysql%E7%9A%84%E7%B4%A2%E5%BC%95%E7%9A%84%E5%9F%BA%E6%95%B0%E4%B8%8E%E5%8F%AF%E9%80%89%E6%8B%A9%E6%80%A7/</id>
-    <published>2026-02-08T12:56:37.000Z</published>
-    <updated>2026-02-08T12:56:37.315Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近也看到了一篇文章，结合一些实际的经验来看下索引的基数和可选择性，&lt;br&gt;这个基数指的是啥呢，就是索引我们一直在讲的是要字段值的差异度比较大的那种，因为假如这个字段的所有值都是比如0和1的话，那索引的结构BTree就没办法高效的找到所查询的值，这个基数就是可以作为它差异度</summary>
         
       
     
