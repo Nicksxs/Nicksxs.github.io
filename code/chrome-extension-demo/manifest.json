@@ -1,0 +1,1 @@
+{"manifest_version":3,"name":"Simple Page Marker","version":"1.0.0","description":"A tiny Chrome extension demo for marking the current page.","action":{"default_popup":"popup.html"},"permissions":["activeTab"],"content_scripts":[{"matches":["<all_urls>"],"js":["content.js"]}]}
