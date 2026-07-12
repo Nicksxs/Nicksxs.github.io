@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-07-05T12:53:17.379Z</updated>
+  <updated>2026-07-12T14:18:19.076Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学一下chrome的扩展开发</title>
+    <link href="https://nicksxs.me/2026/07/12/%E5%AD%A6%E4%B8%80%E4%B8%8Bchrome%E7%9A%84%E6%89%A9%E5%B1%95%E5%BC%80%E5%8F%91/"/>
+    <id>https://nicksxs.me/2026/07/12/%E5%AD%A6%E4%B8%80%E4%B8%8Bchrome%E7%9A%84%E6%89%A9%E5%B1%95%E5%BC%80%E5%8F%91/</id>
+    <published>2026-07-12T14:18:19.000Z</published>
+    <updated>2026-07-12T14:18:19.076Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近因为看了下 Chrome 里面置入的小模型，顺手又看了下 Chrome 扩展。&lt;/p&gt;
+&lt;p&gt;之前其实也接触过一些浏览器扩展，但是一直没有特别系统地看过它的结构，感觉好像就是写一个 &lt;code&gt;html&lt;/code&gt;，然后再配几个 &lt;code&gt;js&lt;/code&gt; 文件就可以了。&lt;/p&gt;
+&lt;p&gt;但是真正写起来以后，会发现 Chrome 扩展里面有几个不同的运行环境，尤其是 &lt;code&gt;popup&lt;/code&gt; 和 &lt;code&gt;content script&lt;/code&gt;，如果没有分清楚，后面调用网页内容或者操作页面 DOM 的时候就容易有点混乱。&lt;/p&gt;
+&lt;p&gt;这次先做一个比较简单的例子，点击扩展按钮以后，给当前页面加一个背景色，再在右下角显示一个提示。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="前端" scheme="https://nicksxs.me/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="Chrome" scheme="https://nicksxs.me/tags/Chrome/"/>
+    
+    <category term="Chrome Extension" scheme="https://nicksxs.me/tags/Chrome-Extension/"/>
+    
+    <category term="JavaScript" scheme="https://nicksxs.me/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>看下chrome的内置模型</title>
@@ -507,32 +533,6 @@
     
     
     <category term="iPhone" scheme="https://nicksxs.me/tags/iPhone/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何查看mac的路由表和网关等信息</title>
-    <link href="https://nicksxs.me/2026/02/22/%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8Bmac%E7%9A%84%E8%B7%AF%E7%94%B1%E8%A1%A8%E5%92%8C%E7%BD%91%E5%85%B3%E7%AD%89%E4%BF%A1%E6%81%AF/"/>
-    <id>https://nicksxs.me/2026/02/22/%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8Bmac%E7%9A%84%E8%B7%AF%E7%94%B1%E8%A1%A8%E5%92%8C%E7%BD%91%E5%85%B3%E7%AD%89%E4%BF%A1%E6%81%AF/</id>
-    <published>2026-02-22T14:32:15.000Z</published>
-    <updated>2026-02-22T14:32:15.909Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近在研究headscale的多局域网互通，但是因为设备和网络知识不过关，所以还没完全走通，不过对于mac设备的路由和linux的路由这些知识稍微多了一点&lt;br&gt;在mac上可以通过&lt;/p&gt;
-&lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="网络" scheme="https://nicksxs.me/categories/%E7%BD%91%E7%BB%9C/"/>
-    
-    
-    <category term="网络" scheme="https://nicksxs.me/tags/%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
