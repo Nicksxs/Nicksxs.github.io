@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-07-12T14:18:19.076Z</updated>
+  <updated>2026-07-19T12:53:14.105Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一个gitea推送失败的问题</title>
+    <link href="https://nicksxs.me/2026/07/19/%E8%AE%B0%E4%B8%80%E4%B8%AAgiea%E6%8E%A8%E9%80%81%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>https://nicksxs.me/2026/07/19/%E8%AE%B0%E4%B8%80%E4%B8%AAgiea%E6%8E%A8%E9%80%81%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/</id>
+    <published>2026-07-19T12:53:14.000Z</published>
+    <updated>2026-07-19T12:53:14.105Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我的博客的推送一份是在github&lt;br&gt;作为github</summary>
+        
+      
+    
+    
+    
+    <category term="git" scheme="https://nicksxs.me/categories/git/"/>
+    
+    
+    <category term="git" scheme="https://nicksxs.me/tags/git/"/>
+    
+  </entry>
   
   <entry>
     <title>学一下chrome的扩展开发</title>
@@ -508,31 +533,6 @@
     
     
     <category term="云服务器" scheme="https://nicksxs.me/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>较早代iPhone更换新iPhone的一些小指南</title>
-    <link href="https://nicksxs.me/2026/03/01/%E8%BE%83%E6%97%A9%E4%BB%A3iPhone%E6%9B%B4%E6%8D%A2%E6%96%B0iPhone%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E6%8C%87%E5%8D%97/"/>
-    <id>https://nicksxs.me/2026/03/01/%E8%BE%83%E6%97%A9%E4%BB%A3iPhone%E6%9B%B4%E6%8D%A2%E6%96%B0iPhone%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E6%8C%87%E5%8D%97/</id>
-    <published>2026-03-01T15:18:45.000Z</published>
-    <updated>2026-03-01T15:18:45.462Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我跟LD一直在用的是比较古早iPhone7</summary>
-        
-      
-    
-    
-    
-    <category term="iPhone" scheme="https://nicksxs.me/categories/iPhone/"/>
-    
-    
-    <category term="iPhone" scheme="https://nicksxs.me/tags/iPhone/"/>
     
   </entry>
   
