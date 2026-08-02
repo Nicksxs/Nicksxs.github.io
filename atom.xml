@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-07-26T10:13:16.179Z</updated>
+  <updated>2026-08-02T13:29:37.671Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何在命令行中输出进度条</title>
+    <link href="https://nicksxs.me/2026/08/02/%E5%A6%82%E4%BD%95%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%AD%E8%BE%93%E5%87%BA%E8%BF%9B%E5%BA%A6%E6%9D%A1/"/>
+    <id>https://nicksxs.me/2026/08/02/%E5%A6%82%E4%BD%95%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%AD%E8%BE%93%E5%87%BA%E8%BF%9B%E5%BA%A6%E6%9D%A1/</id>
+    <published>2026-08-02T13:26:43.000Z</published>
+    <updated>2026-08-02T13:29:37.671Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前就比较好奇，命令行一般输出都是往后追加，好像不知道怎么做覆盖更新，但是很多比较厉害的shell脚本都有那种进度条，甚至整个重绘&lt;br&gt;所以就来看下，怎么在命令行里输出个会变的进度条，&lt;br&gt;比如我在命令行中输出两行&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="小技巧" scheme="https://nicksxs.me/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="小技巧" scheme="https://nicksxs.me/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
   
   <entry>
     <title>联想 G400 安装 Windows 7 折腾记录</title>
@@ -145,9 +171,9 @@
     <category term="php" scheme="https://nicksxs.me/categories/php/"/>
     
     
-    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
-    
     <category term="nginx" scheme="https://nicksxs.me/tags/nginx/"/>
+    
+    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
     
     <category term="valet" scheme="https://nicksxs.me/tags/valet/"/>
     
@@ -513,31 +539,6 @@
     
     
     <category term="系统架构师" scheme="https://nicksxs.me/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%B8%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>解答一下关于traefik的一点疑惑</title>
-    <link href="https://nicksxs.me/2026/03/15/%E8%A7%A3%E7%AD%94%E4%B8%80%E4%B8%8B%E5%85%B3%E4%BA%8Etraefik%E7%9A%84%E4%B8%80%E7%82%B9%E7%96%91%E6%83%91/"/>
-    <id>https://nicksxs.me/2026/03/15/%E8%A7%A3%E7%AD%94%E4%B8%80%E4%B8%8B%E5%85%B3%E4%BA%8Etraefik%E7%9A%84%E4%B8%80%E7%82%B9%E7%96%91%E6%83%91/</id>
-    <published>2026-03-15T15:48:10.000Z</published>
-    <updated>2026-03-15T15:48:10.558Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前跟着大佬的脚步用上了traefik，但是对具体的原理不太理解，或者说比较疑惑&lt;br&gt;因为这个具体的配置是在后面服务的docker-compose配置文件的label上的&lt;br&gt;traefik好像没办法直接读到这个配置&lt;br&gt;现在搜索资料好像也没有很明确的介绍，包括官方文</summary>
-        
-      
-    
-    
-    
-    <category term="traefik" scheme="https://nicksxs.me/categories/traefik/"/>
-    
-    
-    <category term="traefik" scheme="https://nicksxs.me/tags/traefik/"/>
     
   </entry>
   
