@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-08-09T13:25:36.380Z</updated>
+  <updated>2026-08-16T15:08:30.052Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>让chatgpt来给我讲解下deepseek harness的插件体系</title>
+    <link href="https://nicksxs.me/2026/08/16/%E8%AE%A9chatgpt%E6%9D%A5%E7%BB%99%E6%88%91%E8%AE%B2%E8%A7%A3%E4%B8%8Bdeepseek-harness%E7%9A%84%E6%8F%92%E4%BB%B6%E4%BD%93%E7%B3%BB/"/>
+    <id>https://nicksxs.me/2026/08/16/%E8%AE%A9chatgpt%E6%9D%A5%E7%BB%99%E6%88%91%E8%AE%B2%E8%A7%A3%E4%B8%8Bdeepseek-harness%E7%9A%84%E6%8F%92%E4%BB%B6%E4%BD%93%E7%B3%BB/</id>
+    <published>2026-08-16T15:07:34.000Z</published>
+    <updated>2026-08-16T15:08:30.052Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近deepseek发布了harness，试用了一下结合deepseek-4-flash，用它尝试写一个php的现代版phpmyadmin，因为也是一个比较重要且有一点复杂度的应用&lt;br&gt;试了下除了数据展示有点问题，修了一轮就完成了，整体表现还是不错的&lt;br&gt;然后看了下它主</summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>来学习下pi agent的原理</title>
@@ -512,33 +537,6 @@
     
     
     <category term="markdown" scheme="https://nicksxs.me/tags/markdown/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学习下git的worktree</title>
-    <link href="https://nicksxs.me/2026/03/29/%E5%AD%A6%E4%B9%A0%E4%B8%8Bgit%E7%9A%84worktree/"/>
-    <id>https://nicksxs.me/2026/03/29/%E5%AD%A6%E4%B9%A0%E4%B8%8Bgit%E7%9A%84worktree/</id>
-    <published>2026-03-29T13:01:28.000Z</published>
-    <updated>2026-03-29T13:01:28.044Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们在开发中还是有挺多时候会需要经常切换分支，比如在项目A的过程中突然要修个bug，或者想去看看另一个分支的代码逻辑是怎么样的等等&lt;br&gt;如果频繁的切换分支，那要不就是经常git</summary>
-        
-      
-    
-    
-    
-    <category term="git" scheme="https://nicksxs.me/categories/git/"/>
-    
-    <category term="技巧" scheme="https://nicksxs.me/categories/git/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-    <category term="git" scheme="https://nicksxs.me/tags/git/"/>
     
   </entry>
   
