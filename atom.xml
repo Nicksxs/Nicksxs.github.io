@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-08-16T15:08:30.052Z</updated>
+  <updated>2026-08-23T14:47:18.645Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,43 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>8GB显存如何跑35B：深入理解FreeToken的专家缓存与CPU-GPU协同</title>
+    <link href="https://nicksxs.me/2026/08/23/8GB%E6%98%BE%E5%AD%98%E5%A6%82%E4%BD%95%E8%B7%9135B-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3FreeToken%E7%9A%84%E4%B8%93%E5%AE%B6%E7%BC%93%E5%AD%98%E4%B8%8ECPU-GPU%E5%8D%8F%E5%90%8C/"/>
+    <id>https://nicksxs.me/2026/08/23/8GB%E6%98%BE%E5%AD%98%E5%A6%82%E4%BD%95%E8%B7%9135B-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3FreeToken%E7%9A%84%E4%B8%93%E5%AE%B6%E7%BC%93%E5%AD%98%E4%B8%8ECPU-GPU%E5%8D%8F%E5%90%8C/</id>
+    <published>2026-08-23T12:41:00.000Z</published>
+    <updated>2026-08-23T14:47:18.645Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;style&gt;
+@media (max-width: 767px) {
+  .post-body {
+    min-width: 0;
+    overflow-x: clip;
+  }
+
+  .post-body figure.highlight {
+   </summary>
+        
+      
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+    <category term="FreeToken" scheme="https://nicksxs.me/tags/FreeToken/"/>
+    
+    <category term="llama.cpp" scheme="https://nicksxs.me/tags/llama-cpp/"/>
+    
+  </entry>
   
   <entry>
     <title>让chatgpt来给我讲解下deepseek harness的插件体系</title>
@@ -503,31 +540,6 @@
         
         
     <summary type="html">&lt;p&gt;上次把pdf文档转成了markdown，这次就来试下把文档进行具体的整理学习&lt;br&gt;创建我的wiki目录，然后在目录下创建raw目录，用于存放原始的文档，最好是转成了markdown的，&lt;br&gt;方便模型读取，当然模型是多模态的，并且土豪可以无视&lt;br&gt;然后使用claude在</summary>
-        
-      
-    
-    
-    
-    <category term="markdown" scheme="https://nicksxs.me/categories/markdown/"/>
-    
-    
-    <category term="markdown" scheme="https://nicksxs.me/tags/markdown/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>体验下微软开源的Markdown转换工具Markitdown</title>
-    <link href="https://nicksxs.me/2026/04/05/%E4%BD%93%E9%AA%8C%E4%B8%8B%E5%BE%AE%E8%BD%AF%E5%BC%80%E6%BA%90%E7%9A%84Markdown%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7Markitdown/"/>
-    <id>https://nicksxs.me/2026/04/05/%E4%BD%93%E9%AA%8C%E4%B8%8B%E5%BE%AE%E8%BD%AF%E5%BC%80%E6%BA%90%E7%9A%84Markdown%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7Markitdown/</id>
-    <published>2026-04-05T14:11:22.000Z</published>
-    <updated>2026-04-05T14:11:22.513Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这个工具的来源是看到了大神的个人知识库的文章，比之以前可能都是以rag的形式，现在是通过直接让大模型学习提取原始知识文档，来给自己做个人知识库的索引和整理，那么有一个前提是大模型更擅长的文档格式是纯文本的，或者说就是以Markdown的形式，因为既有段落格式，又是相对纯文本</summary>
         
       
     

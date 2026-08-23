@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">FreeToken 的完整层 Prefill 双缓冲</title>
+  <desc id="desc">长提示词中不同 token 的专家路由并集接近完整专家集合，因此 FreeToken 使用两块完整层缓冲，在 GPU 计算当前层时通过 PCIe 传输下一层。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#53606b"/>
+    </marker>
+    <style>
+      .t{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#17212b}
+      .muted{font-size:16px;fill:#5d6873}
+      .head{font-size:22px;font-weight:700}
+      .line{stroke:#53606b;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="700" fill="#f6f8fa"/>
+  <text class="t" x="50" y="55" font-size="30" font-weight="700">Prefill：单个 token 稀疏，长 Prompt 的路由并集却接近稠密</text>
+
+  <rect x="50" y="100" width="1100" height="185" rx="8" fill="#ffffff" stroke="#c7cdd4" stroke-width="2"/>
+  <text class="t head" x="82" y="140">8192 个 token 各自只选少量专家</text>
+  <g transform="translate(85 170)">
+    <rect x="0" y="0" width="150" height="45" rx="6" fill="#e8f1fb" stroke="#2979b9"/>
+    <text class="t" x="75" y="29" font-size="17" text-anchor="middle">token 1 → E1, E7...</text>
+    <rect x="175" y="0" width="170" height="45" rx="6" fill="#e7f5ef" stroke="#1f8a70"/>
+    <text class="t" x="260" y="29" font-size="17" text-anchor="middle">token 2 → E2, E9...</text>
+    <rect x="370" y="0" width="180" height="45" rx="6" fill="#fff0d6" stroke="#d59224"/>
+    <text class="t" x="460" y="29" font-size="17" text-anchor="middle">token 3 → E4, E11...</text>
+    <text class="t" x="585" y="30" font-size="26">...</text>
+  </g>
+  <path class="line" d="M690 193 H760"/>
+  <rect x="780" y="145" width="320" height="100" rx="8" fill="#fdebe8" stroke="#e85d4a" stroke-width="2"/>
+  <text class="t head" x="940" y="180" text-anchor="middle">所有路由取并集</text>
+  <text class="t" x="940" y="211" font-size="19" text-anchor="middle">几乎覆盖这一层的全部 256 个专家</text>
+  <text class="t muted" x="940" y="235" text-anchor="middle">按需小传输会造成等待和碎片</text>
+
+  <text class="t head" x="50" y="340">完整层双缓冲：Copy Stream 和 Compute Stream 同时前进</text>
+  <line x1="240" y1="385" x2="1125" y2="385" stroke="#8f99a3" stroke-width="2"/>
+  <g class="t muted" text-anchor="middle">
+    <text x="370" y="375">时间片 1</text>
+    <text x="640" y="375">时间片 2</text>
+    <text x="910" y="375">时间片 3</text>
+  </g>
+  <text class="t head" x="60" y="445">PCIe Copy</text>
+  <text class="t head" x="60" y="555">GPU Compute</text>
+
+  <rect x="245" y="410" width="250" height="70" rx="8" fill="#fff0d6" stroke="#d59224" stroke-width="2"/>
+  <text class="t" x="370" y="440" font-size="18" font-weight="650" text-anchor="middle">Buffer A ← 完整第 l 层</text>
+  <text class="t muted" x="370" y="465" text-anchor="middle">建立流水线</text>
+  <rect x="515" y="410" width="250" height="70" rx="8" fill="#e7f5ef" stroke="#1f8a70" stroke-width="2"/>
+  <text class="t" x="640" y="440" font-size="18" font-weight="650" text-anchor="middle">Buffer B ← 第 l + 1 层</text>
+  <text class="t muted" x="640" y="465" text-anchor="middle">A 正在被 GPU 使用</text>
+  <rect x="785" y="410" width="250" height="70" rx="8" fill="#fff0d6" stroke="#d59224" stroke-width="2"/>
+  <text class="t" x="910" y="440" font-size="18" font-weight="650" text-anchor="middle">Buffer A ← 第 l + 2 层</text>
+  <text class="t muted" x="910" y="465" text-anchor="middle">B 正在被 GPU 使用</text>
+
+  <rect x="515" y="520" width="250" height="70" rx="8" fill="#e8f1fb" stroke="#2979b9" stroke-width="2"/>
+  <text class="t" x="640" y="550" font-size="18" font-weight="650" text-anchor="middle">从 Buffer A 计算第 l 层</text>
+  <text class="t muted" x="640" y="575" text-anchor="middle">与第 l + 1 层传输重叠</text>
+  <rect x="785" y="520" width="250" height="70" rx="8" fill="#e8f1fb" stroke="#2979b9" stroke-width="2"/>
+  <text class="t" x="910" y="550" font-size="18" font-weight="650" text-anchor="middle">从 Buffer B 计算第 l + 1 层</text>
+  <text class="t muted" x="910" y="575" text-anchor="middle">与第 l + 2 层传输重叠</text>
+
+  <text class="t" x="640" y="638" font-size="19" font-weight="650" text-anchor="middle">两块 buffer 交换角色，理想情况下计算时间被传输时间覆盖</text>
+  <text class="t muted" x="640" y="670" text-anchor="middle">需要至少 2 × num_experts 个 slot；空间不足时回退到按需 Prefill</text>
+</svg>

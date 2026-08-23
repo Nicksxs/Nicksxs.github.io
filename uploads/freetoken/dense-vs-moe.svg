@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">Dense 和 MoE 模型的计算路径对比</title>
+  <desc id="desc">Dense 模型每个 token 经过完整 FFN，MoE 模型由路由器从 256 个专家中选择 8 个路由专家并执行共享专家。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#59636e"/>
+    </marker>
+    <style>
+      .t{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#17212b}
+      .sub{font-size:18px;fill:#59636e}
+      .label{font-size:20px;font-weight:650}
+      .small{font-size:15px;fill:#59636e}
+      .line{stroke:#59636e;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="650" fill="#f6f8fa"/>
+  <text class="t" x="50" y="56" font-size="30" font-weight="700">Dense 和 MoE：参数都要保存，但每个 token 的计算路径不同</text>
+
+  <rect x="40" y="95" width="530" height="485" rx="8" fill="#ffffff" stroke="#c7cdd4" stroke-width="2"/>
+  <text class="t" x="70" y="140" font-size="26" font-weight="700">Dense 模型</text>
+  <text class="t sub" x="70" y="172">例如 Qwen3.8-27B</text>
+  <circle cx="105" cy="315" r="44" fill="#1f8a70"/>
+  <text class="t" x="105" y="322" fill="#ffffff" font-size="18" font-weight="700" text-anchor="middle">token</text>
+  <path class="line" d="M154 315 H220"/>
+  <rect x="235" y="220" width="220" height="190" rx="8" fill="#e8f1fb" stroke="#2979b9" stroke-width="2"/>
+  <text class="t label" x="345" y="255" text-anchor="middle">完整 FFN</text>
+  <rect x="270" y="280" width="150" height="20" rx="4" fill="#3a86c8"/>
+  <rect x="270" y="315" width="150" height="20" rx="4" fill="#3a86c8"/>
+  <rect x="270" y="350" width="150" height="20" rx="4" fill="#3a86c8"/>
+  <text class="t small" x="345" y="392" text-anchor="middle">所有权重都被访问</text>
+  <path class="line" d="M457 315 H505"/>
+  <circle cx="525" cy="315" r="18" fill="#f2b84b"/>
+  <text class="t sub" x="305" y="470" text-anchor="middle">每个 token 都走同一条完整路径</text>
+  <text class="t" x="305" y="515" font-size="20" font-weight="650" text-anchor="middle">27B 总参数 → 每步接近 27B 参与计算</text>
+
+  <rect x="630" y="95" width="530" height="485" rx="8" fill="#ffffff" stroke="#c7cdd4" stroke-width="2"/>
+  <text class="t" x="660" y="140" font-size="26" font-weight="700">MoE 模型</text>
+  <text class="t sub" x="660" y="172">例如 Qwen3.6-35B-A3B</text>
+  <circle cx="685" cy="315" r="44" fill="#1f8a70"/>
+  <text class="t" x="685" y="322" fill="#ffffff" font-size="18" font-weight="700" text-anchor="middle">token</text>
+  <path class="line" d="M734 315 H774"/>
+  <rect x="786" y="275" width="105" height="80" rx="8" fill="#fff0d6" stroke="#d59224" stroke-width="2"/>
+  <text class="t label" x="838" y="309" text-anchor="middle">Router</text>
+  <text class="t small" x="838" y="334" text-anchor="middle">选择专家</text>
+  <path class="line" d="M895 315 H925"/>
+
+  <g transform="translate(940 215)">
+    <rect x="0" y="0" width="38" height="38" rx="4" fill="#e85d4a"/>
+    <rect x="48" y="0" width="38" height="38" rx="4" fill="#dfe4e8"/>
+    <rect x="96" y="0" width="38" height="38" rx="4" fill="#e85d4a"/>
+    <rect x="144" y="0" width="38" height="38" rx="4" fill="#dfe4e8"/>
+    <rect x="0" y="48" width="38" height="38" rx="4" fill="#dfe4e8"/>
+    <rect x="48" y="48" width="38" height="38" rx="4" fill="#e85d4a"/>
+    <rect x="96" y="48" width="38" height="38" rx="4" fill="#dfe4e8"/>
+    <rect x="144" y="48" width="38" height="38" rx="4" fill="#e85d4a"/>
+    <rect x="0" y="96" width="38" height="38" rx="4" fill="#e85d4a"/>
+    <rect x="48" y="96" width="38" height="38" rx="4" fill="#dfe4e8"/>
+    <rect x="96" y="96" width="38" height="38" rx="4" fill="#e85d4a"/>
+    <rect x="144" y="96" width="38" height="38" rx="4" fill="#dfe4e8"/>
+    <rect x="0" y="144" width="38" height="38" rx="4" fill="#dfe4e8"/>
+    <rect x="48" y="144" width="38" height="38" rx="4" fill="#e85d4a"/>
+    <rect x="96" y="144" width="38" height="38" rx="4" fill="#dfe4e8"/>
+    <rect x="144" y="144" width="38" height="38" rx="4" fill="#e85d4a"/>
+  </g>
+  <text class="t small" x="1031" y="422" text-anchor="middle">专家池示意</text>
+  <rect x="790" y="398" width="118" height="48" rx="6" fill="#e7f5ef" stroke="#1f8a70" stroke-width="2"/>
+  <text class="t small" x="849" y="428" font-weight="650" text-anchor="middle">共享专家</text>
+  <text class="t sub" x="895" y="478" text-anchor="middle">实际每层：256 选 8 + 1 个共享专家</text>
+  <text class="t" x="895" y="520" font-size="20" font-weight="650" text-anchor="middle">35B 总参数 → 每步约 3B 参与计算</text>
+
+  <rect x="420" y="608" width="18" height="18" rx="3" fill="#e85d4a"/>
+  <text class="t small" x="449" y="623">本次激活</text>
+  <rect x="560" y="608" width="18" height="18" rx="3" fill="#dfe4e8"/>
+  <text class="t small" x="589" y="623">仍需保存，但本次不计算</text>
+</svg>

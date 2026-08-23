@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">llama.cpp 与 FreeToken 的模型卸载对比</title>
+  <desc id="desc">llama.cpp 的 gpu-layers 以完整层为静态单位，cpu-moe 把专家权重放在 CPU；FreeToken 对每个层和专家建立动态持久缓存，并按带宽拆分缓存未命中。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#53606b"/>
+    </marker>
+    <style>
+      .t{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#17212b}
+      .muted{font-size:15px;fill:#5d6873}
+      .head{font-size:22px;font-weight:700}
+      .label{font-size:17px;font-weight:650}
+      .line{stroke:#53606b;stroke-width:3;fill:none;marker-end:url(#arrow)}
+      .dash{stroke:#8b949e;stroke-width:2;stroke-dasharray:7 7;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="760" fill="#f6f8fa"/>
+  <text class="t" x="50" y="55" font-size="30" font-weight="700">三种“放不下”的处理方式，移动单位并不一样</text>
+
+  <rect x="35" y="95" width="350" height="575" rx="8" fill="#ffffff" stroke="#2979b9" stroke-width="2"/>
+  <text class="t head" x="210" y="137" text-anchor="middle">llama.cpp -ngl</text>
+  <text class="t muted" x="210" y="164" text-anchor="middle">以完整层为单位，加载时静态放置</text>
+  <rect x="85" y="205" width="250" height="185" rx="8" fill="#e7f5ef" stroke="#1f8a70" stroke-width="2"/>
+  <text class="t label" x="210" y="236" text-anchor="middle">CPU / RAM</text>
+  <g fill="#79bca9">
+    <rect x="115" y="260" width="190" height="22" rx="3"/>
+    <rect x="115" y="292" width="190" height="22" rx="3"/>
+    <rect x="115" y="324" width="190" height="22" rx="3"/>
+  </g>
+  <text class="t muted" x="210" y="374" text-anchor="middle">第 0～39 层</text>
+  <path class="line" d="M210 397 V432"/>
+  <rect x="85" y="445" width="250" height="155" rx="8" fill="#e8f1fb" stroke="#2979b9" stroke-width="2"/>
+  <text class="t label" x="210" y="478" text-anchor="middle">GPU / VRAM</text>
+  <g fill="#4c92c9">
+    <rect x="115" y="500" width="190" height="22" rx="3"/>
+    <rect x="115" y="532" width="190" height="22" rx="3"/>
+  </g>
+  <text class="t muted" x="210" y="582" text-anchor="middle">第 40～63 层</text>
+  <text class="t" x="210" y="634" font-size="17" font-weight="650" text-anchor="middle">每个 token 仍经过所有层</text>
+
+  <rect x="425" y="95" width="350" height="575" rx="8" fill="#ffffff" stroke="#d59224" stroke-width="2"/>
+  <text class="t head" x="600" y="137" text-anchor="middle">llama.cpp --cpu-moe</text>
+  <text class="t muted" x="600" y="164" text-anchor="middle">专门把 MoE 专家 tensor 留在 CPU</text>
+  <rect x="475" y="205" width="250" height="125" rx="8" fill="#e8f1fb" stroke="#2979b9" stroke-width="2"/>
+  <text class="t label" x="600" y="238" text-anchor="middle">GPU：非专家权重</text>
+  <text class="t muted" x="600" y="270" text-anchor="middle">Attention / Router 等</text>
+  <text class="t muted" x="600" y="296" text-anchor="middle">以及本次 forward 的临时输入</text>
+  <rect x="475" y="420" width="250" height="150" rx="8" fill="#fff0d6" stroke="#d59224" stroke-width="2"/>
+  <text class="t label" x="600" y="453" text-anchor="middle">CPU：完整专家 tensor</text>
+  <g fill="#e2a43b">
+    <rect x="505" y="478" width="42" height="34" rx="4"/>
+    <rect x="558" y="478" width="42" height="34" rx="4"/>
+    <rect x="611" y="478" width="42" height="34" rx="4"/>
+    <rect x="664" y="478" width="32" height="34" rx="4"/>
+  </g>
+  <text class="t muted" x="600" y="548" text-anchor="middle">根据路由处理 selected sub-row</text>
+  <path class="dash" d="M550 415 C525 385 525 355 550 335"/>
+  <path class="dash" d="M650 335 C675 355 675 385 650 415"/>
+  <text class="t muted" x="600" y="367" text-anchor="middle">可能搬运或 CPU 计算</text>
+  <text class="t" x="600" y="613" font-size="17" font-weight="650" text-anchor="middle">官方 master：无跨 step slot 映射</text>
+  <text class="t muted" x="600" y="640" text-anchor="middle">专家缓存已有 RFC / PR，仍在演进</text>
+
+  <rect x="815" y="95" width="350" height="575" rx="8" fill="#ffffff" stroke="#e85d4a" stroke-width="3"/>
+  <text class="t head" x="990" y="137" text-anchor="middle">FreeToken hybrid</text>
+  <text class="t muted" x="990" y="164" text-anchor="middle">以 (layer, expert) 为动态单位</text>
+  <rect x="865" y="198" width="250" height="145" rx="8" fill="#fdebe8" stroke="#e85d4a" stroke-width="2"/>
+  <text class="t label" x="990" y="230" text-anchor="middle">GPU：全局 LRU slot</text>
+  <g>
+    <rect x="895" y="258" width="42" height="36" rx="4" fill="#e85d4a"/>
+    <rect x="948" y="258" width="42" height="36" rx="4" fill="#e85d4a"/>
+    <rect x="1001" y="258" width="42" height="36" rx="4" fill="#e85d4a"/>
+    <rect x="1054" y="258" width="32" height="36" rx="4" fill="#cfd6dc"/>
+  </g>
+  <text class="t muted" x="990" y="322" text-anchor="middle">hit 跨 token 保留</text>
+  <rect x="865" y="445" width="250" height="125" rx="8" fill="#e7f5ef" stroke="#1f8a70" stroke-width="2"/>
+  <text class="t label" x="990" y="477" text-anchor="middle">RAM：完整专家池</text>
+  <text class="t muted" x="990" y="508" text-anchor="middle">miss 的 source of truth</text>
+  <text class="t muted" x="990" y="535" text-anchor="middle">Pinned banks + CPU executor</text>
+  <path class="line" d="M930 439 C900 400 900 380 930 349"/>
+  <path class="dash" d="M1045 349 C1080 382 1080 407 1045 439"/>
+  <text class="t muted" x="990" y="384" text-anchor="middle">q*：部分 fill，部分 CPU</text>
+  <text class="t" x="990" y="613" font-size="17" font-weight="650" text-anchor="middle">每一步跟随真实路由和带宽</text>
+  <text class="t muted" x="990" y="640" text-anchor="middle">Prefill 另有完整层双缓冲</text>
+
+  <rect x="120" y="700" width="960" height="40" rx="8" fill="#17212b"/>
+  <text x="600" y="726" fill="#ffffff" font-size="17" font-weight="650" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">Dense / Apple Silicon 更偏向 llama.cpp；超显存 MoE 的动态专家工作集是 FreeToken 的主场（截至 2026-08-23）</text>
+</svg>
