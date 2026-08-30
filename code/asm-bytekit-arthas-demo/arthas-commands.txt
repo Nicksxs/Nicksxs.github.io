@@ -1,0 +1,8 @@
+# Run ./run.sh app first, then attach Arthas to DemoApplication.
+
+sc -d com.nicksxs.bytecode.demo.app.DemoService
+sm com.nicksxs.bytecode.demo.app.DemoService
+watch com.nicksxs.bytecode.demo.app.DemoService placeOrder '{params,returnObj,throwExp}' -x 2 -n 4
+trace com.nicksxs.bytecode.demo.app.DemoService placeOrder '#cost > 0' -n 3
+jad com.nicksxs.bytecode.demo.app.DemoService placeOrder
+reset com.nicksxs.bytecode.demo.app.DemoService

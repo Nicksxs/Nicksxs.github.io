@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-08-23T14:47:18.645Z</updated>
+  <updated>2026-08-30T15:00:45.797Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,45 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从ASM到ByteKit再到Arthas：一条Java字节码增强链路</title>
+    <link href="https://nicksxs.me/2026/08/30/%E4%BB%8EASM%E5%88%B0ByteKit%E5%86%8D%E5%88%B0Arthas-%E4%B8%80%E6%9D%A1Java%E5%AD%97%E8%8A%82%E7%A0%81%E5%A2%9E%E5%BC%BA%E9%93%BE%E8%B7%AF/"/>
+    <id>https://nicksxs.me/2026/08/30/%E4%BB%8EASM%E5%88%B0ByteKit%E5%86%8D%E5%88%B0Arthas-%E4%B8%80%E6%9D%A1Java%E5%AD%97%E8%8A%82%E7%A0%81%E5%A2%9E%E5%BC%BA%E9%93%BE%E8%B7%AF/</id>
+    <published>2026-08-30T07:10:00.000Z</published>
+    <updated>2026-08-30T15:00:45.797Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前写过几篇 Java Agent 和 Javassist，也单独介绍过 Arthas 的 &lt;code&gt;vmtool&lt;/code&gt;。这些内容放在一起看，会发现它们其实一直围绕着同一个问题：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不修改业务源码，能不能在一个 Java</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    
+    <category term="源码" scheme="https://nicksxs.me/categories/java/%E6%BA%90%E7%A0%81/"/>
+    
+    
+    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    
+    <category term="ASM" scheme="https://nicksxs.me/tags/ASM/"/>
+    
+    <category term="ByteKit" scheme="https://nicksxs.me/tags/ByteKit/"/>
+    
+    <category term="Arthas" scheme="https://nicksxs.me/tags/Arthas/"/>
+    
+    <category term="字节码" scheme="https://nicksxs.me/tags/%E5%AD%97%E8%8A%82%E7%A0%81/"/>
+    
+    <category term="Java Agent" scheme="https://nicksxs.me/tags/Java-Agent/"/>
+    
+  </entry>
   
   <entry>
     <title>8GB显存如何跑35B：深入理解FreeToken的专家缓存与CPU-GPU协同</title>
@@ -524,31 +563,6 @@
     <category term="markdown" scheme="https://nicksxs.me/tags/markdown/"/>
     
     <category term="Obsidian" scheme="https://nicksxs.me/tags/Obsidian/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学习下大神的知识库</title>
-    <link href="https://nicksxs.me/2026/04/12/%E5%AD%A6%E4%B9%A0%E4%B8%8B%E5%A4%A7%E7%A5%9E%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/"/>
-    <id>https://nicksxs.me/2026/04/12/%E5%AD%A6%E4%B9%A0%E4%B8%8B%E5%A4%A7%E7%A5%9E%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/</id>
-    <published>2026-04-12T14:20:48.000Z</published>
-    <updated>2026-04-12T14:20:48.458Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上次把pdf文档转成了markdown，这次就来试下把文档进行具体的整理学习&lt;br&gt;创建我的wiki目录，然后在目录下创建raw目录，用于存放原始的文档，最好是转成了markdown的，&lt;br&gt;方便模型读取，当然模型是多模态的，并且土豪可以无视&lt;br&gt;然后使用claude在</summary>
-        
-      
-    
-    
-    
-    <category term="markdown" scheme="https://nicksxs.me/categories/markdown/"/>
-    
-    
-    <category term="markdown" scheme="https://nicksxs.me/tags/markdown/"/>
     
   </entry>
   

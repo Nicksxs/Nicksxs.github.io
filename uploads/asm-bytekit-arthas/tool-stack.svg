@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">ASM、ByteKit 与 Arthas 的分层关系</title>
+  <desc id="desc">从 Arthas 命令到 ByteKit 注入模型、ASM 字节码操作、Instrumentation 类替换，最后进入 JVM 的完整链路。</desc>
+  <rect width="1200" height="680" fill="#f7f8fa"/>
+  <text x="600" y="54" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="30" font-weight="700" fill="#17212b">同一件事的四个层次：从诊断命令到 JVM 字节码</text>
+  <text x="600" y="88" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="17" fill="#52606d">越往上越接近排障意图，越往下越接近 class 文件与 JVM</text>
+
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+    <rect x="150" y="125" width="900" height="105" rx="8" fill="#fff" stroke="#c83e4d" stroke-width="3"/>
+    <rect x="150" y="125" width="18" height="105" rx="4" fill="#c83e4d"/>
+    <text x="202" y="165" font-size="25" font-weight="700" fill="#9b2534">Arthas：可以直接使用的诊断工具</text>
+    <text x="202" y="202" font-size="18" fill="#364152">watch / trace / jad / reset，把“我想看什么”转换为类匹配、监听器和增强任务</text>
+
+    <path d="M600 230 V266" stroke="#75808a" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <rect x="150" y="270" width="900" height="105" rx="8" fill="#fff" stroke="#247ba0" stroke-width="3"/>
+    <rect x="150" y="270" width="18" height="105" rx="4" fill="#247ba0"/>
+    <text x="202" y="310" font-size="25" font-weight="700" fill="#145f80">ByteKit：面向诊断场景的增强模型</text>
+    <text x="202" y="347" font-size="18" fill="#364152">@AtEnter / @AtExit / @Binding，把注入点和运行时数据翻译为一组字节码操作</text>
+
+    <path d="M600 375 V411" stroke="#75808a" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <rect x="150" y="415" width="900" height="105" rx="8" fill="#fff" stroke="#2a9d67" stroke-width="3"/>
+    <rect x="150" y="415" width="18" height="105" rx="4" fill="#2a9d67"/>
+    <text x="202" y="455" font-size="25" font-weight="700" fill="#187849">ASM：读写 class 的底层字节码库</text>
+    <text x="202" y="492" font-size="18" fill="#364152">ClassReader / ClassVisitor / MethodVisitor / ClassWriter，直接处理指令、局部变量和栈帧</text>
+
+    <path d="M600 520 V556" stroke="#75808a" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <rect x="150" y="560" width="900" height="82" rx="8" fill="#202a34"/>
+    <text x="202" y="596" font-size="23" font-weight="700" fill="#f8fafc">Instrumentation + JVM</text>
+    <text x="202" y="625" font-size="17" fill="#d7dee5">ClassFileTransformer 返回新的 byte[]，类加载或 retransform 时由 JVM 校验并替换方法实现</text>
+  </g>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#75808a"/>
+    </marker>
+  </defs>
+</svg>
