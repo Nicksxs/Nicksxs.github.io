@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-08-30T15:44:29.320Z</updated>
+  <updated>2026-09-02T15:03:12.290Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -17,31 +17,42 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>聊聊 Java 的类加载机制一</title>
+    <link href="https://nicksxs.me/2026/09/02/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/"/>
+    <id>https://nicksxs.me/2026/09/02/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</id>
+    <published>2026-09-02T15:03:12.290Z</published>
+    <updated>2026-09-02T15:03:12.290Z</updated>
+    
+    
+    <summary type="html">一说到这个主题，想到的应该是双亲委派模型，不过讲的包括但不限于这个，主要内容是参考深入理解 Java 虚拟机书中的介绍， 一个类型的生命周期包含了七个阶段，加载，验证，准备，解析，初始化，使用，卸载。</summary>
+    
+    
+    
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
+    
+    <category term="类加载" scheme="https://nicksxs.me/categories/Java/%E7%B1%BB%E5%8A%A0%E8%BD%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>从ASM到ByteKit再到Arthas：一条Java字节码增强链路</title>
     <link href="https://nicksxs.me/2026/08/30/%E4%BB%8EASM%E5%88%B0ByteKit%E5%86%8D%E5%88%B0Arthas-%E4%B8%80%E6%9D%A1Java%E5%AD%97%E8%8A%82%E7%A0%81%E5%A2%9E%E5%BC%BA%E9%93%BE%E8%B7%AF/"/>
     <id>https://nicksxs.me/2026/08/30/%E4%BB%8EASM%E5%88%B0ByteKit%E5%86%8D%E5%88%B0Arthas-%E4%B8%80%E6%9D%A1Java%E5%AD%97%E8%8A%82%E7%A0%81%E5%A2%9E%E5%BC%BA%E9%93%BE%E8%B7%AF/</id>
     <published>2026-08-30T07:10:00.000Z</published>
-    <updated>2026-08-30T15:44:29.320Z</updated>
+    <updated>2026-09-02T15:04:06.297Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前写过几篇 Java Agent 和 Javassist，也单独介绍过 Arthas 的 &lt;code&gt;vmtool&lt;/code&gt;。这些内容放在一起看，会发现它们其实一直围绕着同一个问题：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;不修改业务源码，能不能在一个 Java</summary>
-        
-      
+    <summary type="html">之前写过几篇 Java Agent 和 Javassist，也单独介绍过 Arthas 的 vmtool。这些内容放在一起看，会发现它们其实一直围绕着同一个问题：</summary>
     
     
     
-    <category term="java" scheme="https://nicksxs.me/categories/java/"/>
+    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
     
-    <category term="源码" scheme="https://nicksxs.me/categories/java/%E6%BA%90%E7%A0%81/"/>
+    <category term="源码" scheme="https://nicksxs.me/categories/Java/%E6%BA%90%E7%A0%81/"/>
     
     
-    <category term="java" scheme="https://nicksxs.me/tags/java/"/>
+    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
     
     <category term="ASM" scheme="https://nicksxs.me/tags/ASM/"/>
     
@@ -60,24 +71,10 @@
     <link href="https://nicksxs.me/2026/08/23/8GB%E6%98%BE%E5%AD%98%E5%A6%82%E4%BD%95%E8%B7%9135B-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3FreeToken%E7%9A%84%E4%B8%93%E5%AE%B6%E7%BC%93%E5%AD%98%E4%B8%8ECPU-GPU%E5%8D%8F%E5%90%8C/"/>
     <id>https://nicksxs.me/2026/08/23/8GB%E6%98%BE%E5%AD%98%E5%A6%82%E4%BD%95%E8%B7%9135B-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3FreeToken%E7%9A%84%E4%B8%93%E5%AE%B6%E7%BC%93%E5%AD%98%E4%B8%8ECPU-GPU%E5%8D%8F%E5%90%8C/</id>
     <published>2026-08-23T12:41:00.000Z</published>
-    <updated>2026-08-23T14:47:18.645Z</updated>
+    <updated>2026-09-02T15:03:12.105Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;style&gt;
-@media (max-width: 767px) {
-  .post-body {
-    min-width: 0;
-    overflow-x: clip;
-  }
-
-  .post-body figure.highlight {
-   </summary>
-        
-      
+    <summary type="html">前几天看到一个挺夸张的结果：FreeToken 在一台只有 8GB 显存的 RTX 4060 Laptop 上运行 Qwen3.6-35B-A3B，解码速度达到了 39.3 tok/s。</summary>
     
     
     
@@ -97,16 +94,10 @@
     <link href="https://nicksxs.me/2026/08/16/%E8%AE%A9chatgpt%E6%9D%A5%E7%BB%99%E6%88%91%E8%AE%B2%E8%A7%A3%E4%B8%8Bdeepseek-harness%E7%9A%84%E6%8F%92%E4%BB%B6%E4%BD%93%E7%B3%BB/"/>
     <id>https://nicksxs.me/2026/08/16/%E8%AE%A9chatgpt%E6%9D%A5%E7%BB%99%E6%88%91%E8%AE%B2%E8%A7%A3%E4%B8%8Bdeepseek-harness%E7%9A%84%E6%8F%92%E4%BB%B6%E4%BD%93%E7%B3%BB/</id>
     <published>2026-08-16T15:07:34.000Z</published>
-    <updated>2026-08-16T15:08:30.052Z</updated>
+    <updated>2026-09-02T15:03:12.303Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近deepseek发布了harness，试用了一下结合deepseek-4-flash，用它尝试写一个php的现代版phpmyadmin，因为也是一个比较重要且有一点复杂度的应用&lt;br&gt;试了下除了数据展示有点问题，修了一轮就完成了，整体表现还是不错的&lt;br&gt;然后看了下它主</summary>
-        
-      
+    <summary type="html">最近deepseek发布了harness，试用了一下结合deepseek-4-flash，用它尝试写一个php的现代版phpmyadmin，因为也是一个比较重要且有一点复杂度的应用 试了下除了数据展示有点问题，修了一轮就完成了，整体表现还是不错的 然后看了下它主打的是万物都是插件…</summary>
     
     
     
@@ -122,16 +113,10 @@
     <link href="https://nicksxs.me/2026/08/09/%E6%9D%A5%E5%AD%A6%E4%B9%A0%E4%B8%8Bpi-agent%E7%9A%84%E5%8E%9F%E7%90%86/"/>
     <id>https://nicksxs.me/2026/08/09/%E6%9D%A5%E5%AD%A6%E4%B9%A0%E4%B8%8Bpi-agent%E7%9A%84%E5%8E%9F%E7%90%86/</id>
     <published>2026-08-09T13:23:24.000Z</published>
-    <updated>2026-08-09T13:25:36.380Z</updated>
+    <updated>2026-09-02T15:03:12.238Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前也偶尔用户pi agent这个工具，当然这个还是个很庞大的系统，我也只能一点点学&lt;br&gt;首先是工具系统，默认的核心工具主要是四个</summary>
-        
-      
+    <summary type="html">之前也偶尔用户pi agent这个工具，当然这个还是个很庞大的系统，我也只能一点点学 首先是工具系统，默认的核心工具主要是四个 read,write,edit,bash 输入结构式这样 解析路径 → 检查文件是否可读 → 判断是文本还是图片 → 读取内容 → 按 offset/l…</summary>
     
     
     
@@ -147,17 +132,10 @@
     <link href="https://nicksxs.me/2026/08/02/%E5%A6%82%E4%BD%95%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%AD%E8%BE%93%E5%87%BA%E8%BF%9B%E5%BA%A6%E6%9D%A1/"/>
     <id>https://nicksxs.me/2026/08/02/%E5%A6%82%E4%BD%95%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%AD%E8%BE%93%E5%87%BA%E8%BF%9B%E5%BA%A6%E6%9D%A1/</id>
     <published>2026-08-02T13:26:43.000Z</published>
-    <updated>2026-08-02T13:29:37.671Z</updated>
+    <updated>2026-09-02T15:12:31.452Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前就比较好奇，命令行一般输出都是往后追加，好像不知道怎么做覆盖更新，但是很多比较厉害的shell脚本都有那种进度条，甚至整个重绘&lt;br&gt;所以就来看下，怎么在命令行里输出个会变的进度条，&lt;br&gt;比如我在命令行中输出两行&lt;/p&gt;
-&lt;figure</summary>
-        
-      
+    <summary type="html">之前就比较好奇，命令行一般输出都是往后追加，好像不知道怎么做覆盖更新，但是很多比较厉害的shell脚本都有那种进度条，甚至整个重绘 所以就来看下，怎么在命令行里输出个会变的进度条， 比如我在命令行中输出两行 最简单就是这样子，那如果想把111改成222呢 我们发现&quot;&#92;n&quot;是换行…</summary>
     
     
     
@@ -173,16 +151,10 @@
     <link href="https://nicksxs.me/2026/07/26/%E8%81%94%E6%83%B3-G400-%E5%AE%89%E8%A3%85-Windows-7/"/>
     <id>https://nicksxs.me/2026/07/26/%E8%81%94%E6%83%B3-G400-%E5%AE%89%E8%A3%85-Windows-7/</id>
     <published>2026-07-26T14:00:00.000Z</published>
-    <updated>2026-07-26T10:13:16.179Z</updated>
+    <updated>2026-09-02T15:03:12.298Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近给一台联想 G400 重装 Windows 7。本来以为只是做个启动盘、装好系统就结束了，实际操作时却遇到了驱动缺失、旧版 IE 无法打开部分网站、Windows Update 报错，以及显卡驱动依赖 .NET Framework</summary>
-        
-      
+    <summary type="html">最近给一台联想 G400 重装 Windows 7。本来以为只是做个启动盘、装好系统就结束了，实际操作时却遇到了驱动缺失、旧版 IE 无法打开部分网站、Windows Update 报错，以及显卡驱动依赖.NET Framework 等一连串问题。</summary>
     
     
     
@@ -204,16 +176,10 @@
     <link href="https://nicksxs.me/2026/07/19/%E8%AE%B0%E4%B8%80%E4%B8%AAgiea%E6%8E%A8%E9%80%81%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <id>https://nicksxs.me/2026/07/19/%E8%AE%B0%E4%B8%80%E4%B8%AAgiea%E6%8E%A8%E9%80%81%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/</id>
     <published>2026-07-19T12:53:14.000Z</published>
-    <updated>2026-07-19T12:53:14.105Z</updated>
+    <updated>2026-09-02T15:03:12.303Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我的博客的推送一份是在github&lt;br&gt;作为github</summary>
-        
-      
+    <summary type="html">我的博客的推送一份是在github 作为github page，另一份是在自建的gitea上面 上周突然就出现推送失败了 在gpt5.5老师的指导下一顿查gitea服务器的日志也没查出来原因 一开始说是可以尝试从https切换到ssh形式也没起作用 服务端日志也没有用的 然后这次…</summary>
     
     
     
@@ -229,13 +195,10 @@
     <link href="https://nicksxs.me/2026/07/12/%E5%AD%A6%E4%B8%80%E4%B8%8Bchrome%E7%9A%84%E6%89%A9%E5%B1%95%E5%BC%80%E5%8F%91/"/>
     <id>https://nicksxs.me/2026/07/12/%E5%AD%A6%E4%B8%80%E4%B8%8Bchrome%E7%9A%84%E6%89%A9%E5%B1%95%E5%BC%80%E5%8F%91/</id>
     <published>2026-07-12T14:18:19.000Z</published>
-    <updated>2026-07-12T14:18:19.076Z</updated>
+    <updated>2026-09-02T15:03:12.214Z</updated>
     
     
-    <summary type="html">&lt;p&gt;最近因为看了下 Chrome 里面置入的小模型，顺手又看了下 Chrome 扩展。&lt;/p&gt;
-&lt;p&gt;之前其实也接触过一些浏览器扩展，但是一直没有特别系统地看过它的结构，感觉好像就是写一个 &lt;code&gt;html&lt;/code&gt;，然后再配几个 &lt;code&gt;js&lt;/code&gt; 文件就可以了。&lt;/p&gt;
-&lt;p&gt;但是真正写起来以后，会发现 Chrome 扩展里面有几个不同的运行环境，尤其是 &lt;code&gt;popup&lt;/code&gt; 和 &lt;code&gt;content script&lt;/code&gt;，如果没有分清楚，后面调用网页内容或者操作页面 DOM 的时候就容易有点混乱。&lt;/p&gt;
-&lt;p&gt;这次先做一个比较简单的例子，点击扩展按钮以后，给当前页面加一个背景色，再在右下角显示一个提示。&lt;/p&gt;</summary>
+    <summary type="html">最近因为看了下 Chrome 里面置入的小模型，顺手又看了下 Chrome 扩展。之前其实也接触过一些浏览器扩展，但是一直没有特别系统地看过它的结构，感觉好像就是写一个 html，然后再配几个 js 文件就可以了。</summary>
     
     
     
@@ -255,17 +218,10 @@
     <link href="https://nicksxs.me/2026/07/05/%E7%9C%8B%E4%B8%8Bchrome%E7%9A%84%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9E%8B/"/>
     <id>https://nicksxs.me/2026/07/05/%E7%9C%8B%E4%B8%8Bchrome%E7%9A%84%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9E%8B/</id>
     <published>2026-07-05T12:52:32.000Z</published>
-    <updated>2026-07-05T12:53:17.379Z</updated>
+    <updated>2026-09-02T15:03:12.246Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前听说chrome在你的电脑里塞了一个小模型，相比于说这个比较容易引起公愤的，可能是因为模型有4g大小，但是感觉也提供了挺大的想象空间&lt;br&gt;比如在浏览器内就可以直接调用模型进行对话处理，最简单的比如做个翻译啥的，&lt;br&gt;首先也有具体的硬件条件，&lt;/p&gt;
-&lt;blockqu</summary>
-        
-      
+    <summary type="html">之前听说chrome在你的电脑里塞了一个小模型，相比于说这个比较容易引起公愤的，可能是因为模型有4g大小，但是感觉也提供了挺大的想象空间 比如在浏览器内就可以直接调用模型进行对话处理，最简单的比如做个翻译啥的， 首先也有具体的硬件条件， 系统：Windows 10/11、macO…</summary>
     
     
     
@@ -281,16 +237,10 @@
     <link href="https://nicksxs.me/2026/06/28/%E4%BB%8E-app-test-%E5%88%B0%E5%B0%8F%E9%94%81%EF%BC%9A%E6%9C%AC%E5%9C%B0-HTTPS-%E7%9A%84%E5%AE%8C%E6%95%B4%E9%93%BE%E8%B7%AF/"/>
     <id>https://nicksxs.me/2026/06/28/%E4%BB%8E-app-test-%E5%88%B0%E5%B0%8F%E9%94%81%EF%BC%9A%E6%9C%AC%E5%9C%B0-HTTPS-%E7%9A%84%E5%AE%8C%E6%95%B4%E9%93%BE%E8%B7%AF/</id>
     <published>2026-06-28T14:18:00.000Z</published>
-    <updated>2026-06-28T14:18:00.382Z</updated>
+    <updated>2026-09-02T15:03:12.172Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前在用到valet的时候就觉得这个工具很厉害，因为本地部署很多时候都是比较费劲的，也比较简陋，就直接localhost启动下，但是有时候需要验一下回调的，就需要有域名跟https，当然之前也没想明白的是在本地其实用本地的地址也是可以的，意思就是如果回调地址没限制必须要域名</summary>
-        
-      
+    <summary type="html">之前在用到valet的时候就觉得这个工具很厉害，因为本地部署很多时候都是比较费劲的，也比较简陋，就直接localhost启动下，但是有时候需要验一下回调的，就需要有域名跟https，当然之前也没想明白的是在本地其实用本地的地址也是可以的，意思就是如果回调地址没限制必须要域名，也可…</summary>
     
     
     
@@ -312,16 +262,10 @@
     <link href="https://nicksxs.me/2026/06/21/%E6%B5%85%E6%9E%90%E4%B8%80%E4%B8%8B%E5%90%84%E7%B1%BB%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%85%B6%E6%9D%A5%E6%BA%90/"/>
     <id>https://nicksxs.me/2026/06/21/%E6%B5%85%E6%9E%90%E4%B8%80%E4%B8%8B%E5%90%84%E7%B1%BB%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%85%B6%E6%9D%A5%E6%BA%90/</id>
     <published>2026-06-21T12:42:27.000Z</published>
-    <updated>2026-06-21T12:42:27.396Z</updated>
+    <updated>2026-09-02T15:03:12.240Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;JPEG-是怎么压缩图片的？&quot;&gt;&lt;a href=&quot;#JPEG-是怎么压缩图片的？&quot; class=&quot;headerlink&quot; title=&quot;JPEG 是怎么压缩图片的？&quot;&gt;&lt;/a&gt;JPEG 是怎么压缩图片的？&lt;/h1&gt;&lt;p&gt;JPEG</summary>
-        
-      
+    <summary type="html">JPEG 的核心目标是：在人眼不太容易察觉的地方丢掉一些信息，从而大幅减小照片体积。所以 JPEG 通常是 有损压缩。它不是简单地把文件“打包变小”，而是会真的改变图像数据。</summary>
     
     
     
@@ -333,23 +277,17 @@
     <link href="https://nicksxs.me/2026/06/14/%E5%85%B3%E4%BA%8Egithub%E6%8B%89%E5%8F%96%E4%B8%8B%E8%BD%BD%E5%8A%A0%E9%80%9F%E7%9A%84%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%96%B9%E5%BC%8F/"/>
     <id>https://nicksxs.me/2026/06/14/%E5%85%B3%E4%BA%8Egithub%E6%8B%89%E5%8F%96%E4%B8%8B%E8%BD%BD%E5%8A%A0%E9%80%9F%E7%9A%84%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%96%B9%E5%BC%8F/</id>
     <published>2026-06-14T13:45:35.000Z</published>
-    <updated>2026-06-14T13:45:45.944Z</updated>
+    <updated>2026-09-02T15:04:06.299Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;今天在尝试使用llama.cpp在mac下本地运行大模型的时候发现拉取llama.cpp的仓库还是比较慢，这点真的是挺难受，可能我们在玩一项技术的时候，有一大半时间都在克服这个问题，&lt;br&gt;这个方式也是谷歌搜到的，就是走 &lt;a</summary>
-        
-      
+    <summary type="html">今天在尝试使用llama.cpp在mac下本地运行大模型的时候发现拉取llama.cpp的仓库还是比较慢，这点真的是挺难受，可能我们在玩一项技术的时候，有一大半时间都在克服这个问题， 这个方式也是谷歌搜到的，就是走 https://gh-proxy.com/ 转换镜像链接， 比如…</summary>
     
     
     
-    <category term="llm" scheme="https://nicksxs.me/categories/llm/"/>
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
     
     
-    <category term="llm" scheme="https://nicksxs.me/tags/llm/"/>
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
@@ -358,23 +296,17 @@
     <link href="https://nicksxs.me/2026/06/07/%E5%85%B3%E4%BA%8E%E9%80%82%E5%90%88%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B-%E6%8E%A8%E8%8D%90%E4%B8%8Bllmfit/"/>
     <id>https://nicksxs.me/2026/06/07/%E5%85%B3%E4%BA%8E%E9%80%82%E5%90%88%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B-%E6%8E%A8%E8%8D%90%E4%B8%8Bllmfit/</id>
     <published>2026-06-07T14:21:03.000Z</published>
-    <updated>2026-06-07T14:21:03.025Z</updated>
+    <updated>2026-09-02T15:04:06.299Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上次我是实地使用llama.cpp跑了本地大模型，这种测试成本比较大，&lt;br&gt;刚好上次看到有个软件可以运行在本地来评估当前机器的性能可以跑什么样的大模型&lt;br&gt;它就是&lt;a</summary>
-        
-      
+    <summary type="html">上次我是实地使用llama.cpp跑了本地大模型，这种测试成本比较大， 刚好上次看到有个软件可以运行在本地来评估当前机器的性能可以跑什么样的大模型 它就是llmfit 在mac可以使用 windows可以 安装好就可以直接运行了 可以看到有列了很多模型，包括参数量，token速度…</summary>
     
     
     
-    <category term="llm" scheme="https://nicksxs.me/categories/llm/"/>
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
     
     
-    <category term="llm" scheme="https://nicksxs.me/tags/llm/"/>
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
@@ -383,23 +315,17 @@
     <link href="https://nicksxs.me/2026/05/31/%E7%9C%8B%E7%9C%8B%E7%9B%AE%E5%89%8D%E6%9C%AC%E5%9C%B0%E8%83%BD%E8%B7%91%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B-%E4%BD%BF%E7%94%A8llama-cpp/"/>
     <id>https://nicksxs.me/2026/05/31/%E7%9C%8B%E7%9C%8B%E7%9B%AE%E5%89%8D%E6%9C%AC%E5%9C%B0%E8%83%BD%E8%B7%91%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B-%E4%BD%BF%E7%94%A8llama-cpp/</id>
     <published>2026-05-31T14:07:14.000Z</published>
-    <updated>2026-05-31T14:07:27.859Z</updated>
+    <updated>2026-09-02T15:04:06.300Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;除了购买各种订阅和api服务，还有一种选择就是本地运行模型，但是这个一般来讲还是只能运行一些参数量比较小的，&lt;br&gt;随着开源权重模型的发展，这个方向也在慢慢的改变，当然差距肯定是有的，只是本地我们可以用来做些辅助工作&lt;br&gt;之前很多情况下一般都只是能作为玩具，并且由于oll</summary>
-        
-      
+    <summary type="html">除了购买各种订阅和api服务，还有一种选择就是本地运行模型，但是这个一般来讲还是只能运行一些参数量比较小的， 随着开源权重模型的发展，这个方向也在慢慢的改变，当然差距肯定是有的，只是本地我们可以用来做些辅助工作 之前很多情况下一般都只是能作为玩具，并且由于ollama和lm st…</summary>
     
     
     
-    <category term="llm" scheme="https://nicksxs.me/categories/llm/"/>
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
     
     
-    <category term="llm" scheme="https://nicksxs.me/tags/llm/"/>
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
@@ -408,23 +334,17 @@
     <link href="https://nicksxs.me/2026/05/24/%E6%9C%80%E8%BF%91%E4%BD%BF%E7%94%A8vibe-coding%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/"/>
     <id>https://nicksxs.me/2026/05/24/%E6%9C%80%E8%BF%91%E4%BD%BF%E7%94%A8vibe-coding%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/</id>
     <published>2026-05-24T13:07:23.000Z</published>
-    <updated>2026-05-24T13:07:23.545Z</updated>
+    <updated>2026-09-02T15:04:06.300Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;一段时间都有在用大模型来辅助编程，不过现在很多都叫成vibe coding了，连胡彦斌都在vibe coding了，&lt;br&gt;现在是个全民皆可做软件开发的时代，包括像之前那个小猫补光灯，有的人的想法是说点子不重要了&lt;br&gt;我自己想的有点不一样，vibe</summary>
-        
-      
+    <summary type="html">一段时间都有在用大模型来辅助编程，不过现在很多都叫成vibe coding了，连胡彦斌都在vibe coding了， 现在是个全民皆可做软件开发的时代，包括像之前那个小猫补光灯，有的人的想法是说点子不重要了 我自己想的有点不一样，vibe coding现在是把成熟的开发者和小白或…</summary>
     
     
     
-    <category term="llm" scheme="https://nicksxs.me/categories/llm/"/>
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
     
     
-    <category term="llm" scheme="https://nicksxs.me/tags/llm/"/>
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
@@ -433,16 +353,10 @@
     <link href="https://nicksxs.me/2026/05/17/%E4%BD%BF%E7%94%A8php%E7%9A%84inotify%E6%89%A9%E5%B1%95%E6%9D%A5%E7%9B%91%E5%90%AC%E6%96%87%E4%BB%B6%E5%8F%98%E6%9B%B4/"/>
     <id>https://nicksxs.me/2026/05/17/%E4%BD%BF%E7%94%A8php%E7%9A%84inotify%E6%89%A9%E5%B1%95%E6%9D%A5%E7%9B%91%E5%90%AC%E6%96%87%E4%BB%B6%E5%8F%98%E6%9B%B4/</id>
     <published>2026-05-17T13:55:51.000Z</published>
-    <updated>2026-05-17T13:56:17.824Z</updated>
+    <updated>2026-09-02T15:03:12.181Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;偶尔下载一些视频媒体的时候会想要对它进行压缩来缩小占用空间，&lt;br&gt;但是如果每次等下载完再去用软件压缩会比较麻烦&lt;br&gt;这里就找到了inotify扩展，可以监听文件变更&lt;br&gt;这里其实想吹一下小米的mimo2.5模型，因为要装php扩展，&lt;br&gt;我的是php7.4，网上搜了</summary>
-        
-      
+    <summary type="html">偶尔下载一些视频媒体的时候会想要对它进行压缩来缩小占用空间， 但是如果每次等下载完再去用软件压缩会比较麻烦 这里就找到了inotify扩展，可以监听文件变更 这里其实想吹一下小米的mimo2.5模型，因为要装php扩展， 我的是php7.4，网上搜了下有基于pecl，有的是基于源…</summary>
     
     
     
@@ -458,25 +372,10 @@
     <link href="https://nicksxs.me/2026/05/10/%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%AE%B0%E5%BF%86%E7%82%B9/"/>
     <id>https://nicksxs.me/2026/05/10/%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%AE%B0%E5%BF%86%E7%82%B9/</id>
     <published>2026-05-10T15:27:52.000Z</published>
-    <updated>2026-05-10T15:27:52.568Z</updated>
+    <updated>2026-09-02T15:03:12.167Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;  一、先看总原则&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;创建对象麻烦&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;  用创建型模式&lt;/p&gt;
-&lt;ol start=&quot;2&quot;&gt;
-&lt;li&gt;类或对象的组合关系复杂&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;  用结构型模式&lt;/p&gt;
-&lt;ol</summary>
-        
-      
+    <summary type="html">类或对象的组合关系复杂。对象之间职责划分、通信流程复杂。二、不同设计模式适合的场景。（一）创建型模式：解决“对象怎么创建”</summary>
     
     
     
@@ -492,23 +391,17 @@
     <link href="https://nicksxs.me/2026/05/03/%E4%BD%BF%E7%94%A8xiaomi-mimo%E5%A4%A7%E6%A8%A1%E5%9E%8Bapi%E8%BF%90%E8%A1%8CHermes-Agent/"/>
     <id>https://nicksxs.me/2026/05/03/%E4%BD%BF%E7%94%A8xiaomi-mimo%E5%A4%A7%E6%A8%A1%E5%9E%8Bapi%E8%BF%90%E8%A1%8CHermes-Agent/</id>
     <published>2026-05-03T13:28:56.000Z</published>
-    <updated>2026-05-03T13:28:56.679Z</updated>
+    <updated>2026-09-02T15:04:06.298Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前阵子在openclaw热度之后，又出来个hermes agent，主打个更高效智能的agent，我们就来体验试下&lt;br&gt;其实挺久之前就开始运行了，但是因为大部分的coding</summary>
-        
-      
+    <summary type="html">前阵子在openclaw热度之后，又出来个hermes agent，主打个更高效智能的agent，我们就来体验试下 其实挺久之前就开始运行了，但是因为大部分的coding plan都涨价了，普通的api付费又可能被这类agent给刷爆 正好最近小米在做一个模型token推广计划…</summary>
     
     
     
-    <category term="llm" scheme="https://nicksxs.me/categories/llm/"/>
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
     
     
-    <category term="llm" scheme="https://nicksxs.me/tags/llm/"/>
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
@@ -517,43 +410,10 @@
     <link href="https://nicksxs.me/2026/04/26/%E7%BB%93%E5%90%88Obsidian%E7%9A%84cli%E7%9A%84%E4%B8%80%E4%BD%93%E5%8C%96%E4%BD%93%E9%AA%8C/"/>
     <id>https://nicksxs.me/2026/04/26/%E7%BB%93%E5%90%88Obsidian%E7%9A%84cli%E7%9A%84%E4%B8%80%E4%BD%93%E5%8C%96%E4%BD%93%E9%AA%8C/</id>
     <published>2026-04-26T12:42:21.000Z</published>
-    <updated>2026-04-26T12:42:21.665Z</updated>
+    <updated>2026-09-02T15:03:12.257Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上次是开始使用了Obsidian，之前也听说了Obsidian也推出了cli命令行工具，这次就来体验下，主要是为了能在例如claude</summary>
-        
-      
-    
-    
-    
-    <category term="markdown" scheme="https://nicksxs.me/categories/markdown/"/>
-    
-    
-    <category term="markdown" scheme="https://nicksxs.me/tags/markdown/"/>
-    
-    <category term="Obsidian" scheme="https://nicksxs.me/tags/Obsidian/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>开始尝试使用obsidian作为笔记软件</title>
-    <link href="https://nicksxs.me/2026/04/19/%E5%BC%80%E5%A7%8B%E5%B0%9D%E8%AF%95%E4%BD%BF%E7%94%A8obsidian%E4%BD%9C%E4%B8%BA%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6/"/>
-    <id>https://nicksxs.me/2026/04/19/%E5%BC%80%E5%A7%8B%E5%B0%9D%E8%AF%95%E4%BD%BF%E7%94%A8obsidian%E4%BD%9C%E4%B8%BA%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6/</id>
-    <published>2026-04-19T14:04:00.000Z</published>
-    <updated>2026-04-19T14:04:00.320Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前看到Karpathy这个wiki知识库提到了使用Obsidian作为笔记软件，因为Obsidian存储笔记的格式就是markdown&lt;br&gt;Obsidian的使用方式和别的笔记系统还是有比较大差别的，我们只需要指定一个笔记目录，就可以往里存放笔记了&lt;br&gt;它的语法整体就</summary>
-        
-      
+    <summary type="html">上次是开始使用了Obsidian，之前也听说了Obsidian也推出了cli命令行工具，这次就来体验下，主要是为了能在例如claude code跟codex中直接操作Obsidian，比如在一些知识的学习之后希望整理成笔记 首先安装比较简单，就是在软件内开启命令行就行，会加到系统…</summary>
     
     
     
