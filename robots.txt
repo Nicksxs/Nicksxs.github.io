@@ -1,10 +1,4 @@
 User-agent: *
 Allow: /
-Allow: /archives/
-Allow: /categories/
-Allow: /about/
 
-Disallow: /vendors/
-Disallow: /fonts/
-Disallow: /vendors/
-Disallow: /fancybox/
+Sitemap: https://nicksxs.me/sitemap.xml
