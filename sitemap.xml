@@ -20,15 +20,6 @@
   </url>
   
   <url>
-    <loc>https://nicksxs.me/2026/09/02/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</loc>
-    
-    <lastmod>2026-09-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://nicksxs.me/2026/08/30/%E4%BB%8EASM%E5%88%B0ByteKit%E5%86%8D%E5%88%B0Arthas-%E4%B8%80%E6%9D%A1Java%E5%AD%97%E8%8A%82%E7%A0%81%E5%A2%9E%E5%BC%BA%E9%93%BE%E8%B7%AF/</loc>
     
     <lastmod>2026-08-30</lastmod>
@@ -2876,6 +2867,15 @@
     <loc>https://nicksxs.me/2020/11/15/Leetcode-234-%E5%9B%9E%E6%96%87%E8%81%94%E8%A1%A8-Palindrome-Linked-List-%E9%A2%98%E8%A7%A3%E5%88%86%E6%9E%90/</loc>
     
     <lastmod>2020-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nicksxs.me/2020/11/08/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</loc>
+    
+    <lastmod>2020-11-08</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

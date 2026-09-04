@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-09-02T15:03:12.000Z</updated>
+  <updated>2026-08-30T07:10:00.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,31 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Java 类加载机制详解（一）：加载、验证、准备、解析与初始化</title>
-    <link href="https://nicksxs.me/2026/09/02/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/"/>
-    <id>https://nicksxs.me/2026/09/02/%E8%81%8A%E8%81%8A-Java-%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</id>
-    <published>2026-09-02T15:03:12.000Z</published>
-    <updated>2026-09-02T15:03:12.000Z</updated>
-    
-    
-    <summary type="html">本文依据《深入理解 Java 虚拟机》梳理类的生命周期，详细讲解加载、验证、准备、解析、初始化、使用和卸载七个阶段，并说明双亲委派模型在类加载体系中的位置。</summary>
-    
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/categories/Java/"/>
-    
-    <category term="类加载" scheme="https://nicksxs.me/categories/Java/%E7%B1%BB%E5%8A%A0%E8%BD%BD/"/>
-    
-    
-    <category term="Java" scheme="https://nicksxs.me/tags/Java/"/>
-    
-    <category term="JVM" scheme="https://nicksxs.me/tags/JVM/"/>
-    
-    <category term="类加载" scheme="https://nicksxs.me/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD/"/>
-    
-  </entry>
   
   <entry>
     <title>从ASM到ByteKit再到Arthas：一条Java字节码增强链路</title>
@@ -424,6 +399,27 @@
     
     
     <summary type="html">上次是开始使用了Obsidian，之前也听说了Obsidian也推出了cli命令行工具，这次就来体验下，主要是为了能在例如claude code跟codex中直接操作Obsidian，比如在一些知识的学习之后希望整理成笔记 首先安装比较简单，就是在软件内开启命令行就行，会加到系…</summary>
+    
+    
+    
+    <category term="markdown" scheme="https://nicksxs.me/categories/markdown/"/>
+    
+    
+    <category term="markdown" scheme="https://nicksxs.me/tags/markdown/"/>
+    
+    <category term="Obsidian" scheme="https://nicksxs.me/tags/Obsidian/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>开始尝试使用obsidian作为笔记软件</title>
+    <link href="https://nicksxs.me/2026/04/19/%E5%BC%80%E5%A7%8B%E5%B0%9D%E8%AF%95%E4%BD%BF%E7%94%A8obsidian%E4%BD%9C%E4%B8%BA%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6/"/>
+    <id>https://nicksxs.me/2026/04/19/%E5%BC%80%E5%A7%8B%E5%B0%9D%E8%AF%95%E4%BD%BF%E7%94%A8obsidian%E4%BD%9C%E4%B8%BA%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6/</id>
+    <published>2026-04-19T14:04:00.000Z</published>
+    <updated>2026-04-19T14:04:00.000Z</updated>
+    
+    
+    <summary type="html">之前看到Karpathy这个wiki知识库提到了使用Obsidian作为笔记软件，因为Obsidian存储笔记的格式就是markdown Obsidian的使用方式和别的笔记系统还是有比较大差别的，我们只需要指定一个笔记目录，就可以往里存放笔记了 它的语法整体就是markdow…</summary>
     
     
     
