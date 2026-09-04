@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Nicksxs&#39;s Blog</title>
   <icon>https://nicksxs.me/icon.png</icon>
-  <subtitle>What hurts more, the pain of hard work or the pain of regret?</subtitle>
+  <subtitle>Java 运行时、生产诊断与 AI 工程实践</subtitle>
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
@@ -115,14 +115,14 @@
   </entry>
   
   <entry>
-    <title>来学习下pi agent的原理</title>
+    <title>Pi Agent 工具系统：Read、Write、Edit 与 Bash 的实现原理</title>
     <link href="https://nicksxs.me/2026/08/09/%E6%9D%A5%E5%AD%A6%E4%B9%A0%E4%B8%8Bpi-agent%E7%9A%84%E5%8E%9F%E7%90%86/"/>
     <id>https://nicksxs.me/2026/08/09/%E6%9D%A5%E5%AD%A6%E4%B9%A0%E4%B8%8Bpi-agent%E7%9A%84%E5%8E%9F%E7%90%86/</id>
     <published>2026-08-09T13:23:24.000Z</published>
     <updated>2026-08-09T13:23:24.000Z</updated>
     
     
-    <summary type="html">之前也偶尔用户pi agent这个工具，当然这个还是个很庞大的系统，我也只能一点点学 首先是工具系统，默认的核心工具主要是四个 read,write,edit,bash 输入结构式这样 解析路径 → 检查文件是否可读 → 判断是文本还是图片 → 读取内容 → 按 offset/…</summary>
+    <summary type="html">本文拆解 Pi Agent 的核心工具系统，说明 Read、Write、Edit、Bash 的输入结构、文件读写流程、输出截断、变更队列与命令执行机制。</summary>
     
     
     
@@ -321,14 +321,14 @@
   </entry>
   
   <entry>
-    <title>看看目前本地能跑什么模型,使用llama.cpp</title>
+    <title>6GB 显存运行 64K 上下文：llama.cpp 参数与 KV Cache 调优</title>
     <link href="https://nicksxs.me/2026/05/31/%E7%9C%8B%E7%9C%8B%E7%9B%AE%E5%89%8D%E6%9C%AC%E5%9C%B0%E8%83%BD%E8%B7%91%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B-%E4%BD%BF%E7%94%A8llama-cpp/"/>
     <id>https://nicksxs.me/2026/05/31/%E7%9C%8B%E7%9C%8B%E7%9B%AE%E5%89%8D%E6%9C%AC%E5%9C%B0%E8%83%BD%E8%B7%91%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B-%E4%BD%BF%E7%94%A8llama-cpp/</id>
     <published>2026-05-31T14:07:14.000Z</published>
     <updated>2026-05-31T14:07:14.000Z</updated>
     
     
-    <summary type="html">除了购买各种订阅和api服务，还有一种选择就是本地运行模型，但是这个一般来讲还是只能运行一些参数量比较小的， 随着开源权重模型的发展，这个方向也在慢慢的改变，当然差距肯定是有的，只是本地我们可以用来做些辅助工作 之前很多情况下一般都只是能作为玩具，并且由于ollama和lm s…</summary>
+    <summary type="html">在 RTX 3060 Laptop 6GB 显卡上使用 llama.cpp 运行 9B 量化模型，通过 64K 上下文、Flash Attention、KV Cache 量化和 GPU Offload 参数控制显存占用。</summary>
     
     
     
@@ -397,14 +397,14 @@
   </entry>
   
   <entry>
-    <title>使用xiaomi mimo大模型api运行Hermes Agent</title>
+    <title>使用 Xiaomi MiMo API 运行 Hermes Agent：模型与 Gateway 配置</title>
     <link href="https://nicksxs.me/2026/05/03/%E4%BD%BF%E7%94%A8xiaomi-mimo%E5%A4%A7%E6%A8%A1%E5%9E%8Bapi%E8%BF%90%E8%A1%8CHermes-Agent/"/>
     <id>https://nicksxs.me/2026/05/03/%E4%BD%BF%E7%94%A8xiaomi-mimo%E5%A4%A7%E6%A8%A1%E5%9E%8Bapi%E8%BF%90%E8%A1%8CHermes-Agent/</id>
     <published>2026-05-03T13:28:56.000Z</published>
     <updated>2026-05-03T13:28:56.000Z</updated>
     
     
-    <summary type="html">前阵子在openclaw热度之后，又出来个hermes agent，主打个更高效智能的agent，我们就来体验试下 其实挺久之前就开始运行了，但是因为大部分的coding plan都涨价了，普通的api付费又可能被这类agent给刷爆 正好最近小米在做一个模型token推广计划…</summary>
+    <summary type="html">本文记录 Hermes Agent 的安装与配置过程，接入 Xiaomi MiMo API，设置模型、Gateway 和微信通道，并说明本地模型运行 64K 上下文时的资源限制。</summary>
     
     
     
