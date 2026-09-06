@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">6GB 显存预算结构</title>
+  <desc id="desc">6GB 显存中需要同时容纳非专家权重、专家缓存、KV Cache 与运行时余量，完整专家池仍在主机内存。</desc>
+  <defs>
+    <style>
+      .t{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#17212b}
+      .muted{fill:#59636e}
+      .white{fill:#ffffff}
+      .label{font-size:20px;font-weight:650}
+      .small{font-size:16px}
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#59636e"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="720" fill="#f6f8fa"/>
+  <text class="t" x="55" y="62" font-size="32" font-weight="700">6GB 不是模型大小，而是四类运行时资源的共同预算</text>
+  <text class="t muted" x="56" y="96" font-size="18">示意图不按真实 GiB 比例绘制；具体分配由模型、上下文和 backend 决定</text>
+
+  <rect x="55" y="135" width="715" height="500" rx="8" fill="#ffffff" stroke="#2979b9" stroke-width="3"/>
+  <text class="t" x="85" y="180" font-size="26" font-weight="700">GPU VRAM：标称 6GB</text>
+  <text class="t muted" x="85" y="211" font-size="17">RTX 3060 Laptop 案例中 CUDA 可见总容量约 5.67GiB</text>
+
+  <rect x="90" y="245" width="645" height="95" rx="6" fill="#dcecff" stroke="#2979b9" stroke-width="2"/>
+  <text class="t label" x="120" y="285">非专家权重与状态</text>
+  <text class="t muted small" x="120" y="316">Attention / Router / Embedding / GDN 等硬成本</text>
+
+  <rect x="90" y="360" width="645" height="95" rx="6" fill="#e7f5ef" stroke="#1f8a70" stroke-width="2"/>
+  <text class="t label" x="120" y="400">全局 LRU 专家缓存</text>
+  <text class="t muted small" x="120" y="431">越大则 Decode miss 越少，但会挤压 KV 与余量</text>
+
+  <rect x="90" y="475" width="390" height="125" rx="6" fill="#eee7fb" stroke="#7757bd" stroke-width="2"/>
+  <text class="t label" x="120" y="520">KV Cache</text>
+  <text class="t muted small" x="120" y="551">决定可容纳的上下文</text>
+  <text class="t muted small" x="120" y="576">与 expert slots 直接竞争</text>
+
+  <rect x="500" y="475" width="235" height="125" rx="6" fill="#fff0d6" stroke="#d59224" stroke-width="2"/>
+  <text class="t label" x="530" y="520">运行时余量</text>
+  <text class="t muted small" x="530" y="551">JIT / Graph</text>
+  <text class="t muted small" x="530" y="576">Workspace / 碎片</text>
+
+  <rect x="845" y="185" width="300" height="330" rx="8" fill="#ffffff" stroke="#1f8a70" stroke-width="3"/>
+  <text class="t" x="995" y="235" text-anchor="middle" font-size="26" font-weight="700">Host RAM</text>
+  <text class="t muted" x="995" y="268" text-anchor="middle" font-size="17">32GB 是紧张下限</text>
+  <text class="t muted" x="995" y="296" text-anchor="middle" font-size="17">实操建议 48GB</text>
+
+  <rect x="885" y="335" width="220" height="115" rx="6" fill="#e7f5ef" stroke="#1f8a70" stroke-width="2"/>
+  <text class="t label" x="995" y="380" text-anchor="middle">完整专家池</text>
+  <text class="t muted small" x="995" y="411" text-anchor="middle">Pinned expert banks</text>
+
+  <path d="M845 385 C815 385 815 405 775 405" stroke="#59636e" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <text class="t muted" x="807" y="366" text-anchor="middle" font-size="16">PCIe fill</text>
+  <path d="M845 455 C815 455 815 520 775 520" stroke="#59636e" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <text class="t muted" x="805" y="493" text-anchor="middle" font-size="16">CPU fallback</text>
+
+  <rect x="845" y="550" width="300" height="85" rx="6" fill="#ffe8e4" stroke="#e85d4a" stroke-width="2"/>
+  <text class="t" x="995" y="585" text-anchor="middle" font-size="19" font-weight="650">16GB RAM 不只是慢</text>
+  <text class="t muted" x="995" y="615" text-anchor="middle" font-size="16">可能无法稳定加载或进入 swap</text>
+
+  <text class="t" x="55" y="685" font-size="19" font-weight="650">调优顺序：先保证启动余量与目标 KV，再把剩余显存逐步分给专家缓存</text>
+</svg>
+
