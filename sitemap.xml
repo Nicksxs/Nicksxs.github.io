@@ -11,36 +11,9 @@
   </url>
   
   <url>
-    <loc>https://nicksxs.me/2026/09/11/deepseek-v41-flash-read-cache-write/</loc>
-    
-    <lastmod>2026-09-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://nicksxs.me/downloads/freetoken-3060-lab/measurements.json</loc>
     
     <lastmod>2026-09-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nicksxs.me/2026/09/08/freetoken-3060-wsl-pinned-memory-gpu-offload-en/</loc>
-    
-    <lastmod>2026-09-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nicksxs.me/2026/09/08/freetoken-3060-wsl-pinned-memory-gpu-offload/</loc>
-    
-    <lastmod>2026-09-08</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

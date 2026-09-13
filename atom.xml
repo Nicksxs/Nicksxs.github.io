@@ -40,79 +40,6 @@
   </entry>
   
   <entry>
-    <title>DeepSeek V4.1 Flash 为什么更省：从读一段日志，到写出答案</title>
-    <link href="https://nicksxs.me/2026/09/11/deepseek-v41-flash-read-cache-write/"/>
-    <id>https://nicksxs.me/2026/09/11/deepseek-v41-flash-read-cache-write/</id>
-    <published>2026-09-11T08:00:00.000Z</published>
-    <updated>2026-09-11T08:00:00.000Z</updated>
-    
-    
-    <summary type="html">接着 3060 跑 FreeToken 的实操，从分析故障日志的例子出发，逐步理解 DeepSeek V4.1 Flash 的输入输出分工、缓存共享与压缩、局部重放、Engram 和推测解码，也算清激活参数、缓存与整机内存不是同一本账。</summary>
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="DeepSeek" scheme="https://nicksxs.me/tags/DeepSeek/"/>
-    
-    <category term="KV Cache" scheme="https://nicksxs.me/tags/KV-Cache/"/>
-    
-    <category term="模型推理" scheme="https://nicksxs.me/tags/%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Running a 35B MoE on a 6GB RTX 3060: the OOM was not where I expected</title>
-    <link href="https://nicksxs.me/2026/09/08/freetoken-3060-wsl-pinned-memory-gpu-offload-en/"/>
-    <id>https://nicksxs.me/2026/09/08/freetoken-3060-wsl-pinned-memory-gpu-offload-en/</id>
-    <published>2026-09-08T12:05:00.000Z</published>
-    <updated>2026-09-08T12:05:00.000Z</updated>
-    
-    
-    <summary type="html">After exploring FreeToken&#39;s low-VRAM design, I tried Qwen3.6-35B-A3B on my own 6GB RTX 3060 Laptop, worked through Windows and WSL failures, then tested how much more speed its GPU cache and transfers could deliver.</summary>
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-    <category term="FreeToken" scheme="https://nicksxs.me/tags/FreeToken/"/>
-    
-    <category term="CUDA" scheme="https://nicksxs.me/tags/CUDA/"/>
-    
-    <category term="WSL" scheme="https://nicksxs.me/tags/WSL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>3060 6GB 跑 FreeToken：从锁页 OOM 到 5 token/s，我最后改了哪里</title>
-    <link href="https://nicksxs.me/2026/09/08/freetoken-3060-wsl-pinned-memory-gpu-offload/"/>
-    <id>https://nicksxs.me/2026/09/08/freetoken-3060-wsl-pinned-memory-gpu-offload/</id>
-    <published>2026-09-08T12:00:00.000Z</published>
-    <updated>2026-09-08T12:00:00.000Z</updated>
-    
-    
-    <summary type="html">接着前两篇 FreeToken 文章，这次在自己的 RTX 3060 Laptop 6GB 上实跑 Qwen3.6-35B-A3B：从 Windows、WSL 的启动问题，到恢复 GPU 专家计算，再逐项测试缓存和异步传输能带来多少提速。</summary>
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="FreeToken" scheme="https://nicksxs.me/tags/FreeToken/"/>
-    
-    <category term="CUDA" scheme="https://nicksxs.me/tags/CUDA/"/>
-    
-    <category term="本地大模型" scheme="https://nicksxs.me/tags/%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
-    
-    <category term="WSL" scheme="https://nicksxs.me/tags/WSL/"/>
-    
-  </entry>
-  
-  <entry>
     <title>6GB显存能跑35B MoE吗：FreeToken极限配置、性能压榨与实操教程</title>
     <link href="https://nicksxs.me/2026/09/05/6GB%E6%98%BE%E5%AD%98%E8%B7%9135B-MoE-FreeToken%E6%9E%81%E9%99%90%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%AE%9E%E6%93%8D%E6%95%99%E7%A8%8B/"/>
     <id>https://nicksxs.me/2026/09/05/6GB%E6%98%BE%E5%AD%98%E8%B7%9135B-MoE-FreeToken%E6%9E%81%E9%99%90%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%AE%9E%E6%93%8D%E6%95%99%E7%A8%8B/</id>
@@ -444,6 +371,63 @@
     
     
     <summary type="html">一段时间都有在用大模型来辅助编程，不过现在很多都叫成vibe coding了，连胡彦斌都在vibe coding了， 现在是个全民皆可做软件开发的时代，包括像之前那个小猫补光灯，有的人的想法是说点子不重要了 我自己想的有点不一样，vibe coding现在是把成熟的开发者和小白…</summary>
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用php的inotify扩展来监听文件变更</title>
+    <link href="https://nicksxs.me/2026/05/17/%E4%BD%BF%E7%94%A8php%E7%9A%84inotify%E6%89%A9%E5%B1%95%E6%9D%A5%E7%9B%91%E5%90%AC%E6%96%87%E4%BB%B6%E5%8F%98%E6%9B%B4/"/>
+    <id>https://nicksxs.me/2026/05/17/%E4%BD%BF%E7%94%A8php%E7%9A%84inotify%E6%89%A9%E5%B1%95%E6%9D%A5%E7%9B%91%E5%90%AC%E6%96%87%E4%BB%B6%E5%8F%98%E6%9B%B4/</id>
+    <published>2026-05-17T13:55:51.000Z</published>
+    <updated>2026-05-17T13:55:51.000Z</updated>
+    
+    
+    <summary type="html">偶尔下载一些视频媒体的时候会想要对它进行压缩来缩小占用空间， 但是如果每次等下载完再去用软件压缩会比较麻烦 这里就找到了inotify扩展，可以监听文件变更 这里其实想吹一下小米的mimo2.5模型，因为要装php扩展， 我的是php7.4，网上搜了下有基于pecl，有的是基于…</summary>
+    
+    
+    
+    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
+    
+    
+    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一些设计模式的记忆点</title>
+    <link href="https://nicksxs.me/2026/05/10/%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%AE%B0%E5%BF%86%E7%82%B9/"/>
+    <id>https://nicksxs.me/2026/05/10/%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%AE%B0%E5%BF%86%E7%82%B9/</id>
+    <published>2026-05-10T15:27:52.000Z</published>
+    <updated>2026-05-10T15:27:52.000Z</updated>
+    
+    
+    <summary type="html">类或对象的组合关系复杂。对象之间职责划分、通信流程复杂。二、不同设计模式适合的场景。（一）创建型模式：解决“对象怎么创建”</summary>
+    
+    
+    
+    <category term="系统架构师" scheme="https://nicksxs.me/categories/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%B8%88/"/>
+    
+    
+    <category term="系统架构师" scheme="https://nicksxs.me/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%B8%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Xiaomi MiMo API 运行 Hermes Agent：模型与 Gateway 配置</title>
+    <link href="https://nicksxs.me/2026/05/03/%E4%BD%BF%E7%94%A8xiaomi-mimo%E5%A4%A7%E6%A8%A1%E5%9E%8Bapi%E8%BF%90%E8%A1%8CHermes-Agent/"/>
+    <id>https://nicksxs.me/2026/05/03/%E4%BD%BF%E7%94%A8xiaomi-mimo%E5%A4%A7%E6%A8%A1%E5%9E%8Bapi%E8%BF%90%E8%A1%8CHermes-Agent/</id>
+    <published>2026-05-03T13:28:56.000Z</published>
+    <updated>2026-05-03T13:28:56.000Z</updated>
+    
+    
+    <summary type="html">本文记录 Hermes Agent 的安装与配置过程，接入 Xiaomi MiMo API，设置模型、Gateway 和微信通道，并说明本地模型运行 64K 上下文时的资源限制。</summary>
     
     
     
