@@ -145,7 +145,7 @@ run_server() {
     --host 127.0.0.1 \
     --port "$PORT" \
     --attn triton \
-    --moe-backend auto \
+    --moe-strategy auto \
     --memory-ratio "$MEMORY_RATIO" \
     --max-running-requests "$MAX_REQUESTS" \
     --max-prefill-length "$MAX_PREFILL" \

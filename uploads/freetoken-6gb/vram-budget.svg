@@ -3,10 +3,10 @@
   <desc id="desc">6GB 显存中需要同时容纳非专家权重、专家缓存、KV Cache 与运行时余量，完整专家池仍在主机内存。</desc>
   <defs>
     <style>
-      .t{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#17212b}
+      .t{font-family:Arial,sans-serif;fill:#17212b}
       .muted{fill:#59636e}
       .white{fill:#ffffff}
-      .label{font-size:20px;font-weight:650}
+      .label{font-size:20px;font-weight:600}
       .small{font-size:16px}
     </style>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
@@ -55,9 +55,8 @@
   <text class="t muted" x="805" y="493" text-anchor="middle" font-size="16">CPU fallback</text>
 
   <rect x="845" y="550" width="300" height="85" rx="6" fill="#ffe8e4" stroke="#e85d4a" stroke-width="2"/>
-  <text class="t" x="995" y="585" text-anchor="middle" font-size="19" font-weight="650">16GB RAM 不只是慢</text>
+  <text class="t" x="995" y="585" text-anchor="middle" font-size="19" font-weight="600">16GB RAM 不只是慢</text>
   <text class="t muted" x="995" y="615" text-anchor="middle" font-size="16">可能无法稳定加载或进入 swap</text>
 
-  <text class="t" x="55" y="685" font-size="19" font-weight="650">调优顺序：先保证启动余量与目标 KV，再把剩余显存逐步分给专家缓存</text>
+  <text class="t" x="55" y="685" font-size="19" font-weight="600">调优顺序：先保证启动余量与目标 KV，再把剩余显存逐步分给专家缓存</text>
 </svg>
-
