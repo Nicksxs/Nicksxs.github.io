@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-09-20T12:00:00.000Z</updated>
+  <updated>2026-09-27T12:00:00.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Qwen-Image 2.1 入门：从一句提示词到一张图，6GB 显存为什么也能跑</title>
+    <link href="https://nicksxs.me/2026/09/27/Qwen-Image-2-1%E5%85%A5%E9%97%A8-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%83%E5%80%BC%E5%BE%97%E5%85%B3%E6%B3%A8%E4%BB%A5%E5%8F%8A%E4%BD%8E%E9%85%8D%E6%98%BE%E5%8D%A1%E5%A6%82%E4%BD%95%E8%B7%91%E8%B5%B7%E6%9D%A5/"/>
+    <id>https://nicksxs.me/2026/09/27/Qwen-Image-2-1%E5%85%A5%E9%97%A8-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%83%E5%80%BC%E5%BE%97%E5%85%B3%E6%B3%A8%E4%BB%A5%E5%8F%8A%E4%BD%8E%E9%85%8D%E6%98%BE%E5%8D%A1%E5%A6%82%E4%BD%95%E8%B7%91%E8%B5%B7%E6%9D%A5/</id>
+    <published>2026-09-27T12:00:00.000Z</published>
+    <updated>2026-09-27T12:00:00.000Z</updated>
+    
+    
+    <summary type="html">从普通人的视角解释 Qwen-Image 2.1 如何把一句提示词变成图片，文本编码器、DiT 和 VAE 为什么缺一不可，以及 RTX 3060 6GB 配合 32GB 内存如何通过 Unsloth Desktop 和模型卸载跑起来。</summary>
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="Qwen-Image" scheme="https://nicksxs.me/tags/Qwen-Image/"/>
+    
+    <category term="AI 绘画" scheme="https://nicksxs.me/tags/AI-%E7%BB%98%E7%94%BB/"/>
+    
+    <category term="Unsloth" scheme="https://nicksxs.me/tags/Unsloth/"/>
+    
+    <category term="本地部署" scheme="https://nicksxs.me/tags/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
   
   <entry>
     <title>Jev 深度解读与实测：只做判断的 AI，究竟快在哪里</title>
@@ -301,9 +326,9 @@
     <category term="php" scheme="https://nicksxs.me/categories/php/"/>
     
     
-    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
-    
     <category term="nginx" scheme="https://nicksxs.me/tags/nginx/"/>
+    
+    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
     
     <category term="valet" scheme="https://nicksxs.me/tags/valet/"/>
     
@@ -422,25 +447,6 @@
     
     
     <category term="php" scheme="https://nicksxs.me/tags/php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一些设计模式的记忆点</title>
-    <link href="https://nicksxs.me/2026/05/10/%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%AE%B0%E5%BF%86%E7%82%B9/"/>
-    <id>https://nicksxs.me/2026/05/10/%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%AE%B0%E5%BF%86%E7%82%B9/</id>
-    <published>2026-05-10T15:27:52.000Z</published>
-    <updated>2026-05-10T15:27:52.000Z</updated>
-    
-    
-    <summary type="html">类或对象的组合关系复杂。对象之间职责划分、通信流程复杂。二、不同设计模式适合的场景。（一）创建型模式：解决“对象怎么创建”</summary>
-    
-    
-    
-    <category term="系统架构师" scheme="https://nicksxs.me/categories/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%B8%88/"/>
-    
-    
-    <category term="系统架构师" scheme="https://nicksxs.me/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%B8%88/"/>
     
   </entry>
   
