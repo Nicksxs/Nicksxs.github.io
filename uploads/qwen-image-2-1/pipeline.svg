@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07172e"/>
+      <stop offset="1" stop-color="#112a4a"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#173a62"/>
+      <stop offset="1" stop-color="#0d2442"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#53d5ff"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" rx="36" fill="url(#bg)"/>
+  <text x="96" y="116" fill="#ffffff" font-family=".PingFang-SC-Semibold" font-size="52" font-weight="700">一句提示词怎样变成一张图</text>
+  <text x="96" y="168" fill="#9bc7e9" font-family=".PingFang-SC-Regular" font-size="26">三个组件按阶段接力，最重的计算集中在中间 40 步</text>
+
+  <g font-family=".PingFang-SC-Regular">
+    <rect x="86" y="276" width="280" height="330" rx="28" fill="url(#card)" stroke="#3f78a7" stroke-width="2"/>
+    <circle cx="226" cy="370" r="54" fill="#123153" stroke="#59d6ff" stroke-width="5"/>
+    <path d="M194 369h64M194 347h46M194 391h54" stroke="#59d6ff" stroke-width="10" stroke-linecap="round"/>
+    <text x="226" y="488" fill="#ffffff" font-size="34" font-weight="700" text-anchor="middle">提示词／参考图</text>
+    <text x="226" y="538" fill="#a9c7df" font-size="24" text-anchor="middle">人的需求</text>
+
+    <rect x="458" y="276" width="300" height="330" rx="28" fill="url(#card)" stroke="#3f78a7" stroke-width="2"/>
+    <circle cx="608" cy="370" r="62" fill="#0d2d4d" stroke="#6ce0ff" stroke-width="5"/>
+    <path d="M574 343c34-29 74-5 65 29 27 4 27 48-5 51h-55c-38-7-40-56-5-66z" fill="none" stroke="#6ce0ff" stroke-width="7"/>
+    <text x="608" y="482" fill="#ffffff" font-size="32" font-weight="700" text-anchor="middle">Qwen3-VL 8B</text>
+    <text x="608" y="530" fill="#a9c7df" font-size="25" text-anchor="middle">理解文字和参考图</text>
+
+    <rect x="850" y="238" width="330" height="406" rx="28" fill="#142f53" stroke="#8b74ff" stroke-width="3"/>
+    <g transform="translate(945 324)">
+      <rect width="48" height="48" rx="8" fill="#5bcfff"/>
+      <rect x="58" width="48" height="48" rx="8" fill="#756eff"/>
+      <rect x="116" width="48" height="48" rx="8" fill="#ad64ff"/>
+      <rect y="58" width="48" height="48" rx="8" fill="#5d8dff"/>
+      <rect x="58" y="58" width="48" height="48" rx="8" fill="#e56dce"/>
+      <rect x="116" y="58" width="48" height="48" rx="8" fill="#ff9e77"/>
+    </g>
+    <text x="1015" y="486" fill="#ffffff" font-size="38" font-weight="700" text-anchor="middle">7B DiT</text>
+    <text x="1015" y="536" fill="#d0c9ff" font-size="25" text-anchor="middle">反复修正潜变量</text>
+    <rect x="930" y="568" width="170" height="46" rx="23" fill="#6c54df"/>
+    <text x="1015" y="600" fill="#ffffff" font-size="23" font-weight="700" text-anchor="middle">主要耗时：40 步</text>
+
+    <rect x="1274" y="276" width="240" height="330" rx="28" fill="url(#card)" stroke="#3f78a7" stroke-width="2"/>
+    <rect x="1341" y="332" width="106" height="92" rx="14" fill="#0d2d4d" stroke="#62e4c7" stroke-width="5"/>
+    <path d="M1358 404l27-31 19 19 18-24 12 36z" fill="#62e4c7"/>
+    <text x="1394" y="486" fill="#ffffff" font-size="34" font-weight="700" text-anchor="middle">RGBA VAE</text>
+    <text x="1394" y="536" fill="#a9c7df" font-size="24" text-anchor="middle">还原成像素图片</text>
+  </g>
+
+  <path d="M374 440H442" stroke="#53d5ff" stroke-width="9" marker-end="url(#arrow)"/>
+  <path d="M766 440H834" stroke="#53d5ff" stroke-width="9" marker-end="url(#arrow)"/>
+  <path d="M1188 440H1258" stroke="#53d5ff" stroke-width="9" marker-end="url(#arrow)"/>
+
+  <rect x="96" y="727" width="1408" height="80" rx="22" fill="#0a203b" stroke="#315a7e"/>
+  <text x="800" y="779" fill="#cbe8ff" font-family=".PingFang-SC-Regular" font-size="27" text-anchor="middle">编码器通常只运行一次　·　DiT 按步数重复计算　·　VAE 在最后解码一次</text>
+</svg>

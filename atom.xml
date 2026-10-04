@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-09-27T12:00:00.000Z</updated>
+  <updated>2026-10-04T14:30:00.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Pi Agent 1.0 的 MCP 集成源码解析：工具发现、代码编排与提示词压缩</title>
+    <link href="https://nicksxs.me/2026/10/04/Pi-Agent-1-0-MCP%E9%9B%86%E6%88%90%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-%E5%B7%A5%E5%85%B7%E5%8F%91%E7%8E%B0%E4%B8%8E%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%8E%8B%E7%BC%A9/"/>
+    <id>https://nicksxs.me/2026/10/04/Pi-Agent-1-0-MCP%E9%9B%86%E6%88%90%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-%E5%B7%A5%E5%85%B7%E5%8F%91%E7%8E%B0%E4%B8%8E%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%8E%8B%E7%BC%A9/</id>
+    <published>2026-10-04T14:30:00.000Z</published>
+    <updated>2026-10-04T14:30:00.000Z</updated>
+    
+    
+    <summary type="html">结合 Pi Agent 1.0 的固定版本源码，分析 MCP 工具的按需发现、QuickJS 代码编排、结果过滤与后台连接，直接对照提示词压缩前后的代码，并说明 OAuth、会话恢复和工具搜索的实现边界。</summary>
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+    <category term="Agent" scheme="https://nicksxs.me/tags/Agent/"/>
+    
+    <category term="MCP" scheme="https://nicksxs.me/tags/MCP/"/>
+    
+    <category term="TypeScript" scheme="https://nicksxs.me/tags/TypeScript/"/>
+    
+  </entry>
   
   <entry>
     <title>Qwen-Image 2.1 入门：从一句提示词到一张图，6GB 显存为什么也能跑</title>
@@ -428,25 +453,6 @@
     
     
     <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用php的inotify扩展来监听文件变更</title>
-    <link href="https://nicksxs.me/2026/05/17/%E4%BD%BF%E7%94%A8php%E7%9A%84inotify%E6%89%A9%E5%B1%95%E6%9D%A5%E7%9B%91%E5%90%AC%E6%96%87%E4%BB%B6%E5%8F%98%E6%9B%B4/"/>
-    <id>https://nicksxs.me/2026/05/17/%E4%BD%BF%E7%94%A8php%E7%9A%84inotify%E6%89%A9%E5%B1%95%E6%9D%A5%E7%9B%91%E5%90%AC%E6%96%87%E4%BB%B6%E5%8F%98%E6%9B%B4/</id>
-    <published>2026-05-17T13:55:51.000Z</published>
-    <updated>2026-05-17T13:55:51.000Z</updated>
-    
-    
-    <summary type="html">偶尔下载一些视频媒体的时候会想要对它进行压缩来缩小占用空间， 但是如果每次等下载完再去用软件压缩会比较麻烦 这里就找到了inotify扩展，可以监听文件变更 这里其实想吹一下小米的mimo2.5模型，因为要装php扩展， 我的是php7.4，网上搜了下有基于pecl，有的是基于…</summary>
-    
-    
-    
-    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
-    
-    
-    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
     
   </entry>
   

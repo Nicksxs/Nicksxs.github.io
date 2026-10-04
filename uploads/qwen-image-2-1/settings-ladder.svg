@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07172e"/>
+      <stop offset="1" stop-color="#15294b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" rx="36" fill="url(#bg)"/>
+  <text x="96" y="116" fill="#fff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="52" font-weight="700">6GB 显存的调参顺序</text>
+  <text x="96" y="168" fill="#a8cce8" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="26">一次只改一个变量。先确认能稳定完成，再讨论画质和速度。</text>
+
+  <g font-family="PingFang SC,Microsoft YaHei,sans-serif">
+    <rect x="102" y="262" width="330" height="356" rx="28" fill="#102f50" stroke="#4e89b4" stroke-width="3"/>
+    <circle cx="267" cy="330" r="34" fill="#2c7fc2"/>
+    <text x="267" y="342" fill="#fff" font-size="32" font-weight="700" text-anchor="middle">1</text>
+    <text x="267" y="410" fill="#fff" font-size="32" font-weight="700" text-anchor="middle">先跑通</text>
+    <text x="267" y="470" fill="#b9d7eb" font-size="25" text-anchor="middle">1024×1024</text>
+    <text x="267" y="516" fill="#b9d7eb" font-size="25" text-anchor="middle">Batch 1 · Runs 1</text>
+    <text x="267" y="562" fill="#b9d7eb" font-size="25" text-anchor="middle">Streaming / Offload</text>
+
+    <rect x="479" y="230" width="330" height="420" rx="28" fill="#143755" stroke="#5cd7f7" stroke-width="4"/>
+    <circle cx="644" cy="306" r="34" fill="#20a8ce"/>
+    <text x="644" y="318" fill="#fff" font-size="32" font-weight="700" text-anchor="middle">2</text>
+    <text x="644" y="387" fill="#fff" font-size="32" font-weight="700" text-anchor="middle">再筛构图</text>
+    <text x="644" y="447" fill="#c7e8f2" font-size="25" text-anchor="middle">固定同一个 Seed</text>
+    <text x="644" y="493" fill="#c7e8f2" font-size="25" text-anchor="middle">20 / 30 / 40 步对照</text>
+    <text x="644" y="539" fill="#c7e8f2" font-size="25" text-anchor="middle">Guidance 1</text>
+    <text x="644" y="585" fill="#c7e8f2" font-size="25" text-anchor="middle">记录耗时与成图</text>
+
+    <rect x="856" y="262" width="330" height="356" rx="28" fill="#242b5c" stroke="#8980ff" stroke-width="3"/>
+    <circle cx="1021" cy="330" r="34" fill="#675bd9"/>
+    <text x="1021" y="342" fill="#fff" font-size="32" font-weight="700" text-anchor="middle">3</text>
+    <text x="1021" y="410" fill="#fff" font-size="32" font-weight="700" text-anchor="middle">核对精度</text>
+    <text x="1021" y="470" fill="#d8d5ff" font-size="25" text-anchor="middle">优先看 Loaded build</text>
+    <text x="1021" y="516" fill="#d8d5ff" font-size="25" text-anchor="middle">有 INT8 再做同种子比较</text>
+    <text x="1021" y="562" fill="#d8d5ff" font-size="25" text-anchor="middle">每次变更后重载</text>
+
+    <rect x="1233" y="294" width="270" height="292" rx="28" fill="#3c2d53" stroke="#d780f5" stroke-width="3"/>
+    <circle cx="1368" cy="350" r="32" fill="#9b53b7"/>
+    <text x="1368" y="361" fill="#fff" font-size="30" font-weight="700" text-anchor="middle">4</text>
+    <text x="1368" y="425" fill="#fff" font-size="31" font-weight="700" text-anchor="middle">最后升分辨率</text>
+    <text x="1368" y="482" fill="#eed7f3" font-size="24" text-anchor="middle">确认余量以后</text>
+    <text x="1368" y="525" fill="#eed7f3" font-size="24" text-anchor="middle">再试 2K 预设</text>
+  </g>
+
+  <path d="M432 440H463" stroke="#65dcff" stroke-width="8"/>
+  <path d="M809 440H840" stroke="#65dcff" stroke-width="8"/>
+  <path d="M1186 440H1217" stroke="#8c83ff" stroke-width="8"/>
+  <rect x="162" y="732" width="1276" height="82" rx="24" fill="#0b213b" stroke="#365d82"/>
+  <text x="800" y="784" fill="#d4ebff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="28" text-anchor="middle">步数主要影响时间与收敛过程，降低步数通常解决不了模型权重装不下的问题</text>
+</svg>

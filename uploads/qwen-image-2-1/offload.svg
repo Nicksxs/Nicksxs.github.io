@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07172e"/>
+      <stop offset="1" stop-color="#15294b"/>
+    </linearGradient>
+    <linearGradient id="gpu" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5f69ff"/>
+      <stop offset="1" stop-color="#2b3c91"/>
+    </linearGradient>
+    <marker id="a2" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#51d8ff"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" rx="36" fill="url(#bg2)"/>
+  <text x="96" y="116" fill="#ffffff" font-family=".PingFang-SC-Semibold" font-size="52" font-weight="700">6GB 显存为什么还能运行</text>
+  <text x="96" y="168" fill="#a8cce8" font-family=".PingFang-SC-Regular" font-size="26">显存是工作台，系统内存是货架。模型按需搬运，容量压力换成等待时间。</text>
+
+  <g font-family=".PingFang-SC-Regular">
+    <rect x="94" y="296" width="330" height="330" rx="32" fill="#102d4c" stroke="#3c749e" stroke-width="3"/>
+    <rect x="151" y="364" width="216" height="112" rx="16" fill="#0a1d33" stroke="#61d7ff" stroke-width="5"/>
+    <circle cx="190" cy="420" r="10" fill="#61d7ff"/>
+    <circle cx="226" cy="420" r="10" fill="#61d7ff"/>
+    <text x="259" y="535" fill="#ffffff" font-size="36" font-weight="700" text-anchor="middle">NVMe</text>
+    <text x="259" y="580" fill="#a9c7df" font-size="25" text-anchor="middle">模型文件与缓存</text>
+
+    <rect x="636" y="248" width="360" height="426" rx="34" fill="#15385b" stroke="#4bbbe8" stroke-width="4"/>
+    <g transform="translate(712 330)">
+      <rect width="50" height="180" rx="10" fill="#244e70" stroke="#65defb" stroke-width="3"/>
+      <rect x="66" width="50" height="180" rx="10" fill="#244e70" stroke="#65defb" stroke-width="3"/>
+      <rect x="132" width="50" height="180" rx="10" fill="#244e70" stroke="#65defb" stroke-width="3"/>
+      <rect x="198" width="50" height="180" rx="10" fill="#244e70" stroke="#65defb" stroke-width="3"/>
+    </g>
+    <text x="816" y="568" fill="#ffffff" font-size="39" font-weight="700" text-anchor="middle">32GB 系统内存</text>
+    <text x="816" y="615" fill="#b7d9ef" font-size="25" text-anchor="middle">承接卸载的模型权重</text>
+
+    <rect x="1208" y="296" width="300" height="330" rx="32" fill="url(#gpu)" stroke="#988cff" stroke-width="4"/>
+    <rect x="1276" y="355" width="164" height="130" rx="22" fill="#17235c" stroke="#b1a7ff" stroke-width="5"/>
+    <circle cx="1358" cy="420" r="42" fill="none" stroke="#b1a7ff" stroke-width="8"/>
+    <path d="M1358 378v84M1316 420h84M1328 390l60 60M1388 390l-60 60" stroke="#b1a7ff" stroke-width="6"/>
+    <text x="1358" y="535" fill="#ffffff" font-size="39" font-weight="700" text-anchor="middle">6GB 显存</text>
+    <text x="1358" y="580" fill="#e1dcff" font-size="25" text-anchor="middle">只放当前计算所需部分</text>
+  </g>
+
+  <path d="M442 450H615" stroke="#51d8ff" stroke-width="9" marker-end="url(#a2)"/>
+  <path d="M1018 418H1186" stroke="#51d8ff" stroke-width="9" marker-end="url(#a2)"/>
+  <path d="M1185 493H1018" stroke="#7d74ff" stroke-width="7" marker-end="url(#a2)"/>
+  <text x="1101" y="382" fill="#8fe8ff" font-family=".PingFang-SC-Regular" font-size="23" text-anchor="middle">按需搬入</text>
+  <text x="1101" y="546" fill="#b8b3ff" font-family=".PingFang-SC-Regular" font-size="23" text-anchor="middle">用完移出</text>
+
+  <rect x="267" y="731" width="1066" height="82" rx="24" fill="#0b213b" stroke="#365d82"/>
+  <text x="800" y="783" fill="#d4ebff" font-family=".PingFang-SC-Regular" font-size="28" text-anchor="middle">能跑的代价：40 步反复计算，再叠加系统内存与显存之间的搬运</text>
+</svg>
