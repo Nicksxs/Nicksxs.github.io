@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#4D8A7E"/></marker></defs>
+  <rect width="1600" height="900" fill="#F4F0E7"/>
+  <g font-family="PingFang SC, Hiragino Sans GB, Arial, sans-serif">
+    <text x="78" y="82" font-size="24" fill="#51716F" letter-spacing="3">存储与计算 / 02</text>
+    <text x="76" y="164" font-size="62" font-weight="650" fill="#112D3D">4bit 保存的权重，怎样参与计算？</text>
+    <text x="80" y="222" font-size="29" fill="#516D68">一种常见路径的概念示意，具体实现由量化格式与运行后端决定。</text>
+    <rect x="78" y="285" width="432" height="359" rx="25" fill="#112D3D"/>
+    <rect x="585" y="285" width="432" height="359" rx="25" fill="#D6E7DD"/>
+    <rect x="1092" y="285" width="432" height="359" rx="25" fill="#112D3D"/>
+    <path d="M526 464H566" stroke="#4D8A7E" stroke-width="4" marker-end="url(#arrow)"/>
+    <path d="M1033 464H1073" stroke="#4D8A7E" stroke-width="4" marker-end="url(#arrow)"/>
+    <text x="110" y="340" fill="#A0C4B8" font-size="25">01 / 保存</text><text x="110" y="416" fill="#7CE2C0" font-size="52" font-weight="650">4bit 权重</text>
+    <g fill="#639D8E"><rect x="111" y="461" width="69" height="43" rx="8"/><rect x="189" y="461" width="69" height="43" rx="8"/><rect x="267" y="461" width="69" height="43" rx="8"/><rect x="345" y="461" width="69" height="43" rx="8"/></g>
+    <text x="110" y="560" fill="#D0DFD9" font-size="28">低位宽值 + 缩放参数等</text><text x="110" y="604" fill="#A7C6BC" font-size="25">文件还可能包含额外元数据</text>
+    <text x="617" y="340" fill="#51716F" font-size="25">02 / 参与运算前</text><text x="617" y="416" fill="#112D3D" font-size="44" font-weight="650">按块解码与缩放</text>
+    <text x="617" y="499" fill="#246C5C" font-size="37" font-weight="600">低位宽值 × 缩放参数</text><text x="617" y="560" fill="#355B5A" font-size="28">恢复当前需要的数值</text><text x="617" y="604" fill="#51716F" font-size="25">公式与数据布局因格式而异</text>
+    <text x="1124" y="340" fill="#A0C4B8" font-size="25">03 / 计算</text><text x="1124" y="416" fill="#7CE2C0" font-size="47" font-weight="650">BF16 / FP16</text>
+    <text x="1124" y="493" fill="#F4F0E7" font-size="37">计算路径示例</text><text x="1124" y="560" fill="#D0DFD9" font-size="28">运算与累加精度需另看配置</text><text x="1124" y="604" fill="#A7C6BC" font-size="25">并非所有后端采用同一实现</text>
+    <rect x="78" y="691" width="1446" height="129" rx="19" fill="#E6E1D6"/>
+    <text x="110" y="741" fill="#112D3D" font-size="31" font-weight="600">计算精度不等于整份权重的存储精度</text>
+    <text x="110" y="788" fill="#4C6966" font-size="28">优化后端可融合解码与运算，不必先把整份权重展开成一份浮点副本。</text>
+    <text x="1520" y="870" text-anchor="end" font-size="22" fill="#6B827A">Nicksxs · 概念示意，不代表所有后端</text>
+  </g>
+</svg>

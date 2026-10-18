@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0B2032"/><stop offset="1" stop-color="#173B4A"/></linearGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse"><path d="M56 0H0V56" fill="none" stroke="#BCD9D2" stroke-opacity=".07"/></pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect width="1600" height="900" fill="url(#grid)"/>
+  <g font-family="PingFang SC, Hiragino Sans GB, Arial, sans-serif">
+    <rect x="88" y="82" width="12" height="34" rx="6" fill="#7CE2C0"/><text x="122" y="110" fill="#B7CDC9" font-size="27" letter-spacing="5">本地模型选购笔记</text>
+    <text x="82" y="338" fill="#7CE2C0" font-size="164" font-weight="700" letter-spacing="-6">6GB<tspan dx="24" font-size="100" letter-spacing="0" fill="#F4F0E7">显存</tspan></text>
+    <text x="88" y="475" fill="#F4F0E7" font-size="88" font-weight="650">本地模型怎么选</text>
+    <path d="M88 538H778" stroke="#7CE2C0" stroke-opacity=".35" stroke-width="2"/>
+    <text x="88" y="614" fill="#C0D3D0" font-size="36">文件大小 · 量化精度 · 运行开销</text>
+    <text x="88" y="805" fill="#F4F0E7" font-size="28">Nicksxs</text><text x="290" y="805" fill="#91B5AF" font-size="24">看清预算，再选模型</text>
+    <g transform="translate(1045 217)">
+      <path d="M40 32V0M100 32V0M160 32V0M220 32V0M280 32V0M340 32V0M40 432V464M100 432V464M160 432V464M220 432V464M280 432V464M340 432V464M0 76H-32M0 138H-32M0 200H-32M0 262H-32M0 324H-32M0 386H-32M380 76H412M380 138H412M380 200H412M380 262H412M380 324H412M380 386H412" stroke="#6BBEA9" stroke-width="9" stroke-linecap="round"/>
+      <rect y="32" width="380" height="400" rx="40" fill="#163B47" stroke="#64BFA8" stroke-width="2"/>
+      <rect x="36" y="68" width="308" height="328" rx="22" fill="#0F2C3B" stroke="#80DFBF" stroke-opacity=".4"/>
+      <text x="190" y="157" text-anchor="middle" fill="#A9C8C0" font-size="28" letter-spacing="3">本地模型</text>
+      <g fill="#7CE2C0"><rect x="81" y="200" width="44" height="44" rx="9"/><rect x="168" y="200" width="44" height="44" rx="9"/><rect x="255" y="200" width="44" height="44" rx="9"/><rect x="81" y="281" width="44" height="44" rx="9"/><rect x="168" y="281" width="44" height="44" rx="9"/><rect x="255" y="281" width="44" height="44" rx="9"/></g>
+      <path d="M125 222H168M212 222H255M103 244V281M190 244V281M277 244V281M125 303H168M212 303H255" stroke="#7CE2C0" stroke-opacity=".45" stroke-width="3"/>
+    </g>
+  </g>
+</svg>

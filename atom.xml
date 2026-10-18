@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-10-11T01:30:00.000Z</updated>
+  <updated>2026-10-17T16:00:00.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>用 Go 自动同步腾讯云 SSL 证书到 Traefik：下载、校验与失败回滚</title>
+    <link href="https://nicksxs.me/2026/10/18/%E7%94%A8Go%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5%E8%85%BE%E8%AE%AF%E4%BA%91SSL%E8%AF%81%E4%B9%A6%E5%88%B0Traefik-%E4%B8%8B%E8%BD%BD%E6%A0%A1%E9%AA%8C%E4%B8%8E%E5%A4%B1%E8%B4%A5%E5%9B%9E%E6%BB%9A/"/>
+    <id>https://nicksxs.me/2026/10/18/%E7%94%A8Go%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5%E8%85%BE%E8%AE%AF%E4%BA%91SSL%E8%AF%81%E4%B9%A6%E5%88%B0Traefik-%E4%B8%8B%E8%BD%BD%E6%A0%A1%E9%AA%8C%E4%B8%8E%E5%A4%B1%E8%B4%A5%E5%9B%9E%E6%BB%9A/</id>
+    <published>2026-10-17T16:00:00.000Z</published>
+    <updated>2026-10-17T16:00:00.000Z</updated>
+    
+    
+    <summary type="html">从腾讯云已有新证书、网站仍使用旧证书的问题讲起，结合 ssl-sync 的 Go 源码，解释证书查询与下载、域名和私钥校验、文件摘要比较、原子替换、TLS 入口验证与失败回滚，以及 Docker 挂载和定时任务的实现边界。</summary>
+    
+    
+    
+    <category term="技术" scheme="https://nicksxs.me/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="Docker" scheme="https://nicksxs.me/tags/Docker/"/>
+    
+    <category term="腾讯云" scheme="https://nicksxs.me/tags/%E8%85%BE%E8%AE%AF%E4%BA%91/"/>
+    
+    <category term="Go" scheme="https://nicksxs.me/tags/Go/"/>
+    
+    <category term="HTTPS" scheme="https://nicksxs.me/tags/HTTPS/"/>
+    
+    <category term="Traefik" scheme="https://nicksxs.me/tags/Traefik/"/>
+    
+  </entry>
   
   <entry>
     <title>腾讯 Octop 是什么：WorkBuddy 对比、Agent Loop 与本地部署</title>
@@ -64,9 +91,9 @@
     
     <category term="Agent" scheme="https://nicksxs.me/tags/Agent/"/>
     
-    <category term="TypeScript" scheme="https://nicksxs.me/tags/TypeScript/"/>
-    
     <category term="MCP" scheme="https://nicksxs.me/tags/MCP/"/>
+    
+    <category term="TypeScript" scheme="https://nicksxs.me/tags/TypeScript/"/>
     
   </entry>
   
@@ -437,25 +464,6 @@
     
     
     <summary type="html">上次我是实地使用llama.cpp跑了本地大模型，这种测试成本比较大， 刚好上次看到有个软件可以运行在本地来评估当前机器的性能可以跑什么样的大模型 它就是llmfit 在mac可以使用 windows可以 安装好就可以直接运行了 可以看到有列了很多模型，包括参数量，token速…</summary>
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>6GB 显存运行 64K 上下文：llama.cpp 参数与 KV Cache 调优</title>
-    <link href="https://nicksxs.me/2026/05/31/%E7%9C%8B%E7%9C%8B%E7%9B%AE%E5%89%8D%E6%9C%AC%E5%9C%B0%E8%83%BD%E8%B7%91%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B-%E4%BD%BF%E7%94%A8llama-cpp/"/>
-    <id>https://nicksxs.me/2026/05/31/%E7%9C%8B%E7%9C%8B%E7%9B%AE%E5%89%8D%E6%9C%AC%E5%9C%B0%E8%83%BD%E8%B7%91%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B-%E4%BD%BF%E7%94%A8llama-cpp/</id>
-    <published>2026-05-31T14:07:14.000Z</published>
-    <updated>2026-05-31T14:07:14.000Z</updated>
-    
-    
-    <summary type="html">在 RTX 3060 Laptop 6GB 显卡上使用 llama.cpp 运行 9B 量化模型，通过 64K 上下文、Flash Attention、KV Cache 量化和 GPU Offload 参数控制显存占用。</summary>
     
     
     

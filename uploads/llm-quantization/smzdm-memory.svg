@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#F4F0E7"/>
+  <g font-family="PingFang SC, Hiragino Sans GB, Arial, sans-serif">
+    <text x="78" y="82" font-size="24" fill="#51716F" letter-spacing="3">运行预算 / 01</text>
+    <text x="76" y="164" font-size="62" font-weight="650" fill="#112D3D">权重只是运行预算的一部分</text>
+    <g transform="translate(78 216)">
+      <rect width="342" height="174" rx="20" fill="#112D3D"/><text x="26" y="61" font-size="39" font-weight="650" fill="#FFFFFF">权重</text><text x="26" y="118" font-size="27" fill="#B7D3CC">模型参数及量化元数据</text>
+      <rect x="367" width="342" height="174" rx="20" fill="#D6E7DD"/><text x="393" y="61" font-size="39" font-weight="650" fill="#112D3D">KV 缓存</text><text x="393" y="118" font-size="27" fill="#355B5A">随已缓存位置数增长</text>
+      <rect x="734" width="342" height="174" rx="20" fill="#E6E1D6"/><text x="760" y="61" font-size="39" font-weight="650" fill="#112D3D">临时工作区</text><text x="760" y="118" font-size="27" fill="#355B5A">计算过程需要的空间</text>
+      <rect x="1101" width="342" height="174" rx="20" fill="#E6E1D6"/><text x="1127" y="61" font-size="39" font-weight="650" fill="#112D3D">其他占用</text><text x="1127" y="118" font-size="27" fill="#355B5A">后端、系统与其他程序</text>
+    </g>
+    <text x="80" y="432" font-size="24" fill="#59716B">仅列预算组成，各卡片面积不代表占比或实测结果。</text>
+    <rect x="78" y="472" width="1444" height="309" rx="24" fill="#112D3D"/>
+    <text x="110" y="526" font-size="33" font-weight="600" fill="#F4F0E7">以 Qwen3-8B 结构计算：纯 KV 数据的理论用量</text>
+    <text x="110" y="574" font-size="27" fill="#B5CBC5">36 层 · 8 个 KV 头 · 每头 128 维 · batch=1 · 16 位 KV 缓存</text>
+    <text x="110" y="649" font-size="31" fill="#B5CBC5">4096 个位置</text><text x="400" y="654" font-size="48" font-weight="650" fill="#7CE2C0">576MiB</text>
+    <path d="M735 610V677" stroke="#41606A"/>
+    <text x="787" y="649" font-size="31" fill="#B5CBC5">8192 个位置</text><text x="1076" y="654" font-size="48" font-weight="650" fill="#7CE2C0">1152MiB</text>
+    <text x="110" y="725" font-size="25" fill="#B5CBC5">2 × 层数 × 位置数 × KV 头数 × 每头维度 × 2 字节</text>
+    <text x="1076" y="707" font-size="27" fill="#B5CBC5">= 1.125GiB</text>
+    <text x="80" y="831" font-size="24" fill="#4C6966">前提：全注意力、无缓存量化；忽略其他缓存结构开销。该值不等于整机运行占用。</text>
+    <text x="1520" y="871" text-anchor="end" font-size="20" fill="#6B827A">Nicksxs · 结构依据：Qwen3-8B 官方 config.json</text>
+  </g>
+</svg>

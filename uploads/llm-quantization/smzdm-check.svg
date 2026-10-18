@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#F4F0E7"/>
+  <g font-family="PingFang SC, Hiragino Sans GB, Arial, sans-serif">
+    <text x="78" y="82" font-size="24" fill="#51716F" letter-spacing="3">验证顺序 / 03</text>
+    <text x="76" y="164" font-size="62" font-weight="650" fill="#112D3D">分三步判断机器能否日常用</text>
+    <text x="80" y="222" font-size="29" fill="#516D68">先记录基线，再逐步接近自己的真实工作负载。</text>
+    <path d="M131 327V667" stroke="#B8CDC1" stroke-width="5"/>
+    <rect x="78" y="275" width="1446" height="144" rx="22" fill="#112D3D"/>
+    <circle cx="132" cy="347" r="32" fill="#7CE2C0"/><text x="132" y="358" text-anchor="middle" font-size="30" font-weight="650" fill="#112D3D">1</text>
+    <text x="197" y="360" font-size="44" font-weight="600" fill="#F4F0E7">加载模型</text>
+    <path d="M725 309V385" stroke="#3D5A63"/>
+    <text x="773" y="335" font-size="30" fill="#7CE2C0">看可用内存</text><text x="773" y="381" font-size="28" fill="#C2D7CF">记下加载前后，显存与系统内存的余量</text>
+    <rect x="78" y="446" width="1446" height="144" rx="22" fill="#D6E7DD"/>
+    <circle cx="132" cy="518" r="32" fill="#246C5C"/><text x="132" y="529" text-anchor="middle" font-size="30" font-weight="650" fill="#FFFFFF">2</text>
+    <text x="197" y="531" font-size="44" font-weight="600" fill="#112D3D">短提示单次生成</text>
+    <path d="M725 480V556" stroke="#A8C1B3"/>
+    <text x="773" y="506" font-size="30" fill="#205E52">看实际计算配置与卸载</text><text x="773" y="552" font-size="28" fill="#355B5A">确认精度、GPU 使用情况及 CPU 卸载</text>
+    <rect x="78" y="617" width="1446" height="144" rx="22" fill="#E6E1D6"/>
+    <circle cx="132" cy="689" r="32" fill="#51716F"/><text x="132" y="700" text-anchor="middle" font-size="30" font-weight="650" fill="#FFFFFF">3</text>
+    <text x="197" y="702" font-size="44" font-weight="600" fill="#112D3D">真实长任务</text>
+    <path d="M725 651V727" stroke="#BBBFB1"/>
+    <text x="773" y="677" font-size="30" fill="#205E52">看速度、正确性与峰值</text><text x="773" y="723" font-size="28" fill="#355B5A">使用真实输入长度，记录等待时间与失败</text>
+    <text x="80" y="832" font-size="30" font-weight="600" fill="#112D3D">每次只改一个变量，记录模型版本与运行配置。</text>
+    <text x="1520" y="875" text-anchor="end" font-size="22" fill="#6B827A">Nicksxs · 能加载只是第一步</text>
+  </g>
+</svg>
