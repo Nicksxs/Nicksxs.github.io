@@ -24,7 +24,7 @@
     <updated>2026-10-25T08:15:00.000Z</updated>
     
     
-    <summary type="html">看完 6GB 和 8GB 显存用 Strata 跑 35B MoE 模型之后，很多人的第一反应是能不能用同样的办法跑 Qwen3.8-27B 这种稠密模型。这篇聊聊为什么专家缓存在稠密模型上会失效，以及单卡 16GB 显存下围绕显存规划、GGUF 混合量化原位 GEMV 和单流执行所做的工程实践。</summary>
+    <summary type="html">看完 6GB 和 8GB 显存用 FreeToken 跑 35B MoE 模型之后，很多人的第一反应是能不能用同样的专家缓存思路跑 Qwen3.8-27B 这种稠密模型。这篇聊聊为什么 FreeToken 和 Strata 的稀疏 MoE 缓存在稠密模型上会失效，以及单卡 16GB 显存下围绕显存规划、GGUF 混合量化原位 GEMV 和单流执行所做的工程实践。</summary>
     
     
     

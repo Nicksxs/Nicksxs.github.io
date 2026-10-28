@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+  <rect width="1600" height="1050" fill="#f5f7fb"/>
+  <text x="90" y="100" fill="#172033" font-size="52" font-weight="700" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">我的杭州城西通勤排序</text>
+  <text x="90" y="150" fill="#64748b" font-size="25" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">个人体验，不代表全杭州；价格以写稿时本人账号页面为准</text>
+
+  <rect x="90" y="210" width="450" height="690" rx="34" fill="#fff8df" stroke="#f5b800" stroke-width="4"/>
+  <circle cx="160" cy="285" r="38" fill="#f5b800"/>
+  <text x="160" y="298" text-anchor="middle" fill="#172033" font-size="34" font-weight="800" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">1</text>
+  <text x="220" y="300" fill="#172033" font-size="48" font-weight="750" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">美团</text>
+  <text x="130" y="385" fill="#9a6700" font-size="28" font-weight="700" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">我的定位：主力</text>
+  <g fill="#273244" font-size="26" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">
+    <text x="130" y="455">• 扫码后直接开锁</text>
+    <text x="130" y="510">• 常走区域里更好找</text>
+    <text x="130" y="565">• 较常遇到新款车</text>
+    <text x="130" y="620">• 连续包月 16.8 元</text>
+  </g>
+  <rect x="130" y="700" width="370" height="130" rx="22" fill="#ffffff"/>
+  <text x="315" y="752" text-anchor="middle" fill="#64748b" font-size="22" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">对我最重要的三件事</text>
+  <text x="315" y="797" text-anchor="middle" fill="#172033" font-size="27" font-weight="700" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">好找车 · 开锁快 · 卡价合适</text>
+
+  <rect x="575" y="210" width="450" height="690" rx="34" fill="#eafbf5" stroke="#35c89a" stroke-width="4"/>
+  <circle cx="645" cy="285" r="38" fill="#35c89a"/>
+  <text x="645" y="298" text-anchor="middle" fill="#ffffff" font-size="34" font-weight="800" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">2</text>
+  <text x="705" y="300" fill="#172033" font-size="48" font-weight="750" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">青桔</text>
+  <text x="615" y="385" fill="#07805f" font-size="28" font-weight="700" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">我的定位：备用</text>
+  <g fill="#273244" font-size="26" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">
+    <text x="615" y="455">• 扫码流程顺</text>
+    <text x="615" y="510">• 包月、低频卡都会看</text>
+    <text x="615" y="565">• 也能遇到更新车型</text>
+    <text x="615" y="620">• 没有明显卡住我的环节</text>
+  </g>
+  <rect x="615" y="700" width="370" height="130" rx="22" fill="#ffffff"/>
+  <text x="800" y="752" text-anchor="middle" fill="#64748b" font-size="22" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">最适合的使用方式</text>
+  <text x="800" y="797" text-anchor="middle" fill="#172033" font-size="27" font-weight="700" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">美团附近没车时补位</text>
+
+  <rect x="1060" y="210" width="450" height="690" rx="34" fill="#edf4ff" stroke="#3478f6" stroke-width="4"/>
+  <circle cx="1130" cy="285" r="38" fill="#3478f6"/>
+  <text x="1130" y="298" text-anchor="middle" fill="#ffffff" font-size="34" font-weight="800" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">3</text>
+  <text x="1190" y="300" fill="#172033" font-size="48" font-weight="750" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">哈啰</text>
+  <text x="1100" y="385" fill="#1756bd" font-size="28" font-weight="700" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">我的定位：最后选择</text>
+  <g fill="#273244" font-size="25" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">
+    <text x="1100" y="455">• 广告后还需滑动确认</text>
+    <text x="1100" y="510">• 常走点位少遇明显新款</text>
+    <text x="1100" y="565">• 多次遇到座椅扳手费力</text>
+    <text x="1100" y="620">• 30 天卡 24.99 元</text>
+  </g>
+  <rect x="1100" y="690" width="370" height="150" rx="22" fill="#ffffff"/>
+  <text x="1285" y="738" text-anchor="middle" fill="#64748b" font-size="21" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">低频卡（当时页面）</text>
+  <text x="1285" y="780" text-anchor="middle" fill="#172033" font-size="26" font-weight="700" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">3.5 元 / 15 天</text>
+  <text x="1285" y="818" text-anchor="middle" fill="#172033" font-size="25" font-weight="700" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">每单再付 0.99 元</text>
+
+  <text x="90" y="965" fill="#64748b" font-size="23" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">* 卡价、有效期、单次时长和活动会变化，购买前请以自己 App 实时页面为准。</text>
+</svg>

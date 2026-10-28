@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f172a" stop-opacity="0.9"/>
+      <stop offset="0.5" stop-color="#0f172a" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#0f172a" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <image href="cover-square-illustration.png" x="0" y="0" width="1024" height="1024" preserveAspectRatio="xMidYMid slice"/>
+  <rect width="1024" height="620" fill="url(#shade)"/>
+  <rect x="60" y="54" width="150" height="42" rx="21" fill="#ffffff" fill-opacity="0.18" stroke="#ffffff" stroke-opacity="0.3"/>
+  <text x="135" y="83" text-anchor="middle" fill="#ffffff" font-size="23" font-weight="600" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">杭州城西</text>
+  <text x="60" y="180" fill="#ffffff" font-size="66" font-weight="750" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">三家共享单车</text>
+  <text x="60" y="265" fill="#ffffff" font-size="66" font-weight="750" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">我的通勤排序</text>
+  <text x="64" y="327" fill="#dbeafe" font-size="31" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">美团 · 青桔 · 哈啰</text>
+  <rect x="60" y="370" width="465" height="58" rx="18" fill="#ffffff" fill-opacity="0.17"/>
+  <text x="292" y="408" text-anchor="middle" fill="#f8fafc" font-size="24" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">个人通勤体验 · 价格以 App 为准</text>
+</svg>
