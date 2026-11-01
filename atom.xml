@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-10-25T08:15:00.000Z</updated>
+  <updated>2026-11-01T14:15:59.690Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://nicksxs.me/2026/11/01/DeepSeek%20Harness%20%E6%80%8E%E6%A0%B7%E6%8A%8A%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%80%E6%AC%A1%E5%9B%9E%E7%AD%94%E5%8F%98%E6%88%90%E5%8F%AF%E7%BB%A7%E7%BB%AD%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%BB%E5%8A%A1/"/>
+    <id>https://nicksxs.me/2026/11/01/DeepSeek%20Harness%20%E6%80%8E%E6%A0%B7%E6%8A%8A%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%80%E6%AC%A1%E5%9B%9E%E7%AD%94%E5%8F%98%E6%88%90%E5%8F%AF%E7%BB%A7%E7%BB%AD%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%BB%E5%8A%A1/</id>
+    <published>2026-11-01T14:15:59.690Z</published>
+    <updated>2026-11-01T14:15:59.690Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;模型知道 &lt;code&gt;BigDecimal.equals()&lt;/code&gt; 会区分 scale（小数位数），不代表一个 Agent 就能修好 Java</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>为什么专家缓存救不了稠密模型：16GB 显存跑 27B Dense 模型的推理优化实践</title>
@@ -458,25 +479,6 @@
     
     
     <category term="算法" scheme="https://nicksxs.me/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于github拉取下载加速的另一个方式</title>
-    <link href="https://nicksxs.me/2026/06/14/%E5%85%B3%E4%BA%8Egithub%E6%8B%89%E5%8F%96%E4%B8%8B%E8%BD%BD%E5%8A%A0%E9%80%9F%E7%9A%84%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%96%B9%E5%BC%8F/"/>
-    <id>https://nicksxs.me/2026/06/14/%E5%85%B3%E4%BA%8Egithub%E6%8B%89%E5%8F%96%E4%B8%8B%E8%BD%BD%E5%8A%A0%E9%80%9F%E7%9A%84%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%96%B9%E5%BC%8F/</id>
-    <published>2026-06-14T13:45:35.000Z</published>
-    <updated>2026-06-14T13:45:35.000Z</updated>
-    
-    
-    <summary type="html">今天在尝试使用llama.cpp在mac下本地运行大模型的时候发现拉取llama.cpp的仓库还是比较慢，这点真的是挺难受，可能我们在玩一项技术的时候，有一大半时间都在克服这个问题， 这个方式也是谷歌搜到的，就是走 https://gh-proxy.com/ 转换镜像链接， 比…</summary>
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
   </entry>
   
