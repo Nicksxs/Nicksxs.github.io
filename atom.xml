@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-11-01T11:45:04.000Z</updated>
+  <updated>2026-11-07T16:00:00.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我怎样设计 Remote Codex：从手机远程控制本机 Codex</title>
+    <link href="https://nicksxs.me/2026/11/08/Remote-Codex%E6%9E%B6%E6%9E%84%E6%8B%86%E8%A7%A3-%E6%89%8B%E6%9C%BA%E6%80%8E%E6%A0%B7%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6%E6%9C%AC%E6%9C%BACodex/"/>
+    <id>https://nicksxs.me/2026/11/08/Remote-Codex%E6%9E%B6%E6%9E%84%E6%8B%86%E8%A7%A3-%E6%89%8B%E6%9C%BA%E6%80%8E%E6%A0%B7%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6%E6%9C%AC%E6%9C%BACodex/</id>
+    <published>2026-11-07T16:00:00.000Z</published>
+    <updated>2026-11-07T16:00:00.000Z</updated>
+    
+    
+    <summary type="html">结合 Remote Codex 0.1.0 源码，拆解手机 PWA、零依赖 Node.js 桥接层、Codex app-server 与 Cloudflare Quick Tunnel 的分层设计，说明双向 JSON-RPC、方法白名单、配对令牌与双模事件通道的实现和取舍。</summary>
+    
+    
+    
+    <category term="技术" scheme="https://nicksxs.me/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="Agent" scheme="https://nicksxs.me/tags/Agent/"/>
+    
+    <category term="Codex" scheme="https://nicksxs.me/tags/Codex/"/>
+    
+    <category term="Node.js" scheme="https://nicksxs.me/tags/Node-js/"/>
+    
+    <category term="PWA" scheme="https://nicksxs.me/tags/PWA/"/>
+    
+    <category term="Cloudflare Tunnel" scheme="https://nicksxs.me/tags/Cloudflare-Tunnel/"/>
+    
+  </entry>
   
   <entry>
     <title>DeepSeek Harness 怎样把模型的一次回答变成可继续执行的任务</title>
@@ -466,25 +493,6 @@
     <category term="valet" scheme="https://nicksxs.me/tags/valet/"/>
     
     <category term="https" scheme="https://nicksxs.me/tags/https/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JPEG 图片格式详解：压缩原理、DCT、量化与编码流程</title>
-    <link href="https://nicksxs.me/2026/06/21/%E6%B5%85%E6%9E%90%E4%B8%80%E4%B8%8B%E5%90%84%E7%B1%BB%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%85%B6%E6%9D%A5%E6%BA%90/"/>
-    <id>https://nicksxs.me/2026/06/21/%E6%B5%85%E6%9E%90%E4%B8%80%E4%B8%8B%E5%90%84%E7%B1%BB%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%85%B6%E6%9D%A5%E6%BA%90/</id>
-    <published>2026-06-21T12:42:27.000Z</published>
-    <updated>2026-06-21T12:42:27.000Z</updated>
-    
-    
-    <summary type="html">本文系统讲解 JPEG 有损压缩流程，包括 RGB 到 YCbCr、色度抽样、8×8 分块、DCT、量化、Zigzag 扫描和熵编码，并说明压缩率与画质之间的取舍。</summary>
-    
-    
-    
-    <category term="算法" scheme="https://nicksxs.me/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="算法" scheme="https://nicksxs.me/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
