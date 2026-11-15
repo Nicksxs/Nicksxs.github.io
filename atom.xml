@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-11-07T16:00:00.000Z</updated>
+  <updated>2026-11-15T14:50:57.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从 ReAct 到 CodeAct：Agent 为什么开始用代码编排工具</title>
+    <link href="https://nicksxs.me/2026/11/15/%E4%BB%8EReAct%E5%88%B0CodeAct-Agent%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BC%80%E5%A7%8B%E7%94%A8%E4%BB%A3%E7%A0%81%E7%BC%96%E6%8E%92%E5%B7%A5%E5%85%B7/"/>
+    <id>https://nicksxs.me/2026/11/15/%E4%BB%8EReAct%E5%88%B0CodeAct-Agent%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BC%80%E5%A7%8B%E7%94%A8%E4%BB%A3%E7%A0%81%E7%BC%96%E6%8E%92%E5%B7%A5%E5%85%B7/</id>
+    <published>2026-11-15T14:50:57.000Z</published>
+    <updated>2026-11-15T14:50:57.000Z</updated>
+    
+    
+    <summary type="html">结合 CS329Z 第 06 讲梳理 Agent 的工作流、推理行动模式和上下文管理，重点分析 CodeAct 与 ReAct、Pi Codemode、MCP 直接工具调用的关系，并补上 Pi 从拒绝内置 MCP 到 0.99/1.0 接纳 MCP 的版本变化。</summary>
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+    <category term="Agent" scheme="https://nicksxs.me/tags/Agent/"/>
+    
+    <category term="MCP" scheme="https://nicksxs.me/tags/MCP/"/>
+    
+    <category term="CodeAct" scheme="https://nicksxs.me/tags/CodeAct/"/>
+    
+    <category term="Pi Agent" scheme="https://nicksxs.me/tags/Pi-Agent/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>16GB 显存跑 Qwen3.8-27B Q4_K_M：从爆显存到反超 llama.cpp 的 CUDA 推理优化</title>
+    <link href="https://nicksxs.me/2026/11/09/16GB%E6%98%BE%E5%AD%98%E8%B7%91Qwen3-8-27B-Q4-K-M-%E4%BB%8E%E7%88%86%E6%98%BE%E5%AD%98%E5%88%B0%E5%8F%8D%E8%B6%85llama-cpp%E7%9A%84CUDA%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/"/>
+    <id>https://nicksxs.me/2026/11/09/16GB%E6%98%BE%E5%AD%98%E8%B7%91Qwen3-8-27B-Q4-K-M-%E4%BB%8E%E7%88%86%E6%98%BE%E5%AD%98%E5%88%B0%E5%8F%8D%E8%B6%85llama-cpp%E7%9A%84CUDA%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/</id>
+    <published>2026-11-09T15:35:00.000Z</published>
+    <updated>2026-11-09T15:35:00.000Z</updated>
+    
+    
+    <summary type="html">在 16GB 显存的 RTX 5060 Ti 上运行 16.46GB 的 Qwen3.8-27B-UD-Q4_K_M.gguf，通过只把 682MB 词嵌入表留在内存、全量锁定 64 层主干与 1.04GB 输出头驻留显存，并针对 757 个解码算子完成 5 项底层 CUDA 手术，在贪婪采样 Token 序列与 Logits 逐位对齐的前提下，将单并发解码速度推到 24.94 tok/s，超过同配置的 llama.cpp。</summary>
+    
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
+    
+    
+    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
+    
+    <category term="CUDA" scheme="https://nicksxs.me/tags/CUDA/"/>
+    
+    <category term="推理优化" scheme="https://nicksxs.me/tags/%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/"/>
+    
+    <category term="GGUF" scheme="https://nicksxs.me/tags/GGUF/"/>
+    
+    <category term="llama.cpp" scheme="https://nicksxs.me/tags/llama-cpp/"/>
+    
+  </entry>
   
   <entry>
     <title>我怎样设计 Remote Codex：从手机远程控制本机 Codex</title>
@@ -266,9 +320,9 @@
     
     <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
-    <category term="FreeToken" scheme="https://nicksxs.me/tags/FreeToken/"/>
-    
     <category term="CUDA" scheme="https://nicksxs.me/tags/CUDA/"/>
+    
+    <category term="FreeToken" scheme="https://nicksxs.me/tags/FreeToken/"/>
     
     <category term="本地大模型" scheme="https://nicksxs.me/tags/%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
     
@@ -322,9 +376,9 @@
     
     <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
     
-    <category term="FreeToken" scheme="https://nicksxs.me/tags/FreeToken/"/>
-    
     <category term="llama.cpp" scheme="https://nicksxs.me/tags/llama-cpp/"/>
+    
+    <category term="FreeToken" scheme="https://nicksxs.me/tags/FreeToken/"/>
     
   </entry>
   
@@ -449,50 +503,6 @@
     <category term="Chrome Extension" scheme="https://nicksxs.me/tags/Chrome-Extension/"/>
     
     <category term="JavaScript" scheme="https://nicksxs.me/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>看下chrome的内置模型</title>
-    <link href="https://nicksxs.me/2026/07/05/%E7%9C%8B%E4%B8%8Bchrome%E7%9A%84%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9E%8B/"/>
-    <id>https://nicksxs.me/2026/07/05/%E7%9C%8B%E4%B8%8Bchrome%E7%9A%84%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9E%8B/</id>
-    <published>2026-07-05T12:52:32.000Z</published>
-    <updated>2026-07-05T12:52:32.000Z</updated>
-    
-    
-    <summary type="html">之前听说chrome在你的电脑里塞了一个小模型，相比于说这个比较容易引起公愤的，可能是因为模型有4g大小，但是感觉也提供了挺大的想象空间 比如在浏览器内就可以直接调用模型进行对话处理，最简单的比如做个翻译啥的， 首先也有具体的硬件条件， 系统：Windows 10/11、mac…</summary>
-    
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/categories/LLM/"/>
-    
-    
-    <category term="LLM" scheme="https://nicksxs.me/tags/LLM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从 app.test 到小锁：valet 本地 HTTPS 的完整链路</title>
-    <link href="https://nicksxs.me/2026/06/28/%E4%BB%8E-app-test-%E5%88%B0%E5%B0%8F%E9%94%81%EF%BC%9A%E6%9C%AC%E5%9C%B0-HTTPS-%E7%9A%84%E5%AE%8C%E6%95%B4%E9%93%BE%E8%B7%AF/"/>
-    <id>https://nicksxs.me/2026/06/28/%E4%BB%8E-app-test-%E5%88%B0%E5%B0%8F%E9%94%81%EF%BC%9A%E6%9C%AC%E5%9C%B0-HTTPS-%E7%9A%84%E5%AE%8C%E6%95%B4%E9%93%BE%E8%B7%AF/</id>
-    <published>2026-06-28T14:18:00.000Z</published>
-    <updated>2026-06-28T14:18:00.000Z</updated>
-    
-    
-    <summary type="html">之前在用到valet的时候就觉得这个工具很厉害，因为本地部署很多时候都是比较费劲的，也比较简陋，就直接localhost启动下，但是有时候需要验一下回调的，就需要有域名跟https，当然之前也没想明白的是在本地其实用本地的地址也是可以的，意思就是如果回调地址没限制必须要域名，也…</summary>
-    
-    
-    
-    <category term="php" scheme="https://nicksxs.me/categories/php/"/>
-    
-    
-    <category term="nginx" scheme="https://nicksxs.me/tags/nginx/"/>
-    
-    <category term="php" scheme="https://nicksxs.me/tags/php/"/>
-    
-    <category term="valet" scheme="https://nicksxs.me/tags/valet/"/>
-    
-    <category term="https" scheme="https://nicksxs.me/tags/https/"/>
     
   </entry>
   
