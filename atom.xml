@@ -6,7 +6,7 @@
   <link href="https://nicksxs.me/atom.xml" rel="self"/>
   
   <link href="https://nicksxs.me/"/>
-  <updated>2026-11-15T14:50:57.000Z</updated>
+  <updated>2026-11-22T15:10:00.000Z</updated>
   <id>https://nicksxs.me/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Remote Codex 0.2.0：一套手机界面同时控制本机 Codex 与 Antigravity</title>
+    <link href="https://nicksxs.me/2026/11/22/Remote-Codex%E5%8F%8C%E5%90%8E%E7%AB%AF%E6%BC%94%E8%BF%9B-%E6%89%8B%E6%9C%BA%E5%90%8C%E6%97%B6%E6%8E%A7%E5%88%B6Codex%E4%B8%8EAntigravity/"/>
+    <id>https://nicksxs.me/2026/11/22/Remote-Codex%E5%8F%8C%E5%90%8E%E7%AB%AF%E6%BC%94%E8%BF%9B-%E6%89%8B%E6%9C%BA%E5%90%8C%E6%97%B6%E6%8E%A7%E5%88%B6Codex%E4%B8%8EAntigravity/</id>
+    <published>2026-11-22T15:10:00.000Z</published>
+    <updated>2026-11-22T15:10:00.000Z</updated>
+    
+    
+    <summary type="html">结合开源仓库 Remote Codex 0.2.0 源码，讲解如何在同一套零依赖 Node.js 桥接服务与手机 PWA 中同时接入 OpenAI Codex app-server 与 Google Antigravity ACP，并拆解阻塞式会话适配、双端审批隔离、锁屏游标恢复及 Codex active writer 文件锁冲突的解决过程。</summary>
+    
+    
+    
+    <category term="技术" scheme="https://nicksxs.me/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="Agent" scheme="https://nicksxs.me/tags/Agent/"/>
+    
+    <category term="Codex" scheme="https://nicksxs.me/tags/Codex/"/>
+    
+    <category term="Antigravity" scheme="https://nicksxs.me/tags/Antigravity/"/>
+    
+    <category term="ACP" scheme="https://nicksxs.me/tags/ACP/"/>
+    
+    <category term="Node.js" scheme="https://nicksxs.me/tags/Node-js/"/>
+    
+    <category term="PWA" scheme="https://nicksxs.me/tags/PWA/"/>
+    
+  </entry>
   
   <entry>
     <title>从 ReAct 到 CodeAct：Agent 为什么开始用代码编排工具</title>
@@ -480,29 +509,6 @@
     
     
     <category term="git" scheme="https://nicksxs.me/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学一下chrome的扩展开发</title>
-    <link href="https://nicksxs.me/2026/07/12/%E5%AD%A6%E4%B8%80%E4%B8%8Bchrome%E7%9A%84%E6%89%A9%E5%B1%95%E5%BC%80%E5%8F%91/"/>
-    <id>https://nicksxs.me/2026/07/12/%E5%AD%A6%E4%B8%80%E4%B8%8Bchrome%E7%9A%84%E6%89%A9%E5%B1%95%E5%BC%80%E5%8F%91/</id>
-    <published>2026-07-12T14:18:19.000Z</published>
-    <updated>2026-07-12T14:18:19.000Z</updated>
-    
-    
-    <summary type="html">最近因为看了下 Chrome 里面置入的小模型，顺手又看了下 Chrome 扩展。之前其实也接触过一些浏览器扩展，但是一直没有特别系统地看过它的结构，感觉好像就是写一个 html，然后再配几个 js 文件就可以了。</summary>
-    
-    
-    
-    <category term="前端" scheme="https://nicksxs.me/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-    <category term="Chrome" scheme="https://nicksxs.me/tags/Chrome/"/>
-    
-    <category term="Chrome Extension" scheme="https://nicksxs.me/tags/Chrome-Extension/"/>
-    
-    <category term="JavaScript" scheme="https://nicksxs.me/tags/JavaScript/"/>
     
   </entry>
   
