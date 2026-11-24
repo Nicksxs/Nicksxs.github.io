@@ -4,21 +4,248 @@
 
 Stanford 课程日期为 2026 年 10 月 7 日。
 
-实验室助手的第一版可以用几段代码跑通。后来加上确认、预约和失败重试，就需要知道哪里应该保存状态，哪里值得优化模型提示，哪里要让任务能在进程退出后继续。课程用日历任务演示了抽取与动作怎样组合。把每一层的问题说清楚，才能选到合适的框架。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf) · [课程演示代码](https://github.com/cs329z/lecture5-frameworks)
+实验室借用助手的第一版可以只做两件事，提取设备编号和日期，再查预约库。后来加上确认、预约、失败重试和操作记录，就需要分别回答三个问题。模型调用怎么组织和优化，流程怎么根据状态走到下一步，进程中途退出后怎样继续。这一讲用课程日历演示里的组件思路解释这些问题，再用自编的器材预约例子做验收。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf) · [Stanford 课堂录像](https://youtu.be/q0Q-Hy8TTps) · [课程演示代码](https://github.com/cs329z/lecture5-frameworks)
 
-## 把模型模块与执行流程拆开
+## 先决定哪些问题靠普通代码处理
 
-用 DSPy 可以把「从预约文本提取设备、日期和时长」写成带输入输出的签名，再用模块把几次模型调用组成程序。优化器用给定样本和评分函数挑选或改进模块配置。评分函数如果只比日期和时长，设备抽错也能通过。验证集应该覆盖所有会影响后续动作的字段，以及遇到缺项时应当返回什么。 [DSPy 论文](https://arxiv.org/abs/2310.03714) · [课程演示代码](https://github.com/cs329z/lecture5-frameworks)
+如果程序只是把用户说的日期解析成一个参数，可以调用模型完成抽取，再用普通代码验证格式、时区和权限。增加「优先在本校区出借，没有空位再问是否接受跨校区」后，可以把固定的校区规则写入程序控制流。只有处理多种环境反馈、下一个操作很难预先固定时，才需要在受限范围内让模型发出下一步调用。课程用模型、工作流、Agent 描述逐步变化的控制方式，实际应用里它们可以组合。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
 
-想让每个流程分支清楚可见，可以把设备、日期、已确认内容和执行结果作为共享状态，用 LangGraph 的节点表示抽取、验证、查询等处理步骤，用边表示怎样走到下一步。日期缺失时进入追问，核验通过后才进入查空位。Agent 的运行底座（harness）范围更宽，还包括模型与工具之间的循环、工具权限、上下文及记录方式。课件列出 mini-SWE-agent、OpenHands 和 Pi，可以对照这些实现看工具与运行环境怎样限制系统行为。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf) · [LangGraph 官方概览](https://docs.langchain.com/oss/python/langgraph/overview)
+课上把工程工作分到系统、数据和评测上。系统包含模型、工具、状态、控制流及部署环境。数据可以指任务输入、示例、外部资料或记录下来的轨迹。评测要回答具体配置在真实约束内有没有完成目标。只改框架但让任务样本、输入长度、工具设置一起变化，结果很难用于判断瓶颈。可以用同一份课程目录或模拟排期、同一组用户请求和断言开始评估。把程序简单版留下来当对照，额外抽象才有可证明的收益。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
 
-## 中途重启后怎样继续
+| 问题 | 第一步可以做什么 | 检查结果 |
+| --- | --- | --- |
+| 日期抽取错 | 用固定输入重放结构化抽取 | 日期、时区、缺项类别和重复错误率 |
+| 执行顺序难看清 | 显式记录状态、边与前置条件 | 查空位、生成预览、写入的相对顺序 |
+| 单次写入超时 | 查业务回执，添加请求标识和恢复用例 | 一次用户确认对应几条预约记录 |
+| 多步任务常等很久 | 记录工具耗时、剩余预算和失败原因 | 任务能退出或恢复，用户知道发生了什么 |
 
-Temporal 这类持久编排系统可以记录工作流的执行历史，让任务在 worker 重启后继续。读取预约状态、调用服务创建预约这类外部操作适合放进独立活动。若活动已经写入预约，进程却在收到结果前断开，重试可能让服务再收到一次请求。可以为一次用户确认生成一个稳定的请求 ID，让服务端用唯一键记录已完成的写入。流程恢复与业务防重需要各自验证。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf) · [Temporal 活动文档](https://docs.temporal.io/activities)
+框架如果解决的是抽取验证、状态管理或持久化，各自的对照方式不同。例如模型框架更新后，先比较它是否更容错并且没有改变工具契约。流程引擎更新后，先重跑「去掉确认直接写入」这样的负例。运行底座的升级则可能改变可用工具、上下文和执行时间。把版本和变更范围写在测试记录里，避免一次联动变更后只得出「变快了」。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
 
-## 模拟一次响应丢失
+## 用 DSPy 说明模型子任务期望什么
 
-给模拟预约服务一张空表，表以请求 ID 为唯一键。第一次提交 `R-01` 时插入预约 `B-01`，但测试方模拟收不到响应。用相同参数和 `R-01` 再提交一次。预期调用日志有 2 条，表里仍只有 1 条，重试返回 `B-01`。核对日志时同时记录是哪一步超时、下一次传了什么参数。只比较最后一句「预约成功」，会漏掉重复预约的问题。
+DSPy 的签名描述模型组件的输入和输出，比如输入预约消息和当前日期，输出编号、使用日期、开始时间和时长。模块描述这些调用怎样组成，可以直接预测，也可以调用带推理的模块或嵌入工具环节。优化器通过样本和评分函数改进程序里可调整的部分，例如改变提示或选择示例。它能帮团队集中定义任务和检查标准。但训练或优化数据如果没有覆盖真实入口，或者评分只看错不了的部分，就可能把一个局部得分优化得很好，实际使用效果仍有明显问题。 [DSPy 论文](https://arxiv.org/abs/2310.03714) · [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+课程公开的 Notebook 以小日历服务 `tinycal` 展示了多种实现。可以先把同一个请求在各实现中的接口和最终状态看明白，理解什么数据来自模型、什么动作由代码提交。课件里也介绍了 DSPy 的组合和优化作用。下面用自己的预约任务来说明评分函数漏一个字段会怎样：如果优化只比较日期与时长，模型把 `OSC-08` 解析为 `OSC-80` 也能得到满分。错误编号到了下游可能查不到，或者对应另一台能用的设备。需要把会影响下一步的字段纳入评分，再拿一部分未用于优化的样本检查效果。 [课程演示代码](https://github.com/cs329z/lecture5-frameworks) · [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+### 模型签名也要写缺项与不确定状态
+
+把 `start` 和 `duration` 都设成必填字符串，模型遇到「我明天想用一下」时可能被迫补出不存在的值。签名可以允许 `null`，并约定没有可靠日期时标记 `needs_clarification`。评测把「正确提取出周四」和「没有日期时不猜」都记成可检查结果。若开始时间有了、使用时长未明确，运行层再根据产品规则决定能否默认或需要追问。对模型输出的置信程度，可以保留用于记录，最终授权必须靠明确的用户输入和业务状态。
+
+训练示例可以用不同说法覆盖同一个字段，评估示例则要包含名字相似的另一台器材、相对日期和从前文改口的情况。比如设备 `OSC-08` 和 `OSC-80` 都存在，判断正确的方式是看是否一致于用户确认的编号。不能因为目录里确实有 `OSC-80` 就给通过。课程里讲的「用指标驱动优化」可以从这些可核对的细节开始做。 [DSPy 论文](https://arxiv.org/abs/2310.03714) · [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+## 用 LangGraph 说明当前状态能走哪些路
+
+LangGraph 把计算建模为对共享状态的一系列操作。节点可以是程序验证、模型调用或外部读写。边定义下一步走向，条件边根据状态选择分支。这里可以在解析出设备和时间后检查字段完整性，缺项进入澄清，齐全则进入只读查询。查到空位之后，程序可生成预览并等待用户。用户改口时废弃旧预览，即使输入里仍含旧消息也不能立即写入。把这些步骤表现成状态边，就能逐个测试异常路径。 [LangGraph 官方概览](https://docs.langchain.com/oss/python/langgraph/overview) · [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+可以用下面的状态设计理解课件里的节点、边和共享数据。它是教学结构，代码里的持久状态仍取决于实际配置。
+
+```text
+抽取需求
+  字段不齐  → 等待澄清 → 收到新消息后再次抽取
+  字段齐全  → 查询空位
+              无空位 → 报告无空位，或确认是否换日期
+              有空位 → 生成预约预览 → 等待明确确认
+                                             改条件 → 撤销旧预览并查空位
+                                             已确认 → 检查用户和时段后提交
+                                                         记下预约回执并退出
+```
+
+其中一份携带到各节点的状态可以有 `task_id`、用户已确认的具体需求版本、找到的时段、`preview_id`、`confirmation_id` 以及真实的 `booking_id`。阶段可以表示为枚举值，例如 `waiting_confirmation`。模型如果根据文本声称「已确认」，仍不应该改变这枚状态。由接收用户动作的节点写入确认，执行器再校验权限和一致性。有些节点可以顺序覆盖字段，有些只追加到历史中。需要在多节点更新同一数据时，应该先定义合并规则，避免较慢的旧查询把新日期覆盖。 [LangGraph 官方概览](https://docs.langchain.com/oss/python/langgraph/overview)
+
+### 看图排错时找条件、输入和副作用
+
+例如期望查到空位时走「预览」，报错却直接进入提交。可以先从执行记录确认哪条边被选中，再查那条边读取了哪个布尔值或状态字段。若代码把「有空位」当成「用户已确认」，修边的条件。若预览真的得到确认，但确认的 `preview_id` 比当前任务短一轮，修恢复时载入的状态。若条件正常而提交后多写了记录，回到调用层与幂等处理。最后把这三条不同的错误都改成用例，确保修一个环节没有绕过另外的保护。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+图式框架不必把简单查表复杂化。如果所有步骤在一个进程内完成、无等待恢复要求、分支很少，用清楚的函数和枚举就能表达。需要暂停等待用户、分支较多、同时要追踪多个节点时，显式图有助于维护。使用框架时核对节点状态的持久化配置、执行边界和版本兼容性。自己注册的外部动作仍需按业务服务的许可与时序执行。 [LangGraph 官方概览](https://docs.langchain.com/oss/python/langgraph/overview) · [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+### 为状态更新定义版本和写入方式
+
+例如执行器并行查询两个候选时段，先收到的结果可能来自更晚提交的查询。状态如果只保存一个布尔值 `has_slot`，旧结果回得慢就可能覆盖当前选择。可以给已确认的需求加一个版本。查询回包须携带当时的版本号，和目前的任务状态匹配后，才更新当前可用时段。旧回包仍可以进入轨迹用于排查。它不应更新用户已经改过的日期，也不应重新激活旧的预览。 [LangGraph 官方概览](https://docs.langchain.com/oss/python/langgraph/overview)
+
+状态恢复也需要类似检查。例如任务暂停时保留了周四的预览，后来设备维修导致这条时段失效，重新打开页面时虽然能读到旧状态，仍要以最新服务结果判断能否写入。保存历史是为了知道执行进行到哪里，恢复后的数据是否仍可用于决策要另外判断。对不需要用户等待的快速只读任务，持久恢复成本可能不划算，可以只落正常结果和失败原因。这个选择可以用任务耗时、失败代价和允许人工重试的情况来评价。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+## Agent 运行底座控制环境接入和循环
+
+课件将 mini-SWE-agent、OpenHands 和 Pi 等开源实现作为运行底座的例子。这样的底座会决定模型看到的工具，如何组织动作和观察，如何运行命令或连接环境，使用何种上下文记录方式。底座很小也能把模型、动作和结束条件接起来，更丰富的底座则可能支持浏览器、编辑器、记忆或用户审批。工具和权限差异会直接影响能解决的问题。比较型号或框架时要记录实际可用工具、预算、版本和结果，不能把整个系统的得分只归给模型。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf) · [mini-SWE-agent](https://github.com/SWE-agent/mini-swe-agent) · [OpenHands](https://github.com/OpenHands/OpenHands) · [Pi 代码仓库](https://github.com/badlogic/pi-mono)
+
+在设备助手里，底座可以做三件可单独测试的工作。把用户最新目标、当前设备和已知观察组织成输入。允许模型通过已注册的调用执行只读查询或创建预览。让应用为每次工具调用独立检查身份、预算和可控状态。改变底座不一定要换模型。加上结果长度限制、给空位列表提供短结构化结果、遇到「没有设备」时强制追问，都可能让后续的选择更好理解。要证明这些变化有效，可以沿用相同固定排期和用户权限，比较哪类错误下降。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf) · [HarnessTax](https://arena.ai/blog/coding-agents-harness-tax/)
+
+## 用 Temporal 理解中途退出之后如何继续
+
+有些状态流程几秒钟就结束，另一些会暂停数小时等待实验审批。持久编排把执行过程的关键事件交给系统保存，使工作进程变化后仍能重新驱动流程。Temporal 例子里，Workflow 描述各个步骤的安排，Activity 执行外部查询、写入等操作，Worker 处理工作队列中的任务，服务端维护执行历史与状态。历史足以重放确定性的流程进展。涉及外部 I/O、随机事件或依赖当前时间的决定，应该用系统提供的时间、活动或事件接口，使恢复时可以从已记录的事实继续。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf) · [Temporal 工作流定义](https://docs.temporal.io/workflow-definition) · [Temporal 活动文档](https://docs.temporal.io/activities)
+
+### 确认之后写入超时的两种情况
+
+假设用户确认了 10 月 8 日下午两点的预约。一次 Activity 把请求交给预约服务。如果在服务收到前断开，业务没有发生变更。如果服务先提交了预约，但调用方还没看到响应就退出，预约已经存在。只看 workflow 的「还没有成功结果」，分不出是哪种情况。可以给该业务意图分配稳定键 `R-01`，让服务原子地检查并保留这次写入和回执。重试时带同一个键，若动作早已完成则返回相同回执。更换时段代表新的意图，要先获得新的确认，再创建新的键。 [Temporal 活动文档](https://docs.temporal.io/activities) · [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+| 故障时刻 | 工作流能知道什么 | 业务状态需要核对什么 |
+| --- | --- | --- |
+| 调用尚未送出 | 没有回执 | 按键查询没有记录，可在允许情况下重试 |
+| 服务提交后、回执返回前 | 没有回执 | 原写入可能存在，查请求键或重试同一幂等操作 |
+| 回执已写入执行历史 | 可恢复已完成结果 | 编排从已记录结果继续，避免多次执行同一已完成动作 |
+| 等待用户期间条件变了 | 仍有一个待确认预览 | 核对预览是否过期或已被新消息撤销 |
+
+重试安排要写清最大次数、暂停多久和哪类错误能恢复。格式错误或明确无权限时，反复调用通常不会成功。短期网络故障可能在延迟后消失，但涉及写入仍要处理结果未知。流程引擎管理工作进程的可恢复性，业务唯一性则要由实际写入的系统维护。进程重启后再次发出请求时，只有服务端能判定是否属于已经完成的同一个意图。 [Temporal 活动文档](https://docs.temporal.io/activities)
+
+一些工作流在数小时后还要给人展示进度。可以用独立状态区分「等待用户」「外部执行中」「结果未知」「服务确认完成」。把简单的通用错误对应到用户可理解的选项，例如先保持等待，或者重新打开当前预览。如果收到取消消息时已经完成写入，状态应说明已有预约，要走独立的退订动作。工具连续失败时，可以保留最后一次有依据的状态，后续允许用户或操作员从已知节点续做。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+## 记录任务的状态变化，而不只抓模型回答
+
+一次完整执行可以从 `trace_id` 下挂节点事件。每条记录可以有时间、输入摘要、节点名、工具或模型调用类型、请求关联标识、尝试次数、结果状态。长任务中还可以让事件区分「决定执行」「操作发出」「查询到完成」三个时点。时间与调用次数便于排查成本，结果码和预览编号便于排查业务分支。不要把反复记录完整用户信息当成可观测性，取能关联业务状态的标识通常就能定位问题。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+例如诊断一条耗时较高的预约，先区分模型生成久、处理外部返回久，还是等待用户确认久。应用可同时记录整体耗时和执行处理耗时，避免把用户多小时未确认错误地当成服务计算慢。比较同一组任务时，模型或工具版本、预算、租户环境和是否用了缓存也要固定。引入一个新框架后，跑正常、错误、取消和超时恢复用例，再看新增抽象在哪些场景起了作用。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+### 评测候选设计时把工具和环境固定下来
+
+准备两个实现，一个用普通函数和状态枚举，另一个用带条件边的图。受管的预约快照、用户角色、确认消息、设备编号和外部响应序列保持一致。对任务结果，比较最终时段、写入数及是否遵守选中的确认记录。对运行结果，比较调用次数、主动暂停原因、重启后恢复是否需要用户重填条件。框架在可维护性上的收益也可以落到问题上：开发者能不能知道是哪条边进入暂停，能不能给新分支补一个小测试，能不能从一次错误中间状态接回确定的轨迹。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+同一组任务分三批做。第一批全部正常，防止新框架没有保留原来的查询行为。第二批拿到明确失败，校验缺信息、权限不足与时段失效各走对应路径。第三批专门向记录点之间插入故障，检查进程退出和响应丢失后是否能核对外部状态。只有第三批提升时，可以说明改动改善了恢复，不必声称模型更聪明。如果新框架在等待用户时更容易显示状态，但带来更多依赖或部署环节，记录它影响的运维成本即可。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf)
+
+## 练习一｜让检查函数发现错设备
+
+这段程序用固定的模型代理输出模拟字段抽取。目标是演示指标如何改变评价。四条记录分别有全对、错器材、缺少必要字段和日期不对。用例数据都是自制的，代码不请求任何模型。
+
+```python
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class ReservationFields:
+    device: str | None
+    day: str | None
+    minutes: int | None
+
+
+def partial_metric(expected, actual):
+    return expected.day == actual.day and expected.minutes == actual.minutes
+
+
+def action_metric(expected, actual):
+    return actual == expected
+
+
+target = ReservationFields("OSC-08", "2026-10-08", 90)
+candidates = [target,
+              ReservationFields("OSC-80", "2026-10-08", 90),
+              ReservationFields(None, "2026-10-08", 90),
+              ReservationFields("OSC-08", "2026-10-09", 90)]
+partial = [partial_metric(target, item) for item in candidates]
+full = [action_metric(target, item) for item in candidates]
+assert partial == [True, True, True, False]
+assert full == [True, False, False, False]
+print("partial", sum(partial), len(candidates))
+print("full", sum(full), len(candidates))
+```
+
+预期只看日期和时长通过 `3/4`，全字段检查通过 `1/4`。完整率低说明这个指标揭示了之前漏掉的问题，无法据此判断模型是否更差。对真实任务还要考虑多个合法值、补问分支和模型输出里的超时。例如用户没明确时段时，可以预期模型输出空值且状态是 `needs_clarification`，程序不应为了满字段而猜一个时间。
+
+## 练习二｜重启以后读到同一个回执
+
+以下用标准库的 SQLite 模拟持久服务。两个连接代表第一次调用和模拟重启后的重试。服务在事务内原子检查一次请求是否已经被记录。首次调用提交后故意抛出超时，第二次用相同键和参数拿到已有回执。把一份稳定请求用于不同参数时，服务应该拒绝，避免把另一项业务默默合并。这里没有使用 Temporal 或真实预约系统，目的是单测业务防重。
+
+```python
+import sqlite3
+from contextlib import closing
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+
+class ResponseLost(Exception):
+    pass
+
+
+def save_booking(path, request_id, slot_id, *, lose_response=False):
+    with closing(sqlite3.connect(path)) as db:
+        db.execute("BEGIN IMMEDIATE")
+        previous = db.execute(
+            "SELECT slot_id, booking_id FROM reservations WHERE request_id = ?",
+            (request_id,),
+        ).fetchone()
+        if previous:
+            requested_slot, booking_id = previous
+            if requested_slot != slot_id:
+                db.rollback()
+                raise ValueError("request_id reused with different arguments")
+        else:
+            booking_id = f"booking-{request_id}"
+            db.execute("INSERT INTO reservations VALUES (?, ?, ?)",
+                       (request_id, slot_id, booking_id))
+        db.commit()
+    if lose_response:
+        raise ResponseLost("commit completed before reply")
+    return booking_id
+
+
+with TemporaryDirectory() as temp:
+    db_path = Path(temp) / "fixture.db"
+    with closing(sqlite3.connect(db_path)) as db:
+        db.execute("CREATE TABLE reservations (request_id TEXT PRIMARY KEY, "
+                   "slot_id TEXT NOT NULL, booking_id TEXT NOT NULL)")
+        db.commit()
+    try:
+        save_booking(db_path, "R-01", "S-18", lose_response=True)
+    except ResponseLost:
+        print("response lost")
+    booking_id = save_booking(db_path, "R-01", "S-18")
+    assert booking_id == "booking-R-01"
+    try:
+        save_booking(db_path, "R-01", "S-19")
+    except ValueError:
+        print("mismatch rejected")
+    else:
+        raise AssertionError("changed arguments unexpectedly accepted")
+    with closing(sqlite3.connect(db_path)) as db:
+        assert db.execute("SELECT slot_id, booking_id FROM reservations").fetchall() == [
+            ("S-18", "booking-R-01")
+        ]
+    print(booking_id, "one record")
+```
+
+预期打印 `response lost`、`mismatch rejected`、`booking-R-01 one record`。两个连接都走到持久库，其中只有首个输入写入成功。进一步的恢复验证可以记录 checkpoint 和数据库是否落在同一事务边界，检查任务状态重新加载时不会发起新的用户意图。如果真的使用 Temporal，这份模拟仅证明同一个业务键如何防重，还要在实际运行环境里验证活动的重试和超时配置。
+
+### 练习三｜把三个文件都找回同一条轨迹
+
+设一条任务的抽取记录显示设备 `OSC-08`、日期 10 月 8 日。流程状态之前是 `waiting_confirmation`，接收了与本次预览对应的确认后开始执行。预约服务末尾只有 `booking-R-01`。如果用户最终看到「失败，试试重新下单」，检查模型有没有得到回执，以及工作流恢复后读到的是哪个状态版本。如果执行历史写成 `timeout` 而服务记录已有结果，期望界面进入待核验，查相同请求键，随后显示真实回执。任务评分必须看这处状态恢复，不能只看抽取字段和写入次数。把任务 ID、请求键和预览编号写在三个文件的表头，找回轨迹的速度可以作为日后验收的依据。
+
+
+### 练习四｜旧查询什么时候可以更新工作状态
+
+给活动响应固定的请求版本号，测试当前用户已把日期从周四改到周五的情况。标准库代码只模拟状态节点，方便同时观察读取者、信息版本和状态更新。在自己的图框架里，可以让对应的条件节点复用同一份用例。
+
+```python
+from dataclasses import dataclass, replace
+
+
+@dataclass(frozen=True)
+class SearchState:
+    version: int
+    day: str
+    slots: tuple[str, ...] | None
+    preview: str | None
+
+
+def user_changes_day(state, day):
+    return SearchState(state.version + 1, day, None, None)
+
+
+def accept_reply(state, reply_version, slots):
+    if reply_version != state.version:
+        return state, "stale_ignored"
+    return replace(state, slots=tuple(slots)), "updated"
+
+
+state = SearchState(3, "Thursday", ("TH-01",), "preview-3")
+state = user_changes_day(state, "Friday")
+assert (state.version, state.day, state.preview) == (4, "Friday", None)
+state, result = accept_reply(state, 3, ["TH-03"])
+assert result == "stale_ignored" and state.slots is None
+print(result, state.day, state.slots)
+state, result = accept_reply(state, 4, ["FR-10"])
+assert result == "updated" and state.slots == ("FR-10",)
+print(result, state.day, state.slots)
+```
+
+预期旧响应被忽略，只有本轮周五的查询可以更新工作状态。第一次打印 `stale_ignored Friday None`，第二次打印 `updated Friday ('FR-10',)`。这里没有访问实际日历。若在两个节点间加入状态存储，运行层应考虑两个节点同时写入的顺序。多实例部署时，可以在持久化层按版本检查更新，避免两个进程分别读到相同版本后互相覆盖。将测试的响应顺序反过来，周五的结果仍应保留。
 
 ---
 

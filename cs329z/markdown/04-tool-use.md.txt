@@ -4,21 +4,270 @@
 
 Stanford 课程日期为 2026 年 10 月 5 日。
 
-设备助手可以用 `list_slots` 查看空位，也可以用 `reserve_slot` 创建预约。两个名字看起来差不多，但后一项会修改系统状态。工具接口需要把这层差别落实到执行端。模型读工具名和参数格式，提出调用，应用核对身份、权限、参数和确认记录，再决定是否执行。结果应明确区分成功、被拒绝和结果暂时未知，供下一步判断。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
+学生问「北校区明天下午还有空闲的示波器吗」。这一步只涉及查表。随后他说「就订下午两点那台」，系统才需要产生预约记录。表面上都是模型发出一组字段，两种工具的效果和验收却不同。课程从模型怎样学会借助工具讲起，继续讨论函数调用、MCP 和怎么评测工具真的用对了。下面的设备、用户与调用记录都是自编示例。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf) · [Stanford 课堂录像](https://youtu.be/s0S38lz6O7M)
 
-## 模型怎样学会借助工具
+## 从输出文本到提出工具请求
 
-Toolformer 先给文本构造候选工具调用，执行取得结果，然后按结果能否帮助模型预测后续文本来筛选样本。这个过程提供了调用时机和参数的训练信号。API 种类很多时，Gorilla 探索从文档检索接口信息，再根据文档生成调用。即使模型学会了选择工具，应用也要检查工具是否仍可用，并按当前接口验证参数。 [Toolformer 论文](https://arxiv.org/abs/2302.04761) · [Gorilla 论文](https://arxiv.org/abs/2305.15334)
+模型需要工具，可能是因为答案依赖当前数据，也可能是计算或写入由现有服务处理更合适。比如询问示波器的使用方法，可以由文档给出依据，查空位则要读取预约服务。写入时还得检查是否已经确认。工具把语言意图变成一个程序能核验的动作，再让模型从返回数据继续生成答复。应用负责把请求变成执行，并将回执与发起请求关联起来。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
 
-## 区分函数请求和实际执行
+可以从 5 步理解一次函数调用：运行程序传入工具名和参数规范，模型输出工具请求，应用检查后执行，工具返回外部结果，模型根据结果决定是否答复或提出下一个动作。模型有能力选中工具，会提高任务完成的机会，但真实权限、排期、库存都由执行端控制。在日志里把拟执行、已调用、得到回执与最终回复分开，才能发现「模型宣布成功，但服务并未成功写入」这类故障。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
 
-REST 可以用 HTTP 把工具接到预约系统。函数调用约定模型怎样用结构化格式提出请求，例如工具名为 `list_slots`，设备编号和日期是必填参数。模型提出调用后，应用检查字段和当前权限，再发送底层请求。MCP（模型上下文协议）为应用连接外部工具服务提供统一的接口。应用通过客户端连接服务端，可用 `tools/list` 获取可用工具及参数结构，用 `tools/call` 请求执行其中一个工具。用哪种方式接入，写入成功都需要以预约服务返回的记录为准。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf) · [课程引用的 MCP 规范](https://modelcontextprotocol.io/specification/2025-06-18/server/tools)
+### Toolformer 怎样得到有用的训练样本
 
-## 分开测调用格式和任务结果
+Toolformer 的出发点是已有语言模型可以尝试给原文字段插入 API 调用。例如文章里有「每台仪器两小时课时，共三台」，模型可以提出计算请求。训练数据构造会先从给定文本产生候选调用，执行这些调用拿到响应，再比较带入响应以后预测后续文字的损失是否下降。能改善预测的调用可被保留，形成新的训练样本。模型由此学到什么时候调用、给出什么参数、怎样使用回传结果。这个目标是预测文本的改进，本身不提供业务权限或操作规则。 [Toolformer 论文](https://arxiv.org/abs/2302.04761) · [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
 
-只测模型有没有给出正确函数名和参数，能覆盖单次调用的一部分问题。BFCL 涉及参数匹配、执行与多步状态等不同检查。ToolBench 用多种真实 API 组成任务，考察工具选择与组合。τ-bench 还把用户、工具和业务规则放在一起，观察多轮交互后任务是否得到期望的结果。自己的预约助手可以先测参数校验，再测「确认后才创建预约」之类的业务约束。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf) · [τ-bench 论文](https://arxiv.org/abs/2406.12045)
+设想一条训练文字「设备预计占用 3 段，每段 40 分钟，总计 120 分钟」。候选调用甲算 `3×40` 并返回 `120`，候选乙只返回「校园设备部」。让模型利用两种候选继续预测后面的话，甲比乙更有机会提供需要的数字。对另一条只解释实验室规定的文字，即使能算出一个结果，也可能对后续预测没有用。这个选择过程把「可以调用」与「有必要调用」区分开。基于工具的应用仍要准备歧义问句，例如「这台机器为什么需要预约」，验收没有必然需要查实时空位或写预约。 [Toolformer 论文](https://arxiv.org/abs/2302.04761)
 
-做一次纸面验收，初始预约数为 0，服务端返回字符串标记。给 `list_slots` 一个缺少日期的请求，预期返回 `INVALID_ARGUMENT`，预约数仍为 0。给 `reserve_slot` 一个字段齐全但用户未确认的请求，预期返回 `NEEDS_CONFIRMATION`，记录数仍为 0。收到针对同一时段的确认后重新提交，预期得到 1 个预约编号，记录数变为 1。对照每步返回值和预约记录，能看出工具调用成功与真正完成预约各需要什么条件。
+### 工具数量多起来以后
+
+出现不同院系的设备服务后，名字接近的函数可能很多。课件讨论了 ToolkenGPT、Gorilla 和 ToolLLM 等路线。ToolkenGPT 把不同工具映射到额外的可学习词元表示，借此在生成时选择工具。Gorilla 探索根据检索到的 API 说明写调用，接口变化时可以提供新文档让模型利用。ToolLLM 与 ToolBench 以大量实际 API 和组合任务扩展可观察的选择空间。这些研究各自拆出接口规模、选择方式和任务组合的问题。产品侧可以先限制当前任务看见的工具集合，并用结构化契约决定哪些调用可进入执行器。 [ToolkenGPT 论文](https://arxiv.org/abs/2305.11554) · [Gorilla 论文](https://arxiv.org/abs/2305.15334) · [ToolLLM 论文](https://arxiv.org/abs/2307.16789)
+
+工具文档也要随服务一起维护。比如北校区 API 自 10 月起把 `date` 改成 `start_at`，旧版模型仍可能生成过期字段。应用可以记录工具契约版本，分别返回未知工具、参数错误、业务拒绝和网络异常。收到参数错误时可以把当前规范当提示交给模型，允许它修正一次。对于缺少用户信息，直接追问通常比让模型反复猜更合适。遇到权限拒绝应结束相关动作。给需要写入的调用加入限次与人工确认，防止服务的问题被误当成继续尝试的条件。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
+
+## 用分层契约保证动作可核验
+
+给助手提供三个接口。列表只读，预览只说明请求将产生什么，确认才执行写入。工具规范写清参数和返回值，还应给使用者说明副作用、前置状态和可能的错误。这些信息不一定都要标示在模型参数里，运行层也可以维护自己的策略。
+
+| 工具 | 输入 | 成功时返回 | 产生的变化 |
+| --- | --- | --- | --- |
+| `list_slots` | `device_id`, `day` | 当日可借的时段和服务观察时间 | 排期表无变化 |
+| `preview_booking` | `slot_id`, `duration_minutes` | 预览编号、设备起止时间和确认条件 | 不创建预约 |
+| `reserve_slot` | `preview_id`, `confirmation_id` | 确认写入后的 `booking_id` | 预约表新增一条记录，或返回已完成的同一请求 |
+
+把模型能提交的字段限制为任务本身需要的数据。例如它可以提交 `slot_id`，当前用户 ID 则从应用会话取得，写入权限由执行端判断。确认应对应预览里的具体设备、起止时间和使用人。如果模型拿着周四的确认去提交周五的动作，执行器应拒绝或让用户重新确认。时段在确认与执行之间可能被他人占用，所以写入时还得检查排期状态。失败时返回 `SLOT_UNAVAILABLE` 比笼统返回 `FAILED` 更便于决定下一步。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
+
+工具返回对象要表达观察有多可靠。只读 `list_slots` 成功但结果为空，可以正式回应没有可选时段。若服务不可用，应说当前无法确认。进入写入后如果请求已送出但响应丢失，动作可能已经发生。为一次请求记录稳定的请求 ID，让执行器可以按 ID 查实际回执或者由服务安全去重。不能因收到客户端超时就把预约数写成 0。检查请求与回执时同时存储关联的 `call_id`，避免把上轮结果挂到本轮。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
+
+### REST、函数调用和 MCP 分别在哪一段工作
+
+REST 接口一般规定了 HTTP 请求路径、数据结构和服务认证方式。例如程序可以通过 GET 查询设备时段，用 POST 写入预约。模型的函数调用输出通常只是工具名字及参数，它可以映射到 HTTP、数据库读取或者应用内函数。经手的程序拿到参数后仍须检查自己映射到的业务服务是否允许当前用户调用。
+
+MCP（模型上下文协议）让工具服务提供统一接口。宿主应用运行客户端来连接服务器，客户端发出 `tools/list` 可取得暴露的工具和参数模式，用 `tools/call` 发出结构化请求。一个工具服务内部仍可调用现有 HTTP API。上游模型是否有函数调用能力也与服务器协议分开。课程引用的规范版本为 2025 年 6 月 18 日。具体部署时需要按实际协商的版本处理元数据、传输、工具更新和错误。 [课程引用的 MCP 规范](https://modelcontextprotocol.io/specification/2025-06-18/server/tools) · [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
+
+同一次查空位可以走下面这条路径。行中两个 ID 用于不同的记录层次，便于追踪。
+
+```text
+用户消息                 北校区 OSC-01 明天有空吗
+模型提出工具请求         call-07 / list_slots(device_id=OSC-01, day=2026-10-06)
+宿主检查                 登录用户有 north:read，参数有效
+客户端调用 MCP 服务      request 19 / tools/call
+服务读取排期 API         GET /devices/OSC-01/slots?day=2026-10-06
+工具返回观察             request 19 / OK / slots=[S-18, S-19]
+应用交回模型             call-07 / OK / slots=[S-18, S-19]
+模型答复                 下午有两个空位，尚未预约
+```
+
+协议层的调用错误和工具自身的业务失败也应区分。课程引用的 MCP 工具规格说明工具执行错误可在工具结果中用 `isError` 表示，协议自身的错误由 JSON-RPC 错误响应表示。应用可以按其适配约定转成可读和可诊断的状态，再后续判断是否允许继续。例如错误指出查不到工具、字段格式不合规，仍需要区分是模型请求不支持的工具，还是客户端读取了过期的列表。把整个网络响应原样塞回模型，除了增加上下文，也可能让错误归因更难看清。 [课程引用的 MCP 规范](https://modelcontextprotocol.io/specification/2025-06-18/server/tools)
+
+### 给模型一份短而准确的工具规范
+
+下列是可用于讨论工具设计的 JSON Schema 片段。这里的 `format` 与 `pattern` 帮助表达约定，接受日期、查设备和识别用户访问权限仍由宿主与工具服务处理。每项属性只定义一次，并说明会从哪一层得到状态。
+
+```json
+{
+  "type": "object",
+  "description": "查看指定设备在一个本地日历日内可预约的时段。只读。",
+  "properties": {
+    "device_id": {
+      "type": "string",
+      "description": "已经从目录或用户消息确认的设备编号。",
+      "minLength": 1,
+      "maxLength": 24
+    },
+    "day": {
+      "type": "string",
+      "description": "预约系统所在时区的日历日期。",
+      "format": "date",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    }
+  },
+  "required": ["device_id", "day"],
+  "additionalProperties": false
+}
+```
+
+看起来类似的多个工具可以用输入和效果区分开。`list_slots` 获取一个设备的当前时段，`list_equipment` 根据设备类型找目录编号，`get_booking` 查真实存在的一笔预约。工具多时，如果全叫「查询设备」，模型会缺少区分决策的线索。可以在说明里给一个有代表性的使用场景，并在输入缺失时说适合追问还是要先用别的读工具。运行层没开放目录工具时，说明中不能仍然诱导模型调用它。已经隐藏的工具也应在执行器拒绝。
+
+MCP 服务器的工具列表可能随部署变动。宿主在发给模型前只展示业务已经开放的接口。如果工具响应带来会影响后续选择的数据，例如分页标记，需要给模型一个清楚的处理方式。把原始分页信息和当前已读页数分别记录，避免每轮重复读取第一页。对参数的上限、时间预算、结果页数可以同时做程序约束。模型看到的大量类似记录往往增加上下文和重复选择，接口可以提供满足业务所需的窄查询。 [课程引用的 MCP 规范](https://modelcontextprotocol.io/specification/2025-06-18/server/tools) · [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
+
+### 不要把服务的描述当作授权
+
+如果一项 MCP 工具描述得宜，模型会更容易选对。执行器仍应把允许动作判断为应用的责任。`readOnlyHint` 一类工具标注是对行为的说明，不构成真实业务状态的保证。服务是否可信、应用用户是否有访问权限、某个写入有无明确确认，各有独立的证据。最小可用实现可以先限制两种角色：课程助教能查自己管理的器材和使用记录，学生只可查自己有权使用的设备。若学生查询被拒绝，模型不应再用另一个权限更宽的工具绕过去。 [课程引用的 MCP 规范](https://modelcontextprotocol.io/specification/2025-06-18/server/tools) · [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
+
+可以从一个测试检查映射链是否一致。给模型 `day` 的输入类型是日期字符串，执行器的验证器也用相同范围，底层服务已经约定时区。如果模型输出 `2026-10-06`，宿主以当地时间选择日期，服务不能又把它转换成前一天。出现「看起来字段一样但实际查错」时，要同时看规范、客户端的参数、服务端收到的数据三份记录。对数量、日期和时间段，尤其应写清单位、格式和边界。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
+
+## 评测选工具、按次序执行以及用户交互
+
+BFCL（Berkeley Function-Calling Leaderboard）以函数调用能力为核心，覆盖参数、函数相关性、执行和多轮状态等检查。ToolBench 关注与较多真实接口相连以及组合工具按任务完成。τ-bench 将模拟用户、工具及业务规则置于同一个多轮过程，用任务结果与规则检验表现。应用评测可以从这三种侧重点借方法，但不必追求在一个外部榜单的通用成绩。自己的预约系统失败更有可能涉及一份具体的授权前置状态或时间边界。 [BFCL](https://gorilla.cs.berkeley.edu/leaderboard.html) · [ToolBench](https://github.com/OpenBMB/ToolBench) · [τ-bench 论文](https://arxiv.org/abs/2406.12045)
+
+| 评测问题 | 示例 | 需要检查什么 |
+| --- | --- | --- |
+| 选错工具 | 用户问器材用途，模型创建预约 | 工具是否与意图和权限都相关 |
+| 参数出错 | 模型把 `duration_minutes` 传成小时数 | 输入类型、单位、默认值、日期范围 |
+| 跳过前置 | 从查空位直接调用写入 | 预览和确认所关联的身份与时段 |
+| 错误恢复 | 读取排期超时，模型说没有空位 | 工具失败有没有被正确表达 |
+| 不该采取动作 | 没有时段时仍声称订了设备 | 有无真实预约号与外部状态变化 |
+| 用户中途改口 | 确认前换校区，模型沿用旧预览 | 当前状态是否覆盖，旧确认是否失效 |
+
+当工具执行可改变环境，最重要的是核对结束时的环境状态。有些任务只要求告诉用户排期，正确答复和零写入都要通过。有些任务要求确认后只创建一条预约，答复再自然也不能替代预约表检查。多次运行时可以记录每次的动作和结果，用「至少一次成功」和「每次都成功」分别了解能力与稳定性。同一个用例不能受前一轮预约残留的影响，环境要恢复或使用新测试身份。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf) · [τ-bench 论文](https://arxiv.org/abs/2406.12045)
+
+### 设计回归样本时别把模型执行和客户数据混在一起
+
+对每条动态任务，可以给模拟工具写固定回包，逐步重放错误。这样即使真实服务今天刚好有空位，昨日的失败还可以重现。想测模型选择时，用同一份工具定义和固定回执，比较选择了什么工具。想测宿主权限时，直接构造一条格式合法的工具请求，把模型替换成固定输入，检查确认状态能否挡住写入。想测服务事务，跳过界面在测试库检查更新前后的记录。三层的错误预期和验收方法不同，能各自回归会让改造比整条链路反复试一次更容易定位。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
+
+工具日志还可以按暂停、成功、失败和待核对的状态整理。比如用户改口时，一次旧查询可能已经提交，但写入预览应该作废。让运行层给旧预览记录可审计的失效理由，模型后续只应看到新的动作条件。保存必要的状态和错误码即可，实际设备拥有者和联系方式可以在日志里省略或替换成内部编号。定位问题时再用授权的只读方式核对细节。测试报告最好保留界面文案、工具回执和库内状态的差异，方便发现复用一条缓存提示导致的错误。
+
+### 四种返回状态需要不同的恢复办法
+
+「参数错误」可以由模型修正一个已知字段。例如查询只接受当天，模型传了日期区间，需要将它分解为受限的单日查询或请求用户明确范围。「缺前置条件」需要补一项观察，比如去查可见设备编号。「无权限」要让执行结束该动作，等待用户和应用完成独立授权。「已发出但不确定是否写入」则应核验实际结果。应用可以把错误码和建议的安全后续步骤一起记录，避免为追求完成率硬把所有错误归成重试。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
+
+排查真实报警时，可以从用户能看到的情况往回找。例如界面显示「正在预约」超过一分钟，从请求 ID 查是否已送到服务，再核对当时的预览有没有作废。如果超时总集中在写入返回，先检查服务结果与回包耗时。同一状态若重复被模型宣布成功，也可能发生在工具回执已经拿到但关联 ID 丢了的环节。每个错误要准备一份能记录触发步骤、允许重复的动作、当时是否能读取真相的验收样例。
+
+## 练习一｜写一个只做验证和路由的执行入口
+
+下面的标准库示例以字典模拟请求与数据库，不调用模型或真实的预约服务。工具名的允许集合、身份、参数规范和写入确认都在程序中检查。固定使用两个日期对象和一个设备标识。程序应拒绝没带参数、无权访问和没经确认的请求。最后一条合格请求才创建预约。
+
+```python
+from datetime import date
+import re
+
+
+BOOKINGS = []
+PREVIEW = {"P-01": ("user-11", "OSC-01", "2026-10-06", "S-18")}
+CONSENT = {"C-01": ("user-11", "P-01")}
+KNOWN = {"list_slots", "reserve_slot"}
+
+
+def valid_day(value):
+    if not isinstance(value, str) or re.fullmatch(r"\d{4}-\d{2}-\d{2}", value) is None:
+        return False
+    try:
+        date.fromisoformat(value)
+    except ValueError:
+        return False
+    return True
+
+
+def dispatch(tool, args, *, user, permissions):
+    if tool not in KNOWN:
+        return "UNKNOWN_TOOL", None
+    if tool == "list_slots":
+        if "schedule:read" not in permissions:
+            return "FORBIDDEN", None
+        if set(args) != {"device_id", "day"} or not valid_day(args.get("day")):
+            return "INVALID_ARGUMENT", None
+        if args["device_id"] != "OSC-01":
+            return "UNKNOWN_DEVICE", None
+        slots = ["S-18"] if args["day"] == "2026-10-06" else []
+        return "OK", slots
+    if "schedule:write" not in permissions:
+        return "FORBIDDEN", None
+    if set(args) != {"preview_id", "confirmation_id"}:
+        return "INVALID_ARGUMENT", None
+    if not all(isinstance(value, str) for value in args.values()):
+        return "INVALID_ARGUMENT", None
+    preview_id, confirmation_id = args["preview_id"], args["confirmation_id"]
+    preview = PREVIEW.get(preview_id)
+    if not preview or preview[0] != user or CONSENT.get(confirmation_id) != (user, preview_id):
+        return "NEEDS_CONFIRMATION", None
+    if any(item["slot"] == preview[3] for item in BOOKINGS):
+        return "SLOT_UNAVAILABLE", None
+    record = {"id": "B-01", "user": user, "slot": preview[3]}
+    BOOKINGS.append(record)
+    return "BOOKED", record["id"]
+
+
+read = {"schedule:read"}
+write = read | {"schedule:write"}
+cases = [
+    ("missing", {}, read, "UNKNOWN_TOOL", 0),
+    ("list_slots", {"device_id": "OSC-01"}, read, "INVALID_ARGUMENT", 0),
+    ("list_slots", {"device_id": "OSC-01", "day": "2026-10-06"}, read, "OK", 0),
+    ("reserve_slot", {"preview_id": "P-01", "confirmation_id": "C-01"}, read, "FORBIDDEN", 0),
+    ("reserve_slot", {"preview_id": "P-01", "confirmation_id": "none"}, write, "NEEDS_CONFIRMATION", 0),
+    ("reserve_slot", {"preview_id": "P-01", "confirmation_id": "C-01"}, write, "BOOKED", 1),
+    ("reserve_slot", {"preview_id": "P-01", "confirmation_id": "C-01"}, write, "SLOT_UNAVAILABLE", 1),
+]
+for name, arguments, permissions, expected_status, expected_count in cases:
+    status, result = dispatch(name, arguments, user="user-11", permissions=permissions)
+    assert (status, len(BOOKINGS)) == (expected_status, expected_count)
+    print(status, result, len(BOOKINGS))
+```
+
+预期只有 `BOOKED B-01 1` 那一步新增记录，重走同一时段的写入检查会给出 `SLOT_UNAVAILABLE`，数据库保持一条。这个程序只验证占位检查，未为重试返回旧回执。实际服务要支持请求幂等时，需要把一次预约意图绑定到稳定请求标识，并让服务原子地检查标识和写入。想加一条权限用例，可以改成 `user-22` 使用别人的确认编号，预期 `NEEDS_CONFIRMATION`，不会读取或创建那位同学的记录。
+
+## 练习二｜分开给返回文本和外部状态打分
+
+用纸面数据模拟下面的四条轨迹。用户都因为实验需要希望查询一台设备，第 4 条又补了确认。每条轨迹独立开始，初始预约数为 0。回答正确、状态正确、没有越权是三个独立检查。
+
+| 轨迹 | 退出文案 | 写入次数 | 核对结果 |
+| --- | --- | --- | --- |
+| 列表成功，返回 `S-18` 有空 | 「下午两点可选」 | 0 | 文案与状态相符 |
+| GET 超时，未取得排期 | 「今天没有空位」 | 0 | 只读约束通过，答复错误处理失败 |
+| 查询成功，未获确认却产生 `B-01` | 「有空，顺手约了」 | 1 | 查询有证据，但授权与写入检查失败 |
+| 用户确认具体预览，服务返回 `B-01` | 「已预约，编号 B-01」 | 1 | 对照编号与状态，两项均通过 |
+
+再加第 5 条，客户端超时后只看到旧请求 ID，库里已出现了预约 `B-01`。不能给「已确认失败」设成正确答复。可以先读取请求状态，确认真实回执后再向用户说明。若状态查询也不可用，预期反馈尚不能确认并停止额外写入，保留可供核对的请求 ID。这个后续过程把执行器能知道的事实与环境实际状态区分开。
+
+### 练习三｜构造会误选工具的一组请求
+
+固定工具说明为上面的三个接口，准备三条用户输入。「能用什么设备」应查目录或询问具体设备，现有列表工具需要设备编号，因此不能伪造一个。「下午两点那台，就看一下是否还有空」适合读排期，不能隐含确认预约。「我确认用北校区 OSC-01，还是刚才那个两点的时段」可以考虑创建，但执行器得检查针对同一个用户和同一份预览的确认状态。如果预览过期、叫法相同而设备编号不同，优先处理这份不一致，不按模型的自然语言承诺推断成功。
+
+记录选择结果时，先看工具名有没有必要，再看参数是否代表用户的意思，再看外部服务是否产生许可范围内的最终状态。第一种常见修复是更清楚地描述工具。第二种修复是按任务状态缩小可选集合，让只读问题暂时不显示写入入口。第三种修复是在执行器强制验证已经存在的约束。分别跑这几个调整，观察哪些失误是在生成阶段减少，哪些动作在执行阶段被拒绝。把这两类结果合成一个「成功率」，后面就难判断改进起作用的位置。
+
+
+### 练习四｜用同一份轨迹验证后置条件
+
+下面的样本表示执行后由预约服务读到的数据。用一个最小检查器返回动作是否正确、权限和副作用是否符合要求。目的在于发现只检查「模型选对工具」就通过的问题。生成器和工具调用在示例里都用数据模拟。
+
+```python
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class Trial:
+    wanted: str
+    selected: str
+    response: str
+    confirmed: bool
+    new_records: tuple[str, ...]
+    actual_booking: str | None
+
+
+def check_trial(run):
+    expected_tool = {"lookup": "list_slots", "book": "reserve_slot"}[run.wanted]
+    routed = run.selected == expected_tool
+    side_effect_ok = len(run.new_records) <= 1 and (
+        not run.new_records or (run.wanted == "book" and run.confirmed)
+    )
+    if run.response.startswith("BOOKED:"):
+        displayed = run.response.removeprefix("BOOKED:")
+        grounded = displayed == run.actual_booking and displayed in run.new_records
+    elif run.wanted == "book" and run.confirmed:
+        grounded = run.actual_booking is None and run.response == "UNCONFIRMED_RESULT"
+    else:
+        grounded = run.response in {"AVAILABLE", "NEEDS_CONFIRMATION", "UNKNOWN"}
+    return routed, side_effect_ok, grounded
+
+
+cases = [
+    Trial("lookup", "list_slots", "AVAILABLE", False, (), None),
+    Trial("lookup", "reserve_slot", "BOOKED:B-01", False, ("B-01",), "B-01"),
+    Trial("book", "reserve_slot", "BOOKED:B-02", True, ("B-01",), "B-01"),
+    Trial("book", "reserve_slot", "BOOKED:B-01", True, ("B-01",), "B-01"),
+    Trial("book", "reserve_slot", "UNCONFIRMED_RESULT", True, (), None),
+]
+expected = [(True, True, True), (False, False, True), (True, True, False),
+            (True, True, True), (True, True, True)]
+for trial, target in zip(cases, expected):
+    result = check_trial(trial)
+    assert result == target
+    print(result)
+```
+
+第 2 条的成功文字确实给出了已创建记录的编号，权限检查却失败。第 3 条模型选对工具且只有一条记录，回复给出了错误编号。第 5 条按当前样本正确承认缺回执，仍未完成预约目标。应用可以把合规退场和任务完成继续分成两个指标，再给每类异常选适合的恢复办法。这样一个工具答对参数但写错用户的情况，不会被「调用格式正确」掩盖。
+
+读者可以把「一次选择多个工具」加入下一轮用例。例如用户给两个设备和同一个日期，列表查询之间相互独立，结果分别带请求 ID。令第二次读取超时，期望结果仍能保留第一台的有效时段，同时明确第二台暂无状态。把两个返回结果的顺序调换后重跑，分属哪台设备应保持正确。这个测试还能检验适配层是否只是按数组顺序将结果交给模型。
 
 ---
 

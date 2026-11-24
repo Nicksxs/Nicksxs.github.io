@@ -4,30 +4,273 @@
 
 授课日期 2026 年 10 月 26 日
 
-Agent 在终端里跑完任务并说「已经生成文件」，评分程序还得打开文件核对结果。Terminal-Bench 让 Agent 在命令行环境中完成有实际产物的任务，再由独立验证逻辑检查产物。Alex Shaw 和 Ryan Marten 在客座课里展示了怎样把这套方法用来评测自己的任务。
+设备管理员让助手查出下午可以借哪些相机。运行结束后，聊天里出现一句「查好了」，工作目录下也多了一个文件。要验收这件事，还得打开文件，确认时间范围正确、设备没有被维修记录或已确认预约占用。输出文件里有一个看似合理的数字，仍可能漏掉边界条件。
 
-## 一次试验从任务到产物
+Alex Shaw 和 Ryan Marten 在这堂客座课讲的是怎样用任务、环境和验收程序测量这样的工作。Terminal-Bench 提供实际终端任务和评价标准，Harbor 负责组织运行、收集产物和评分。本讲用课上的 CAD 任务了解这种工作怎么评，再用一个自制的器材借用场景走完整个流程。 [Stanford 第 10 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf)
 
-Terminal-Bench 提供一组任务，Harbor 提供运行任务、启动环境、评分和保存结果的基础设施。一次试验对应某个 Agent 对一道任务的一次尝试。课件用一项 CAD 任务来解释这一区别。Agent 拿到工程示意图，目标是生成 STEP 文件。验证器检查格式、水密性、面积、体积和拓扑等属性。任务写清交付物和成功条件，Agent 可以选不同方法得到符合要求的产物。[Stanford 第 10 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf)
+## 把目标写成可以核对的结果
 
-## 写测试时也要测评分器
+单元测试通常从一个已知接口开始。给函数输入数据，检查返回值或副作用。终端 Agent 任务开放的部分更多。系统可以先读说明，再查看目录、挑选工具、编写临时程序和修正失败。任务设计者仍然可以定义什么算完成，例如「创建一个 JSON 文件，列出满足指定时段的相机」。验收保持严格，达成目标的路径可以多样。
 
-课件展示的任务目录包含说明、运行配置、环境、参考解和验证脚本。环境交代 Agent 启动时有哪些输入和工具，参考解用于确认任务可完成。验证器的检查项应能对应任务说明。说明要求「给出可借台数」，评分器就该看输出里的数值。只检查文件存在会放过错误答案。若任务允许任意 JSON 键顺序，评分就该解析字段，避免把合法产物判错。[Stanford 第 10 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf)
+命令行请 Agent 直接对环境做事。测一次修复任务时，既能看它最后说了什么，也能看到它是否改了正确的文件、生成的产物能否被消费、失败后是否检查错误原因。这类任务可以覆盖数据处理、系统配置和工程计算。测试要问清测的是什么能力。如果只准备一个干净的文本文件，就主要测读取和转换。如果把时区、冲突状态和中断恢复也纳入，题目、初始环境和验收都要相应改变。Terminal-Bench 论文按任务结构、数据集构建、验证方式和任务组成说明这些决策。 [Terminal-Bench 原论文](https://arxiv.org/html/2601.11868v1)
 
-每次试验从可重建的环境启动，并隔离 Agent 与验证环境。保留轨迹、日志、输出文件、评分和各自版本，才能判断一次失败出在任务、环境、Agent 还是验证器。仅修评分逻辑且保存了必要产物时，可以考虑用新验证器重评旧输出。初始数据或运行条件变了，则要记录新版本并重新运行可比较的试验。[Stanford 第 10 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf)
+课件用二维工程图转 STEP 的例子拆出三份材料。指令声明图在 `/app/schematic.png`，要求提交 `/app/out.step`。任务镜像提供输入图，Agent 可以用环境中允许的工具建模。Verifier 可以解析产物，检测模型是否封闭，再比较体积、表面积、主惯量、凸包体积与面积、拓扑和平均曲率。不同性质对应不同错误。一个普通长方体也可能构成合法 STEP 文件，缺一个孔的模型也可能接近目标体积。多项检查让这些差异进入评分，具体覆盖范围取决于题目和验证器。 [Stanford 第 10 讲课件，第 38 页](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf#page=38)
 
-## 动手检查 4 份输出
+如果测试拿参考解生成的 STEP 文件做字节全等，两种几何等价的实现可能因为实体顺序、命名或表示方式不同而被打回。参考解的价值是提供一条可运行的完成路径，并给评分器一个已知正确的样本。可见指令要写清有业务意义的要求。如果尺寸单位、朝向或允许误差会改变验收结果，就要考虑在指令里说明这些约束。验证器实现可以独立保管，Agent 在操作时仍能知道自己要交付什么。
 
-自建一个简单任务。输入给出 3 台相机，其中 2 台可借。要求输出一个 JSON 对象，equipment 为 camera，available 为整数 2，键顺序任意。写一个对文件进行 JSON 解析并逐项核对的评分器，用以下四种情况检查它。测试时给每份产物单独建目录，避免上一轮的文件影响下一轮。
+## 任务、试验和两个运行底座
 
-| 产物 | 预期评分 |
+| 名称 | 在一次评测里负责的事 |
 | --- | --- |
-| {"equipment":"camera","available":2} | 通过 |
-| {"available":2,"equipment":"camera"} | 通过 |
-| {"equipment":"camera","available":0} | 失败 |
-| 文件缺失，聊天里写着「已完成」 | 失败 |
+| 任务（Task） | 固定指令、初始环境和验收方式。例如给定一份设备台账，生成指定时间段的可借清单。 |
+| 试验（Trial） | 某个 Agent 在给定配置下对某道任务的一次尝试。同题可有多次独立试验。 |
+| 基准（Benchmark） | 用一组任务测一类工作能力。阅读总分时要知道题集和聚合规则。 |
+| 验证器（Verifier） | 按任务要求检查提交产物或环境状态，并记录数值奖励及失败原因。 |
+| 运行轨迹（Trajectory） | 一次尝试中的消息、动作和观测，可用于定位最后一次有效动作或最早的偏差。 |
+| Agent 运行底座 | 管理模型与环境之间的循环，包括上下文、工具接口、调用策略和停止条件。 |
+| 评测运行底座 | 准备试验，启动 Agent，收集日志及产物，执行验证并汇总结果。 |
 
-如果第二个产物失败，检查是否误用了字符串全等。如果第三个产物通过，检查是否漏验了台数。两种缺陷都可以在启动 Agent 之前用固定产物发现。
+Terminal-Bench 用具体任务提供测试内容。Harbor 可以运行 Terminal-Bench，也能运行自己的任务。任务采用公共的目录和装配方式，可供支持该格式的运行器使用。模型、Agent 底座、任务和评测底座是独立的实验变量。例如换一个工具接口，模型保持不变，系统仍可能改变探索方式，产生不同结果。报告如果只写模型名，会漏掉读者重跑时需要知道的一层。 [课件中的术语与流程](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf#page=42) · [Harbor 任务格式](https://docs.harborframework.com/tasks/overview) · [Terminal-Bench 原论文](https://arxiv.org/html/2601.11868v1)
+
+一次运行可以记成「装载环境，交付任务，Agent 操作，收集产物，独立验收，保存结果」。题目指令告诉 Agent 该完成什么。运行配置告诉执行系统给多少时间、准备哪些资源。模型遇到错误时可能重试，运行底座要如实记录上一次命令的结果。等 Agent 侧停止后，采集器应保存约定文件，再启动评分。把 Agent 的最后一句话直接当成评分结果，会隐藏说法与环境状态不一致的情况。
+
+重复试验的单位是独立的一次尝试。试验甲创建的结果不能留给试验乙，启动时台账、配置和工作目录都要回到约定状态。如果第二次复用了第一次的输出，表面上两次都通过，实际只有一次完成过计算。并行执行可以省墙钟时间，每个试验仍需要隔离自己的工作目录、可写资源和结果记录。对于会修改服务状态的任务，也要考虑服务数据是否在试验之间共享。 [Stanford 第 10 讲课件，第 56–59 页](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf#page=56)
+
+## 把器材借用做成一项任务
+
+假设一间虚构实验室用导出的器材台账安排借用。借用窗口固定在当地 14:00 到 16:00。要求输出这一整段都可借的相机，保存为 `availability.json`。它是查询任务，结果供管理员随后确认。给环境提供两份只读 JSON 数据，一份是器材目录，列出编号、类型和库存状态。另一份是当天记录，列出设备编号、开始时间、结束时间和记录类型。本例用同一天的固定宽度 `HH:MM` 格式，比较的是当天的时刻。
+
+任务说明应同时交代业务口径和交付格式。只有状态为 `ready` 的相机参与筛选。已确认的预约 `confirmed` 和维修窗口 `maintenance` 会占用设备。草稿 `tentative` 不占用。采用半开时间区间 `[start, end)`，正好在 14:00 结束或在 16:00 开始的记录与窗口不冲突。输出对象只包含 `equipment` 和 `available`，前者是没有重复的相机编号数组，后者是与数组长度一致的整数。对象键和数组顺序都允许变化。这些约定写进题面后，评分才能对应到明确的要求。
+
+| 编号 | 设备和状态 | 当天记录 | 是否纳入 |
+| --- | --- | --- | --- |
+| CAM-01 | 相机，就绪 | 已确认 13:00–14:00 | 纳入，上一笔预约在起点结束 |
+| CAM-02 | 相机，就绪 | 已确认 15:00–15:30 | 排除，窗口内存在占用 |
+| CAM-03 | 相机，就绪 | 没有记录 | 纳入 |
+| CAM-04 | 相机，就绪 | 维修 15:30–16:30 | 排除，维修覆盖了窗口结尾 |
+| CAM-05 | 相机，就绪 | 草稿 14:30–15:00 | 纳入，草稿不占用 |
+| CAM-06 | 相机，下架 | 没有记录 | 排除，库存状态不符 |
+| MIC-01 | 麦克风，就绪 | 没有记录 | 排除，设备类型不符 |
+
+端到端的一次尝试可以这样走。Agent 读任务要求，确认 `14:00–16:00` 是整段可借。它打开目录，挑出就绪相机，再按编号连接当天记录。对每条有约束力的记录，只有「记录开始早于借用结束」且「借用开始早于记录结束」才算重叠。逐台检查后写出 3 个编号。最后用 JSON 解析器打开自己生成的文件，检查产物位置和数字类型。评测侧收集产物，用独立的只读输入或已核实的预期值查清哪些编号应该入选。
+
+这个过程中有几种容易混淆的错误。只比对 `available` 会让「少一台正确相机但补一台错误相机」通过。只转成集合核对编号，会掩盖重复条目。拿整个 JSON 字符串做相等判断，会因空格或键顺序把正确结果判错。要明确检查的对象、值、类型以及哪些表示差异可接受。能直接按程序判定的数据通常无需语言模型裁判。对于说明质量这类难以定义唯一答案的要求，可以独立评分，并用带人工判断的边界样例检查评分口径。 [课件中的验收对齐](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf#page=49) · [Harbor 验证器文档](https://docs.harborframework.com/tasks/verifier)
+
+## 安排环境和评分入口
+
+按课件展示的 Harbor 目录思路，可以把需求写进 `instruction.md`，将执行时间和环境配置放在 `task.toml`，在 `environment/` 构建只有预定输入和依赖的环境，带一份 `solution/` 下可运行的参考解，并用 `tests/` 验证最后的产物。`tests/test.sh` 是 Linux 任务的评分入口。Harbor 的评分脚本需要在约定目录产生数值奖励，可以写入单值文件，或用带指标名的 JSON 表达多个维度。下面的课内代码只演示 Python 验收逻辑，运行方式和写奖励的入口由任务工程另行接入。 [课件中的任务目录](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf#page=43) · [Harbor 任务与评分格式](https://docs.harborframework.com/tasks/overview) · [Harbor verifier 入口说明](https://docs.harborframework.com/tasks/verifier)
+
+环境取决于要验证的工作。若只关心时间区间和字段处理，用版本固定的导出数据便于每次从同一状态开始。若想评估 Agent 能否与真实预约服务交互，环境就需要可控的服务实例和还原手段。把外部网站或在线包源放进试验路径时，网络故障、数据漂移或版本变化也会影响结果。课上建议尽量保留真实工作的约束，同时把可以固定的输入和依赖嵌进环境。运行中的外部变化只有在它本来就是能力目标时，才适合留给任务处理。 [Stanford 第 10 讲课件，第 47–48 页](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf#page=47)
+
+评分端要从可信副本加载预期值，并控制哪些产物可进入评分环境。设备目录、参考解、验收规则和得分记录各有不同的读取或写入需求。以 Harbor 的独立 verifier 模式为例，框架可以把事先声明并收集的产物传给新建的评分沙箱。Agent 环境的其余文件系统变更不随之继承。使用这种模式之前要确认待评文件已被采集。若只把摘要写到了 Agent 日志里，评分阶段就无法凭空得到完整的摄取数据。 [Harbor 独立 verifier](https://docs.harborframework.com/tasks/separate-verifier) · [Harbor verifier 文档](https://docs.harborframework.com/tasks/verifier)
+
+预算也需要区分。环境构建、Agent 操作、产物收集和评分可能分别耗时。队列拥堵造成镜像未能启动时，任务还没有交给 Agent。Agent 开始工作后不断重复无效动作，直到用完确认过的任务预算，则是有效观察。如果两件事都只留下一个「超时」，事后很难判断是增加资源、修基础设施还是改 Agent 的停止条件。必要时各阶段记录开始与结束、退出原因和相关错误。 [Stanford 第 10 讲课件，第 56–57 页](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf#page=56)
+
+## 练习一｜用正反例验证评分程序
+
+把下面的代码保存为 `check_booking.py` 后运行 `python3 check_booking.py`。它使用 Python 标准库和临时目录，先按表里的固定数据计算预期编号，再把合法输出与常见错误输出写进各份独立目录。每例的标签由测试预先给定，可以据此计算评分器错放或错拒的次数。运行前先预测「同数量错名单」和「键序不同」两例会在各检查下如何变化。
+
+```python
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+START, END = "14:00", "16:00"
+CATALOG = (
+    ("CAM-01", "camera", "ready"),
+    ("CAM-02", "camera", "ready"),
+    ("CAM-03", "camera", "ready"),
+    ("CAM-04", "camera", "ready"),
+    ("CAM-05", "camera", "ready"),
+    ("CAM-06", "camera", "retired"),
+    ("MIC-01", "microphone", "ready"),
+)
+EVENTS = (
+    ("CAM-01", "13:00", "14:00", "confirmed"),
+    ("CAM-02", "15:00", "15:30", "confirmed"),
+    ("CAM-04", "15:30", "16:30", "maintenance"),
+    ("CAM-05", "14:30", "15:00", "tentative"),
+)
+
+
+def available_equipment(catalog, events, start, end):
+    occupied = {
+        identifier
+        for identifier, event_start, event_end, kind in events
+        if kind in {"confirmed", "maintenance"}
+        and event_start < end
+        and start < event_end
+    }
+    return {
+        identifier
+        for identifier, equipment_type, status in catalog
+        if equipment_type == "camera"
+        and status == "ready"
+        and identifier not in occupied
+    }
+
+
+def unique_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate key: {key}")
+        result[key] = value
+    return result
+
+
+def verify(path, expected):
+    try:
+        with path.open("rb") as artifact:
+            contents = artifact.read(4097)
+    except FileNotFoundError:
+        return "missing"
+    if len(contents) > 4096:
+        return "artifact_too_large"
+
+    try:
+        result = json.loads(
+            contents.decode("utf-8"),
+            object_pairs_hook=unique_object,
+        )
+    except ValueError:
+        return "invalid_json"
+
+    if type(result) is not dict or result.keys() != {"equipment", "available"}:
+        return "wrong_fields"
+    identifiers = result["equipment"]
+    quantity = result["available"]
+    if type(identifiers) is not list or any(type(x) is not str for x in identifiers):
+        return "wrong_equipment_type"
+    if type(quantity) is not int:
+        return "wrong_count_type"
+    if len(identifiers) != len(set(identifiers)):
+        return "duplicate_equipment"
+    if quantity != len(identifiers):
+        return "count_mismatch"
+    if set(identifiers) != expected:
+        return "wrong_equipment_set"
+    return "pass"
+
+
+def artifact(identifiers, quantity, *, reverse_keys=False):
+    values = {"equipment": identifiers, "available": quantity}
+    if reverse_keys:
+        values = {key: values[key] for key in reversed(values)}
+    return json.dumps(values)
+
+
+def main():
+    known = ["CAM-01", "CAM-03", "CAM-05"]
+    expected = available_equipment(CATALOG, EVENTS, START, END)
+    assert expected == set(known)
+    fixtures = [
+        ("valid", artifact(known, 3), "pass"),
+        ("key_order", artifact(known, 3, reverse_keys=True), "pass"),
+        ("list_order", artifact(list(reversed(known)), 3), "pass"),
+        ("same_count", artifact(["CAM-02", "CAM-03", "CAM-05"], 3), "wrong_equipment_set"),
+        ("duplicate_device", artifact(known + [known[0]], 4), "duplicate_equipment"),
+        ("duplicate_key", '{"equipment":[],"available":0,"available":3}', "invalid_json"),
+        ("wrong_number", artifact(known, 2), "count_mismatch"),
+        ("float_number", artifact(known, 3.0), "wrong_count_type"),
+        ("bool_number", artifact(known, True), "wrong_count_type"),
+        ("incomplete", '{"equipment":["CAM-01"]', "invalid_json"),
+        ("missing", None, "missing"),
+    ]
+    old_false_accepts = 0
+    strict_mismatches = 0
+    with TemporaryDirectory() as root:
+        for name, content, label in fixtures:
+            case_dir = Path(root) / name
+            case_dir.mkdir()
+            path = case_dir / "availability.json"
+            if content is not None:
+                path.write_text(content, encoding="utf-8")
+
+            weak_grader_pass = path.is_file()
+            if weak_grader_pass and label != "pass":
+                old_false_accepts += 1
+            observed = verify(path, expected)
+            if observed != label:
+                strict_mismatches += 1
+            print(f"{name}: {observed}")
+
+    print(f"existence_only_false_accepts: {old_false_accepts}")
+    print(f"strict_label_mismatches: {strict_mismatches}")
+    assert old_false_accepts == 7
+    assert strict_mismatches == 0
+
+
+if __name__ == "__main__":
+    main()
+```
+
+```text
+valid: pass
+key_order: pass
+list_order: pass
+same_count: wrong_equipment_set
+duplicate_device: duplicate_equipment
+duplicate_key: invalid_json
+wrong_number: count_mismatch
+float_number: wrong_count_type
+bool_number: wrong_count_type
+incomplete: invalid_json
+missing: missing
+existence_only_false_accepts: 7
+strict_label_mismatches: 0
+```
+
+**核对结果**　存在性检查放过 7 份错误产物，严格验证器与 11 个预设标签一致。这里检验的是评分器对合成产物的判断，示例没有启动 Agent、Harbor 或外部预约服务。代码中读文件的长度上限是这份小练习的产物约定。若作为正式任务的验收条件，应把该限制和字符编码写进说明，并在环境中安排相应资源。遇到无法打开文件、测试程序崩溃或验收超时等问题，也应保留真实错误，避免与逻辑上得零分的产物混用。
+
+逐行看诊断结果也有价值。`same_count` 的数字和数组长度都对，差在入选对象。`list_order` 表明数组重新排序是合法的。`float_number` 和 `bool_number` 提醒我们使用 JSON 解码后要检查类型，直接用数值比较容易放过不同类型。`duplicate_key` 在构造对象时就被识别，避免解析器按最后一个值覆盖前面同名字段。`missing` 说明验证器检查了结果所在的环境状态，聊天消息即使声称完成也不会影响判断。
+
+接着改动一项输入，令 `CAM-01` 的已确认预约延迟到 14:01 结束，并把 `CAM-05` 的草稿改为已确认。借用窗口仍为 14:00–16:00。先手算，再把两个值代入 `available_equipment`。预期只剩 `CAM-03`，数量从 3 改为 1。旧产物的数量、编号都需要改变。把用例写进后续评测时，保留它自己的输入版本和预期值。同一份评分器可以验证两道任务，两个试验的环境要分别初始化。
+
+## 从分数回到失败发生的阶段
+
+拿到一个零分时，可以按试验时间线找证据。启动日志能说明预定镜像是否成功加载、输入文件何时就绪。Agent 轨迹能显示它读了哪份输入、解释了哪些状态、尝试了什么操作和如何收尾。产物明确了它最终提交的状态。Verifier 日志说明哪条条件未满足。如果轨迹中的命令仍在等待，超时发生在 Agent 阶段，和评分器等不到容器启动要分开记。
+
+| 观察到的现象 | 优先核对的证据 | 对应的处理方向 |
+| --- | --- | --- |
+| 产物遗漏 CAM-01 | Agent 读取的记录，结束时间字段和比较运算 | 复查是否误把 14:00 结束的预约当作重叠 |
+| 产物内容正确，改了键顺序后没通过 | 题目约定允许的排列，与 verifier 实际的比较方式 | 修正评分方法，并对旧产物做追溯核对 |
+| 已确认预约和维修均被忽略 | Agent 实际去读的文件，路径以及工具返回 | 查输入遗漏、提示理解或数据连接错误 |
+| 同一产物反复评分有不同结果 | 评分环境版本、外部依赖、随机过程与日志 | 固定可控条件，逐步缩小波动来源 |
+| 环境未启动或产物采集报错 | 构建、启动、复制的错误记录 | 标注基础设施错误，按相同试验口径补跑 |
+| Agent 给出的解释正确却未落盘 | 操作日志、结束条件和提交物路径 | 核对模型为何提前停止或遗漏写入 |
+
+Terminal-Bench 的论文按轨迹和命令分析失败。报告除了汇总有多少任务通过，也可以记录常见的失效模式，例如跑了很多重复步骤、把条件从上下文里弄丢、提前结束，或只做了不充分的检查。项目自己的评估可以从观察到的证据建立简短标签。词语不同但根因相同的案例可以放在一起，便于检查一次修复是否解决了这一类问题。 [Terminal-Bench 原论文，第 4.4、4.5 节](https://arxiv.org/html/2601.11868v1)
+
+验证器本身也需要做质量检查。课件展示了静态检查、人工或参考解试跑、不同能力 Agent 的试验以及对轨迹的复查。每种检查能回答不同问题。参考解跑通说明环境至少允许一条完成路径。一个已知不合格的产物被拒绝说明评分器覆盖了对应错误。多种合法解法通过可以发现不必要的格式限制。多次运行才能观察依赖、时间和随机因素造成的波动。不要由一张结果表推断所有错误均已覆盖。 [Stanford 第 10 讲课件，第 59–60 页](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf#page=59)
+
+## 保存证据，决定重跑还是重评
+
+评测版本至少涉及任务、环境、Agent 和验证器。任务版本描述题目、输入和完成条件。环境版本记录基础镜像、工具和依赖。Agent 配置包括模型标识、底座、工具、提示与预算。Verifier 版本确定对已采集产物应用哪套检查。给每个试验保存配置、产物、阶段日志、评分及状态，后续才有机会把分数变化追溯到具体改动。课件建议每条结果行都能对应到试验的轨迹、日志、产物和奖励。 [Stanford 第 10 讲课件，第 61–62 页](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf#page=61)
+
+仅修 verifier，旧的完成条件和所有评分输入都还在时，可以重评。比如之前按字节比较，改成解析 JSON 再看字段。保留原分和新分，并标明它们针对同一产物。如果评分需要一份当时没有采集的日志，即使知道 Agent 的最终回答也不能补出缺失的材料。Harbor 的重评流程用保存的产物创建新试验结果，要求有可读的旧结果、产物清单、所需文件，以及新版独立的验证环境。它不再次启动 Agent 阶段。 [Harbor 重评文档](https://docs.harborframework.com/jobs/regrade)
+
+改变初始库存、题面、Agent 可用工具或任务超时，会改变它原本面对的条件，应该在新版本下重新执行。仅更改报告列名或显示单位，保留原始分数就能重新汇总。衡量改动时，应把一次重评和一次重跑记录为不同动作。重评变好说明新版规则对已有产物给出不同判断。重跑变好还要看变化处于任务、评分器、Agent 还是环境，再归因。 [Stanford 第 10 讲课件，第 61 页](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf#page=61)
+
+同一基准发布后也会维护，题集和检查逻辑会更新。论文写明其 Terminal-Bench 2.0 版本包含 89 个任务，这是论文设定的任务集。项目网站有不同版本的结果。读排名时，先核对是否在同一版本、同一尝试数和可比资源约束下。选型还要考虑运行耗时、调用或 token 成本，以及错误与工作场景是否相似。排行榜来自特定题集上的组合测试，单次报告中的领先幅度也可能小于估计的不确定性。 [Terminal-Bench 论文](https://arxiv.org/abs/2601.11868) · [Terminal-Bench 结果与版本](https://www.tbench.ai/)
+
+## 练习二｜复核一批有缺失记录的试验
+
+设同一任务版本有 5 次计划试验。第 1 次保存了内容正确的 JSON，旧评分器通过。第 2 次保存了同样内容但键顺序不同的 JSON，旧评分器拒绝。第 3 次文件在且数字正确，名单误列 CAM-02，旧评分器也拒绝。第 4 次的 Agent 进入环境但未在预算内生成文件，轨迹和结束状态可查。第 5 次在镜像构建阶段失败，Agent 未启动。旧评分器在这个练习里按一份金样本的文本做比较。
+
+先给五条记录写出原始状态，再决定哪些可以用第一个练习的逻辑重评。约定在基础设施未能启动时单列未运行，分母取实际启动的试验。启动后用完预算且没有产物，按任务未完成记分。把「通过」「未通过」「环境未启动」都报告出来。
+
+| 记录 | 校正后的结论 | 证据与下一步 |
+| --- | --- | --- |
+| 1 | 仍通过 | 合法的文件与预期字段一致 |
+| 2 | 重评后通过 | 旧文件仍在，语义等价的键顺序不该扣分 |
+| 3 | 重评后失败 | 编号不符，不能因数量正确给分 |
+| 4 | 未完成 | 任务启动后预算耗尽，缺少交付文件，用轨迹分析原因 |
+| 5 | 环境未启动 | 记录构建错误，补跑一次同配置试验后再更新覆盖范围 |
+
+**核对结果**　重评前的通过率是实际启动的 1/4，重评后是 2/4，覆盖仍是计划中的 4/5。这里变化来自修正对已有文件的判断，模型没有多完成一道任务。第 5 条需要修复环境后补跑，补跑结果应有自己的试验标识。若有人计划宣布「全批次 2/5」，这个比例可以描述全部计划记录里已有多少通过，但它和约定的任务完成率口径不同。把两个计数分别写出来，读者就能看到未启动记录对覆盖范围的影响。
+
+借用政策也可以进一步变更。例如下一版规定维修告警从开始时间前 15 分钟就锁定设备，评分器需要采用新版区间规则。旧日志可帮助定位哪些任务受到影响。正式比较应让 Agent 在含新政策和新数据的环境中完成一次请求，避免用它从未收到的约束评价原来的动作。若希望「某个模型在配置统一时更可靠」，还需要用更广的任务与多次独立尝试验证，保留每次执行配置和失败类型。 [课程评测课件](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf#page=61)
 
 ---
 
