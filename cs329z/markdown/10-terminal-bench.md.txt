@@ -1,0 +1,34 @@
+# 第 10 讲｜用 Terminal-Bench 和 Harbor 评测 Agent
+
+[课程索引](/cs329z/review/) · <a href="/cs329z/markdown/10-terminal-bench.md.txt" download="10-terminal-bench.md">下载 Markdown</a>
+
+授课日期 2026 年 10 月 26 日
+
+Agent 在终端里跑完任务并说「已经生成文件」，评分程序还得打开文件核对结果。Terminal-Bench 让 Agent 在命令行环境中完成有实际产物的任务，再由独立验证逻辑检查产物。Alex Shaw 和 Ryan Marten 在客座课里展示了怎样把这套方法用来评测自己的任务。
+
+## 一次试验从任务到产物
+
+Terminal-Bench 提供一组任务，Harbor 提供运行任务、启动环境、评分和保存结果的基础设施。一次试验对应某个 Agent 对一道任务的一次尝试。课件用一项 CAD 任务来解释这一区别。Agent 拿到工程示意图，目标是生成 STEP 文件。验证器检查格式、水密性、面积、体积和拓扑等属性。任务写清交付物和成功条件，Agent 可以选不同方法得到符合要求的产物。[Stanford 第 10 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf)
+
+## 写测试时也要测评分器
+
+课件展示的任务目录包含说明、运行配置、环境、参考解和验证脚本。环境交代 Agent 启动时有哪些输入和工具，参考解用于确认任务可完成。验证器的检查项应能对应任务说明。说明要求「给出可借台数」，评分器就该看输出里的数值。只检查文件存在会放过错误答案。若任务允许任意 JSON 键顺序，评分就该解析字段，避免把合法产物判错。[Stanford 第 10 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf)
+
+每次试验从可重建的环境启动，并隔离 Agent 与验证环境。保留轨迹、日志、输出文件、评分和各自版本，才能判断一次失败出在任务、环境、Agent 还是验证器。仅修评分逻辑且保存了必要产物时，可以考虑用新验证器重评旧输出。初始数据或运行条件变了，则要记录新版本并重新运行可比较的试验。[Stanford 第 10 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture10.pdf)
+
+## 动手检查 4 份输出
+
+自建一个简单任务。输入给出 3 台相机，其中 2 台可借。要求输出一个 JSON 对象，equipment 为 camera，available 为整数 2，键顺序任意。写一个对文件进行 JSON 解析并逐项核对的评分器，用以下四种情况检查它。测试时给每份产物单独建目录，避免上一轮的文件影响下一轮。
+
+| 产物 | 预期评分 |
+| --- | --- |
+| {"equipment":"camera","available":2} | 通过 |
+| {"available":2,"equipment":"camera"} | 通过 |
+| {"equipment":"camera","available":0} | 失败 |
+| 文件缺失，聊天里写着「已完成」 | 失败 |
+
+如果第二个产物失败，检查是否误用了字符串全等。如果第三个产物通过，检查是否漏验了台数。两种缺陷都可以在启动 Agent 之前用固定产物发现。
+
+---
+
+[上一讲](/cs329z/lessons/09-optimization/) · [课程索引](/cs329z/review/) · [下一讲](/cs329z/lessons/11-agent-data/)

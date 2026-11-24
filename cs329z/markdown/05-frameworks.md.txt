@@ -1,0 +1,25 @@
+# 第 5 讲｜框架与持久编排
+
+[课程索引](/cs329z/review/) · <a href="/cs329z/markdown/05-frameworks.md.txt" download="05-frameworks.md">下载 Markdown</a>
+
+Stanford 课程日期为 2026 年 10 月 7 日。
+
+实验室助手的第一版可以用几段代码跑通。后来加上确认、预约和失败重试，就需要知道哪里应该保存状态，哪里值得优化模型提示，哪里要让任务能在进程退出后继续。课程用日历任务演示了抽取与动作怎样组合。把每一层的问题说清楚，才能选到合适的框架。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf) · [课程演示代码](https://github.com/cs329z/lecture5-frameworks)
+
+## 把模型模块与执行流程拆开
+
+用 DSPy 可以把「从预约文本提取设备、日期和时长」写成带输入输出的签名，再用模块把几次模型调用组成程序。优化器用给定样本和评分函数挑选或改进模块配置。评分函数如果只比日期和时长，设备抽错也能通过。验证集应该覆盖所有会影响后续动作的字段，以及遇到缺项时应当返回什么。 [DSPy 论文](https://arxiv.org/abs/2310.03714) · [课程演示代码](https://github.com/cs329z/lecture5-frameworks)
+
+想让每个流程分支清楚可见，可以把设备、日期、已确认内容和执行结果作为共享状态，用 LangGraph 的节点表示抽取、验证、查询等处理步骤，用边表示怎样走到下一步。日期缺失时进入追问，核验通过后才进入查空位。Agent 的运行底座（harness）范围更宽，还包括模型与工具之间的循环、工具权限、上下文及记录方式。课件列出 mini-SWE-agent、OpenHands 和 Pi，可以对照这些实现看工具与运行环境怎样限制系统行为。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf) · [LangGraph 官方概览](https://docs.langchain.com/oss/python/langgraph/overview)
+
+## 中途重启后怎样继续
+
+Temporal 这类持久编排系统可以记录工作流的执行历史，让任务在 worker 重启后继续。读取预约状态、调用服务创建预约这类外部操作适合放进独立活动。若活动已经写入预约，进程却在收到结果前断开，重试可能让服务再收到一次请求。可以为一次用户确认生成一个稳定的请求 ID，让服务端用唯一键记录已完成的写入。流程恢复与业务防重需要各自验证。 [第 5 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture05.pdf) · [Temporal 活动文档](https://docs.temporal.io/activities)
+
+## 模拟一次响应丢失
+
+给模拟预约服务一张空表，表以请求 ID 为唯一键。第一次提交 `R-01` 时插入预约 `B-01`，但测试方模拟收不到响应。用相同参数和 `R-01` 再提交一次。预期调用日志有 2 条，表里仍只有 1 条，重试返回 `B-01`。核对日志时同时记录是哪一步超时、下一次传了什么参数。只比较最后一句「预约成功」，会漏掉重复预约的问题。
+
+---
+
+[上一讲](/cs329z/lessons/04-tool-use/) · [课程索引](/cs329z/review/) · [下一讲](/cs329z/lessons/06-design-patterns/)

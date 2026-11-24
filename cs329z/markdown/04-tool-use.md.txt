@@ -1,0 +1,25 @@
+# 第 4 讲｜工具使用与函数调用
+
+[课程索引](/cs329z/review/) · <a href="/cs329z/markdown/04-tool-use.md.txt" download="04-tool-use.md">下载 Markdown</a>
+
+Stanford 课程日期为 2026 年 10 月 5 日。
+
+设备助手可以用 `list_slots` 查看空位，也可以用 `reserve_slot` 创建预约。两个名字看起来差不多，但后一项会修改系统状态。工具接口需要把这层差别落实到执行端。模型读工具名和参数格式，提出调用，应用核对身份、权限、参数和确认记录，再决定是否执行。结果应明确区分成功、被拒绝和结果暂时未知，供下一步判断。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf)
+
+## 模型怎样学会借助工具
+
+Toolformer 先给文本构造候选工具调用，执行取得结果，然后按结果能否帮助模型预测后续文本来筛选样本。这个过程提供了调用时机和参数的训练信号。API 种类很多时，Gorilla 探索从文档检索接口信息，再根据文档生成调用。即使模型学会了选择工具，应用也要检查工具是否仍可用，并按当前接口验证参数。 [Toolformer 论文](https://arxiv.org/abs/2302.04761) · [Gorilla 论文](https://arxiv.org/abs/2305.15334)
+
+## 区分函数请求和实际执行
+
+REST 可以用 HTTP 把工具接到预约系统。函数调用约定模型怎样用结构化格式提出请求，例如工具名为 `list_slots`，设备编号和日期是必填参数。模型提出调用后，应用检查字段和当前权限，再发送底层请求。MCP（模型上下文协议）为应用连接外部工具服务提供统一的接口。应用通过客户端连接服务端，可用 `tools/list` 获取可用工具及参数结构，用 `tools/call` 请求执行其中一个工具。用哪种方式接入，写入成功都需要以预约服务返回的记录为准。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf) · [课程引用的 MCP 规范](https://modelcontextprotocol.io/specification/2025-06-18/server/tools)
+
+## 分开测调用格式和任务结果
+
+只测模型有没有给出正确函数名和参数，能覆盖单次调用的一部分问题。BFCL 涉及参数匹配、执行与多步状态等不同检查。ToolBench 用多种真实 API 组成任务，考察工具选择与组合。τ-bench 还把用户、工具和业务规则放在一起，观察多轮交互后任务是否得到期望的结果。自己的预约助手可以先测参数校验，再测「确认后才创建预约」之类的业务约束。 [第 4 讲课件](https://web.stanford.edu/class/cs329z/slides/lecture04.pdf) · [τ-bench 论文](https://arxiv.org/abs/2406.12045)
+
+做一次纸面验收，初始预约数为 0，服务端返回字符串标记。给 `list_slots` 一个缺少日期的请求，预期返回 `INVALID_ARGUMENT`，预约数仍为 0。给 `reserve_slot` 一个字段齐全但用户未确认的请求，预期返回 `NEEDS_CONFIRMATION`，记录数仍为 0。收到针对同一时段的确认后重新提交，预期得到 1 个预约编号，记录数变为 1。对照每步返回值和预约记录，能看出工具调用成功与真正完成预约各需要什么条件。
+
+---
+
+[上一讲](/cs329z/lessons/03-rag/) · [课程索引](/cs329z/review/) · [下一讲](/cs329z/lessons/05-frameworks/)
